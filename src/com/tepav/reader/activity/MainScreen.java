@@ -4,7 +4,10 @@ import android.os.Bundle;
 import com.tepav.reader.R;
 
 /**
- * Created by kanilturgut on 14/04/14, 17:56.
+ *
+ * Author : kanilturgut
+ * Date : 15.04.2014
+ * Time : 13:47
  */
 public class MainScreen extends BaseActivity {
     

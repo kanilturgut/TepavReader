@@ -5,7 +5,10 @@ import android.os.Bundle;
 import com.tepav.reader.R;
 
 /**
- * Created by kanilturgut on 14/04/14, 18:04.
+ *
+ * Author : kanilturgut
+ * Date : 15.04.2014
+ * Time : 13:47
  */
 public class BaseActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {

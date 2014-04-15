@@ -1,6 +1,19 @@
 package com.tepav.reader.model;
 
+import android.content.Context;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.tepav.reader.helpers.HttpURL;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -92,4 +105,53 @@ public class News implements Serializable{
     public void setFiles(List<File> files) {
         this.files = files;
     }
+
+    public static News fromJSON(JSONObject jsonObject) throws JSONException {
+
+        News news = new News();
+
+        news.setHaber_id(jsonObject.getString("haber_id"));
+        news.setHtitle(jsonObject.getString("htitle"));
+        news.setHcontent(jsonObject.getString("hcontent"));
+        news.setDate(jsonObject.getString("hdate"));
+        news.setDname(jsonObject.getString("dname"));
+        news.setHimage(jsonObject.getString("himage"));
+        news.setId(jsonObject.getString("_id"));
+        news.setDate(jsonObject.getString("date"));
+
+        JSONArray filesArray = jsonObject.getJSONArray("files");
+        List<File> fileList = new LinkedList<File>();
+
+        for (int i = 0 ; i < filesArray.length() ; i++){
+            fileList.add((File) filesArray.get(i));
+        }
+
+        news.setFiles(fileList);
+
+        return news;
+    }
+
+    public static void makeRequest(Context context) {
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, createURL(HttpURL.news),
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+    }
+
+    private static String createURL(String url) {
+        return HttpURL.domain + url;
+    }
+
 }

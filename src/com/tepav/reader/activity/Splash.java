@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import com.tepav.reader.R;
-import com.tepav.reader.helper.Constant;
+import com.tepav.reader.helpers.Constant;
 
 public class Splash extends Activity {
 

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="60dp"
+                    android:id="@+id/backOfNews"
+                    android:background="#E4E8EE">
+
+
+        <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:id="@+id/ibShare"
+                     android:background="@android:color/transparent"
+                     android:layout_centerVertical="true"
+                     android:layout_margin="10dp"
+                     android:src="@drawable/ic_action_share"
+                     android:layout_alignParentLeft="true"
+                />
+
+
+        <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:id="@+id/ibFavorite"
+                     android:layout_centerVertical="true"
+                     android:background="@android:color/transparent"
+                     android:layout_margin="10dp"
+                     android:layout_toRightOf="@+id/ibShare"
+                     android:src="@drawable/ic_action_favorite"/>
+
+
+        <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:id="@+id/ibReadList"
+                     android:layout_toRightOf="@+id/ibFavorite"
+                     android:background="@android:color/transparent"
+                     android:layout_centerVertical="true"
+                     android:layout_margin="10dp"
+                     android:src="@drawable/ic_action_copy"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="60dp"
+                    android:background="#FFFFFF"
+                    android:id="@+id/frontOfNews">
+
+        <com.tepav.reader.helpers.RoundedImageView
+                android:id="@+id/ivImageOfNews"
+                android:src="@drawable/ic_launcher"
+                android:layout_width="75dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"/>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:layout_marginRight="10dp"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="10dp"
+                      android:layout_centerVertical="true"
+                      android:layout_toRightOf="@+id/ivImageOfNews"
+                      android:id="@+id/llOfNewsDetails"
+                      android:orientation="vertical">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/tvTitleOfNews"
+                      android:text="Başlık"
+                      android:padding="1dp"
+                      android:textSize="14sp"
+                      android:textStyle="bold"
+                      android:textColor="#31404D"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/tvDateOfNews"
+                      android:padding="1dp"
+                      android:text="26 Ocak 2014"
+                      android:textSize="12sp"
+                      android:textColor="#C1CBDC"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

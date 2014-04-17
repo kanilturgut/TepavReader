@@ -7,6 +7,10 @@ package com.tepav.reader.helpers;
  */
 public class HttpURL {
 
+    public static String createURL(String url) {
+        return HttpURL.domain + url;
+    }
+
     public static final String domain = "http://server.umutozan.com:3000";
 
     public static final String news = "/news";

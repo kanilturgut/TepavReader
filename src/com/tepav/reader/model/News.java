@@ -1,6 +1,7 @@
 package com.tepav.reader.model;
 
 import android.content.Context;
+import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -129,29 +130,6 @@ public class News implements Serializable{
         news.setFiles(fileList);
 
         return news;
-    }
-
-    public static void makeRequest(Context context) {
-
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, createURL(HttpURL.news),
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-    }
-
-    private static String createURL(String url) {
-        return HttpURL.domain + url;
     }
 
 }

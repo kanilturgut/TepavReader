@@ -29,7 +29,7 @@ public class Splash extends Activity {
         startRunnable = new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(context, MainScreen.class));
+                startActivity(new Intent(context, NewsActivity.class));
             }
         };
     }
@@ -48,5 +48,7 @@ public class Splash extends Activity {
 
         if (startHandler != null)
             startHandler.removeCallbacks(startRunnable);
+
+        finish();
     }
 }

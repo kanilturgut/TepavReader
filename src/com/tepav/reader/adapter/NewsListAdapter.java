@@ -1,7 +1,6 @@
 package com.tepav.reader.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +32,6 @@ public class NewsListAdapter extends ArrayAdapter<News> {
     List<News> newsList = new ArrayList<News>();
     int pageNumber;
     AQuery aq;
-
-    static int a = 1;
 
     public NewsListAdapter(Context ctx, int number) {
         super(ctx, R.layout.custom_news_row);
@@ -70,12 +67,9 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             holder = (NewsHolder) convertView.getTag();
         }
 
-        Log.i("TAG", a + " position : " + position + ", newsList : " + newsList.size());
-        a++;
-
         ImageOptions options = new ImageOptions();
-        options.fileCache = false;
-        options.memCache = false;
+        options.fileCache = true;
+        options.memCache = true;
         options.targetWidth = 0;
         options.fallback = 0;
         options.ratio = 99f / 150f;
@@ -126,8 +120,6 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     newsList.addAll(temp);
                     addAll(temp);
                     notifyDataSetChanged();
-
-                    Log.e("TAG", "newslist size = " + newsList.size());
 
                     pageNumber++;
                 }

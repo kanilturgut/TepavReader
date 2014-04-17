@@ -16,18 +16,18 @@
               android:layout_alignParentTop="true"
               android:layout_centerHorizontal="true"/>
 
-    <android.support.v4.view.ViewPager
+    <com.tepav.reader.helpers.WrapContentHeightViewPager
             android:id="@+id/newsPager"
             android:layout_below="@+id/tvNewsHeader"
             android:layout_width="match_parent"
-            android:layout_height="250dp"/>
+            android:layout_height="wrap_content"/>
 
     <com.tepav.reader.helpers.pagerindicator.CirclePageIndicator
             android:id="@+id/circleIndicatorOfNewsPager"
             android:layout_above="@+id/swipeListViewOfNews"
             android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
-            android:layout_height="10dp"/>
+            android:layout_height="wrap_content"/>
 
     <com.tepav.reader.helpers.swipelistview.SwipeListView
             android:id="@+id/swipeListViewOfNews"

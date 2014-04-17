@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.androidquery.AQuery;
+import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
 
 /**
@@ -74,7 +75,16 @@ public class NewsPagerAdapter extends FragmentPagerAdapter{
             View view = inflater.inflate(R.layout.custom_news_pager, container, false);
 
             ImageView imageView = (ImageView) view.findViewById(R.id.newsPagerImageOfNews);
-            aq.id(imageView).image(urls[myPageNumber], true, true, 0, 0, null, AQuery.FADE_IN, 99f/150f);
+
+            ImageOptions imageOptions = new ImageOptions();
+            imageOptions.fileCache = false;
+            imageOptions.memCache = true;
+            imageOptions.targetWidth = 0;
+            imageOptions.fallback = 0;
+            imageOptions.ratio = 9f/16f;
+            imageOptions.round = 0;
+
+            aq.id(imageView).image(urls[myPageNumber], imageOptions);
 
             return view;
         }

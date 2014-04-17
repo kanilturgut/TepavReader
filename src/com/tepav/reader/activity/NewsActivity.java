@@ -7,10 +7,12 @@ import android.support.v4.view.ViewPager;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.androidquery.util.AQUtility;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.NewsListAdapter;
 import com.tepav.reader.adapter.NewsPagerAdapter;
 import com.tepav.reader.helpers.HttpURL;
+import com.tepav.reader.helpers.WrapContentHeightViewPager;
 import com.tepav.reader.helpers.pagerindicator.CirclePageIndicator;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.News;
@@ -28,7 +30,7 @@ public class NewsActivity extends FragmentActivity {
     Context context;
 
     SwipeListView swipeListViewOfNews;
-    ViewPager viewPagerOfNews;
+    WrapContentHeightViewPager viewPagerOfNews;
     NewsPagerAdapter newsPagerAdapter;
     CirclePageIndicator circlePageIndicator;
 
@@ -39,7 +41,7 @@ public class NewsActivity extends FragmentActivity {
         setContentView(R.layout.activity_news);
         context = this;
 
-        viewPagerOfNews = (ViewPager) findViewById(R.id.newsPager);
+        viewPagerOfNews = (WrapContentHeightViewPager) findViewById(R.id.newsPager);
         circlePageIndicator = (CirclePageIndicator) findViewById(R.id.circleIndicatorOfNewsPager);
 
         //swipe list view of news
@@ -75,5 +77,15 @@ public class NewsActivity extends FragmentActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        //clean the file cache with advance option
+        long triggerSize = 3000000; //starts cleaning when cache size is larger than 3M
+        long targetSize = 2000000;      //remove the least recently used files until cache size is less than 2M
+        AQUtility.cleanCacheAsync(this, triggerSize, targetSize);
     }
 }

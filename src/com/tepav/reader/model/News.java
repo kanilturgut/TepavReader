@@ -114,7 +114,7 @@ public class News implements Serializable{
         news.setHaber_id(jsonObject.getString("haber_id"));
         news.setHtitle(jsonObject.getString("htitle"));
         news.setHcontent(jsonObject.getString("hcontent"));
-        news.setDate(jsonObject.getString("hdate"));
+        news.setHdate(jsonObject.getString("hdate"));
         news.setDname(jsonObject.getString("dname"));
         news.setHimage(jsonObject.getString("himage"));
         news.setId(jsonObject.getString("_id"));

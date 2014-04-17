@@ -57,7 +57,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             imageLoader.get(newsList.get(position).getHimage(), ImageLoader.getImageListener(holder.imageOfNews, R.drawable.ic_launcher, R.drawable.ic_launcher));
 
             holder.titleOfNews.setText(newsList.get(position).getHtitle());
-            holder.dateOfNews.setText(newsList.get(position).getDate());
+            holder.dateOfNews.setText(newsList.get(position).getHdate());
 
             convertView.setTag(holder);
 

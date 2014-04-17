@@ -5,7 +5,7 @@
              android:layout_height="match_parent">
 
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="60dp"
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="80dp"
                     android:id="@+id/backOfNews"
                     android:background="#E4E8EE">
 
@@ -39,7 +39,7 @@
 
     </RelativeLayout>
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="60dp"
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="80dp"
                     android:background="#FFFFFF"
                     android:id="@+id/frontOfNews">
 

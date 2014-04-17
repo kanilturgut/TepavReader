@@ -1,9 +1,9 @@
 package com.tepav.reader.activity;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.tepav.reader.R;
+import com.tepav.reader.adapter.NewsPagerAdapter;
 import com.tepav.reader.adapter.NewsListAdapter;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
@@ -27,23 +28,29 @@ import java.util.List;
  * Date : 16.04.2014
  * Time : 15:19
  */
-public class NewsActivity extends Activity {
+public class NewsActivity extends FragmentActivity {
 
     Context context;
 
-    SwipeListView swipeListView;
+    SwipeListView swipeListViewOfNews;
+    ViewPager viewPagerOfNews;
+    NewsPagerAdapter newsPagerAdapter;
+
+    String[] urls = new String[3];
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
         context = this;
 
-        swipeListView = (SwipeListView) findViewById(R.id.swipeListViewOfNews);
+        viewPagerOfNews = (ViewPager) findViewById(R.id.newsPager);
 
+
+        //swipe list view of news
+        swipeListViewOfNews = (SwipeListView) findViewById(R.id.swipeListViewOfNews);
         final List<News> newsList = new LinkedList<News>();
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, HttpURL.createURL(HttpURL.news),
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -52,12 +59,19 @@ public class NewsActivity extends Activity {
 
                             try {
                                 newsList.add(News.fromJSON(response.getJSONObject(i)));
+
+                                if (i < 3)
+                                    urls[i] = newsList.get(i).getHimage();
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
 
-                        swipeListView.setAdapter(new NewsListAdapter(context, newsList));
+                        swipeListViewOfNews.setAdapter(new NewsListAdapter(context, newsList));
+
+                        newsPagerAdapter = new NewsPagerAdapter(getSupportFragmentManager(), context, urls);
+                        viewPagerOfNews.setAdapter(newsPagerAdapter);
                     }
                 }, new Response.ErrorListener() {
             @Override

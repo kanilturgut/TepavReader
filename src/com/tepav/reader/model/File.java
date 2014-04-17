@@ -1,5 +1,8 @@
 package com.tepav.reader.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -53,6 +56,17 @@ public class File implements Serializable{
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public static File fromJSON(JSONObject jsonObject) throws JSONException {
+        File file = new File();
+
+        file.setId(jsonObject.getString("_id"));
+        file.setName(jsonObject.getString("name"));
+        file.setUrl(jsonObject.getString("url"));
+        file.setFile_id(jsonObject.getString("file_id"));
+
+        return file;
     }
 
 }

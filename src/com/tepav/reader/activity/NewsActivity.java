@@ -4,24 +4,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
-import com.tepav.reader.adapter.NewsPagerAdapter;
 import com.tepav.reader.adapter.NewsListAdapter;
+import com.tepav.reader.adapter.NewsPagerAdapter;
 import com.tepav.reader.helpers.HttpURL;
+import com.tepav.reader.helpers.pagerindicator.CirclePageIndicator;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.News;
 import org.json.JSONArray;
 import org.json.JSONException;
-
-import java.util.LinkedList;
-import java.util.List;
+import org.json.JSONObject;
 
 /**
  * Author : kanilturgut
@@ -35,6 +30,7 @@ public class NewsActivity extends FragmentActivity {
     SwipeListView swipeListViewOfNews;
     ViewPager viewPagerOfNews;
     NewsPagerAdapter newsPagerAdapter;
+    CirclePageIndicator circlePageIndicator;
 
     String[] urls = new String[3];
 
@@ -44,43 +40,40 @@ public class NewsActivity extends FragmentActivity {
         context = this;
 
         viewPagerOfNews = (ViewPager) findViewById(R.id.newsPager);
-
+        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.circleIndicatorOfNewsPager);
 
         //swipe list view of news
         swipeListViewOfNews = (SwipeListView) findViewById(R.id.swipeListViewOfNews);
-        final List<News> newsList = new LinkedList<News>();
+        swipeListViewOfNews.setAdapter(new NewsListAdapter(context, 1));
 
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, HttpURL.createURL(HttpURL.news),
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        for (int i = 0 ; i < response.length(); i++) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("pageNumber", 1);
+        } catch (JSONException e) {
+            //this will return pageNumber:1
+            jsonObject = null;
+            e.printStackTrace();
+        }
 
-                            try {
-                                newsList.add(News.fromJSON(response.getJSONObject(i)));
+        AQuery aQuery = new AQuery(context);
+        aQuery.post(HttpURL.createURL(HttpURL.news), jsonObject, JSONArray.class, new AjaxCallback<JSONArray>() {
 
-                                if (i < 3)
-                                    urls[i] = newsList.get(i).getHimage();
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        swipeListViewOfNews.setAdapter(new NewsListAdapter(context, newsList));
-
-                        newsPagerAdapter = new NewsPagerAdapter(getSupportFragmentManager(), context, urls);
-                        viewPagerOfNews.setAdapter(newsPagerAdapter);
-                    }
-                }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("News", "ERROR! on makeRequest", error);
+            public void callback(String url, JSONArray object, AjaxStatus status) {
+
+                for (int i = 0 ; i < 3; i++) {
+                    try {
+                        urls[i] = News.fromJSON(object.getJSONObject(i)).getHimage();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                newsPagerAdapter = new NewsPagerAdapter(getSupportFragmentManager(), context, urls);
+                viewPagerOfNews.setAdapter(newsPagerAdapter);
+                circlePageIndicator.setViewPager(viewPagerOfNews);
             }
         });
-
-        requestQueue.add(jsonArrayRequest);
 
     }
 }

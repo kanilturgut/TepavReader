@@ -9,11 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.Volley;
+import com.androidquery.AQuery;
 import com.tepav.reader.R;
-import com.tepav.reader.cache.DiskBitmapCache;
 
 /**
  * Author : kanilturgut
@@ -47,8 +44,7 @@ public class NewsPagerAdapter extends FragmentPagerAdapter{
     static class PageFragment extends Fragment {
 
         int myPageNumber;
-        RequestQueue requestQueue;
-        ImageLoader imageLoader = null;
+        AQuery aq;
 
 
         public PageFragment() {}
@@ -67,8 +63,8 @@ public class NewsPagerAdapter extends FragmentPagerAdapter{
             super.onCreate(savedInstanceState);
 
             myPageNumber = getArguments().getInt(ARG_PAGE);
-            requestQueue = Volley.newRequestQueue(context);
 
+            aq = new AQuery(context);
 
         }
 
@@ -78,10 +74,7 @@ public class NewsPagerAdapter extends FragmentPagerAdapter{
             View view = inflater.inflate(R.layout.custom_news_pager, container, false);
 
             ImageView imageView = (ImageView) view.findViewById(R.id.newsPagerImageOfNews);
-
-            imageLoader = new ImageLoader(requestQueue, new DiskBitmapCache(context.getExternalCacheDir()));
-            imageLoader.get(urls[myPageNumber], ImageLoader.getImageListener(imageView, R.drawable.ic_launcher, R.drawable.ic_launcher));
-
+            aq.id(imageView).image(urls[myPageNumber], true, true, 0, 0, null, AQuery.FADE_IN, 99f/150f);
 
             return view;
         }

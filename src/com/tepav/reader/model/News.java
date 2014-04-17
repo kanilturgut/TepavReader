@@ -1,14 +1,5 @@
 package com.tepav.reader.model;
 
-import android.content.Context;
-import android.util.Log;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.tepav.reader.helpers.HttpURL;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -124,7 +115,7 @@ public class News implements Serializable{
         List<File> fileList = new LinkedList<File>();
 
         for (int i = 0 ; i < filesArray.length() ; i++){
-            fileList.add((File) filesArray.get(i));
+            fileList.add(File.fromJSON(filesArray.getJSONObject(i)));
         }
 
         news.setFiles(fileList);

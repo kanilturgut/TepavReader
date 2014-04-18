@@ -1,5 +1,8 @@
 package com.tepav.reader.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -98,5 +101,23 @@ public class Blog implements Serializable{
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public static Blog fromJSON(JSONObject jsonObject) throws JSONException {
+
+        Blog blog = new Blog();
+
+        blog.setGunluk_id(jsonObject.getString("gunluk_id"));
+        blog.setBtitle(jsonObject.getString("btitle"));
+        blog.setBcontent(jsonObject.getString("bcontent"));
+        blog.setBdate(jsonObject.getString("bdate"));
+        blog.setPfullname(jsonObject.getString("pfullname"));
+        blog.setPtype(jsonObject.getString("ptype"));
+        blog.setPtitle(jsonObject.getString("ptitle"));
+        blog.setPimage(jsonObject.getString("pimage"));
+        blog.setId(jsonObject.getString("_id"));
+        blog.setDate(jsonObject.getString("date"));
+
+        return blog;
     }
 }

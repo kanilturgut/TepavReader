@@ -11,6 +11,7 @@ import com.androidquery.util.AQUtility;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.NewsListAdapter;
 import com.tepav.reader.adapter.NewsPagerAdapter;
+import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.WrapContentHeightViewPager;
 import com.tepav.reader.helpers.pagerindicator.CirclePageIndicator;
@@ -34,7 +35,7 @@ public class NewsActivity extends FragmentActivity {
     NewsPagerAdapter newsPagerAdapter;
     CirclePageIndicator circlePageIndicator;
 
-    String[] urls = new String[3];
+    String[] urls = new String[Constant.DRAWERS_PAGE_NUMBER];
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +64,7 @@ public class NewsActivity extends FragmentActivity {
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
 
-                for (int i = 0 ; i < 3; i++) {
+                for (int i = 0 ; i < Constant.DRAWERS_PAGE_NUMBER; i++) {
                     try {
                         urls[i] = News.fromJSON(object.getJSONObject(i)).getHimage();
                     } catch (JSONException e) {

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
+import com.tepav.reader.helpers.Constant;
 
 /**
  * Author : kanilturgut
@@ -38,7 +39,7 @@ public class NewsPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public int getCount() {
-        return 3;
+        return Constant.DRAWERS_PAGE_NUMBER;
     }
 
 

@@ -7,6 +7,7 @@ public class Constant {
 
     public static final long SPLASH_TRANSITION_TIME = 1500;
 
+    public static final int DRAWERS_PAGE_NUMBER = 4;
 
     //Cache Info
     public static final int CACHE_TYPE_NEWS = 0;

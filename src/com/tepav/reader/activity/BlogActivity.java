@@ -11,6 +11,7 @@ import com.androidquery.util.AQUtility;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.BlogListAdapter;
 import com.tepav.reader.adapter.BlogPagerAdapter;
+import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.WrapContentHeightViewPager;
 import com.tepav.reader.helpers.pagerindicator.CirclePageIndicator;
@@ -34,7 +35,7 @@ public class BlogActivity extends FragmentActivity {
     BlogPagerAdapter blogPagerAdapter;
     CirclePageIndicator circlePageIndicator;
 
-    String[] urls = new String[3];
+    String[] urls = new String[Constant.DRAWERS_PAGE_NUMBER];
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +64,7 @@ public class BlogActivity extends FragmentActivity {
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
 
-                for (int i = 0 ; i < 3; i++) {
+                for (int i = 0 ; i < Constant.DRAWERS_PAGE_NUMBER; i++) {
                     try {
                         urls[i] = Blog.fromJSON(object.getJSONObject(i)).getPimage();
                     } catch (JSONException e) {

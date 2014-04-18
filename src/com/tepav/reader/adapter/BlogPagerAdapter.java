@@ -78,7 +78,7 @@ public class BlogPagerAdapter extends FragmentPagerAdapter{
             ImageView imageView = (ImageView) view.findViewById(R.id.blogPagerImageOfNews);
 
             ImageOptions imageOptions = new ImageOptions();
-            imageOptions.fileCache = false;
+            imageOptions.fileCache = true;
             imageOptions.memCache = true;
             imageOptions.targetWidth = 0;
             imageOptions.fallback = 0;

@@ -100,7 +100,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog>{
             e.printStackTrace();
         }
 
-        aq.post(HttpURL.createURL(HttpURL.news), params, JSONArray.class, new AjaxCallback<JSONArray>() {
+        aq.post(HttpURL.createURL(HttpURL.blog), params, JSONArray.class, new AjaxCallback<JSONArray>() {
 
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {

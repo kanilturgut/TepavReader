@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ import java.util.List;
 public class NewsListAdapter extends ArrayAdapter<News> {
 
     Context context;
-    List<News> newsList = new ArrayList<News>();
+    List<News> newsList = new LinkedList<News>();
     int pageNumber;
     AQuery aq;
 

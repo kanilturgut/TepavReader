@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Date : 15.04.2014
  * Time : 14:21
  */
-public class Blog extends DBData implements Serializable{
+public class Blog extends DBData implements Serializable {
 
     String gunluk_id;
     String btitle;
@@ -138,4 +138,20 @@ public class Blog extends DBData implements Serializable{
         return jsonObject;
     }
 
+    public static DBData toDBData(Blog blog) throws JSONException {
+
+        DBData dbData = new DBData();
+        dbData.setId(blog.getId());
+        dbData.setContent(Blog.toJSON(blog).toString());
+        dbData.setType(DBData.TYPE_NEWS);
+        dbData.setReadList(DBData.READ_LIST_FALSE);
+        dbData.setFavoriteList(DBData.FAVORITE_LIST_FALSE);
+        dbData.setArchive(DBData.ARCHIVE_FALSE);
+
+        return dbData;
+    }
+
+    public static Blog fromDBData(DBData dbData) throws JSONException {
+        return Blog.fromJSON(new JSONObject(dbData.getContent()));
+    }
 }

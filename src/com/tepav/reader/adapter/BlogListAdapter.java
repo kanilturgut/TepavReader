@@ -74,7 +74,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog>{
         options.memCache = true;
         options.targetWidth = 0;
         options.fallback = 0;
-        options.round = 20;
+        options.round = 0;
 
         aq.id(holder.imageOfBlog).image(blogList.get(position).getPimage(), options);
         holder.titleOfBlog.setText(blogList.get(position).getBtitle());

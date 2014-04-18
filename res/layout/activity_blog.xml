@@ -12,15 +12,34 @@
               android:text="tepav"
               android:textStyle="bold"
               android:textSize="36sp"
-              android:textColor="#31404D"
+              android:textColor="#32414E"
               android:layout_alignParentTop="true"
               android:layout_centerHorizontal="true"/>
 
-    <com.tepav.reader.helpers.WrapContentHeightViewPager
-            android:id="@+id/newsPager"
-            android:layout_below="@+id/tvBlogHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                 android:id="@+id/frameOfBlog"
+                 android:layout_below="@+id/tvBlogHeader">
+
+        <com.tepav.reader.helpers.WrapContentHeightViewPager
+                android:id="@+id/blogPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <LinearLayout android:layout_width="100dp" android:layout_height="wrap_content"
+                      android:background="#32414E"
+                      android:layout_gravity="right"
+                      android:layout_marginTop="20dp"
+                      android:orientation="horizontal">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      android:text="Günlükler"
+                      android:textSize="15sp"
+                      android:textStyle="bold"
+                      android:textColor="#FFFFFF"/>
+        </LinearLayout>
+    </FrameLayout>
+
 
     <com.tepav.reader.helpers.pagerindicator.CirclePageIndicator
             android:id="@+id/circleIndicatorOfBlogPager"
@@ -31,7 +50,7 @@
 
     <com.tepav.reader.helpers.swipelistview.SwipeListView
             android:id="@+id/swipeListViewOfBlog"
-            android:layout_below="@+id/newsPager"
+            android:layout_below="@+id/frameOfBlog"
             android:listSelector="#00000000"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

@@ -24,9 +24,13 @@
         </activity>
         <activity android:name=".activity.MainScreen"/>
         <activity android:name=".activity.BaseActivity"/>
+
         <activity android:name=".activity.NewsActivity"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
-        <activity android:name=".activity.BlogActivity"/>
+
+        <activity android:name=".activity.BlogActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
     </application>
 </manifest>

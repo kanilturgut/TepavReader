@@ -116,6 +116,8 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                         }
                     }
 
+
+
                     newsList.addAll(temp);
                     addAll(temp);
                     notifyDataSetChanged();

@@ -9,16 +9,21 @@
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/tvNewsHeader"
               android:layout_margin="5dp"
-              android:text="tepav"
+              android:text="@string/tepav"
               android:textStyle="bold"
               android:textSize="36sp"
               android:textColor="#31404D"
               android:layout_alignParentTop="true"
               android:layout_centerHorizontal="true"/>
 
+    <View android:layout_width="match_parent" android:layout_height="6dp"
+          android:id="@+id/gradient_upper"
+          android:background="@drawable/gradient_upper"
+          android:layout_below="@+id/tvNewsHeader"/>
+
     <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                  android:id="@+id/frameOfNews"
-                 android:layout_below="@+id/tvNewsHeader">
+                 android:layout_below="@+id/gradient_upper">
 
         <com.tepav.reader.helpers.WrapContentHeightViewPager
                 android:id="@+id/newsPager"
@@ -33,13 +38,12 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:layout_margin="5dp"
-                      android:text="Haberler"
+                      android:text="@string/News"
                       android:textSize="15sp"
                       android:textStyle="bold"
                       android:textColor="#FFFFFF"/>
         </LinearLayout>
     </FrameLayout>
-
 
 
     <com.tepav.reader.helpers.pagerindicator.CirclePageIndicator
@@ -48,6 +52,11 @@
             android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+    <View android:layout_width="match_parent" android:layout_height="6dp"
+          android:id="@+id/gradient_lower"
+          android:background="@drawable/gradient_upper"
+          android:layout_above="@+id/swipeListViewOfNews"/>
 
     <com.tepav.reader.helpers.swipelistview.SwipeListView
             android:id="@+id/swipeListViewOfNews"

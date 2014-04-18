@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Tepav Reader</string>
+
+
+    <string name="tepav">tepav</string>
+    <string name="News">Haberler</string>
+    <string name="Blogs">Günlükler</string>
 </resources>

@@ -9,16 +9,21 @@
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/tvBlogHeader"
               android:layout_margin="5dp"
-              android:text="tepav"
+              android:text="@string/tepav"
               android:textStyle="bold"
               android:textSize="36sp"
               android:textColor="#32414E"
               android:layout_alignParentTop="true"
               android:layout_centerHorizontal="true"/>
 
+    <View android:layout_width="match_parent" android:layout_height="6dp"
+          android:id="@+id/gradient_upper"
+          android:background="@drawable/gradient_upper"
+          android:layout_below="@+id/tvBlogHeader"/>
+
     <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                  android:id="@+id/frameOfBlog"
-                 android:layout_below="@+id/tvBlogHeader">
+                 android:layout_below="@+id/gradient_upper">
 
         <com.tepav.reader.helpers.WrapContentHeightViewPager
                 android:id="@+id/blogPager"
@@ -33,7 +38,7 @@
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:layout_margin="5dp"
-                      android:text="Günlükler"
+                      android:text="@string/Blogs"
                       android:textSize="15sp"
                       android:textStyle="bold"
                       android:textColor="#FFFFFF"/>
@@ -47,6 +52,11 @@
             android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+    <View android:layout_width="match_parent" android:layout_height="6dp"
+          android:id="@+id/gradient_lower"
+          android:background="@drawable/gradient_upper"
+          android:layout_above="@+id/swipeListViewOfBlog"/>
 
     <com.tepav.reader.helpers.swipelistview.SwipeListView
             android:id="@+id/swipeListViewOfBlog"

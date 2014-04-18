@@ -4,7 +4,9 @@
       <root url="file://$PROJECT_DIR$/libs" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/libs/android-query-full.0.26.7.jar!/" />
+    </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/libs" recursive="false" />
   </library>
 </component>

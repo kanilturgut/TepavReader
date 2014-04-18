@@ -69,4 +69,16 @@ public class File implements Serializable{
         return file;
     }
 
+    public static JSONObject toJSON(File file) throws JSONException {
+
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("file_id", file.getFile_id());
+        jsonObject.put("name", file.getName());
+        jsonObject.put("url", file.getUrl());
+        jsonObject.put("_id", file.getId());
+
+        return jsonObject;
+    }
+
 }

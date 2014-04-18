@@ -120,4 +120,22 @@ public class Blog implements Serializable{
 
         return blog;
     }
+
+    public static JSONObject toJSON(Blog blog) throws JSONException {
+
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("gunluk_id", blog.getGunluk_id());
+        jsonObject.put("btitle", blog.getBtitle());
+        jsonObject.put("bcontent", blog.getBcontent());
+        jsonObject.put("bdate", blog.getBdate());
+        jsonObject.put("pfullname", blog.getPfullname());
+        jsonObject.put("ptype", blog.getPtype());
+        jsonObject.put("ptitle", blog.getPtitle());
+        jsonObject.put("pimage", blog.getPimage());
+        jsonObject.put("_id", blog.getId());
+        jsonObject.put("date", blog.getDate());
+
+        return jsonObject;
+    }
 }

@@ -123,4 +123,26 @@ public class News implements Serializable{
         return news;
     }
 
+    public static JSONObject toJSON(News news) throws JSONException {
+
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("haber_id", news.getHaber_id());
+        jsonObject.put("htitle", news.getHtitle());
+        jsonObject.put("hcontent", news.getHcontent());
+        jsonObject.put("hdate", news.getHdate());
+        jsonObject.put("dname", news.getDname());
+        jsonObject.put("himage", news.getHimage());
+        jsonObject.put("_id", news.getId());
+        jsonObject.put("date", news.getDate());
+
+        JSONArray jsonArray = new JSONArray();
+        for (File file: news.getFiles()) {
+            jsonArray.put(File.toJSON(file));
+        }
+        jsonObject.put("files", jsonArray);
+
+        return jsonObject;
+    }
+
 }

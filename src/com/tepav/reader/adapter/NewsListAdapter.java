@@ -18,7 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -73,7 +72,6 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         options.memCache = true;
         options.targetWidth = 0;
         options.fallback = 0;
-        options.ratio = 99f / 150f;
         options.round = 20;
 
         aq.id(holder.imageOfNews).image(newsList.get(position).getHimage(), options);
@@ -106,7 +104,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
 
-                List<News> temp = new ArrayList<News>();
+                List<News> temp = new LinkedList<News>();
 
                 if (object != null && object.length() != 0) {
                     for (int i = 0; i < object.length(); i++) {

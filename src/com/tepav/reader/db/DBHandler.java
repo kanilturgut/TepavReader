@@ -16,7 +16,7 @@ import java.util.List;
  * Date : 18.04.2014
  * Time : 15:05
  */
-public class DBHandler extends SQLiteOpenHelper{
+public class DBHandler extends SQLiteOpenHelper {
 
     static final String TAG = "DBHandler";
 
@@ -70,6 +70,8 @@ public class DBHandler extends SQLiteOpenHelper{
 
     public boolean insert(DBData dbData) {
 
+        Log.i(TAG, "insert operation started");
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -80,19 +82,26 @@ public class DBHandler extends SQLiteOpenHelper{
         contentValues.put(COL_FAVORITE_LIST, dbData.getFavoriteList());
         contentValues.put(COL_ARCHIVE, dbData.getArchive());
 
-        try {
-            db.insertOrThrow(TABLE_DATA, null, contentValues);
-            db.close();
+        if (isContain(dbData.getId(), db)) {
+            Log.i(TAG, "item already in the db, it will update");
+            update(dbData);
             return true;
-        } catch (Exception e) {
-            Log.e(TAG, "ERROR on insert method", e);
-            db.close();
-            return false;
+        } else {
+            try {
+                db.insertOrThrow(TABLE_DATA, null, contentValues);
+                db.close();
+                Log.i(TAG, "SUCCESS on insert operation");
+                return true;
+            } catch (Exception e) {
+                Log.e(TAG, "ERROR on insert method", e);
+                db.close();
+                return false;
+            }
         }
     }
 
     //reads all
-    public List<DBData> read() throws NullPointerException{
+    public List<DBData> read() throws NullPointerException {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -114,7 +123,7 @@ public class DBHandler extends SQLiteOpenHelper{
                     dbData.setArchive(Integer.parseInt(cursor.getString(5)));
 
                     dbDataList.add(dbData);
-                }while (cursor.moveToNext());
+                } while (cursor.moveToNext());
 
                 cursor.close();
                 return dbDataList;
@@ -124,7 +133,20 @@ public class DBHandler extends SQLiteOpenHelper{
         return null;
     }
 
-    public DBData read(String id) throws NullPointerException{
+    public boolean isContain(String id, SQLiteDatabase db) {
+
+        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + COL_ID + "='" + id + "'";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor == null)
+            return false;
+        else if (cursor.getCount() == 0)
+            return false;
+        else
+            return true;
+    }
+
+    public DBData read(String id) throws NullPointerException {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -132,24 +154,26 @@ public class DBHandler extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor != null) {
-           if (cursor.moveToFirst()) {
-               DBData dbData = new DBData();
-               dbData.setId(cursor.getString(0));
-               dbData.setContent(cursor.getString(1));
-               dbData.setType(Integer.parseInt(cursor.getString(2)));
-               dbData.setReadList(Integer.parseInt(cursor.getString(3)));
-               dbData.setFavoriteList(Integer.parseInt(cursor.getString(4)));
-               dbData.setArchive(Integer.parseInt(cursor.getString(5)));
+            if (cursor.moveToFirst()) {
+                DBData dbData = new DBData();
+                dbData.setId(cursor.getString(0));
+                dbData.setContent(cursor.getString(1));
+                dbData.setType(Integer.parseInt(cursor.getString(2)));
+                dbData.setReadList(Integer.parseInt(cursor.getString(3)));
+                dbData.setFavoriteList(Integer.parseInt(cursor.getString(4)));
+                dbData.setArchive(Integer.parseInt(cursor.getString(5)));
 
-               return dbData;
-           }
+                return dbData;
+            }
         }
 
         return null;
     }
 
 
-    public int update(DBData dbData) throws NullPointerException{
+    public int update(DBData dbData) throws NullPointerException {
+
+        Log.i(TAG, "update operation started");
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -161,14 +185,14 @@ public class DBHandler extends SQLiteOpenHelper{
         contentValues.put(COL_FAVORITE_LIST, dbData.getFavoriteList());
         contentValues.put(COL_ARCHIVE, dbData.getArchive());
 
-        return db.update(TABLE_DATA, contentValues, COL_ID + " = ?", new String[] {dbData.getId()});
+        return db.update(TABLE_DATA, contentValues, COL_ID + " = ?", new String[]{dbData.getId()});
     }
 
-    public void delete(DBData dbData) throws NullPointerException{
+    public void delete(DBData dbData) throws NullPointerException {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete(TABLE_DATA, COL_ID + " = ?", new String[] {dbData.getId()});
+        db.delete(TABLE_DATA, COL_ID + " = ?", new String[]{dbData.getId()});
         db.close();
     }
 }

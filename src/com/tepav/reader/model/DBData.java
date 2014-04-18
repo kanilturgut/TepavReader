@@ -7,6 +7,23 @@ package com.tepav.reader.model;
  */
 public class DBData {
 
+    //types
+    public static int TYPE_NEWS = 0;
+    public static int TYPE_BLOG = 1;
+    public static int TYPE_PUBLICATION = 2;
+
+    //read list
+    public static int READ_LIST_TRUE = 1;
+    public static int READ_LIST_FALSE = 0;
+
+    //favorite list
+    public static int FAVORITE_LIST_TRUE = 1;
+    public static int FAVORITE_LIST_FALSE = 0;
+
+    //archive
+    public static int ARCHIVE_TRUE = 1;
+    public static int ARCHIVE_FALSE = 0;
+
     String id;
     String content;
     int type;
@@ -61,6 +78,5 @@ public class DBData {
     public void setId(String id) {
         this.id = id;
     }
-
 
 }

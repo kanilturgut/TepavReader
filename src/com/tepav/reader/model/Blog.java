@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Date : 15.04.2014
  * Time : 14:21
  */
-public class Blog implements Serializable{
+public class Blog extends DBData implements Serializable{
 
     String gunluk_id;
     String btitle;
@@ -106,7 +106,6 @@ public class Blog implements Serializable{
     public static Blog fromJSON(JSONObject jsonObject) throws JSONException {
 
         Blog blog = new Blog();
-
         blog.setGunluk_id(jsonObject.getString("gunluk_id"));
         blog.setBtitle(jsonObject.getString("btitle"));
         blog.setBcontent(jsonObject.getString("bcontent"));
@@ -138,4 +137,5 @@ public class Blog implements Serializable{
 
         return jsonObject;
     }
+
 }

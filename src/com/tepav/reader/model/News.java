@@ -14,7 +14,7 @@ import java.util.List;
  * Date : 15.04.2014
  * Time : 13:42
  */
-public class News implements Serializable{
+public class News extends DBData implements Serializable{
 
     String haber_id;
     String htitle;
@@ -145,4 +145,21 @@ public class News implements Serializable{
         return jsonObject;
     }
 
+    public static DBData toDBData(News news) throws JSONException {
+
+        DBData dbData = new DBData();
+        dbData.setId(news.getId());
+        dbData.setContent(News.toJSON(news).toString());
+        dbData.setType(DBData.TYPE_NEWS);
+        dbData.setReadList(DBData.READ_LIST_FALSE);
+        dbData.setFavoriteList(DBData.FAVORITE_LIST_FALSE);
+        dbData.setArchive(DBData.ARCHIVE_FALSE);
+
+        return dbData;
+    }
+
+    public static News fromDBData(DBData dbData) throws JSONException {
+
+        return News.fromJSON(new JSONObject(dbData.getContent()));
+    }
 }

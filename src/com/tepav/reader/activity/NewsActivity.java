@@ -11,6 +11,7 @@ import com.androidquery.util.AQUtility;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.NewsListAdapter;
 import com.tepav.reader.adapter.NewsPagerAdapter;
+import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.WrapContentHeightViewPager;
@@ -41,6 +42,8 @@ public class NewsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
         context = this;
+
+        DBHandler dbHandler = new DBHandler(context);
 
         viewPagerOfNews = (WrapContentHeightViewPager) findViewById(R.id.newsPager);
         circlePageIndicator = (CirclePageIndicator) findViewById(R.id.circleIndicatorOfNewsPager);

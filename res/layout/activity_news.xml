@@ -6,20 +6,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:id="@+id/tvNewsHeader"
-              android:layout_margin="5dp"
-              android:text="@string/tepav"
-              android:textStyle="bold"
-              android:textSize="36sp"
-              android:textColor="#31404D"
-              android:layout_alignParentTop="true"
-              android:layout_centerHorizontal="true"/>
-
     <View android:layout_width="match_parent" android:layout_height="6dp"
           android:id="@+id/gradient_upper"
-          android:background="@drawable/gradient_upper"
-          android:layout_below="@+id/tvNewsHeader"/>
+          android:layout_alignParentTop="true"
+          android:background="@drawable/gradient_upper"/>
 
     <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                  android:id="@+id/frameOfNews"

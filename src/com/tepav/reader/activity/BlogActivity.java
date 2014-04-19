@@ -1,9 +1,14 @@
 package com.tepav.reader.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
@@ -26,7 +31,7 @@ import org.json.JSONObject;
  * Date : 18.04.2014
  * Time : 12:37
  */
-public class BlogActivity extends FragmentActivity {
+public class BlogActivity extends Fragment {
 
     Context context;
 
@@ -37,16 +42,25 @@ public class BlogActivity extends FragmentActivity {
 
     String[] urls = new String[Constant.DRAWERS_PAGE_NUMBER];
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_blog);
-        context = this;
+    ProgressDialog progressDialog;
 
-        viewPagerOfBlog = (WrapContentHeightViewPager) findViewById(R.id.blogPager);
-        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.circleIndicatorOfBlogPager);
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.context = activity;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_blog, null);
+
+        progressDialog =ProgressDialog.show(context, "Lütfen Bekleyiniz", "Günlükler getiriliyor", false, false);
+
+        viewPagerOfBlog = (WrapContentHeightViewPager) view.findViewById(R.id.blogPager);
+        circlePageIndicator = (CirclePageIndicator) view.findViewById(R.id.circleIndicatorOfBlogPager);
 
         //swipe list view of blog
-        swipeListViewOfBlog = (SwipeListView) findViewById(R.id.swipeListViewOfBlog);
+        swipeListViewOfBlog = (SwipeListView) view.findViewById(R.id.swipeListViewOfBlog);
         swipeListViewOfBlog.setAdapter(new BlogListAdapter(context, 1));
 
         JSONObject jsonObject = new JSONObject();
@@ -72,21 +86,15 @@ public class BlogActivity extends FragmentActivity {
                     }
                 }
 
-                blogPagerAdapter = new BlogPagerAdapter(getSupportFragmentManager(), context, urls);
+                blogPagerAdapter = new BlogPagerAdapter(getFragmentManager(), context, urls);
                 viewPagerOfBlog.setAdapter(blogPagerAdapter);
                 circlePageIndicator.setViewPager(viewPagerOfBlog);
+
+                if (progressDialog != null)
+                    progressDialog.dismiss();
             }
         });
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        //clean the file cache with advance option
-        long triggerSize = 3000000; //starts cleaning when cache size is larger than 3M
-        long targetSize = 2000000;      //remove the least recently used files until cache size is less than 2M
-        AQUtility.cleanCacheAsync(this, triggerSize, targetSize);
+        return view;
     }
 }

@@ -29,7 +29,7 @@ public class Splash extends Activity {
         startRunnable = new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(context, NewsActivity.class));
+                startActivity(new Intent(context, MainActivity.class));
             }
         };
     }

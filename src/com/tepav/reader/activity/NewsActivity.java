@@ -1,12 +1,15 @@
 package com.tepav.reader.activity;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
-import com.androidquery.util.AQUtility;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.NewsListAdapter;
 import com.tepav.reader.adapter.NewsPagerAdapter;
@@ -25,7 +28,7 @@ import org.json.JSONObject;
  * Date : 16.04.2014
  * Time : 15:19
  */
-public class NewsActivity extends FragmentActivity {
+public class NewsActivity extends android.support.v4.app.Fragment {
 
     Context context;
 
@@ -36,16 +39,25 @@ public class NewsActivity extends FragmentActivity {
 
     String[] urls = new String[Constant.DRAWERS_PAGE_NUMBER];
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news);
-        context = this;
+    ProgressDialog progressDialog;
 
-        viewPagerOfNews = (WrapContentHeightViewPager) findViewById(R.id.newsPager);
-        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.circleIndicatorOfNewsPager);
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.context = activity;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_news, null);
+
+        progressDialog =ProgressDialog.show(context, "Lütfen Bekleyiniz", "Haberler getiriliyor", false, false);
+
+        viewPagerOfNews = (WrapContentHeightViewPager) view.findViewById(R.id.newsPager);
+        circlePageIndicator = (CirclePageIndicator) view.findViewById(R.id.circleIndicatorOfNewsPager);
 
         //swipe list view of news
-        swipeListViewOfNews = (SwipeListView) findViewById(R.id.swipeListViewOfNews);
+        swipeListViewOfNews = (SwipeListView) view.findViewById(R.id.swipeListViewOfNews);
         swipeListViewOfNews.setAdapter(new NewsListAdapter(context, 1));
 
         JSONObject jsonObject = new JSONObject();
@@ -56,6 +68,7 @@ public class NewsActivity extends FragmentActivity {
             jsonObject = null;
             e.printStackTrace();
         }
+
 
         AQuery aQuery = new AQuery(context);
         aQuery.post(HttpURL.createURL(HttpURL.news), jsonObject, JSONArray.class, new AjaxCallback<JSONArray>() {
@@ -71,21 +84,17 @@ public class NewsActivity extends FragmentActivity {
                     }
                 }
 
-                newsPagerAdapter = new NewsPagerAdapter(getSupportFragmentManager(), context, urls);
+                newsPagerAdapter = new NewsPagerAdapter(getFragmentManager(), context, urls);
                 viewPagerOfNews.setAdapter(newsPagerAdapter);
                 circlePageIndicator.setViewPager(viewPagerOfNews);
+
+                if (progressDialog != null)
+                    progressDialog.dismiss();
             }
         });
 
+        return view;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
 
-        //clean the file cache with advance option
-        long triggerSize = 3000000; //starts cleaning when cache size is larger than 3M
-        long targetSize = 2000000;      //remove the least recently used files until cache size is less than 2M
-        AQUtility.cleanCacheAsync(this, triggerSize, targetSize);
-    }
 }

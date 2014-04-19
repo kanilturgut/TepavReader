@@ -7,13 +7,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ListView;
+import android.widget.*;
 import com.tepav.reader.R;
 import com.tepav.reader.fragment.BlogFragment;
 import com.tepav.reader.fragment.NewsFragment;
+import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.slidingmenu.SlidingMenu;
 
 /**
@@ -27,8 +25,7 @@ public class MainActivity extends FragmentActivity {
 
     SlidingMenu slidingMenu;
     ImageButton btMenu;
-    ListView lvMenu;
-    String[] lvMenuItems = {"Haberler", "Günlük", "Araştırma ve Yayınlar", "Raporlar", "Notlar", "Basılı Yayın", "Okuma Listem", "Favoriler", "Okuduklarım"};
+    ListView lvLeftMenu;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +33,11 @@ public class MainActivity extends FragmentActivity {
         slidingMenu = (SlidingMenu) this.getLayoutInflater().inflate(R.layout.activity_main, null);
         setContentView(slidingMenu);
 
-        lvMenu = (ListView) findViewById(R.id.menu_listview);
-        lvMenu.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, lvMenuItems));
-        lvMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvLeftMenu = (ListView) findViewById(R.id.lvLeftMenu);
+        lvLeftMenu.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.menu_items)));
+        lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 onMenuItemClick(parent, view, position, id);
             }
 
@@ -52,7 +48,7 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 // Show/hide the menu
-                toggleMenu(v);
+                slidingMenu.toggleMenu();
             }
         });
 
@@ -64,24 +60,43 @@ public class MainActivity extends FragmentActivity {
         ft.commit();
     }
 
-    public void toggleMenu(View v) {
-        slidingMenu.toggleMenu();
-    }
-
     private void onMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        String selectedItem = lvMenuItems[position];
-
 
         FragmentManager fm = MainActivity.this.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment fragment = null;
 
-        if (selectedItem.compareTo(lvMenuItems[0]) == 0) {
-            fragment = new NewsFragment();
-        } else if (selectedItem.compareTo(lvMenuItems[1]) == 0) {
-            fragment = new BlogFragment();
+        switch (position) {
+            case Constant.LEFT_MENU_ITEM_NEWS:
+                fragment = new NewsFragment();
+                break;
+            case Constant.LEFT_MENU_ITEM_BLOGS:
+                fragment = new BlogFragment();
+                break;
+            case Constant.LEFT_MENU_ITEM_PUBLICATIONS:
+                notImplemented();
+                break;
+            case Constant.LEFT_MENU_ITEM_REPORTS:
+                notImplemented();
+                break;
+            case Constant.LEFT_MENU_ITEM_NOTES:
+                notImplemented();
+                break;
+            case Constant.LEFT_MENU_ITEM_PRINTED_PUBLICATIONS:
+                notImplemented();
+                break;
+            case Constant.LEFT_MENU_ITEM_MY_READ_LIST:
+                notImplemented();
+                break;
+            case Constant.LEFT_MENU_ITEM_FAVORITES:
+                notImplemented();
+                break;
+            case Constant.LEFT_MENU_ITEM_ARCHIVE:
+                notImplemented();
+                break;
+
         }
+
 
         if (fragment != null) {
             ft.replace(R.id.activity_main_content_fragment, fragment);
@@ -98,4 +113,9 @@ public class MainActivity extends FragmentActivity {
             super.onBackPressed();
         }
     }
+
+    void notImplemented() {
+        Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT).show();
+    }
+
 }

@@ -12,207 +12,201 @@ import android.widget.Scroller;
 
 public class SlidingMenu extends LinearLayout {
 
-	private static final int SLIDING_DURATION = 500;
-	private static final int QUERY_INTERVAL = 16;
-	int mainLayoutWidth;
-	private View menu;
-	private View content;
-	private static int menuRightMargin = 15;
+    static final int SLIDING_DURATION = 500;
+    static final int QUERY_INTERVAL = 16;
+    int mainLayoutWidth;
+    View menu;
+    View content;
+    static int menuRightMargin = 15;
 
-	private enum MenuState {
-		HIDING, HIDDEN, SHOWING, SHOWN,
-	};
+    enum MenuState {
+        HIDING, HIDDEN, SHOWING, SHOWN,
+    }
 
-	private int contentXOffset;
-	private MenuState currentMenuState = MenuState.HIDDEN;
-	private Scroller menuScroller = new Scroller(this.getContext(),
-			new EaseInInterpolator());
-	private Runnable menuRunnable = new MenuRunnable();
-	private Handler menuHandler = new Handler();
-	int prevX = 0;
-	boolean isDragging = false;
-	int lastDiffX = 0;
+    int contentXOffset;
+    MenuState currentMenuState = MenuState.HIDDEN;
+    Scroller menuScroller = new Scroller(this.getContext(), new EaseInInterpolator());
+    Runnable menuRunnable = new MenuRunnable();
+    Handler menuHandler = new Handler();
+    int prevX = 0;
+    boolean isDragging = false;
+    int lastDiffX = 0;
 
-	public SlidingMenu(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
+    public SlidingMenu(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
-	public SlidingMenu(Context context) {
-		super(context);
-	}
+    public SlidingMenu(Context context) {
+        super(context);
+    }
 
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-		mainLayoutWidth = MeasureSpec.getSize(widthMeasureSpec);
-		menuRightMargin = mainLayoutWidth * 30 / 100;
-	}
+        mainLayoutWidth = MeasureSpec.getSize(widthMeasureSpec);
+        menuRightMargin = mainLayoutWidth * 30 / 100;
+    }
 
-	@Override
-	protected void onAttachedToWindow() {
-		super.onAttachedToWindow();
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
 
-		menu = this.getChildAt(0);
-		content = this.getChildAt(1);
-		content.setOnTouchListener(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				return SlidingMenu.this.onContentTouch(v, event);
-			}
-		});
-		menu.setVisibility(View.GONE);
-	}
+        menu = this.getChildAt(0);
+        content = this.getChildAt(1);
+        content.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return SlidingMenu.this.onContentTouch(v, event);
+            }
+        });
+        menu.setVisibility(View.GONE);
+    }
 
-	@Override
-	protected void onLayout(boolean changed, int left, int top, int right,
-			int bottom) {
-		if (changed) {
-			LayoutParams contentLayoutParams = (LayoutParams) content
-					.getLayoutParams();
-			contentLayoutParams.height = this.getHeight();
-			contentLayoutParams.width = this.getWidth();
-			LayoutParams menuLayoutParams = (LayoutParams) menu
-					.getLayoutParams();
-			menuLayoutParams.height = this.getHeight();
-			menuLayoutParams.width = this.getWidth() - menuRightMargin;
-		}
-		menu.layout(left, top, right - menuRightMargin, bottom);
-		content.layout(left + contentXOffset, top, right + contentXOffset,
-				bottom);
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right,
+                            int bottom) {
+        if (changed) {
+            LayoutParams contentLayoutParams = (LayoutParams) content.getLayoutParams();
+            contentLayoutParams.height = this.getHeight();
+            contentLayoutParams.width = this.getWidth();
 
-	}
+            LayoutParams menuLayoutParams = (LayoutParams) menu.getLayoutParams();
+            menuLayoutParams.height = this.getHeight();
+            menuLayoutParams.width = this.getWidth() - menuRightMargin;
+        }
+        menu.layout(left, top, right - menuRightMargin, bottom);
+        content.layout(left + contentXOffset, top, right + contentXOffset, bottom);
 
-	public void toggleMenu() {
+    }
 
-		if (currentMenuState == MenuState.HIDING
-				|| currentMenuState == MenuState.SHOWING)
-			return;
+    public void toggleMenu() {
 
-		switch (currentMenuState) {
-		case HIDDEN:
-			currentMenuState = MenuState.SHOWING;
-			menu.setVisibility(View.VISIBLE);
-			menuScroller.startScroll(0, 0, menu.getLayoutParams().width, 0,
-					SLIDING_DURATION);
-			break;
-		case SHOWN:
-			currentMenuState = MenuState.HIDING;
-			menuScroller.startScroll(contentXOffset, 0, -contentXOffset, 0,
-					SLIDING_DURATION);
-			break;
-		default:
-			break;
-		}
-		menuHandler.postDelayed(menuRunnable, QUERY_INTERVAL);
-		this.invalidate();
-	}
+        if (currentMenuState == MenuState.HIDING || currentMenuState == MenuState.SHOWING)
+            return;
 
-	protected class MenuRunnable implements Runnable {
-		@Override
-		public void run() {
-			boolean isScrolling = menuScroller.computeScrollOffset();
-			adjustContentPosition(isScrolling);
-		}
-	}
+        switch (currentMenuState) {
+            case HIDDEN:
+                currentMenuState = MenuState.SHOWING;
+                menu.setVisibility(View.VISIBLE);
+                menuScroller.startScroll(0, 0, menu.getLayoutParams().width, 0, SLIDING_DURATION);
+                break;
+            case SHOWN:
+                currentMenuState = MenuState.HIDING;
+                menuScroller.startScroll(contentXOffset, 0, -contentXOffset, 0, SLIDING_DURATION);
+                break;
+            default:
+                break;
+        }
+        menuHandler.postDelayed(menuRunnable, QUERY_INTERVAL);
+        this.invalidate();
+    }
 
-	private void adjustContentPosition(boolean isScrolling) {
-		int scrollerXOffset = menuScroller.getCurrX();
+    protected class MenuRunnable implements Runnable {
+        @Override
+        public void run() {
+            boolean isScrolling = menuScroller.computeScrollOffset();
+            adjustContentPosition(isScrolling);
+        }
+    }
 
-		content.offsetLeftAndRight(scrollerXOffset - contentXOffset);
+    void adjustContentPosition(boolean isScrolling) {
+        int scrollerXOffset = menuScroller.getCurrX();
 
-		contentXOffset = scrollerXOffset;
-		this.invalidate();
-		if (isScrolling)
-			menuHandler.postDelayed(menuRunnable, QUERY_INTERVAL);
-		else
-			this.onMenuSlidingComplete();
-	}
+        content.offsetLeftAndRight(scrollerXOffset - contentXOffset);
+        contentXOffset = scrollerXOffset;
+        this.invalidate();
 
-	private void onMenuSlidingComplete() {
-		switch (currentMenuState) {
-		case SHOWING:
-			currentMenuState = MenuState.SHOWN;
-			break;
-		case HIDING:
-			currentMenuState = MenuState.HIDDEN;
-			menu.setVisibility(View.GONE);
-			break;
-		default:
-			return;
-		}
-	}
+        if (isScrolling)
+            menuHandler.postDelayed(menuRunnable, QUERY_INTERVAL);
+        else
+            this.onMenuSlidingComplete();
+    }
 
-	protected class EaseInInterpolator implements Interpolator {
-		@Override
-		public float getInterpolation(float t) {
-			return (float) Math.pow(t - 1, 5) + 1;
-		}
+    void onMenuSlidingComplete() {
+        switch (currentMenuState) {
+            case SHOWING:
+                currentMenuState = MenuState.SHOWN;
+                break;
+            case HIDING:
+                currentMenuState = MenuState.HIDDEN;
+                menu.setVisibility(View.GONE);
+                break;
+            default:
+                return;
+        }
+    }
 
-	}
+    protected class EaseInInterpolator implements Interpolator {
+        @Override
+        public float getInterpolation(float t) {
+            return (float) Math.pow(t - 1, 5) + 1;
+        }
 
-	public boolean isMenuShown() {
-		return currentMenuState == MenuState.SHOWN;
-	}
+    }
 
-	public boolean onContentTouch(View v, MotionEvent event) {
-		if (currentMenuState == MenuState.HIDING
-				|| currentMenuState == MenuState.SHOWING)
-			return false;
-		int curX = (int) event.getRawX();
-		int diffX = 0;
+    public boolean isMenuShown() {
+        return currentMenuState == MenuState.SHOWN;
+    }
 
-		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
+    public boolean onContentTouch(View v, MotionEvent event) {
+        if (currentMenuState == MenuState.HIDING
+                || currentMenuState == MenuState.SHOWING)
+            return false;
+        int curX = (int) event.getRawX();
+        int diffX = 0;
 
-			prevX = curX;
-			return true;
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
 
-		case MotionEvent.ACTION_MOVE:
-			if (!isDragging) {
-				isDragging = true;
-				menu.setVisibility(View.VISIBLE);
-			}
-			diffX = curX - prevX;
-			if (contentXOffset + diffX <= 0) {
-				diffX = -contentXOffset;
-			} else if (contentXOffset + diffX > mainLayoutWidth
-					- menuRightMargin) {
-				diffX = mainLayoutWidth - menuRightMargin - contentXOffset;
-			}
-			content.offsetLeftAndRight(diffX);
-			contentXOffset += diffX;
-			this.invalidate();
+                prevX = curX;
+                return true;
 
-			prevX = curX;
-			lastDiffX = diffX;
-			return true;
+            case MotionEvent.ACTION_MOVE:
+                if (!isDragging) {
+                    isDragging = true;
+                    menu.setVisibility(View.VISIBLE);
+                }
+                diffX = curX - prevX;
+                if (contentXOffset + diffX <= 0) {
+                    diffX = -contentXOffset;
+                } else if (contentXOffset + diffX > mainLayoutWidth
+                        - menuRightMargin) {
+                    diffX = mainLayoutWidth - menuRightMargin - contentXOffset;
+                }
+                content.offsetLeftAndRight(diffX);
+                contentXOffset += diffX;
+                this.invalidate();
 
-		case MotionEvent.ACTION_UP:
-			Log.d("SlidingMenu.java onContentTouch()", "Up lastDiffX "
-					+ lastDiffX);
+                prevX = curX;
+                lastDiffX = diffX;
+                return true;
 
-			if (lastDiffX > 0) {
-				currentMenuState = MenuState.SHOWING;
-				menuScroller.startScroll(contentXOffset, 0,
-						menu.getLayoutParams().width - contentXOffset, 0,
-						SLIDING_DURATION);
-			} else if (lastDiffX < 0) {
-				currentMenuState = MenuState.HIDING;
-				menuScroller.startScroll(contentXOffset, 0, -contentXOffset, 0,
-						SLIDING_DURATION);
-			}
-			menuHandler.postDelayed(menuRunnable, QUERY_INTERVAL);
-			this.invalidate();
-			isDragging = false;
-			prevX = 0;
-			lastDiffX = 0;
-			return true;
+            case MotionEvent.ACTION_UP:
+                Log.d("SlidingMenu.java onContentTouch()", "Up lastDiffX "
+                        + lastDiffX);
 
-		default:
-			break;
-		}
+                if (lastDiffX > 0) {
+                    currentMenuState = MenuState.SHOWING;
+                    menuScroller.startScroll(contentXOffset, 0,
+                            menu.getLayoutParams().width - contentXOffset, 0,
+                            SLIDING_DURATION);
+                } else if (lastDiffX < 0) {
+                    currentMenuState = MenuState.HIDING;
+                    menuScroller.startScroll(contentXOffset, 0, -contentXOffset, 0,
+                            SLIDING_DURATION);
+                }
+                menuHandler.postDelayed(menuRunnable, QUERY_INTERVAL);
+                this.invalidate();
+                isDragging = false;
+                prevX = 0;
+                lastDiffX = 0;
+                return true;
 
-		return false;
-	}
+            default:
+                break;
+        }
+
+        return false;
+    }
 }

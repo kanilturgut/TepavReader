@@ -6,4 +6,16 @@
     <string name="tepav">tepav</string>
     <string name="News">Haberler</string>
     <string name="Blogs">Günlükler</string>
+
+    <string-array name="menu_items">
+        <item>Haberler</item>
+        <item>Günlükler</item>
+        <item>Araştırma ve Yayınlar</item>
+        <item>Raporlar</item>
+        <item>Notlar</item>
+        <item>Basılı Yayın</item>
+        <item>Okuma Listem</item>
+        <item>Favoriler</item>
+        <item>Okuduklarım</item>
+    </string-array>
 </resources>

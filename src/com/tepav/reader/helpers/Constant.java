@@ -1,7 +1,10 @@
 package com.tepav.reader.helpers;
 
 /**
- * Created by kanilturgut on 14/04/14, 18:01.
+ *
+ * Author : kanilturgut
+ * Date : 19.04.2014
+ * Time : 16:12
  */
 public class Constant {
 

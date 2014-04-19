@@ -60,6 +60,8 @@
             swipe:swipeActionLeft="reveal"
             swipe:swipeActionRight="reveal"
             swipe:swipeMode="both"
+            swipe:swipeDrawableChecked="@drawable/choice_selected"
+            swipe:swipeDrawableUnchecked="@drawable/choice_unselected"
             swipe:swipeCloseAllItemsWhenMoveList="true"
             swipe:swipeOpenOnLongPress="true"
             swipe:swipeAnimationTime="100"/>

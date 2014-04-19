@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +19,7 @@ import com.tepav.reader.helpers.Constant;
  * Date : 18.04.2014
  * Time : 13:15
  */
-public class BlogPagerAdapter extends FragmentPagerAdapter{
+public class BlogPagerAdapter extends FragmentStatePagerAdapter {
 
     static Context context = null;
     public static final String ARG_PAGE = "page";

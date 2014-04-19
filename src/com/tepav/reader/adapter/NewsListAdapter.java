@@ -33,7 +33,7 @@ import java.util.List;
  * Date : 16.04.2014
  * Time : 15:29
  */
-public class NewsListAdapter extends ArrayAdapter<News> implements View.OnClickListener {
+public class NewsListAdapter extends ArrayAdapter<News> {
 
     Context context;
     List<News> newsList = new LinkedList<News>();
@@ -92,32 +92,45 @@ public class NewsListAdapter extends ArrayAdapter<News> implements View.OnClickL
         holder.titleOfNews.setText(newsList.get(position).getHtitle());
         holder.dateOfNews.setText(newsList.get(position).getHdate());
 
-        holder.ibShare.setOnClickListener(this);
-        holder.ibFavorite.setOnClickListener(this);
-        holder.ibReadList.setOnClickListener(this);
-        holder.frontOfNewsClick.setOnClickListener(this);
+        MyOnClickListener myOnClickListener = new MyOnClickListener(position);
+
+        holder.ibShare.setOnClickListener(myOnClickListener);
+        holder.ibFavorite.setOnClickListener(myOnClickListener);
+        holder.ibReadList.setOnClickListener(myOnClickListener);
+        holder.frontOfNewsClick.setOnClickListener(myOnClickListener);
 
         return convertView;
     }
 
-    @Override
-    public void onClick(View view) {
 
-        switch (view.getId()) {
-            case R.id.ibShare:
-                Log.i("Click", "Share");
-                break;
-            case R.id.ibFavorite:
-                Log.i("Click", "Favorite");
-                break;
-            case R.id.ibReadList:
-                Log.i("Click", "Read List");
-                break;
-            case R.id.frontOfNewsClick:
-                context.startActivity(new Intent(context, NewsDetails.class));
-                break;
+    class MyOnClickListener implements View.OnClickListener {
+
+        int position;
+
+        public MyOnClickListener(int pos) {
+            this.position = pos;
         }
 
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.ibShare:
+                    Log.i("Click", "Share");
+                    break;
+                case R.id.ibFavorite:
+                    Log.i("Click", "Favorite");
+                    break;
+                case R.id.ibReadList:
+                    Log.i("Click", "Read List");
+                    break;
+                case R.id.frontOfNewsClick:
+
+                    Intent intent = new Intent(context, NewsDetails.class);
+                    intent.putExtra("class", newsList.get(position));
+                    context.startActivity(intent);
+                    break;
+            }
+        }
     }
 
     class NewsHolder {

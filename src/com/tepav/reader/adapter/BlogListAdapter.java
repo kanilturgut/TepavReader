@@ -111,7 +111,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog> implements View.OnClickL
                 Log.i("Click", "Read List");
                 break;
             case R.id.frontOfBlogClick:
-                Log.i("Click", "News on front");
+                Log.i("Click", "Blog on front");
                 break;
         }
 

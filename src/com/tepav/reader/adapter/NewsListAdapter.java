@@ -1,6 +1,7 @@
 package com.tepav.reader.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
+import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.RoundedImageView;
 import com.tepav.reader.helpers.swipelistview.BaseSwipeListViewListener;
@@ -112,7 +114,7 @@ public class NewsListAdapter extends ArrayAdapter<News> implements View.OnClickL
                 Log.i("Click", "Read List");
                 break;
             case R.id.frontOfNewsClick:
-                Log.i("Click", "News on front");
+                context.startActivity(new Intent(context, NewsDetails.class));
                 break;
         }
 

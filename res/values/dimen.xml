@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <dimen name="tepav_header_font_size">36sp</dimen>
+    <dimen name="action_bar_height">60dp</dimen>
+    <dimen name="gradient_height">6dp</dimen>
+
+    <dimen name="footer_button_font_size">13sp</dimen>
+    <dimen name="footer_button_size">40dp</dimen>
+    
+</resources>

@@ -7,6 +7,12 @@
     <string name="News">Haberler</string>
     <string name="Blogs">Günlükler</string>
 
+    <string name="content_description">Nothing</string>
+    
+    <string name="like">Beğen</string>
+    <string name="share">Paylaş</string>
+    <string name="add_to_list">Listeye Al</string>
+
     <string-array name="menu_items">
         <item>Haberler</item>
         <item>Günlükler</item>

@@ -27,8 +27,8 @@
         <!-- This acts as Actionbar -->
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="#FFFFFF">
+                android:layout_height="@dimen/action_bar_height"
+                android:background="@color/beyaz">
 
             <ImageButton
                     android:layout_width="wrap_content"
@@ -45,8 +45,8 @@
                       android:layout_margin="5dp"
                       android:text="@string/tepav"
                       android:textStyle="bold"
-                      android:textSize="36sp"
-                      android:textColor="#31404D"
+                      android:textSize="@dimen/tepav_header_font_size"
+                      android:textColor="@color/tepav_siyahi"
                       android:layout_centerInParent="true"/>
 
         </RelativeLayout>

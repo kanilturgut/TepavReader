@@ -6,5 +6,7 @@
 
     <color name="siyah">#000</color>
     <color name="beyaz">#FFF</color>
+
+    <color name="gri">#DDD</color>
     
 </resources>

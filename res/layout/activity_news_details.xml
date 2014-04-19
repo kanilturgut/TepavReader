@@ -3,7 +3,8 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/beyaz">
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="60dp"
                     android:layout_alignParentTop="true"
@@ -25,17 +26,58 @@
           android:layout_below="@+id/llHeader"
           android:background="@drawable/gradient_upper"/>
 
-    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content"
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:layout_below="@+id/gradient_upper"
                 android:layout_above="@+id/rlFooter">
 
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
-                        android:id="@+id/rlNewsDetailNewsHeader">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                      android:orientation="vertical">
 
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="5dp"
+                            android:id="@+id/rlNewsDetailNewsHeader">
 
-        </RelativeLayout>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:id="@+id/tvNewsDetailTitleOfNews"
+                          android:text="Başlık"
+                          android:textStyle="bold"
+                          android:textSize="@dimen/details_title_of_item_font_size"
+                          android:layout_alignParentTop="true"
+                          android:textColor="@color/tepav_siyahi"/>
+
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:id="@+id/rlNewsDetailNewsTimeAndComment"
+                                android:layout_marginTop="5dp"
+                                android:layout_below="@+id/tvNewsDetailTitleOfNews">
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/tvNewsDetailTimeInformationOfNews"
+                              android:textColor="@color/gri"
+                              android:textSize="@dimen/details_time_info_of_item_font_size"
+                              android:layout_alignParentLeft="true"
+                              android:text="Yesterday @ 12:14pm"
+                              android:layout_centerVertical="true"/>
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="Yorum"
+                              android:layout_alignParentRight="true"
+                              android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <WebView android:layout_width="match_parent" android:layout_height="wrap_content"
+                     android:layout_marginLeft="10dp"
+                     android:layout_marginRight="10dp"
+                     android:id="@+id/wvNewsDetailContentOfNews">
+
+            </WebView>
+        </LinearLayout>
+
     </ScrollView>
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="50dp"

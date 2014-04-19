@@ -7,5 +7,8 @@
 
     <dimen name="footer_button_font_size">13sp</dimen>
     <dimen name="footer_button_size">40dp</dimen>
+
+    <dimen name="details_title_of_item_font_size">20sp</dimen>
+    <dimen name="details_time_info_of_item_font_size">12sp</dimen>
     
 </resources>

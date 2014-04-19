@@ -13,6 +13,13 @@
     <string name="share">Paylaş</string>
     <string name="add_to_list">Listeye Al</string>
 
+    <string name="comp_sec">%d saniye önce</string>
+    <string name="comp_min">%d dakika önce</string>
+    <string name="comp_hour">%d saat önce</string>
+    <string name="comp_day">%d gün önce</string>
+    <string name="comp_week">%d hafta önce</string>
+    <string name="comp_month">%d ay önce</string>
+
     <string-array name="menu_items">
         <item>Haberler</item>
         <item>Günlükler</item>

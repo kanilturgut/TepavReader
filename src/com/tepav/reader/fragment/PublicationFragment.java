@@ -1,4 +1,4 @@
-package com.tepav.reader.activity;
+package com.tepav.reader.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,7 @@ import com.tepav.reader.R;
  * Date : 18.04.2014
  * Time : 20:17
  */
-public class PublicationActivity extends Activity {
+public class PublicationFragment extends Activity {
 
     Context context;
 

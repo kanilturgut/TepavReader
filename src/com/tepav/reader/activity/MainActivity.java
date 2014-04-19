@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import com.tepav.reader.R;
+import com.tepav.reader.fragment.BlogFragment;
+import com.tepav.reader.fragment.NewsFragment;
 import com.tepav.reader.helpers.slidingmenu.SlidingMenu;
 
 /**
@@ -56,7 +58,7 @@ public class MainActivity extends FragmentActivity {
 
         FragmentManager fm = MainActivity.this.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        NewsActivity fragment = new NewsActivity();
+        NewsFragment fragment = new NewsFragment();
 
         ft.add(R.id.activity_main_content_fragment, fragment);
         ft.commit();
@@ -76,9 +78,9 @@ public class MainActivity extends FragmentActivity {
         Fragment fragment = null;
 
         if (selectedItem.compareTo(lvMenuItems[0]) == 0) {
-            fragment = new NewsActivity();
+            fragment = new NewsFragment();
         } else if (selectedItem.compareTo(lvMenuItems[1]) == 0) {
-            fragment = new BlogActivity();
+            fragment = new BlogFragment();
         }
 
         if (fragment != null) {

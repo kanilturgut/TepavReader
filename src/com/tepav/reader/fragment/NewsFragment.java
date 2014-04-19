@@ -1,9 +1,10 @@
-package com.tepav.reader.activity;
+package com.tepav.reader.fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ import org.json.JSONObject;
  * Date : 16.04.2014
  * Time : 15:19
  */
-public class NewsActivity extends android.support.v4.app.Fragment {
+public class NewsFragment extends Fragment {
 
     Context context;
 

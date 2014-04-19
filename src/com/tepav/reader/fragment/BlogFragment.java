@@ -1,18 +1,16 @@
-package com.tepav.reader.activity;
+package com.tepav.reader.fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
-import com.androidquery.util.AQUtility;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.BlogListAdapter;
 import com.tepav.reader.adapter.BlogPagerAdapter;
@@ -31,7 +29,7 @@ import org.json.JSONObject;
  * Date : 18.04.2014
  * Time : 12:37
  */
-public class BlogActivity extends Fragment {
+public class BlogFragment extends Fragment {
 
     Context context;
 

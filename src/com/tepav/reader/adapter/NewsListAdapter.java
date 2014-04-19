@@ -72,7 +72,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         options.memCache = true;
         options.targetWidth = 0;
         options.fallback = 0;
-        options.round = 20;
+        options.round = 0;
 
         aq.id(holder.imageOfNews).image(newsList.get(position).getHimage(), options);
         holder.titleOfNews.setText(newsList.get(position).getHtitle());

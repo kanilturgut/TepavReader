@@ -1,10 +1,13 @@
 package com.tepav.reader.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -13,6 +16,8 @@ import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.RoundedImageView;
+import com.tepav.reader.helpers.swipelistview.BaseSwipeListViewListener;
+import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.News;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +31,7 @@ import java.util.List;
  * Date : 16.04.2014
  * Time : 15:29
  */
-public class NewsListAdapter extends ArrayAdapter<News> {
+public class NewsListAdapter extends ArrayAdapter<News> implements View.OnClickListener {
 
     Context context;
     List<News> newsList = new LinkedList<News>();
@@ -57,9 +62,16 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
             holder = new NewsHolder();
 
+            //front view
+            holder.frontOfNewsClick = (RelativeLayout) convertView.findViewById(R.id.frontOfNewsClick);
             holder.imageOfNews = (RoundedImageView) convertView.findViewById(R.id.ivImageOfNews);
             holder.titleOfNews = (TextView) convertView.findViewById(R.id.tvTitleOfNews);
             holder.dateOfNews = (TextView) convertView.findViewById(R.id.tvDateOfNews);
+
+            //back view
+            holder.ibShare = (ImageButton) convertView.findViewById(R.id.ibShare);
+            holder.ibFavorite = (ImageButton) convertView.findViewById(R.id.ibFavorite);
+            holder.ibReadList = (ImageButton) convertView.findViewById(R.id.ibReadList);
 
             convertView.setTag(holder);
 
@@ -78,8 +90,32 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         holder.titleOfNews.setText(newsList.get(position).getHtitle());
         holder.dateOfNews.setText(newsList.get(position).getHdate());
 
+        holder.ibShare.setOnClickListener(this);
+        holder.ibFavorite.setOnClickListener(this);
+        holder.ibReadList.setOnClickListener(this);
+        holder.frontOfNewsClick.setOnClickListener(this);
 
         return convertView;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.ibShare:
+                Log.i("Click", "Share");
+                break;
+            case R.id.ibFavorite:
+                Log.i("Click", "Favorite");
+                break;
+            case R.id.ibReadList:
+                Log.i("Click", "Read List");
+                break;
+            case R.id.frontOfNewsClick:
+                Log.i("Click", "News on front");
+                break;
+        }
+
     }
 
     class NewsHolder {
@@ -87,6 +123,10 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         RoundedImageView imageOfNews;
         TextView titleOfNews;
         TextView dateOfNews;
+        ImageButton ibShare;
+        ImageButton ibFavorite;
+        ImageButton ibReadList;
+        RelativeLayout frontOfNewsClick;
     }
 
     public void loadMore() {
@@ -115,8 +155,6 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                             e.printStackTrace();
                         }
                     }
-
-
 
                     newsList.addAll(temp);
                     addAll(temp);

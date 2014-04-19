@@ -56,11 +56,13 @@ public class MainActivity extends FragmentActivity {
         FragmentTransaction ft = fm.beginTransaction();
         NewsFragment fragment = new NewsFragment();
 
-        ft.add(R.id.activity_main_content_fragment, fragment);
+        ft.add(R.id.activity_main_content_fragment, fragment, "Haberler");
         ft.commit();
     }
 
     private void onMenuItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        String fragmentTag = "";
 
         FragmentManager fm = MainActivity.this.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -68,9 +70,11 @@ public class MainActivity extends FragmentActivity {
 
         switch (position) {
             case Constant.LEFT_MENU_ITEM_NEWS:
+                fragmentTag = "Haberler";
                 fragment = new NewsFragment();
                 break;
             case Constant.LEFT_MENU_ITEM_BLOGS:
+                fragmentTag = "Gunluk";
                 fragment = new BlogFragment();
                 break;
             case Constant.LEFT_MENU_ITEM_PUBLICATIONS:
@@ -99,8 +103,12 @@ public class MainActivity extends FragmentActivity {
 
 
         if (fragment != null) {
-            ft.replace(R.id.activity_main_content_fragment, fragment);
-            ft.commit();
+            Fragment myFragment = getSupportFragmentManager().findFragmentByTag(fragmentTag);
+
+            if (myFragment == null || !myFragment.isVisible()) {
+                ft.replace(R.id.activity_main_content_fragment, fragment, fragmentTag);
+                ft.commit();
+            }
         }
         slidingMenu.toggleMenu();
     }

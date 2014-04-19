@@ -1,10 +1,13 @@
 package com.tepav.reader.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -27,7 +30,7 @@ import java.util.List;
  * Date : 18.04.2014
  * Time : 12:45
  */
-public class BlogListAdapter extends ArrayAdapter<Blog>{
+public class BlogListAdapter extends ArrayAdapter<Blog> implements View.OnClickListener {
 
     Context context;
     List<Blog> blogList = new LinkedList<Blog>();
@@ -59,9 +62,16 @@ public class BlogListAdapter extends ArrayAdapter<Blog>{
             
             holder = new BlogHolder();
 
+            //front view
+            holder.frontOfBlogClick = (RelativeLayout) convertView.findViewById(R.id.frontOfBlogClick);
             holder.imageOfBlog = (RoundedImageView) convertView.findViewById(R.id.ivImageOfBlog);
             holder.titleOfBlog = (TextView) convertView.findViewById(R.id.tvTitleOfBlog);
             holder.dateOfBlog = (TextView) convertView.findViewById(R.id.tvDateOfBlog);
+
+            //back view
+            holder.ibShare = (ImageButton) convertView.findViewById(R.id.ibShare);
+            holder.ibFavorite = (ImageButton) convertView.findViewById(R.id.ibFavorite);
+            holder.ibReadList = (ImageButton) convertView.findViewById(R.id.ibReadList);
 
             convertView.setTag(holder);
 
@@ -80,7 +90,31 @@ public class BlogListAdapter extends ArrayAdapter<Blog>{
         holder.titleOfBlog.setText(blogList.get(position).getBtitle());
         holder.dateOfBlog.setText(blogList.get(position).getBdate());
 
+        holder.ibShare.setOnClickListener(this);
+        holder.ibFavorite.setOnClickListener(this);
+        holder.ibReadList.setOnClickListener(this);
+        holder.frontOfBlogClick.setOnClickListener(this);
+
         return convertView;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ibShare:
+                Log.i("Click", "Share");
+                break;
+            case R.id.ibFavorite:
+                Log.i("Click", "Favorite");
+                break;
+            case R.id.ibReadList:
+                Log.i("Click", "Read List");
+                break;
+            case R.id.frontOfBlogClick:
+                Log.i("Click", "News on front");
+                break;
+        }
+
     }
 
     class BlogHolder {
@@ -88,6 +122,10 @@ public class BlogListAdapter extends ArrayAdapter<Blog>{
         RoundedImageView imageOfBlog;
         TextView titleOfBlog;
         TextView dateOfBlog;
+        ImageButton ibShare;
+        ImageButton ibFavorite;
+        ImageButton ibReadList;
+        RelativeLayout frontOfBlogClick;
     }
 
     public void loadMore() {

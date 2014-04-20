@@ -149,7 +149,7 @@ public class News extends DBData implements Serializable{
 
         DBData dbData = new DBData();
         dbData.setId(news.getId());
-        dbData.setContent(News.toJSON(news).toString());
+        dbData.setContent(news.getContent());
         dbData.setType(DBData.TYPE_NEWS);
         dbData.setReadList(DBData.READ_LIST_FALSE);
         dbData.setFavoriteList(DBData.FAVORITE_LIST_FALSE);
@@ -158,8 +158,8 @@ public class News extends DBData implements Serializable{
         return dbData;
     }
 
-    public static News fromDBData(DBData dbData) throws JSONException {
+    public static String fromDBData(DBData dbData) throws JSONException {
 
-        return News.fromJSON(new JSONObject(dbData.getContent()));
+        return dbData.getContent();
     }
 }

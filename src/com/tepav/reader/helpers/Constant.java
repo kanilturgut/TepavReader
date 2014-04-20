@@ -35,4 +35,7 @@ public class Constant {
     public static final int LEFT_MENU_ITEM_MY_READ_LIST = 6;
     public static final int LEFT_MENU_ITEM_FAVORITES = 7;
     public static final int LEFT_MENU_ITEM_ARCHIVE = 8;
+
+    //share url's
+    public static final String SHARE_NEWS = "http://www.tepav.org.tr/tr/haberler/s/";
 }

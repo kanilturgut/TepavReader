@@ -16,8 +16,11 @@ import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
 import com.tepav.reader.activity.NewsDetails;
+import com.tepav.reader.db.DBHandler;
+import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.RoundedImageView;
+import com.tepav.reader.model.DBData;
 import com.tepav.reader.model.News;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +40,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
     List<News> newsList = new LinkedList<News>();
     int pageNumber;
     AQuery aq;
+    DBHandler dbHandler;
 
     public NewsListAdapter(Context ctx, int number) {
         super(ctx, R.layout.custom_news_row);
@@ -44,6 +48,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         this.context = ctx;
         this.pageNumber = number;
 
+        dbHandler = DBHandler.getInstance(context);
         aq = new AQuery(context);
         loadMore();
     }
@@ -109,22 +114,48 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             this.position = pos;
         }
 
+        News news = newsList.get(position);
+
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.ibShare:
-                    Log.i("Click", "Share");
+                    String url = Constant.SHARE_NEWS + news.getHaber_id();
+
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
+                    shareIntent.putExtra(Intent.EXTRA_TEXT,  news.getHtitle() + " " + url);
+                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
                     break;
                 case R.id.ibFavorite:
-                    Log.i("Click", "Favorite");
+
+                    DBData dbData = new DBData();
+                    dbData.setId(news.getId());
+                    dbData.setContent(news.getContent());
+                    dbData.setType(DBData.TYPE_NEWS);
+                    dbData.setReadList(DBData.READ_LIST_FALSE);
+                    dbData.setFavoriteList(DBData.FAVORITE_LIST_TRUE);
+                    dbData.setArchive(DBData.ARCHIVE_FALSE);
+
+                    dbHandler.insert(dbData);
+
                     break;
                 case R.id.ibReadList:
-                    Log.i("Click", "Read List");
+                    DBData dbData1 = new DBData();
+                    dbData1.setId(news.getId());
+                    dbData1.setContent(news.getContent());
+                    dbData1.setType(DBData.TYPE_NEWS);
+                    dbData1.setReadList(DBData.READ_LIST_TRUE);
+                    dbData1.setFavoriteList(DBData.FAVORITE_LIST_FALSE);
+                    dbData1.setArchive(DBData.ARCHIVE_FALSE);
+
+                    dbHandler.insert(dbData1);
                     break;
                 case R.id.frontOfNewsClick:
 
                     Intent intent = new Intent(context, NewsDetails.class);
-                    intent.putExtra("class", newsList.get(position));
+                    intent.putExtra("class", news);
                     context.startActivity(intent);
                     break;
             }

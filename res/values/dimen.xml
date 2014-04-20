@@ -3,6 +3,7 @@
     
     <dimen name="tepav_header_font_size">36sp</dimen>
     <dimen name="action_bar_height">60dp</dimen>
+    <dimen name="action_bar_toggle_area">75dp</dimen>
     <dimen name="gradient_height">4dp</dimen>
 
     <dimen name="footer_button_font_size">13sp</dimen>
@@ -17,6 +18,6 @@
 
     <dimen name="right_margin_of_left_menu_small">12dp</dimen>
 
-    <dimen name="text_size_of_left_menu">16sp</dimen>
+    <dimen name="text_size_of_left_menu">18sp</dimen>
 
 </resources>

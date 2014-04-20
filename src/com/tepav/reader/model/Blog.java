@@ -142,7 +142,7 @@ public class Blog extends DBData implements Serializable {
 
         DBData dbData = new DBData();
         dbData.setId(blog.getId());
-        dbData.setContent(Blog.toJSON(blog).toString());
+        dbData.setContent(blog.getContent());
         dbData.setType(DBData.TYPE_BLOG);
         dbData.setReadList(DBData.READ_LIST_FALSE);
         dbData.setFavoriteList(DBData.FAVORITE_LIST_FALSE);
@@ -151,8 +151,8 @@ public class Blog extends DBData implements Serializable {
         return dbData;
     }
 
-    public static Blog fromDBData(DBData dbData) throws JSONException {
+    public static String fromDBData(DBData dbData) throws JSONException {
 
-        return Blog.fromJSON(new JSONObject(dbData.getContent()));
+        return dbData.getContent();
     }
 }

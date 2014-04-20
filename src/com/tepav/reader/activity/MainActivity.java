@@ -26,7 +26,7 @@ public class MainActivity extends FragmentActivity {
     Context context;
 
     SlidingMenu slidingMenu;
-    ImageButton btMenu;
+    RelativeLayout btMenu;
     ListView lvLeftMenu;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class MainActivity extends FragmentActivity {
 
         });
 
-        btMenu = (ImageButton) findViewById(R.id.button_menu);
+        btMenu = (RelativeLayout) findViewById(R.id.button_menu);
         btMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

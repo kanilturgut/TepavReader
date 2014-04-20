@@ -1,70 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:swipe="http://schemas.android.com/apk/res-auto"
-                android:background="@color/beyaz"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <RelativeLayout
+            android:background="@color/beyaz"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <View android:layout_width="match_parent" android:layout_height="@dimen/gradient_height"
-          android:id="@+id/gradient_upper"
-          android:layout_alignParentTop="true"
-          android:background="@drawable/gradient_upper"/>
+        <View android:layout_width="match_parent" android:layout_height="@dimen/gradient_height"
+              android:id="@+id/gradient_upper"
+              android:layout_alignParentTop="true"
+              android:background="@drawable/gradient_upper"/>
 
-    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                 android:id="@+id/frameOfBlog"
-                 android:layout_below="@+id/gradient_upper">
+        <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                     android:id="@+id/frameOfBlog"
+                     android:layout_below="@+id/gradient_upper">
 
-        <com.tepav.reader.helpers.WrapContentHeightViewPager
-                android:id="@+id/blogPager"
+            <com.tepav.reader.helpers.WrapContentHeightViewPager
+                    android:id="@+id/blogPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <LinearLayout android:layout_width="100dp" android:layout_height="wrap_content"
+                          android:background="@color/petrol_mavisi"
+                          android:layout_gravity="right"
+                          android:layout_marginTop="20dp"
+                          android:orientation="horizontal">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_margin="5dp"
+                          android:text="@string/Blogs"
+                          android:textSize="15sp"
+                          android:textStyle="bold"
+                          android:textColor="@color/beyaz"/>
+            </LinearLayout>
+        </FrameLayout>
+
+
+        <com.tepav.reader.helpers.pagerindicator.CirclePageIndicator
+                android:id="@+id/circleIndicatorOfBlogPager"
+                android:layout_above="@+id/swipeListViewOfBlog"
+                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-        <LinearLayout android:layout_width="100dp" android:layout_height="wrap_content"
-                      android:background="@color/petrol_mavisi"
-                      android:layout_gravity="right"
-                      android:layout_marginTop="20dp"
-                      android:orientation="horizontal">
+        <View android:layout_width="match_parent" android:layout_height="@dimen/gradient_height"
+              android:id="@+id/gradient_lower"
+              android:background="@drawable/gradient_upper"
+              android:layout_above="@+id/swipeListViewOfBlog"/>
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:layout_margin="5dp"
-                      android:text="@string/Blogs"
-                      android:textSize="15sp"
-                      android:textStyle="bold"
-                      android:textColor="@color/beyaz"/>
-        </LinearLayout>
-    </FrameLayout>
+        <com.tepav.reader.helpers.swipelistview.SwipeListView
+                android:id="@+id/swipeListViewOfBlog"
+                android:layout_below="@+id/frameOfBlog"
+                android:listSelector="#00000000"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                swipe:swipeFrontView="@+id/frontOfBlog"
+                swipe:swipeBackView="@+id/backOfBlog"
+                swipe:swipeActionLeft="reveal"
+                swipe:swipeActionRight="reveal"
+                swipe:swipeMode="both"
+                swipe:swipeDrawableChecked="@drawable/choice_selected"
+                swipe:swipeDrawableUnchecked="@drawable/choice_unselected"
+                swipe:swipeCloseAllItemsWhenMoveList="true"
+                swipe:swipeOpenOnLongPress="true"
+                swipe:swipeAnimationTime="100"/>
 
-
-    <com.tepav.reader.helpers.pagerindicator.CirclePageIndicator
-            android:id="@+id/circleIndicatorOfBlogPager"
-            android:layout_above="@+id/swipeListViewOfBlog"
-            android:layout_marginBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    <View android:layout_width="match_parent" android:layout_height="@dimen/gradient_height"
-          android:id="@+id/gradient_lower"
-          android:background="@drawable/gradient_upper"
-          android:layout_above="@+id/swipeListViewOfBlog"/>
-
-    <com.tepav.reader.helpers.swipelistview.SwipeListView
-            android:id="@+id/swipeListViewOfBlog"
-            android:layout_below="@+id/frameOfBlog"
-            android:listSelector="#00000000"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            swipe:swipeFrontView="@+id/frontOfBlog"
-            swipe:swipeBackView="@+id/backOfBlog"
-            swipe:swipeActionLeft="reveal"
-            swipe:swipeActionRight="reveal"
-            swipe:swipeMode="both"
-            swipe:swipeDrawableChecked="@drawable/choice_selected"
-            swipe:swipeDrawableUnchecked="@drawable/choice_unselected"
-            swipe:swipeCloseAllItemsWhenMoveList="true"
-            swipe:swipeOpenOnLongPress="true"
-            swipe:swipeAnimationTime="100"/>
+    </RelativeLayout>
 
 
-</RelativeLayout>
+    <!-- Loading Scren -->
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:id="@+id/rlLoading"
+                    android:background="@color/gri">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:layout_centerInParent="true"
+                  android:text="Yükleniyor.."/>
+
+    </RelativeLayout>
+
+</FrameLayout>

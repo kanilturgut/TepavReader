@@ -30,6 +30,7 @@ public class Splash extends Activity {
             @Override
             public void run() {
                 startActivity(new Intent(context, MainActivity.class));
+                finish();
             }
         };
     }
@@ -48,7 +49,5 @@ public class Splash extends Activity {
 
         if (startHandler != null)
             startHandler.removeCallbacks(startRunnable);
-
-        finish();
     }
 }

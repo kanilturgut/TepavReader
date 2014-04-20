@@ -1,68 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:swipe="http://schemas.android.com/apk/res-auto"
-                android:background="@color/beyaz"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <View android:layout_width="match_parent" android:layout_height="@dimen/gradient_height"
-          android:id="@+id/gradient_upper"
-          android:layout_alignParentTop="true"
-          android:background="@drawable/gradient_upper"/>
+    <RelativeLayout
+            android:background="@color/beyaz"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                 android:id="@+id/frameOfNews"
-                 android:layout_below="@+id/gradient_upper">
+        <View android:layout_width="match_parent" android:layout_height="@dimen/gradient_height"
+              android:id="@+id/gradient_upper"
+              android:layout_alignParentTop="true"
+              android:background="@drawable/gradient_upper"/>
 
-        <com.tepav.reader.helpers.WrapContentHeightViewPager
-                android:id="@+id/newsPager"
+        <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                     android:id="@+id/frameOfNews"
+                     android:layout_below="@+id/gradient_upper">
+
+            <com.tepav.reader.helpers.WrapContentHeightViewPager
+                    android:id="@+id/newsPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <LinearLayout android:layout_width="100dp" android:layout_height="wrap_content"
+                          android:background="@color/petrol_mavisi"
+                          android:layout_gravity="right"
+                          android:layout_marginTop="20dp"
+                          android:orientation="horizontal">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_margin="5dp"
+                          android:text="@string/News"
+                          android:textSize="15sp"
+                          android:textStyle="bold"
+                          android:textColor="@color/beyaz"/>
+            </LinearLayout>
+        </FrameLayout>
+
+
+        <com.tepav.reader.helpers.pagerindicator.CirclePageIndicator
+                android:id="@+id/circleIndicatorOfNewsPager"
+                android:layout_above="@+id/swipeListViewOfNews"
+                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-        <LinearLayout android:layout_width="100dp" android:layout_height="wrap_content"
-                      android:background="@color/petrol_mavisi"
-                      android:layout_gravity="right"
-                      android:layout_marginTop="20dp"
-                      android:orientation="horizontal">
+        <View android:layout_width="match_parent" android:layout_height="@dimen/gradient_height"
+              android:id="@+id/gradient_lower"
+              android:background="@drawable/gradient_upper"
+              android:layout_above="@+id/swipeListViewOfNews"/>
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:layout_margin="5dp"
-                      android:text="@string/News"
-                      android:textSize="15sp"
-                      android:textStyle="bold"
-                      android:textColor="@color/beyaz"/>
-        </LinearLayout>
-    </FrameLayout>
+        <com.tepav.reader.helpers.swipelistview.SwipeListView
+                android:id="@+id/swipeListViewOfNews"
+                android:layout_below="@+id/frameOfNews"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                swipe:swipeFrontView="@+id/frontOfNews"
+                swipe:swipeBackView="@+id/backOfNews"
+                swipe:swipeActionLeft="reveal"
+                swipe:swipeActionRight="reveal"
+                swipe:swipeMode="both"
+                swipe:swipeDrawableChecked="@drawable/choice_selected"
+                swipe:swipeDrawableUnchecked="@drawable/choice_unselected"
+                swipe:swipeCloseAllItemsWhenMoveList="true"
+                swipe:swipeOpenOnLongPress="true"
+                swipe:swipeAnimationTime="100"/>
+    </RelativeLayout>
 
+    <!-- Loading Scren -->
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:id="@+id/rlLoading"
+                    android:background="@color/gri">
 
-    <com.tepav.reader.helpers.pagerindicator.CirclePageIndicator
-            android:id="@+id/circleIndicatorOfNewsPager"
-            android:layout_above="@+id/swipeListViewOfNews"
-            android:layout_marginBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:layout_centerInParent="true"
+                  android:text="Yükleniyor.."/>
 
-    <View android:layout_width="match_parent" android:layout_height="@dimen/gradient_height"
-          android:id="@+id/gradient_lower"
-          android:background="@drawable/gradient_upper"
-          android:layout_above="@+id/swipeListViewOfNews"/>
+    </RelativeLayout>
 
-    <com.tepav.reader.helpers.swipelistview.SwipeListView
-            android:id="@+id/swipeListViewOfNews"
-            android:layout_below="@+id/frameOfNews"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            swipe:swipeFrontView="@+id/frontOfNews"
-            swipe:swipeBackView="@+id/backOfNews"
-            swipe:swipeActionLeft="reveal"
-            swipe:swipeActionRight="reveal"
-            swipe:swipeMode="both"
-            swipe:swipeDrawableChecked="@drawable/choice_selected"
-            swipe:swipeDrawableUnchecked="@drawable/choice_unselected"
-            swipe:swipeCloseAllItemsWhenMoveList="true"
-            swipe:swipeOpenOnLongPress="true"
-            swipe:swipeAnimationTime="100"/>
-
-
-</RelativeLayout>
+</FrameLayout>

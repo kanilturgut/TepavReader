@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
@@ -40,7 +41,7 @@ public class BlogFragment extends Fragment {
 
     String[] urls = new String[Constant.DRAWERS_PAGE_NUMBER];
 
-    ProgressDialog progressDialog;
+    RelativeLayout rlLoading;
 
     @Override
     public void onAttach(Activity activity) {
@@ -52,7 +53,7 @@ public class BlogFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_blog, null);
 
-        progressDialog =ProgressDialog.show(context, "Lütfen Bekleyiniz", "Günlükler getiriliyor", false, false);
+        rlLoading = (RelativeLayout) view.findViewById(R.id.rlLoading);
 
         viewPagerOfBlog = (WrapContentHeightViewPager) view.findViewById(R.id.blogPager);
         circlePageIndicator = (CirclePageIndicator) view.findViewById(R.id.circleIndicatorOfBlogPager);
@@ -88,8 +89,8 @@ public class BlogFragment extends Fragment {
                 viewPagerOfBlog.setAdapter(blogPagerAdapter);
                 circlePageIndicator.setViewPager(viewPagerOfBlog);
 
-                if (progressDialog != null)
-                    progressDialog.dismiss();
+                if (rlLoading != null)
+                    rlLoading.setVisibility(RelativeLayout.GONE);
             }
         });
 

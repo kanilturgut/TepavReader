@@ -25,14 +25,14 @@ public class DBHandler extends SQLiteOpenHelper {
     static final int VERSION = 1;
     static final String DATABASE = "tepavReader.db";
 
-    static final String TABLE_DATA = "data";
+    public static final String TABLE_READ_LIST = "read_list";
+    public static final String TABLE_FAVORITE = "favorite";
+    public static final String TABLE_ARCHIVE = "archive";
+
 
     static final String COL_ID = "_id";
     static final String COL_CONTENT = "content";
     static final String COL_TYPE = "type";
-    static final String COL_READ_LIST = "read_list";
-    static final String COL_FAVORITE_LIST = "favorite_list";
-    static final String COL_ARCHIVE = "archive";
 
     public static DBHandler getInstance(Context context) {
 
@@ -49,14 +49,25 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + TABLE_DATA
+        db.execSQL("CREATE TABLE " + TABLE_READ_LIST
                 + " ("
                 + COL_ID + " TEXT, "
                 + COL_CONTENT + " TEXT, "
-                + COL_TYPE + " INTEGER, "
-                + COL_READ_LIST + " INTEGER, "
-                + COL_FAVORITE_LIST + " INTEGER, "
-                + COL_ARCHIVE + " INTEGER"
+                + COL_TYPE + " INTEGER "
+                + ");");
+
+        db.execSQL("CREATE TABLE " + TABLE_FAVORITE
+                + " ("
+                + COL_ID + " TEXT, "
+                + COL_CONTENT + " TEXT, "
+                + COL_TYPE + " INTEGER "
+                + ");");
+
+        db.execSQL("CREATE TABLE " + TABLE_ARCHIVE
+                + " ("
+                + COL_ID + " TEXT, "
+                + COL_CONTENT + " TEXT, "
+                + COL_TYPE + " INTEGER "
                 + ");");
 
     }
@@ -64,11 +75,13 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL("DROP TABLE IF EXIST " + TABLE_DATA);
+        db.execSQL("DROP TABLE IF EXIST " + TABLE_READ_LIST);
+        db.execSQL("DROP TABLE IF EXIST " + TABLE_FAVORITE);
+        db.execSQL("DROP TABLE IF EXIST " + TABLE_ARCHIVE);
         onCreate(db);
     }
 
-    public boolean insert(DBData dbData) {
+    public boolean insert(DBData dbData, String table) {
 
         Log.i(TAG, "insert operation started");
 
@@ -78,17 +91,14 @@ public class DBHandler extends SQLiteOpenHelper {
         contentValues.put(COL_ID, dbData.getId());
         contentValues.put(COL_CONTENT, dbData.getContent());
         contentValues.put(COL_TYPE, dbData.getType());
-        contentValues.put(COL_READ_LIST, dbData.getReadList());
-        contentValues.put(COL_FAVORITE_LIST, dbData.getFavoriteList());
-        contentValues.put(COL_ARCHIVE, dbData.getArchive());
 
-        if (isContain(dbData.getId(), db)) {
+        if (isContain(table, dbData.getId(), db)) {
             Log.i(TAG, "item already in the db, it will update");
-            update(dbData);
+            update(dbData, table);
             return true;
         } else {
             try {
-                db.insertOrThrow(TABLE_DATA, null, contentValues);
+                db.insertOrThrow(table, null, contentValues);
                 db.close();
                 Log.i(TAG, "SUCCESS on insert operation");
                 return true;
@@ -101,11 +111,11 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     //reads all
-    public List<DBData> read() throws NullPointerException {
+    public List<DBData> read(String table) throws NullPointerException {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT * FROM " + TABLE_DATA;
+        String query = "SELECT * FROM " + table;
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor != null) {
@@ -118,9 +128,6 @@ public class DBHandler extends SQLiteOpenHelper {
                     dbData.setId(cursor.getString(0));
                     dbData.setContent(cursor.getString(1));
                     dbData.setType(Integer.parseInt(cursor.getString(2)));
-                    dbData.setReadList(Integer.parseInt(cursor.getString(3)));
-                    dbData.setFavoriteList(Integer.parseInt(cursor.getString(4)));
-                    dbData.setArchive(Integer.parseInt(cursor.getString(5)));
 
                     dbDataList.add(dbData);
                 } while (cursor.moveToNext());
@@ -133,9 +140,9 @@ public class DBHandler extends SQLiteOpenHelper {
         return null;
     }
 
-    public boolean isContain(String id, SQLiteDatabase db) {
+    public boolean isContain(String table, String id, SQLiteDatabase db) {
 
-        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + COL_ID + "='" + id + "'";
+        String query = "SELECT * FROM " + table + " WHERE " + COL_ID + "='" + id + "'";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor == null)
@@ -146,11 +153,11 @@ public class DBHandler extends SQLiteOpenHelper {
             return true;
     }
 
-    public DBData read(String id) throws NullPointerException {
+    public DBData read(String table, String id) throws NullPointerException {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT * FROM " + TABLE_DATA + " WHERE " + COL_ID + "='" + id + "'";
+        String query = "SELECT * FROM " + table + " WHERE " + COL_ID + "='" + id + "'";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor != null) {
@@ -159,9 +166,6 @@ public class DBHandler extends SQLiteOpenHelper {
                 dbData.setId(cursor.getString(0));
                 dbData.setContent(cursor.getString(1));
                 dbData.setType(Integer.parseInt(cursor.getString(2)));
-                dbData.setReadList(Integer.parseInt(cursor.getString(3)));
-                dbData.setFavoriteList(Integer.parseInt(cursor.getString(4)));
-                dbData.setArchive(Integer.parseInt(cursor.getString(5)));
 
                 return dbData;
             }
@@ -171,7 +175,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-    public int update(DBData dbData) throws NullPointerException {
+    public int update(DBData dbData, String table) throws NullPointerException {
 
         Log.i(TAG, "update operation started");
 
@@ -181,18 +185,15 @@ public class DBHandler extends SQLiteOpenHelper {
         contentValues.put(COL_ID, dbData.getId());
         contentValues.put(COL_CONTENT, dbData.getContent());
         contentValues.put(COL_TYPE, dbData.getType());
-        contentValues.put(COL_READ_LIST, dbData.getReadList());
-        contentValues.put(COL_FAVORITE_LIST, dbData.getFavoriteList());
-        contentValues.put(COL_ARCHIVE, dbData.getArchive());
 
-        return db.update(TABLE_DATA, contentValues, COL_ID + " = ?", new String[]{dbData.getId()});
+        return db.update(table, contentValues, COL_ID + " = ?", new String[]{dbData.getId()});
     }
 
-    public void delete(DBData dbData) throws NullPointerException {
+    public void delete(DBData dbData, String table) throws NullPointerException {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete(TABLE_DATA, COL_ID + " = ?", new String[]{dbData.getId()});
+        db.delete(table, COL_ID + " = ?", new String[]{dbData.getId()});
         db.close();
     }
 }

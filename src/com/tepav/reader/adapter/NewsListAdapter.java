@@ -130,27 +130,20 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     break;
                 case R.id.ibFavorite:
 
-                    DBData dbData = new DBData();
-                    dbData.setId(news.getId());
-                    dbData.setContent(news.getContent());
-                    dbData.setType(DBData.TYPE_NEWS);
-                    dbData.setReadList(DBData.READ_LIST_FALSE);
-                    dbData.setFavoriteList(DBData.FAVORITE_LIST_TRUE);
-                    dbData.setArchive(DBData.ARCHIVE_FALSE);
-
-                    dbHandler.insert(dbData);
+                    try {
+                        dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
                     break;
                 case R.id.ibReadList:
-                    DBData dbData1 = new DBData();
-                    dbData1.setId(news.getId());
-                    dbData1.setContent(news.getContent());
-                    dbData1.setType(DBData.TYPE_NEWS);
-                    dbData1.setReadList(DBData.READ_LIST_TRUE);
-                    dbData1.setFavoriteList(DBData.FAVORITE_LIST_FALSE);
-                    dbData1.setArchive(DBData.ARCHIVE_FALSE);
 
-                    dbHandler.insert(dbData1);
+                    try {
+                        dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case R.id.frontOfNewsClick:
 

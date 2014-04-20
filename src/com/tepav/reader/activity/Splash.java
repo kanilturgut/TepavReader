@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import com.tepav.reader.R;
+import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 
 public class Splash extends Activity {
@@ -23,6 +24,8 @@ public class Splash extends Activity {
         setContentView(R.layout.splash);
 
         context = this;
+
+        DBHandler.getInstance(context);
 
         //Implementation of handler and its runnable
         startHandler = new Handler();

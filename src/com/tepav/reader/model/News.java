@@ -151,9 +151,6 @@ public class News extends DBData implements Serializable{
         dbData.setId(news.getId());
         dbData.setContent(news.getContent());
         dbData.setType(DBData.TYPE_NEWS);
-        dbData.setReadList(DBData.READ_LIST_FALSE);
-        dbData.setFavoriteList(DBData.FAVORITE_LIST_FALSE);
-        dbData.setArchive(DBData.ARCHIVE_FALSE);
 
         return dbData;
     }

@@ -12,48 +12,10 @@ public class DBData {
     public static int TYPE_BLOG = 1;
     public static int TYPE_PUBLICATION = 2;
 
-    //read list
-    public static int READ_LIST_TRUE = 1;
-    public static int READ_LIST_FALSE = 0;
-
-    //favorite list
-    public static int FAVORITE_LIST_TRUE = 1;
-    public static int FAVORITE_LIST_FALSE = 0;
-
-    //archive
-    public static int ARCHIVE_TRUE = 1;
-    public static int ARCHIVE_FALSE = 0;
-
     String id;
     String content;
     int type;
-    int readList;
-    int favoriteList;
-    int archive;
 
-    public int getArchive() {
-        return archive;
-    }
-
-    public void setArchive(int archive) {
-        this.archive = archive;
-    }
-
-    public int getFavoriteList() {
-        return favoriteList;
-    }
-
-    public void setFavoriteList(int favoriteList) {
-        this.favoriteList = favoriteList;
-    }
-
-    public int getReadList() {
-        return readList;
-    }
-
-    public void setReadList(int readList) {
-        this.readList = readList;
-    }
 
     public int getType() {
         return type;

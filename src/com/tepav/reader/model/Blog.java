@@ -144,9 +144,6 @@ public class Blog extends DBData implements Serializable {
         dbData.setId(blog.getId());
         dbData.setContent(blog.getContent());
         dbData.setType(DBData.TYPE_BLOG);
-        dbData.setReadList(DBData.READ_LIST_FALSE);
-        dbData.setFavoriteList(DBData.FAVORITE_LIST_FALSE);
-        dbData.setArchive(DBData.ARCHIVE_FALSE);
 
         return dbData;
     }

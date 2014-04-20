@@ -18,8 +18,6 @@ import com.tepav.reader.R;
 import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.RoundedImageView;
-import com.tepav.reader.helpers.swipelistview.BaseSwipeListViewListener;
-import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.News;
 import org.json.JSONArray;
 import org.json.JSONException;

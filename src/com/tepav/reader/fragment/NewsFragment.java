@@ -5,11 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
@@ -20,12 +18,14 @@ import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.WrapContentHeightViewPager;
 import com.tepav.reader.helpers.pagerindicator.CirclePageIndicator;
-import com.tepav.reader.helpers.swipelistview.BaseSwipeListViewListener;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.News;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Author : kanilturgut
@@ -41,7 +41,7 @@ public class NewsFragment extends Fragment {
     NewsPagerAdapter newsPagerAdapter;
     CirclePageIndicator circlePageIndicator;
 
-    String[] urls = new String[Constant.DRAWERS_PAGE_NUMBER];
+    List<News> newsListForPager = new LinkedList<News>();
 
     ProgressDialog progressDialog;
 
@@ -56,6 +56,7 @@ public class NewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_news, null);
 
         progressDialog =ProgressDialog.show(context, "Lütfen Bekleyiniz", "Haberler getiriliyor", false, false);
+
 
         viewPagerOfNews = (WrapContentHeightViewPager) view.findViewById(R.id.newsPager);
         circlePageIndicator = (CirclePageIndicator) view.findViewById(R.id.circleIndicatorOfNewsPager);
@@ -82,13 +83,13 @@ public class NewsFragment extends Fragment {
 
                 for (int i = 0 ; i < Constant.DRAWERS_PAGE_NUMBER; i++) {
                     try {
-                        urls[i] = News.fromJSON(object.getJSONObject(i)).getHimage();
+                        newsListForPager.add(News.fromJSON(object.getJSONObject(i)));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-                newsPagerAdapter = new NewsPagerAdapter(getFragmentManager(), context, urls);
+                newsPagerAdapter = new NewsPagerAdapter(getFragmentManager(), context, newsListForPager);
                 viewPagerOfNews.setAdapter(newsPagerAdapter);
                 circlePageIndicator.setViewPager(viewPagerOfNews);
 

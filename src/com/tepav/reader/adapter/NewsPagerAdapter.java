@@ -1,6 +1,7 @@
 package com.tepav.reader.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,7 +13,11 @@ import android.widget.ImageView;
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
+import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.helpers.Constant;
+import com.tepav.reader.model.News;
+
+import java.util.List;
 
 /**
  * Author : kanilturgut
@@ -23,13 +28,13 @@ public class NewsPagerAdapter extends FragmentStatePagerAdapter {
 
     static Context context = null;
     public static final String ARG_PAGE = "page";
-    static String[] urls;
+    static List<News> newsList;
 
-    public NewsPagerAdapter(FragmentManager fm, Context c, String[] urlList) {
+    public NewsPagerAdapter(FragmentManager fm, Context c, List<News> list) {
         super(fm);
 
         context = c;
-        urls = urlList;
+        newsList = list;
     }
 
     @Override
@@ -85,7 +90,16 @@ public class NewsPagerAdapter extends FragmentStatePagerAdapter {
             imageOptions.ratio = 9f/16f;
             imageOptions.round = 0;
 
-            aq.id(imageView).image(urls[myPageNumber], imageOptions);
+            aq.id(imageView).image(newsList.get(myPageNumber).getHimage(), imageOptions);
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, NewsDetails.class);
+                    intent.putExtra("class", newsList.get(myPageNumber));
+                    context.startActivity(intent);
+                }
+            });
 
             return view;
         }

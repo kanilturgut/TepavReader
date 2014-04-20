@@ -1,6 +1,7 @@
 package com.tepav.reader.activity;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.*;
 import com.tepav.reader.R;
+import com.tepav.reader.adapter.LeftMenuAdapter;
 import com.tepav.reader.fragment.BlogFragment;
 import com.tepav.reader.fragment.NewsFragment;
 import com.tepav.reader.helpers.Constant;
@@ -33,8 +35,12 @@ public class MainActivity extends FragmentActivity {
         slidingMenu = (SlidingMenu) this.getLayoutInflater().inflate(R.layout.activity_main, null);
         setContentView(slidingMenu);
 
+        TextView textView = (TextView) findViewById(R.id.tvActionBarHeader);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/tahoma.ttf");
+        textView.setTypeface(typeface, Typeface.BOLD);
+
         lvLeftMenu = (ListView) findViewById(R.id.lvLeftMenu);
-        lvLeftMenu.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.menu_items)));
+        lvLeftMenu.setAdapter(new LeftMenuAdapter(context, getResources().getStringArray(R.array.menu_items)));
         lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

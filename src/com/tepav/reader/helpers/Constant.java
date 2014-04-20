@@ -22,6 +22,9 @@ public class Constant {
     public static final String DISK_CACHE_FOR_PUBLICATION = "publicationCache.srl";
 
 
+    //left menu settings
+    public static final int LEFT_MENU_RIGHT_MARGIN = 20;
+
     //left menu items
     public static final int LEFT_MENU_ITEM_NEWS = 0;
     public static final int LEFT_MENU_ITEM_BLOGS = 1;

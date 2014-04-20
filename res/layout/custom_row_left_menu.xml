@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/action_bar_height"
+                    android:id="@+id/rlLeftMenuNormal"
+                    android:background="@color/beyaz"
+                    android:visibility="visible">
+
+        <ImageView android:layout_width="30dp" android:layout_height="30dp"
+                   android:id="@+id/ivLeftMenuNormalImageOfItem"
+                   android:layout_centerVertical="true"
+                   android:layout_marginLeft="@dimen/left_margin_of_left_menu_small"
+                   android:src="@drawable/ic_action_favorite"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textColor="@color/left_menu_text_acik"
+                  android:textSize="@dimen/text_size_of_left_menu"
+                  android:layout_centerVertical="true"
+                  android:id="@+id/tvLeftMenuNormalTitleOfItem"
+                  android:layout_toRightOf="@+id/ivLeftMenuNormalImageOfItem"
+                  android:layout_marginLeft="@dimen/left_margin_of_left_menu_small"/>
+
+        <View android:layout_width="1dp" android:layout_height="match_parent"
+              android:layout_alignParentRight="true"
+              android:background="@color/left_menu_background_koyu"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/action_bar_height"
+                    android:id="@+id/rlLeftMenuSubMenu"
+                    android:background="@color/left_menu_background_koyu"
+                    android:visibility="visible">
+
+        <ImageView android:layout_width="30dp" android:layout_height="30dp"
+                   android:id="@+id/ivLeftMenuSubMenuImageOfItem"
+                   android:layout_centerVertical="true"
+                   android:layout_marginLeft="@dimen/left_margin_of_left_menu_large"
+                   android:src="@drawable/ic_action_favorite"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textColor="@color/left_menu_text_koyu"
+                  android:textSize="@dimen/text_size_of_left_menu"
+                  android:layout_centerVertical="true"
+                  android:id="@+id/tvLeftMenuSubMenuTitleOfItem"
+                  android:layout_toRightOf="@+id/ivLeftMenuSubMenuImageOfItem"
+                  android:layout_marginLeft="@dimen/left_margin_of_left_menu_small"/>
+
+        <View android:layout_width="1dp" android:layout_height="match_parent"
+              android:layout_alignParentRight="true"
+              android:background="@color/left_menu_background_koyu"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/action_bar_height"
+                    android:id="@+id/rlLeftMenuNormalWithCount"
+                    android:background="@color/beyaz"
+                    android:visibility="visible">
+
+        <ImageView android:layout_width="30dp" android:layout_height="30dp"
+                   android:id="@+id/ivLeftMenuNormalImageOfItemlWithCount"
+                   android:layout_centerVertical="true"
+                   android:layout_marginLeft="@dimen/left_margin_of_left_menu_small"
+                   android:src="@drawable/ic_action_favorite"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textColor="@color/left_menu_text_acik"
+                  android:textSize="@dimen/text_size_of_left_menu"
+                  android:layout_centerVertical="true"
+                  android:id="@+id/tvLeftMenuNormalTitleOfItemlWithCount"
+                  android:layout_toRightOf="@+id/ivLeftMenuNormalImageOfItemlWithCount"
+                  android:layout_marginLeft="@dimen/left_margin_of_left_menu_small"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tvLeftMenuNormalCountOfItemlWithCount"
+                  android:layout_centerVertical="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_marginRight="@dimen/right_margin_of_left_menu_small"
+                  android:background="@drawable/rounded_corners"
+                  android:textColor="@color/beyaz"
+                  android:paddingTop="5dp"
+                  android:paddingBottom="5dp"
+                  android:paddingLeft="7dp"
+                  android:paddingRight="7dp"
+                  android:text="23"/>
+
+        <View android:layout_width="1dp" android:layout_height="match_parent"
+              android:layout_alignParentRight="true"
+              android:background="@color/left_menu_background_koyu"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

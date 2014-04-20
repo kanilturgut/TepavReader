@@ -8,5 +8,12 @@
     <color name="beyaz">#FFF</color>
 
     <color name="gri">#DDD</color>
+    <color name="koyu_gri">#666</color>
+
+    <!-- Left menu settings -->
+    <color name="left_menu_text_acik">#D3D5D7</color>
+    <color name="left_menu_text_koyu">#768088</color>
+    <color name="left_menu_background_acik">#FFFFFF</color>
+    <color name="left_menu_background_koyu">#F3F3F3</color>
     
 </resources>

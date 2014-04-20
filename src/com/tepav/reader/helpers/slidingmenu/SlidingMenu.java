@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
+import com.tepav.reader.helpers.Constant;
 
 public class SlidingMenu extends LinearLayout {
 
@@ -45,7 +46,7 @@ public class SlidingMenu extends LinearLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         mainLayoutWidth = MeasureSpec.getSize(widthMeasureSpec);
-        menuRightMargin = mainLayoutWidth * 30 / 100;
+        menuRightMargin = mainLayoutWidth * Constant.LEFT_MENU_RIGHT_MARGIN / 100;
     }
 
     @Override

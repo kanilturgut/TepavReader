@@ -16,7 +16,8 @@
                       android:layout_margin="5dp"
                       android:id="@+id/llHeaderBack">
 
-            <ImageView android:layout_width="@dimen/action_bar_back_button_size" android:layout_height="@dimen/action_bar_back_button_size"
+            <ImageView android:layout_width="@dimen/action_bar_back_button_size"
+                       android:layout_height="@dimen/action_bar_back_button_size"
                        android:layout_gravity="center_vertical"
                        android:src="@drawable/ic_action_previous_item"/>
 
@@ -94,6 +95,19 @@
                      android:id="@+id/wvNewsDetailContentOfNews">
 
             </WebView>
+
+            <LinearLayout
+                    android:id="@+id/filesLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:orientation="vertical">
+                <TextView
+                        android:id="@+id/fileLink"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>
@@ -152,7 +166,8 @@
 
             </LinearLayout>
 
-            <View android:layout_width="@dimen/footer_gap_between_button" android:layout_height="@dimen/footer_bar_height"
+            <View android:layout_width="@dimen/footer_gap_between_button"
+                  android:layout_height="@dimen/footer_bar_height"
                   android:background="@android:color/transparent"/>
 
             <LinearLayout
@@ -177,7 +192,8 @@
 
             </LinearLayout>
 
-            <View android:layout_width="@dimen/footer_gap_between_button" android:layout_height="@dimen/footer_bar_height"
+            <View android:layout_width="@dimen/footer_gap_between_button"
+                  android:layout_height="@dimen/footer_bar_height"
                   android:background="@android:color/transparent"/>
 
             <LinearLayout

@@ -30,7 +30,7 @@ public class BlogDetails extends Activity implements View.OnClickListener{
     WebView webView;
     TextView titleOfBlog, timeOfBlog;
 
-    LinearLayout llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, llFooterAddedToList;
+    LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, llFooterAddedToList;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +45,14 @@ public class BlogDetails extends Activity implements View.OnClickListener{
         llFooterShare = (LinearLayout) findViewById(R.id.llFooterShare);
         llFooterAddToList = (LinearLayout) findViewById(R.id.llFooterAddToList);
         llFooterAddedToList = (LinearLayout) findViewById(R.id.llFooterAddedToList);
+        llHeaderBack = (LinearLayout) findViewById(R.id.llHeaderBack);
 
         llFooterLike.setOnClickListener(this);
         llFooterAlreadyLiked.setOnClickListener(this);
         llFooterShare.setOnClickListener(this);
         llFooterAddToList.setOnClickListener(this);
         llFooterAddedToList.setOnClickListener(this);
+        llHeaderBack.setOnClickListener(this);
 
         Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, blog.getId(), llFooterLike, llFooterAlreadyLiked);
         Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, blog.getId(), llFooterAddToList, llFooterAddedToList);
@@ -113,6 +115,8 @@ public class BlogDetails extends Activity implements View.OnClickListener{
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        } else if (view == llHeaderBack) {
+            onBackPressed();
         }
     }
 }

@@ -18,7 +18,7 @@ import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
-import com.tepav.reader.helpers.RoundedImageView;
+import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.helpers.Util;
 import com.tepav.reader.model.News;
 import org.json.JSONArray;
@@ -91,7 +91,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         options.memCache = true;
         options.targetWidth = 0;
         options.fallback = 0;
-        options.round = 0;
+
 
         aq.id(holder.imageOfNews).image(news.getHimage(), options);
         holder.titleOfNews.setText(news.getHtitle());

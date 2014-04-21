@@ -67,12 +67,15 @@
                 android:layout_width="match_parent" android:layout_height="match_parent"
                 android:id="@+id/frontOfNewsClick">
 
-            <com.tepav.reader.helpers.RoundedImageView
+            <com.tepav.reader.helpers.roundedimageview.RoundedImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    app:corner_radius="5dp"
+                    android:scaleType="centerCrop"
                     android:id="@+id/ivImageOfNews"
                     android:src="@drawable/ic_launcher"
-                    android:layout_width="75dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="5dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"/>
 

@@ -111,7 +111,6 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         return convertView;
     }
 
-
     class MyOnClickListener implements View.OnClickListener {
 
         int position;
@@ -144,10 +143,26 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     }
 
                     break;
+                case R.id.ibFavorited:
+
+                    try {
+                        dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
                 case R.id.ibReadList:
 
                     try {
                         dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case R.id.ibReadListed:
+                    try {
+                        dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

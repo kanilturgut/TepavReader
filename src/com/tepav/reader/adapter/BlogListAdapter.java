@@ -1,7 +1,7 @@
 package com.tepav.reader.adapter;
 
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +14,12 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
+import com.tepav.reader.activity.NewsDetails;
+import com.tepav.reader.db.DBHandler;
+import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.RoundedImageView;
-import com.tepav.reader.model.Blog;
+import com.tepav.reader.helpers.Util;
 import com.tepav.reader.model.Blog;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,12 +33,13 @@ import java.util.List;
  * Date : 18.04.2014
  * Time : 12:45
  */
-public class BlogListAdapter extends ArrayAdapter<Blog> implements View.OnClickListener {
+public class BlogListAdapter extends ArrayAdapter<Blog> {
 
     Context context;
     List<Blog> blogList = new LinkedList<Blog>();
     int pageNumber;
     AQuery aq;
+    DBHandler dbHandler;
 
     public BlogListAdapter(Context c, int number) {
         super(c, R.layout.custom_blog_row);
@@ -43,6 +47,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog> implements View.OnClickL
         this.context = c;
         this.pageNumber = number;
 
+        dbHandler = DBHandler.getInstance(context);
         aq = new AQuery(context);
         loadMore();
     }
@@ -51,6 +56,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog> implements View.OnClickL
     public View getView(int position, View convertView, ViewGroup parent) {
 
         BlogHolder holder;
+        Blog blog = blogList.get(position);
 
         if (position == (blogList.size() - 1))
             loadMore();
@@ -71,7 +77,9 @@ public class BlogListAdapter extends ArrayAdapter<Blog> implements View.OnClickL
             //back view
             holder.ibShare = (ImageButton) convertView.findViewById(R.id.ibShare);
             holder.ibFavorite = (ImageButton) convertView.findViewById(R.id.ibFavorite);
+            holder.ibFavorited = (ImageButton) convertView.findViewById(R.id.ibFavorited);
             holder.ibReadList = (ImageButton) convertView.findViewById(R.id.ibReadList);
+            holder.ibReadListed = (ImageButton) convertView.findViewById(R.id.ibReadListed);
 
             convertView.setTag(holder);
 
@@ -86,35 +94,87 @@ public class BlogListAdapter extends ArrayAdapter<Blog> implements View.OnClickL
         options.fallback = 0;
         options.round = 0;
 
-        aq.id(holder.imageOfBlog).image(blogList.get(position).getPimage(), options);
-        holder.titleOfBlog.setText(blogList.get(position).getBtitle());
-        holder.dateOfBlog.setText(blogList.get(position).getBdate());
+        aq.id(holder.imageOfBlog).image(blog.getPimage(), options);
+        holder.titleOfBlog.setText(blog.getBtitle());
+        holder.dateOfBlog.setText(blog.getBdate());
 
-        holder.ibShare.setOnClickListener(this);
-        holder.ibFavorite.setOnClickListener(this);
-        holder.ibReadList.setOnClickListener(this);
-        holder.frontOfBlogClick.setOnClickListener(this);
+        MyOnClickListener myOnClickListener = new MyOnClickListener(position);
+        holder.ibShare.setOnClickListener(myOnClickListener);
+        holder.ibFavorite.setOnClickListener(myOnClickListener);
+        holder.ibReadList.setOnClickListener(myOnClickListener);
+        holder.frontOfBlogClick.setOnClickListener(myOnClickListener);
+
+        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, blog.getId(), holder.ibFavorite, holder.ibFavorited);
+        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, blog.getId(), holder.ibReadList, holder.ibReadListed);
 
         return convertView;
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.ibShare:
-                Log.i("Click", "Share");
-                break;
-            case R.id.ibFavorite:
-                Log.i("Click", "Favorite");
-                break;
-            case R.id.ibReadList:
-                Log.i("Click", "Read List");
-                break;
-            case R.id.frontOfBlogClick:
-                Log.i("Click", "Blog on front");
-                break;
+    class MyOnClickListener implements View.OnClickListener {
+
+        int position;
+
+        public MyOnClickListener(int pos) {
+            this.position = pos;
         }
 
+        @Override
+        public void onClick(View view) {
+
+            Blog blog = blogList.get(position);
+
+            switch (view.getId()) {
+                case R.id.ibShare:
+                    String url = Constant.SHARE_NEWS + blog.getGunluk_id();
+
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, blog.getBtitle());
+                    shareIntent.putExtra(Intent.EXTRA_TEXT,  blog.getBtitle() + " " + url);
+                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                    break;
+                case R.id.ibFavorite:
+
+                    try {
+                        dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+                case R.id.ibFavorited:
+
+                    try {
+                        dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+                case R.id.ibReadList:
+
+                    try {
+                        dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case R.id.ibReadListed:
+
+                    try {
+                        dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case R.id.frontOfNewsClick:
+
+                    Intent intent = new Intent(context, NewsDetails.class);
+                    intent.putExtra("class", blog);
+                    context.startActivity(intent);
+                    break;
+            }
+        }
     }
 
     class BlogHolder {
@@ -124,7 +184,9 @@ public class BlogListAdapter extends ArrayAdapter<Blog> implements View.OnClickL
         TextView dateOfBlog;
         ImageButton ibShare;
         ImageButton ibFavorite;
+        ImageButton ibFavorited;
         ImageButton ibReadList;
+        ImageButton ibReadListed;
         RelativeLayout frontOfBlogClick;
     }
 

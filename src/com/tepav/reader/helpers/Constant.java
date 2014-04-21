@@ -38,4 +38,5 @@ public class Constant {
 
     //share url's
     public static final String SHARE_NEWS = "http://www.tepav.org.tr/tr/haberler/s/";
+    public static final String SHARE_BLOG = "http://www.tepav.org.tr/tr/blog/s/";
 }

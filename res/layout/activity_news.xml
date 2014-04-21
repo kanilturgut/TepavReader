@@ -10,14 +10,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <View android:layout_width="match_parent" android:layout_height="@dimen/gradient_height"
-              android:id="@+id/gradient_upper"
-              android:layout_alignParentTop="true"
-              android:background="@drawable/gradient_upper"/>
+        <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                   android:scaleType="fitXY"
+                   android:contentDescription="@string/content_description"
+                   android:src="@drawable/blur_background"/>
+
 
         <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                      android:id="@+id/frameOfNews"
-                     android:layout_below="@+id/gradient_upper">
+                     android:layout_marginTop="@dimen/gradient_height"
+                     android:layout_alignParentTop="true">
 
             <com.tepav.reader.helpers.WrapContentHeightViewPager
                     android:id="@+id/newsPager"
@@ -47,12 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-        <View android:layout_width="match_parent" android:layout_height="@dimen/gradient_height"
-              android:id="@+id/gradient_lower"
-              android:background="@drawable/gradient_upper"
-              android:layout_above="@+id/swipeListViewOfNews"/>
-
         <com.tepav.reader.helpers.swipelistview.SwipeListView
+                android:layout_marginTop="@dimen/gradient_height"
                 android:id="@+id/swipeListViewOfNews"
                 android:layout_below="@+id/frameOfNews"
                 android:layout_width="fill_parent"

@@ -3,12 +3,12 @@ package com.tepav.reader.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
@@ -31,7 +31,9 @@ public class NewsDetails extends Activity implements View.OnClickListener {
     WebView webView;
     TextView titleOfNews, timeOfNews;
 
-    LinearLayout llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, llFooterAddedToList;
+    LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, llFooterAddedToList, llScrollViewChild;
+
+    RelativeLayout rlHeader, rlFooter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +48,14 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         llFooterShare = (LinearLayout) findViewById(R.id.llFooterShare);
         llFooterAddToList = (LinearLayout) findViewById(R.id.llFooterAddToList);
         llFooterAddedToList = (LinearLayout) findViewById(R.id.llFooterAddedToList);
+        llHeaderBack = (LinearLayout) findViewById(R.id.llHeaderBack);
 
         llFooterLike.setOnClickListener(this);
         llFooterAlreadyLiked.setOnClickListener(this);
         llFooterShare.setOnClickListener(this);
         llFooterAddToList.setOnClickListener(this);
         llFooterAddedToList.setOnClickListener(this);
+        llHeaderBack.setOnClickListener(this);
 
         Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, news.getId(), llFooterLike, llFooterAlreadyLiked);
         Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, news.getId(), llFooterAddToList, llFooterAddedToList);
@@ -64,6 +68,9 @@ public class NewsDetails extends Activity implements View.OnClickListener {
 
         timeOfNews = (TextView) findViewById(R.id.tvNewsDetailTimeInformationOfNews);
         timeOfNews.setText(news.getHdate());
+
+        rlHeader = (RelativeLayout) findViewById(R.id.llHeader);
+        rlFooter = (RelativeLayout) findViewById(R.id.rlFooter);
     }
 
     @Override
@@ -94,7 +101,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
-            shareIntent.putExtra(Intent.EXTRA_TEXT,  news.getHtitle() + " " + url);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
         } else if (view == llFooterAddToList) {
             try {
@@ -114,6 +121,8 @@ public class NewsDetails extends Activity implements View.OnClickListener {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        } else if (view == llHeaderBack) {
+            onBackPressed();
         }
     }
 }

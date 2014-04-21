@@ -1,7 +1,10 @@
 package com.tepav.reader.helpers;
 
 import android.content.Context;
+import android.os.AsyncTask;
+import android.view.View;
 import com.tepav.reader.R;
+import com.tepav.reader.db.DBHandler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,6 +61,35 @@ public class Util {
             e.printStackTrace();
             return new Date();
         }
+    }
+
+    public static void changeVisibility(View view) {
+        if (view.getVisibility() == View.VISIBLE)
+            view.setVisibility(View.GONE);
+        else
+            view.setVisibility(View.VISIBLE);
+    }
+
+    public static void checkIfIsContain(final DBHandler dbHandler, final String table, final String id, final View firstView, final View secondView) {
+
+        new AsyncTask<Void, Void, Boolean>() {
+
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                return dbHandler.isContain(table, id);
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                super.onPostExecute(aBoolean);
+
+                if (aBoolean) {
+                    Util.changeVisibility(firstView);
+                    Util.changeVisibility(secondView);
+                }
+
+            }
+        }.execute();
     }
 
 }

@@ -142,14 +142,14 @@ public class Blog extends DBData implements Serializable {
 
         DBData dbData = new DBData();
         dbData.setId(blog.getId());
-        dbData.setContent(blog.getContent());
+        dbData.setContent(Blog.toJSON(blog).toString());
         dbData.setType(DBData.TYPE_BLOG);
 
         return dbData;
     }
 
-    public static String fromDBData(DBData dbData) throws JSONException {
+    public static Blog fromDBData(DBData dbData) throws JSONException {
 
-        return dbData.getContent();
+        return Blog.fromJSON(new JSONObject(dbData.getContent()));
     }
 }

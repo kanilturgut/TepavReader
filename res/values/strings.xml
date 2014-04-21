@@ -10,8 +10,10 @@
     <string name="content_description">Nothing</string>
     
     <string name="like">Beğen</string>
+    <string name="liked">Beğenildi</string>
     <string name="share">Paylaş</string>
-    <string name="add_to_list">Listeye Al</string>
+    <string name="add_to_list">Listeye Ekle</string>
+    <string name="added_to_list">Listeye Eklendi</string>
 
     <string name="comp_sec">%d saniye önce</string>
     <string name="comp_min">%d dakika önce</string>

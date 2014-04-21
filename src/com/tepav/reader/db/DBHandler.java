@@ -140,6 +140,13 @@ public class DBHandler extends SQLiteOpenHelper {
         return null;
     }
 
+    public boolean isContain(String table, String id) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        return isContain(table, id, db);
+    }
+
     public boolean isContain(String table, String id, SQLiteDatabase db) {
 
         String query = "SELECT * FROM " + table + " WHERE " + COL_ID + "='" + id + "'";

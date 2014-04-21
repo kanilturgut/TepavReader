@@ -2,7 +2,6 @@ package com.tepav.reader.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.RoundedImageView;
-import com.tepav.reader.model.DBData;
+import com.tepav.reader.helpers.Util;
 import com.tepav.reader.model.News;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +55,8 @@ public class NewsListAdapter extends ArrayAdapter<News> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        NewsHolder holder;
+        final NewsHolder holder;
+        final News news = newsList.get(position);
 
         if (position == (newsList.size() - 1))
             loadMore();
@@ -76,7 +76,9 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             //back view
             holder.ibShare = (ImageButton) convertView.findViewById(R.id.ibShare);
             holder.ibFavorite = (ImageButton) convertView.findViewById(R.id.ibFavorite);
+            holder.ibFavorited = (ImageButton) convertView.findViewById(R.id.ibFavorited);
             holder.ibReadList = (ImageButton) convertView.findViewById(R.id.ibReadList);
+            holder.ibReadListed = (ImageButton) convertView.findViewById(R.id.ibReadListed);
 
             convertView.setTag(holder);
 
@@ -91,16 +93,20 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         options.fallback = 0;
         options.round = 0;
 
-        aq.id(holder.imageOfNews).image(newsList.get(position).getHimage(), options);
-        holder.titleOfNews.setText(newsList.get(position).getHtitle());
-        holder.dateOfNews.setText(newsList.get(position).getHdate());
+        aq.id(holder.imageOfNews).image(news.getHimage(), options);
+        holder.titleOfNews.setText(news.getHtitle());
+        holder.dateOfNews.setText(news.getHdate());
 
         MyOnClickListener myOnClickListener = new MyOnClickListener(position);
-
         holder.ibShare.setOnClickListener(myOnClickListener);
         holder.ibFavorite.setOnClickListener(myOnClickListener);
         holder.ibReadList.setOnClickListener(myOnClickListener);
+        holder.ibFavorited.setOnClickListener(myOnClickListener);
+        holder.ibReadListed.setOnClickListener(myOnClickListener);
         holder.frontOfNewsClick.setOnClickListener(myOnClickListener);
+
+        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, news.getId(), holder.ibFavorite, holder.ibFavorited);
+        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, news.getId(), holder.ibReadList, holder.ibReadListed);
 
         return convertView;
     }
@@ -114,10 +120,11 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             this.position = pos;
         }
 
-        News news = newsList.get(position);
-
         @Override
         public void onClick(View view) {
+
+            News news = newsList.get(position);
+
             switch (view.getId()) {
                 case R.id.ibShare:
                     String url = Constant.SHARE_NEWS + news.getHaber_id();
@@ -162,7 +169,9 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         TextView dateOfNews;
         ImageButton ibShare;
         ImageButton ibFavorite;
+        ImageButton ibFavorited;
         ImageButton ibReadList;
+        ImageButton ibReadListed;
         RelativeLayout frontOfNewsClick;
     }
 

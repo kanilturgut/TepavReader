@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Date : 21.04.2014
  * Time : 21:45
  */
-public class Publication {
+public class Publication implements Serializable{
 
     public static String TYPE_NOTES = "Notlar";
     public static String TYPE_PRINTED_PUBLICATIONS = "Basılı Yayınlar";

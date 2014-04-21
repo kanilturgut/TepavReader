@@ -3,7 +3,6 @@ package com.tepav.reader.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
@@ -13,32 +12,32 @@ import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Util;
-import com.tepav.reader.model.News;
+import com.tepav.reader.model.Blog;
 import org.json.JSONException;
 
 /**
  * Author : kanilturgut
- * Date : 19.04.2014
- * Time : 19:24
+ * Date : 21.04.2014
+ * Time : 10:47
  */
-public class NewsDetails extends Activity implements View.OnClickListener {
+public class BlogDetails extends Activity implements View.OnClickListener{
 
     Context context;
     DBHandler dbHandler;
 
-    News news;
+    Blog blog;
 
     WebView webView;
-    TextView titleOfNews, timeOfNews;
+    TextView titleOfBlog, timeOfBlog;
 
     LinearLayout llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, llFooterAddedToList;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_details);
+        setContentView(R.layout.activity_blog_details);
         this.context = this;
 
-        news = (News) getIntent().getSerializableExtra("class");
+        blog = (Blog) getIntent().getSerializableExtra("class");
         dbHandler = DBHandler.getInstance(context);
 
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
@@ -53,17 +52,17 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         llFooterAddToList.setOnClickListener(this);
         llFooterAddedToList.setOnClickListener(this);
 
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, news.getId(), llFooterLike, llFooterAlreadyLiked);
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, news.getId(), llFooterAddToList, llFooterAddedToList);
+        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, blog.getId(), llFooterLike, llFooterAlreadyLiked);
+        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, blog.getId(), llFooterAddToList, llFooterAddedToList);
 
-        webView = (WebView) findViewById(R.id.wvNewsDetailContentOfNews);
-        webView.loadData(news.getHcontent(), "text/html; charset=UTF-8", null);
+        webView = (WebView) findViewById(R.id.wvBlogDetailContentOfBlog);
+        webView.loadData(blog.getBcontent(), "text/html; charset=UTF-8", null);
 
-        titleOfNews = (TextView) findViewById(R.id.tvNewsDetailTitleOfNews);
-        titleOfNews.setText(news.getHtitle());
+        titleOfBlog = (TextView) findViewById(R.id.tvBlogDetailTitleOfBlog);
+        titleOfBlog.setText(blog.getBtitle());
 
-        timeOfNews = (TextView) findViewById(R.id.tvNewsDetailTimeInformationOfNews);
-        timeOfNews.setText(news.getHdate());
+        timeOfBlog = (TextView) findViewById(R.id.tvBlogDetailTimeInformationOfBlog);
+        timeOfBlog.setText(blog.getBdate());
     }
 
     @Override
@@ -72,7 +71,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         if (view == llFooterLike) {
 
             try {
-                dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
                 Util.changeVisibility(llFooterLike);
                 Util.changeVisibility(llFooterAlreadyLiked);
             } catch (JSONException e) {
@@ -81,7 +80,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
 
         } else if (view == llFooterAlreadyLiked) {
             try {
-                dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
                 Util.changeVisibility(llFooterLike);
                 Util.changeVisibility(llFooterAlreadyLiked);
             } catch (JSONException e) {
@@ -89,16 +88,16 @@ public class NewsDetails extends Activity implements View.OnClickListener {
             }
 
         } else if (view == llFooterShare) {
-            String url = Constant.SHARE_NEWS + news.getHaber_id();
+            String url = Constant.SHARE_BLOG + blog.getGunluk_id();
 
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
-            shareIntent.putExtra(Intent.EXTRA_TEXT,  news.getHtitle() + " " + url);
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, blog.getBtitle());
+            shareIntent.putExtra(Intent.EXTRA_TEXT,  blog.getBtitle() + " " + url);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
         } else if (view == llFooterAddToList) {
             try {
-                dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
                 Util.changeVisibility(llFooterAddToList);
                 Util.changeVisibility(llFooterAddedToList);
             } catch (JSONException e) {
@@ -108,7 +107,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         } else if (view == llFooterAddedToList) {
 
             try {
-                dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
                 Util.changeVisibility(llFooterAddToList);
                 Util.changeVisibility(llFooterAddedToList);
             } catch (JSONException e) {

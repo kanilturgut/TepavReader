@@ -14,7 +14,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
-import com.tepav.reader.activity.NewsDetails;
+import com.tepav.reader.activity.BlogDetails;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
@@ -125,7 +125,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
 
             switch (view.getId()) {
                 case R.id.ibShare:
-                    String url = Constant.SHARE_NEWS + blog.getGunluk_id();
+                    String url = Constant.SHARE_BLOG + blog.getGunluk_id();
 
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
@@ -167,9 +167,9 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
                         e.printStackTrace();
                     }
                     break;
-                case R.id.frontOfNewsClick:
+                case R.id.frontOfBlogClick:
 
-                    Intent intent = new Intent(context, NewsDetails.class);
+                    Intent intent = new Intent(context, BlogDetails.class);
                     intent.putExtra("class", blog);
                     context.startActivity(intent);
                     break;

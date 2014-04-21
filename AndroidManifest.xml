@@ -26,5 +26,6 @@
         <activity android:name=".activity.MainActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".activity.NewsDetails"/>
+        <activity android:name=".activity.BlogDetails"/>
     </application>
 </manifest>

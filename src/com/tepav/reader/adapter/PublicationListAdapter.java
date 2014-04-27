@@ -37,11 +37,13 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
     int pageNumber;
     AQuery aq;
     DBHandler dbHandler;
+    String publicationType;
 
-    public PublicationListAdapter(Context ctx, int number) {
+    public PublicationListAdapter(Context ctx, String type, int number) {
         super(ctx, R.layout.custom_publication_row);
 
         this.context = ctx;
+        this.publicationType = type;
         this.pageNumber = number;
 
         dbHandler = DBHandler.getInstance(context);
@@ -83,7 +85,7 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
         }
 
         holder.titleOfPublication.setText(publication.getYtitle());
-        holder.dateOfPublication.setText(publication.getYdate());
+        holder.dateOfPublication.setText(publication.getYdate() + ", " + publication.getYtype());
 
         MyOnClickListener myOnClickListener = new MyOnClickListener(position);
         holder.ibShare.setOnClickListener(myOnClickListener);
@@ -197,8 +199,13 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
                 if (object != null && object.length() != 0) {
                     for (int i = 0; i < object.length(); i++) {
                         try {
-                            temp.add(Publication.fromJSON(object.getJSONObject(i)));
+                            Publication tmpPub = Publication.fromJSON(object.getJSONObject(i));
+                            if (publicationType.equals(context.getString(R.string.Research_And_Publications)))
+                                temp.add(tmpPub);
+                            else if (tmpPub.getYtype().equals(publicationType))
+                                temp.add(tmpPub);
 
+                            tmpPub = null;
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.PublicationListAdapter;
+import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
 
 /**
@@ -20,10 +22,13 @@ import com.tepav.reader.helpers.swipelistview.SwipeListView;
 public class PublicationFragment extends Fragment {
 
     Context context;
-
     SwipeListView swipeListViewOfPublication;
-
     RelativeLayout rlLoading;
+    String publicationType;
+
+    public PublicationFragment(String type) {
+        this.publicationType = type;
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -37,10 +42,12 @@ public class PublicationFragment extends Fragment {
 
         rlLoading = (RelativeLayout) view.findViewById(R.id.rlLoading);
 
+        TextView tvTypeOfPublication = (TextView) view.findViewById(R.id.tvTypeOfPublication);
+        tvTypeOfPublication.setText(publicationType);
 
         //swipe list view of publication
         swipeListViewOfPublication = (SwipeListView) view.findViewById(R.id.swipeListViewOfPublication);
-        swipeListViewOfPublication.setAdapter(new PublicationListAdapter(context, 1));
+        swipeListViewOfPublication.setAdapter(new PublicationListAdapter(context, publicationType, 1));
 
         rlLoading.setVisibility(View.GONE);
 

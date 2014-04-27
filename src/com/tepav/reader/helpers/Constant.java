@@ -28,7 +28,7 @@ public class Constant {
     //left menu items
     public static final int LEFT_MENU_ITEM_NEWS = 0;
     public static final int LEFT_MENU_ITEM_BLOGS = 1;
-    public static final int LEFT_MENU_ITEM_PUBLICATIONS = 2;
+    public static final int LEFT_MENU_ITEM_RESEARCH_AND_PUBLICATIONS = 2;
     public static final int LEFT_MENU_ITEM_REPORTS = 3;
     public static final int LEFT_MENU_ITEM_NOTES = 4;
     public static final int LEFT_MENU_ITEM_PRINTED_PUBLICATIONS = 5;

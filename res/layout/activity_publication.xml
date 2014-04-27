@@ -16,7 +16,7 @@
 
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:id="@+id/tvFavorites"
+                  android:id="@+id/tvTypeOfPublication"
                   android:layout_alignParentTop="true"
                   android:layout_alignParentLeft="true"
                   android:text="@string/Research_And_Publications"
@@ -29,7 +29,7 @@
 
 
         <com.tepav.reader.helpers.swipelistview.SwipeListView
-                android:layout_below="@+id/tvFavorites"
+                android:layout_below="@+id/tvTypeOfPublication"
                 android:id="@+id/swipeListViewOfPublication"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

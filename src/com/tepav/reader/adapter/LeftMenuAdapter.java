@@ -45,7 +45,7 @@ public class LeftMenuAdapter extends ArrayAdapter<String>{
         switch (position) {
             case Constant.LEFT_MENU_ITEM_NEWS:
             case Constant.LEFT_MENU_ITEM_BLOGS:
-            case Constant.LEFT_MENU_ITEM_PUBLICATIONS:
+            case Constant.LEFT_MENU_ITEM_RESEARCH_AND_PUBLICATIONS:
                 changeVisibility(rlLeftMenuNormal, rlLeftMenuSubMenu, rlLeftMenuNormalWithCount);
 
                 ivLeftMenuNormalImageOfItem = (ImageView) rowView.findViewById(R.id.ivLeftMenuNormalImageOfItem);

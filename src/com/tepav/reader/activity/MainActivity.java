@@ -77,25 +77,28 @@ public class MainActivity extends FragmentActivity {
 
         switch (position) {
             case Constant.LEFT_MENU_ITEM_NEWS:
-                fragmentTag = "Haberler";
+                fragmentTag = getString(R.string.News);
                 fragment = new NewsFragment();
                 break;
             case Constant.LEFT_MENU_ITEM_BLOGS:
-                fragmentTag = "Gunluk";
+                fragmentTag = getString(R.string.Blogs);
                 fragment = new BlogFragment();
                 break;
-            case Constant.LEFT_MENU_ITEM_PUBLICATIONS:
-                fragmentTag = "asdsadsa";
-                fragment = new PublicationFragment();
+            case Constant.LEFT_MENU_ITEM_RESEARCH_AND_PUBLICATIONS:
+                fragmentTag = getString(R.string.Research_And_Publications);
+                fragment = new PublicationFragment(fragmentTag);
                 break;
             case Constant.LEFT_MENU_ITEM_REPORTS:
-                notImplemented();
+                fragmentTag = getString(R.string.Reports);
+                fragment = new PublicationFragment(fragmentTag);
                 break;
             case Constant.LEFT_MENU_ITEM_NOTES:
-                notImplemented();
+                fragmentTag = getString(R.string.Notes);
+                fragment = new PublicationFragment(fragmentTag);
                 break;
             case Constant.LEFT_MENU_ITEM_PRINTED_PUBLICATIONS:
-                notImplemented();
+                fragmentTag = getString(R.string.Printed_Publications);
+                fragment = new PublicationFragment(fragmentTag);
                 break;
             case Constant.LEFT_MENU_ITEM_MY_READ_LIST:
                 notImplemented();

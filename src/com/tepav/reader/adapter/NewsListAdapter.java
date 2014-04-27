@@ -38,6 +38,7 @@ import java.util.List;
  */
 public class NewsListAdapter extends ArrayAdapter<News> {
 
+    String TAG = "NewsListAdapter";
     Context context;
     List<News> newsList = new LinkedList<News>();
     int pageNumber;
@@ -98,10 +99,10 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         Bitmap bmp = aq.getCachedImage(news.getHimage());
         if (bmp == null) {
             aq.id(holder.imageOfNews).image(news.getHimage(), options);
-            Log.i("TAG", "image receieved from server");
+            Log.i(TAG, "image received from server");
         } else {
             holder.imageOfNews.setImageBitmap(bmp);
-            Log.i("TAG", "image receieved from cache");
+            Log.i(TAG, "image received from cache");
         }
 
         holder.titleOfNews.setText(news.getHtitle());

@@ -2,6 +2,8 @@ package com.tepav.reader.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,7 @@ import java.util.List;
  */
 public class BlogListAdapter extends ArrayAdapter<Blog> {
 
+    String TAG = "BlogListAdapter";
     Context context;
     List<Blog> blogList = new LinkedList<Blog>();
     int pageNumber;
@@ -93,7 +96,16 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
         options.targetWidth = 0;
         options.fallback = R.drawable.no_image;
 
-        aq.id(holder.imageOfBlog).image(blog.getPimage(), options);
+        Bitmap cachedBitmap = aq.getCachedImage(blog.getPimage());
+        if (cachedBitmap == null) {
+            aq.id(holder.imageOfBlog).image(blog.getPimage(), options);
+            Log.i(TAG, "image received from server");
+        } else {
+            holder.imageOfBlog.setImageBitmap(cachedBitmap);
+            Log.i(TAG, "image received from cache");
+        }
+
+
         holder.titleOfBlog.setText(blog.getBtitle());
         holder.dateOfBlog.setText(blog.getBdate());
 

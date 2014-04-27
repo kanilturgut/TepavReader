@@ -83,13 +83,6 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
             holder = (PublicationHolder) convertView.getTag();
         }
 
-        ImageOptions options = new ImageOptions();
-        options.fileCache = true;
-        options.memCache = true;
-        options.targetWidth = 0;
-        options.fallback = 0;
-
-
         holder.titleOfPublication.setText(publication.getYtitle());
         holder.dateOfPublication.setText(publication.getYdate());
 

@@ -44,4 +44,9 @@
     </string-array>
 
     <string name="loading">Yükleniyor…</string>
+
+    <string name="doc_downloading">Dosya yükleniyor</string>
+    <string name="open_doc">Dökümanı açmak için tıklayınız</string>
+    <string name="not_found_doc">Açmak istediğiniz döküman bulunamadı!</string>
+    <string name="no_doc">Bu yayına ait bir döküman bulunmamaktadır</string>
 </resources>

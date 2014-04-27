@@ -13,6 +13,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
+import com.tepav.reader.activity.PublicationDetails;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
@@ -159,9 +160,9 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
                     break;
                 case R.id.frontOfPublicationClick:
 
-                    //Intent intent = new Intent(context, PublicationDetails.class);
-                    //intent.putExtra("class", publication);
-                    //context.startActivity(intent);
+                    Intent intent = new Intent(context, PublicationDetails.class);
+                    intent.putExtra("class", publication);
+                    context.startActivity(intent);
                     break;
             }
         }

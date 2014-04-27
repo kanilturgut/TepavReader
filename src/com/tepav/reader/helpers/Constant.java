@@ -21,6 +21,8 @@ public class Constant {
     public static final String DISK_CACHE_FOR_BLOG = "blogCache.srl";
     public static final String DISK_CACHE_FOR_PUBLICATION = "publicationCache.srl";
 
+    //pdf location
+    public static final String PDF_TARGET = "tepavReader/";
 
     //left menu settings
     public static final int LEFT_MENU_RIGHT_MARGIN = 20;
@@ -39,4 +41,6 @@ public class Constant {
     //share url's
     public static final String SHARE_NEWS = "http://www.tepav.org.tr/tr/haberler/s/";
     public static final String SHARE_BLOG = "http://www.tepav.org.tr/tr/blog/s/";
+    public static final String SHARE_PUBLICATION = "http://www.tepav.org.tr/tr/yayin/s/";
+
 }

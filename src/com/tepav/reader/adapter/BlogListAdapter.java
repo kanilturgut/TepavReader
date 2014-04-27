@@ -91,8 +91,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
         options.fileCache = true;
         options.memCache = true;
         options.targetWidth = 0;
-        options.fallback = 0;
-        options.round = 0;
+        options.fallback = R.drawable.no_image;
 
         aq.id(holder.imageOfBlog).image(blog.getPimage(), options);
         holder.titleOfBlog.setText(blog.getBtitle());

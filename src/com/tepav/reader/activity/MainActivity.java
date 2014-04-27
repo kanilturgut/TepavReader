@@ -13,6 +13,7 @@ import com.tepav.reader.R;
 import com.tepav.reader.adapter.LeftMenuAdapter;
 import com.tepav.reader.fragment.BlogFragment;
 import com.tepav.reader.fragment.NewsFragment;
+import com.tepav.reader.fragment.PublicationFragment;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.slidingmenu.SlidingMenu;
 
@@ -84,7 +85,8 @@ public class MainActivity extends FragmentActivity {
                 fragment = new BlogFragment();
                 break;
             case Constant.LEFT_MENU_ITEM_PUBLICATIONS:
-                notImplemented();
+                fragmentTag = "asdsadsa";
+                fragment = new PublicationFragment();
                 break;
             case Constant.LEFT_MENU_ITEM_REPORTS:
                 notImplemented();

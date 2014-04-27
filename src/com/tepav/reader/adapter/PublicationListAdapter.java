@@ -2,9 +2,6 @@ package com.tepav.reader.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +14,11 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
-import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
-import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.helpers.Util;
-import com.tepav.reader.model.News;
+import com.tepav.reader.model.Publication;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,19 +28,19 @@ import java.util.List;
 
 /**
  * Author : kanilturgut
- * Date : 16.04.2014
- * Time : 15:29
+ * Date : 21.04.2014
+ * Time : 21:43
  */
-public class NewsListAdapter extends ArrayAdapter<News> {
+public class PublicationListAdapter extends ArrayAdapter<Publication> {
 
     Context context;
-    List<News> newsList = new LinkedList<News>();
+    List<Publication> publicationList = new LinkedList<Publication>();
     int pageNumber;
     AQuery aq;
     DBHandler dbHandler;
 
-    public NewsListAdapter(Context ctx, int number) {
-        super(ctx, R.layout.custom_news_row);
+    public PublicationListAdapter(Context ctx, int number) {
+        super(ctx, R.layout.custom_publication_row);
 
         this.context = ctx;
         this.pageNumber = number;
@@ -58,23 +53,22 @@ public class NewsListAdapter extends ArrayAdapter<News> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        final NewsHolder holder;
-        final News news = newsList.get(position);
+        final PublicationHolder holder;
+        final Publication publication = publicationList.get(position);
 
-        if (position == (newsList.size() - 1))
+        if (position == (publicationList.size() - 1))
             loadMore();
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.custom_news_row, parent, false);
+            convertView = inflater.inflate(R.layout.custom_publication_row, parent, false);
 
-            holder = new NewsHolder();
+            holder = new PublicationHolder();
 
             //front view
-            holder.frontOfNewsClick = (RelativeLayout) convertView.findViewById(R.id.frontOfNewsClick);
-            holder.imageOfNews = (RoundedImageView) convertView.findViewById(R.id.ivImageOfNews);
-            holder.titleOfNews = (TextView) convertView.findViewById(R.id.tvTitleOfNews);
-            holder.dateOfNews = (TextView) convertView.findViewById(R.id.tvDateOfNews);
+            holder.frontOfPublicationClick = (RelativeLayout) convertView.findViewById(R.id.frontOfPublicationClick);
+            holder.titleOfPublication = (TextView) convertView.findViewById(R.id.tvTitleOfPublication);
+            holder.dateOfPublication = (TextView) convertView.findViewById(R.id.tvDateOfPublication);
 
             //back view
             holder.ibShare = (ImageButton) convertView.findViewById(R.id.ibShare);
@@ -86,26 +80,18 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             convertView.setTag(holder);
 
         } else {
-            holder = (NewsHolder) convertView.getTag();
+            holder = (PublicationHolder) convertView.getTag();
         }
 
         ImageOptions options = new ImageOptions();
         options.fileCache = true;
         options.memCache = true;
         options.targetWidth = 0;
-        options.fallback = R.drawable.no_image;
+        options.fallback = 0;
 
-        Bitmap bmp = aq.getCachedImage(news.getHimage());
-        if (bmp == null) {
-            aq.id(holder.imageOfNews).image(news.getHimage(), options);
-            Log.i("TAG", "image receieved from server");
-        } else {
-            holder.imageOfNews.setImageBitmap(bmp);
-            Log.i("TAG", "image receieved from cache");
-        }
 
-        holder.titleOfNews.setText(news.getHtitle());
-        holder.dateOfNews.setText(news.getHdate());
+        holder.titleOfPublication.setText(publication.getYtitle());
+        holder.dateOfPublication.setText(publication.getYdate());
 
         MyOnClickListener myOnClickListener = new MyOnClickListener(position);
         holder.ibShare.setOnClickListener(myOnClickListener);
@@ -113,10 +99,10 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         holder.ibReadList.setOnClickListener(myOnClickListener);
         holder.ibFavorited.setOnClickListener(myOnClickListener);
         holder.ibReadListed.setOnClickListener(myOnClickListener);
-        holder.frontOfNewsClick.setOnClickListener(myOnClickListener);
+        holder.frontOfPublicationClick.setOnClickListener(myOnClickListener);
 
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, news.getId(), holder.ibFavorite, holder.ibFavorited);
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, news.getId(), holder.ibReadList, holder.ibReadListed);
+        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, publication.getId(), holder.ibFavorite, holder.ibFavorited);
+        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, publication.getId(), holder.ibReadList, holder.ibReadListed);
 
         return convertView;
     }
@@ -132,22 +118,22 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         @Override
         public void onClick(View view) {
 
-            News news = newsList.get(position);
+            Publication publication = publicationList.get(position);
 
             switch (view.getId()) {
                 case R.id.ibShare:
-                    String url = Constant.SHARE_NEWS + news.getHaber_id();
+                    String url = Constant.SHARE_NEWS + publication.getYayin_id();
 
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
-                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
-                    shareIntent.putExtra(Intent.EXTRA_TEXT,  news.getHtitle() + " " + url);
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, publication.getYtitle());
+                    shareIntent.putExtra(Intent.EXTRA_TEXT,  publication.getYtitle() + " " + url);
                     context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
                     break;
                 case R.id.ibFavorite:
 
                     try {
-                        dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                        dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -156,7 +142,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                 case R.id.ibFavorited:
 
                     try {
-                        dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                        dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -165,39 +151,38 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                 case R.id.ibReadList:
 
                     try {
-                        dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                        dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     break;
                 case R.id.ibReadListed:
                     try {
-                        dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                        dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     break;
-                case R.id.frontOfNewsClick:
+                case R.id.frontOfPublicationClick:
 
-                    Intent intent = new Intent(context, NewsDetails.class);
-                    intent.putExtra("class", news);
-                    context.startActivity(intent);
+                    //Intent intent = new Intent(context, PublicationDetails.class);
+                    //intent.putExtra("class", publication);
+                    //context.startActivity(intent);
                     break;
             }
         }
     }
 
-    class NewsHolder {
+    class PublicationHolder {
 
-        RoundedImageView imageOfNews;
-        TextView titleOfNews;
-        TextView dateOfNews;
+        TextView titleOfPublication;
+        TextView dateOfPublication;
         ImageButton ibShare;
         ImageButton ibFavorite;
         ImageButton ibFavorited;
         ImageButton ibReadList;
         ImageButton ibReadListed;
-        RelativeLayout frontOfNewsClick;
+        RelativeLayout frontOfPublicationClick;
     }
 
     public void loadMore() {
@@ -210,24 +195,24 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             e.printStackTrace();
         }
 
-        aq.post(HttpURL.createURL(HttpURL.news), params, JSONArray.class, new AjaxCallback<JSONArray>() {
+        aq.post(HttpURL.createURL(HttpURL.publication), params, JSONArray.class, new AjaxCallback<JSONArray>() {
 
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
 
-                List<News> temp = new LinkedList<News>();
+                List<Publication> temp = new LinkedList<Publication>();
 
                 if (object != null && object.length() != 0) {
                     for (int i = 0; i < object.length(); i++) {
                         try {
-                            temp.add(News.fromJSON(object.getJSONObject(i)));
+                            temp.add(Publication.fromJSON(object.getJSONObject(i)));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-                    newsList.addAll(temp);
+                    publicationList.addAll(temp);
                     addAll(temp);
                     notifyDataSetChanged();
 

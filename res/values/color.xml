@@ -15,5 +15,7 @@
     <color name="left_menu_text_koyu">#768088</color>
     <color name="left_menu_background_acik">#FFFFFF</color>
     <color name="left_menu_background_koyu">#F3F3F3</color>
+
+    <color name="favorites_font_color">#8F979F</color>
     
 </resources>

@@ -6,6 +6,13 @@
     <string name="tepav">tepav</string>
     <string name="News">Haberler</string>
     <string name="Blogs">Günlükler</string>
+    <string name="Research_And_Publications">Araştırma ve Yayınlar</string>
+    <string name="Reports">Raporlar</string>
+    <string name="Notes">Notlar</string>
+    <string name="Printed_Publications">Basılı Yayınlar</string>
+    <string name="Read_List">Okuma Listem</string>
+    <string name="Favorites">Favoriler</string>
+    <string name="Readed_Documents">Okuduklarım</string>
 
     <string name="content_description">Nothing</string>
     
@@ -35,4 +42,6 @@
         <item>Favoriler</item>
         <item>Okuduklarım</item>
     </string-array>
+
+    <string name="loading">Yükleniyor…</string>
 </resources>

@@ -69,7 +69,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         timeOfNews = (TextView) findViewById(R.id.tvNewsDetailTimeInformationOfNews);
         timeOfNews.setText(news.getHdate());
 
-        for (File file: news.getFiles()) {
+        for (File file : news.getFiles()) {
             filesLayout.addView(createTextView(file));
         }
 
@@ -86,12 +86,11 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent openPDFIntent = new Intent(context PDFDownloadActvity.class);
+                Intent openPDFIntent = new Intent(context, PDFDownloadActivity.class);
                 openPDFIntent.putExtra("file_name", file.getName());
                 openPDFIntent.putExtra("file_url", file.getUrl());
-                openPDFIntent.putExtra("class", news);
                 startActivity(openPDFIntent);
-*/            }
+            }
         });
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

@@ -12,6 +12,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -20,6 +21,7 @@ import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Util;
+import com.tepav.reader.helpers.popup.QuickAction;
 import com.tepav.reader.model.Publication;
 import org.json.JSONException;
 
@@ -35,12 +37,14 @@ public class PublicationDetails extends Activity implements View.OnClickListener
     String TAG = "PublicationDetails";
     Context context;
     DBHandler dbHandler;
+    QuickAction quickAction;
 
     Publication publication;
 
     WebView webView;
     TextView titleOfPublication, timeOfPublication;
-    LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, llFooterAddedToList, filesLayout;
+    LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, filesLayout;
+    RelativeLayout rlFooter;
     Button buttonOpenPDF;
 
     AQuery aQuery = null;
@@ -54,20 +58,20 @@ public class PublicationDetails extends Activity implements View.OnClickListener
         publication = (Publication) getIntent().getSerializableExtra("class");
         dbHandler = DBHandler.getInstance(context);
         aQuery = new AQuery(context);
+        quickAction = new QuickAction(context, dbHandler, publication);
 
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
         llFooterAlreadyLiked = (LinearLayout) findViewById(R.id.llFooterAlreadyLiked);
         llFooterShare = (LinearLayout) findViewById(R.id.llFooterShare);
         llFooterAddToList = (LinearLayout) findViewById(R.id.llFooterAddToList);
-        llFooterAddedToList = (LinearLayout) findViewById(R.id.llFooterAddedToList);
         llHeaderBack = (LinearLayout) findViewById(R.id.llHeaderBack);
         filesLayout = (LinearLayout) findViewById(R.id.filesLayout);
+        rlFooter = (RelativeLayout) findViewById(R.id.rlFooter);
 
         llFooterLike.setOnClickListener(this);
         llFooterAlreadyLiked.setOnClickListener(this);
         llFooterShare.setOnClickListener(this);
         llFooterAddToList.setOnClickListener(this);
-        llFooterAddedToList.setOnClickListener(this);
         llHeaderBack.setOnClickListener(this);
 
         buttonOpenPDF = (Button) findViewById(R.id.buttonOpenPDF);
@@ -80,8 +84,8 @@ public class PublicationDetails extends Activity implements View.OnClickListener
         }
 
 
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, publication.getId(), llFooterLike, llFooterAlreadyLiked);
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, publication.getId(), llFooterAddToList, llFooterAddedToList);
+        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, publication.getId(), llFooterLike, llFooterAlreadyLiked);
+        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, publication.getId(), llFooterAddToList, llFooterAddedToList);
 
         webView = (WebView) findViewById(R.id.wvPublicationDetailContentOfPublication);
         webView.loadData(publication.getYcontent(), "text/html; charset=UTF-8", null);
@@ -97,22 +101,12 @@ public class PublicationDetails extends Activity implements View.OnClickListener
     public void onClick(View view) {
         if (view == llFooterLike) {
 
-            try {
-                dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
                 Util.changeVisibility(llFooterLike);
                 Util.changeVisibility(llFooterAlreadyLiked);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
         } else if (view == llFooterAlreadyLiked) {
-            try {
-                dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
                 Util.changeVisibility(llFooterLike);
                 Util.changeVisibility(llFooterAlreadyLiked);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
         } else if (view == llFooterShare) {
             String url = Constant.SHARE_PUBLICATION + publication.getYayin_id();
@@ -123,23 +117,9 @@ public class PublicationDetails extends Activity implements View.OnClickListener
             shareIntent.putExtra(Intent.EXTRA_TEXT, publication.getYtitle() + " " + url);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
         } else if (view == llFooterAddToList) {
-            try {
-                dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
-                Util.changeVisibility(llFooterAddToList);
-                Util.changeVisibility(llFooterAddedToList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
-        } else if (view == llFooterAddedToList) {
-
-            try {
-                dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
-                Util.changeVisibility(llFooterAddToList);
-                Util.changeVisibility(llFooterAddedToList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            quickAction.show(rlFooter);
+            quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
         } else if (view == llHeaderBack) {
             onBackPressed();
         } else if (view == buttonOpenPDF) {

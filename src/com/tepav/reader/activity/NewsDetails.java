@@ -35,7 +35,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
     WebView webView;
     TextView titleOfNews, timeOfNews;
 
-    LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, llFooterAddedToList, filesLayout;
+    LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, filesLayout;
     RelativeLayout rlFooter;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -44,14 +44,12 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         this.context = this;
         news = (News) getIntent().getSerializableExtra("class");
         dbHandler = DBHandler.getInstance(context);
-
         quickAction = new QuickAction(context, dbHandler, news);
 
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
         llFooterAlreadyLiked = (LinearLayout) findViewById(R.id.llFooterAlreadyLiked);
         llFooterShare = (LinearLayout) findViewById(R.id.llFooterShare);
         llFooterAddToList = (LinearLayout) findViewById(R.id.llFooterAddToList);
-        llFooterAddedToList = (LinearLayout) findViewById(R.id.llFooterAddedToList);
         llHeaderBack = (LinearLayout) findViewById(R.id.llHeaderBack);
         filesLayout = (LinearLayout) findViewById(R.id.filesLayout);
         rlFooter = (RelativeLayout) findViewById(R.id.rlFooter);
@@ -60,11 +58,10 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         llFooterAlreadyLiked.setOnClickListener(this);
         llFooterShare.setOnClickListener(this);
         llFooterAddToList.setOnClickListener(this);
-        llFooterAddedToList.setOnClickListener(this);
         llHeaderBack.setOnClickListener(this);
 
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, news.getId(), llFooterLike, llFooterAlreadyLiked);
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, news.getId(), llFooterAddToList, llFooterAddedToList);
+        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, news.getId(), llFooterLike, llFooterAlreadyLiked);
+        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, news.getId(), llFooterAddToList, llFooterAddedToList);
 
         webView = (WebView) findViewById(R.id.wvNewsDetailContentOfNews);
         webView.loadData(news.getHcontent(), "text/html; charset=UTF-8", null);
@@ -112,22 +109,12 @@ public class NewsDetails extends Activity implements View.OnClickListener {
 
         if (view == llFooterLike) {
 
-            try {
-                dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
-                Util.changeVisibility(llFooterLike);
-                Util.changeVisibility(llFooterAlreadyLiked);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            Util.changeVisibility(llFooterLike);
+            Util.changeVisibility(llFooterAlreadyLiked);
 
         } else if (view == llFooterAlreadyLiked) {
-            try {
-                dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
-                Util.changeVisibility(llFooterLike);
-                Util.changeVisibility(llFooterAlreadyLiked);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            Util.changeVisibility(llFooterLike);
+            Util.changeVisibility(llFooterAlreadyLiked);
 
         } else if (view == llFooterShare) {
             String url = Constant.SHARE_NEWS + news.getHaber_id();
@@ -138,29 +125,13 @@ public class NewsDetails extends Activity implements View.OnClickListener {
             shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
         } else if (view == llFooterAddToList) {
-            /*
-            try {
-                dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-                Util.changeVisibility(llFooterAddToList);
-                Util.changeVisibility(llFooterAddedToList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            */
+
             quickAction.show(rlFooter);
             quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
 
-        } else if (view == llFooterAddedToList) {
-
-            try {
-                dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-                Util.changeVisibility(llFooterAddToList);
-                Util.changeVisibility(llFooterAddedToList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         } else if (view == llHeaderBack) {
             onBackPressed();
         }
+
     }
 }

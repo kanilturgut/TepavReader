@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:layout_alignParentTop="true"
+                  android:gravity="center_horizontal"
+                  android:background="#F5F6F8"
+                  android:padding="10dp"
+                  android:id="@+id/tracks"
+                  android:orientation="horizontal">
+
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/llReadList"
+                          android:orientation="vertical">
+
+                <ImageView android:layout_width="80dp" android:layout_height="80dp"
+                           android:layout_marginBottom="10dp"
+                           android:src="@drawable/ic_launcher"/>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:gravity="center_horizontal"
+                          android:text="Okuma Listeme Ekle"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp">
+
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/llFavList"
+                          android:orientation="vertical">
+
+                <ImageView android:layout_width="80dp" android:layout_height="80dp"
+                           android:layout_marginBottom="10dp"
+                           android:src="@drawable/ic_launcher"/>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:gravity="center_horizontal"
+                          android:text="Favorilereme Ekle"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/llArchive"
+                          android:orientation="vertical">
+
+                <ImageView android:layout_width="80dp" android:layout_height="80dp"
+                           android:layout_marginBottom="10dp"
+                           android:src="@drawable/ic_launcher"/>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:layout_gravity="center_horizontal"
+                          android:gravity="center_horizontal"
+                          android:text="Okuduklarıma Ekle"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

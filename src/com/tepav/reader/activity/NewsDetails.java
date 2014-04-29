@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Util;
+import com.tepav.reader.helpers.popup.QuickAction;
 import com.tepav.reader.model.File;
 import com.tepav.reader.model.News;
 import org.json.JSONException;
@@ -26,6 +28,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
 
     Context context;
     DBHandler dbHandler;
+    QuickAction quickAction;
 
     News news;
 
@@ -33,14 +36,16 @@ public class NewsDetails extends Activity implements View.OnClickListener {
     TextView titleOfNews, timeOfNews;
 
     LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, llFooterAddedToList, filesLayout;
+    RelativeLayout rlFooter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_details);
         this.context = this;
-
         news = (News) getIntent().getSerializableExtra("class");
         dbHandler = DBHandler.getInstance(context);
+
+        quickAction = new QuickAction(context, dbHandler, news);
 
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
         llFooterAlreadyLiked = (LinearLayout) findViewById(R.id.llFooterAlreadyLiked);
@@ -49,6 +54,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         llFooterAddedToList = (LinearLayout) findViewById(R.id.llFooterAddedToList);
         llHeaderBack = (LinearLayout) findViewById(R.id.llHeaderBack);
         filesLayout = (LinearLayout) findViewById(R.id.filesLayout);
+        rlFooter = (RelativeLayout) findViewById(R.id.rlFooter);
 
         llFooterLike.setOnClickListener(this);
         llFooterAlreadyLiked.setOnClickListener(this);
@@ -132,6 +138,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
             shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
         } else if (view == llFooterAddToList) {
+            /*
             try {
                 dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
                 Util.changeVisibility(llFooterAddToList);
@@ -139,6 +146,9 @@ public class NewsDetails extends Activity implements View.OnClickListener {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            */
+            quickAction.show(rlFooter);
+            quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
 
         } else if (view == llFooterAddedToList) {
 

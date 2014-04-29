@@ -14,6 +14,7 @@ import com.tepav.reader.adapter.LeftMenuAdapter;
 import com.tepav.reader.fragment.BlogFragment;
 import com.tepav.reader.fragment.NewsFragment;
 import com.tepav.reader.fragment.PublicationFragment;
+import com.tepav.reader.fragment.ReadListFragment;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.slidingmenu.SlidingMenu;
 
@@ -101,7 +102,8 @@ public class MainActivity extends FragmentActivity {
                 fragment = new PublicationFragment(fragmentTag);
                 break;
             case Constant.LEFT_MENU_ITEM_MY_READ_LIST:
-                notImplemented();
+                fragmentTag = getString(R.string.Read_List);
+                fragment = new ReadListFragment();
                 break;
             case Constant.LEFT_MENU_ITEM_FAVORITES:
                 notImplemented();

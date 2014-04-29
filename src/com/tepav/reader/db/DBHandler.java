@@ -140,6 +140,16 @@ public class DBHandler extends SQLiteOpenHelper {
         return null;
     }
 
+    public int size(String table) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + table;
+        Cursor cursor = db.rawQuery(query, null);
+
+        return cursor.getCount();
+    }
+
     public boolean isContain(String table, String id) {
 
         SQLiteDatabase db = this.getReadableDatabase();

@@ -44,23 +44,81 @@ public class LeftMenuAdapter extends ArrayAdapter<String>{
 
         switch (position) {
             case Constant.LEFT_MENU_ITEM_NEWS:
+                changeVisibility(rlLeftMenuNormal, rlLeftMenuSubMenu, rlLeftMenuNormalWithCount);
+
+                ivLeftMenuNormalImageOfItem = (ImageView) rowView.findViewById(R.id.ivLeftMenuNormalImageOfItem);
+                ivLeftMenuNormalImageOfItem.setImageResource(R.drawable.news_sidebar_icon);
+
+                tvLeftMenuNormalTitleOfItem = (TextView) rowView.findViewById(R.id.tvLeftMenuNormalTitleOfItem);
+                tvLeftMenuNormalTitleOfItem.setText(menuItems[position]);
+
+                break;
             case Constant.LEFT_MENU_ITEM_BLOGS:
+                changeVisibility(rlLeftMenuNormal, rlLeftMenuSubMenu, rlLeftMenuNormalWithCount);
+
+                ivLeftMenuNormalImageOfItem = (ImageView) rowView.findViewById(R.id.ivLeftMenuNormalImageOfItem);
+                ivLeftMenuNormalImageOfItem.setImageResource(R.drawable.blog_sidebar_icon);
+
+                tvLeftMenuNormalTitleOfItem = (TextView) rowView.findViewById(R.id.tvLeftMenuNormalTitleOfItem);
+                tvLeftMenuNormalTitleOfItem.setText(menuItems[position]);
+
+                break;
             case Constant.LEFT_MENU_ITEM_RESEARCH_AND_PUBLICATIONS:
                 changeVisibility(rlLeftMenuNormal, rlLeftMenuSubMenu, rlLeftMenuNormalWithCount);
 
                 ivLeftMenuNormalImageOfItem = (ImageView) rowView.findViewById(R.id.ivLeftMenuNormalImageOfItem);
+                ivLeftMenuNormalImageOfItem.setImageResource(R.drawable.publication_sidebar_icon);
+
                 tvLeftMenuNormalTitleOfItem = (TextView) rowView.findViewById(R.id.tvLeftMenuNormalTitleOfItem);
                 tvLeftMenuNormalTitleOfItem.setText(menuItems[position]);
 
                 break;
             case Constant.LEFT_MENU_ITEM_REPORTS:
+                changeVisibility(rlLeftMenuSubMenu, rlLeftMenuNormalWithCount, rlLeftMenuNormal);
+
+                ivLeftMenuSubMenuImageOfItem = (ImageView) rowView.findViewById(R.id.ivLeftMenuSubMenuImageOfItem);
+                ivLeftMenuSubMenuImageOfItem.setImageResource(R.drawable.raporlar_sidebar_icon);
+
+                tvLeftMenuSubMenuTitleOfItem = (TextView) rowView.findViewById(R.id.tvLeftMenuSubMenuTitleOfItem);
+                tvLeftMenuSubMenuTitleOfItem.setText(menuItems[position]);
+
+                break;
             case Constant.LEFT_MENU_ITEM_NOTES:
+                changeVisibility(rlLeftMenuSubMenu, rlLeftMenuNormalWithCount, rlLeftMenuNormal);
+
+                ivLeftMenuSubMenuImageOfItem = (ImageView) rowView.findViewById(R.id.ivLeftMenuSubMenuImageOfItem);
+                ivLeftMenuSubMenuImageOfItem.setImageResource(R.drawable.notlar_sidebar_icon);
+
+                tvLeftMenuSubMenuTitleOfItem = (TextView) rowView.findViewById(R.id.tvLeftMenuSubMenuTitleOfItem);
+                tvLeftMenuSubMenuTitleOfItem.setText(menuItems[position]);
+
+                break;
             case Constant.LEFT_MENU_ITEM_PRINTED_PUBLICATIONS:
+                changeVisibility(rlLeftMenuSubMenu, rlLeftMenuNormalWithCount, rlLeftMenuNormal);
+
+                ivLeftMenuSubMenuImageOfItem = (ImageView) rowView.findViewById(R.id.ivLeftMenuSubMenuImageOfItem);
+                ivLeftMenuSubMenuImageOfItem.setImageResource(R.drawable.basili_yayin_sidebar_icon);
+
+                tvLeftMenuSubMenuTitleOfItem = (TextView) rowView.findViewById(R.id.tvLeftMenuSubMenuTitleOfItem);
+                tvLeftMenuSubMenuTitleOfItem.setText(menuItems[position]);
+
+                break;
             case Constant.LEFT_MENU_ITEM_FAVORITES:
+                changeVisibility(rlLeftMenuSubMenu, rlLeftMenuNormalWithCount, rlLeftMenuNormal);
+
+                ivLeftMenuSubMenuImageOfItem = (ImageView) rowView.findViewById(R.id.ivLeftMenuSubMenuImageOfItem);
+                ivLeftMenuSubMenuImageOfItem.setImageResource(R.drawable.favorites_sidebar_icon);
+
+                tvLeftMenuSubMenuTitleOfItem = (TextView) rowView.findViewById(R.id.tvLeftMenuSubMenuTitleOfItem);
+                tvLeftMenuSubMenuTitleOfItem.setText(menuItems[position]);
+
+                break;
             case Constant.LEFT_MENU_ITEM_ARCHIVE:
                 changeVisibility(rlLeftMenuSubMenu, rlLeftMenuNormalWithCount, rlLeftMenuNormal);
 
                 ivLeftMenuSubMenuImageOfItem = (ImageView) rowView.findViewById(R.id.ivLeftMenuSubMenuImageOfItem);
+                ivLeftMenuSubMenuImageOfItem.setImageResource(R.drawable.okuduklarim_sidebar_icon);
+
                 tvLeftMenuSubMenuTitleOfItem = (TextView) rowView.findViewById(R.id.tvLeftMenuSubMenuTitleOfItem);
                 tvLeftMenuSubMenuTitleOfItem.setText(menuItems[position]);
 
@@ -69,6 +127,8 @@ public class LeftMenuAdapter extends ArrayAdapter<String>{
                 changeVisibility(rlLeftMenuNormalWithCount, rlLeftMenuNormal, rlLeftMenuSubMenu);
 
                 ivLeftMenuNormalImageOfItemlWithCount = (ImageView) rowView.findViewById(R.id.ivLeftMenuNormalImageOfItemlWithCount);
+                ivLeftMenuNormalImageOfItemlWithCount.setImageResource(R.drawable.read_list_sidebar_icon);
+
                 tvLeftMenuNormalTitleOfItemlWithCount = (TextView) rowView.findViewById(R.id.tvLeftMenuNormalTitleOfItemlWithCount);
                 tvLeftMenuNormalTitleOfItemlWithCount.setText(menuItems[position]);
 

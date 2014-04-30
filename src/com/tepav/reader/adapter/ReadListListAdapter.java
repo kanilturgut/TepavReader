@@ -1,6 +1,7 @@
 package com.tepav.reader.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -14,7 +15,11 @@ import android.widget.TextView;
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
+import com.tepav.reader.activity.BlogDetails;
+import com.tepav.reader.activity.NewsDetails;
+import com.tepav.reader.activity.PublicationDetails;
 import com.tepav.reader.db.DBHandler;
+import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Util;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.model.Blog;
@@ -70,7 +75,6 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
         ReadListHolder holder;
         DBData dbData = dbDataList.get(position);
-
 
         if (dbData.getType() == DBData.TYPE_NEWS) {
             try {
@@ -158,13 +162,13 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             }
 
         } else if (publication != null) {
-            holder.titleOfReadList.setText("P " +publication.getYtitle());
+            holder.titleOfReadList.setText("P " + publication.getYtitle());
             holder.dateOfReadList.setText(publication.getYdate() + ", " + publication.getYtype());
             holder.imageOfReadList.setImageResource(R.drawable.no_image);
         }
 
 
-        MyOnClickListener myOnClickListener = new MyOnClickListener(position);
+        MyOnClickListener myOnClickListener = new MyOnClickListener(news, blog, publication, position);
         holder.ibShare.setOnClickListener(myOnClickListener);
         holder.ibFavorite.setOnClickListener(myOnClickListener);
         holder.ibReadList.setOnClickListener(myOnClickListener);
@@ -180,67 +184,192 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
     class MyOnClickListener implements View.OnClickListener {
 
+        News news;
+        Blog blog;
+        Publication publication;
         int position;
 
-        public MyOnClickListener(int pos) {
+        public MyOnClickListener(News n, Blog b, Publication p, int pos) {
             this.position = pos;
+            this.news = n;
+            this.blog = b;
+            this.publication = p;
         }
 
         @Override
         public void onClick(View view) {
 
-            //ReadList readList = readListList.get(position);
-/*
+            DBData dbData = dbDataList.get(position);
+
+            if (dbData.getType() == DBData.TYPE_NEWS) {
+                try {
+                    news = News.fromDBData(dbData);
+                    blog = null;
+                    publication = null;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (dbData.getType() == DBData.TYPE_BLOG) {
+                try {
+                    blog = Blog.fromDBData(dbData);
+                    news = null;
+                    publication = null;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (dbData.getType() == DBData.TYPE_PUBLICATION) {
+                try {
+                    publication = Publication.fromDBData(dbData);
+                    news = null;
+                    blog = null;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
             switch (view.getId()) {
                 case R.id.ibShare:
 
-                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.setType("text/plain");
-                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, readList.getYtitle());
-                    shareIntent.putExtra(Intent.EXTRA_TEXT,  readList.getYtitle() + " " + url);
-                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                    if (news != null) {
+
+                        String url = Constant.SHARE_NEWS + news.getHaber_id();
+
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
+                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+
+                    } else if (blog != null) {
+                        String url = Constant.SHARE_BLOG + blog.getGunluk_id();
+
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, blog.getBtitle());
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, blog.getBtitle() + " " + url);
+                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                    } else if (publication != null) {
+                        String url = Constant.SHARE_PUBLICATION + publication.getYayin_id();
+
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, publication.getYtitle());
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, publication.getYtitle() + " " + url);
+                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                    }
+
                     break;
                 case R.id.ibFavorite:
 
-                    try {
-                        dbHandler.insert(ReadList.toDBData(readList), DBHandler.TABLE_FAVORITE);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if (news != null) {
+                        try {
+                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (blog != null) {
+                        try {
+                            dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (publication != null) {
+                        try {
+                            dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     break;
                 case R.id.ibFavorited:
 
-                    try {
-                        dbHandler.delete(ReadList.toDBData(readList), DBHandler.TABLE_FAVORITE);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if (news != null) {
+                        try {
+                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (blog != null) {
+                        try {
+                            dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (publication != null) {
+                        try {
+                            dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     break;
                 case R.id.ibReadList:
 
-                    try {
-                        dbHandler.insert(ReadList.toDBData(readList), DBHandler.TABLE_READ_LIST);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if (news != null) {
+                        try {
+                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (blog != null) {
+                        try {
+                            dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (publication != null) {
+                        try {
+                            dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+
                     break;
                 case R.id.ibReadListed:
-                    try {
-                        dbHandler.delete(ReadList.toDBData(readList), DBHandler.TABLE_READ_LIST);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+
+                    if (news != null) {
+                        try {
+                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (blog != null) {
+                        try {
+                            dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (publication != null) {
+                        try {
+                            dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+
                     break;
                 case R.id.frontOfReadListClick:
 
-                    Intent intent = new Intent(context, ReadListDetails.class);
-                    intent.putExtra("class", readList);
+                    Intent intent = null;
+
+                    if (news != null) {
+                        intent = new Intent(context, NewsDetails.class);
+                        intent.putExtra("class", news);
+                    } else if (blog != null) {
+                        intent = new Intent(context, BlogDetails.class);
+                        intent.putExtra("class", blog);
+                    } else if (publication != null) {
+                        intent = new Intent(context, PublicationDetails.class);
+                        intent.putExtra("class", publication);
+                    }
+
                     context.startActivity(intent);
                     break;
             }
-        } */
         }
     }
 
@@ -255,7 +384,9 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         ImageButton ibReadList;
         ImageButton ibReadListed;
         RelativeLayout frontOfReadListClick;
+
+
     }
-
-
 }
+
+

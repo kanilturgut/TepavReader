@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
@@ -66,6 +67,8 @@ public class Util {
     }
 
     public static void changeVisibility(View view) {
+        Log.i("TAG", "changeVisibility");
+
         if (view.getVisibility() == View.VISIBLE)
             view.setVisibility(View.GONE);
         else

@@ -43,6 +43,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
     int pageNumber;
     AQuery aq;
     DBHandler dbHandler;
+    NewsHolder holder;
 
     public NewsListAdapter(Context ctx, int number) {
         super(ctx, R.layout.custom_news_row);
@@ -58,7 +59,6 @@ public class NewsListAdapter extends ArrayAdapter<News> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        final NewsHolder holder;
         final News news = newsList.get(position);
 
         if (position == (newsList.size() - 1))
@@ -136,6 +136,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
             switch (view.getId()) {
                 case R.id.ibShare:
+                    Log.i("DEneme", "share");
                     String url = Constant.SHARE_NEWS + news.getHaber_id();
 
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -145,9 +146,12 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
                     break;
                 case R.id.ibFavorite:
-
+                    Log.i("DEneme", "favorite");
                     try {
                         dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+
+                        Util.changeVisibility(holder.ibFavorite);
+                        Util.changeVisibility(holder.ibFavorited);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -155,8 +159,12 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     break;
                 case R.id.ibFavorited:
 
+                    Log.i("DEneme", "favorited");
                     try {
                         dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+
+                        Util.changeVisibility(holder.ibFavorite);
+                        Util.changeVisibility(holder.ibFavorited);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -164,15 +172,23 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     break;
                 case R.id.ibReadList:
 
+                    Log.i("DEneme", "read list");
                     try {
                         dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+
+                        Util.changeVisibility(holder.ibReadList);
+                        Util.changeVisibility(holder.ibReadListed);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     break;
                 case R.id.ibReadListed:
+                    Log.i("DEneme", "readListed");
                     try {
                         dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+
+                        Util.changeVisibility(holder.ibReadList);
+                        Util.changeVisibility(holder.ibReadListed);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -112,10 +112,10 @@ public class ArchiveListAdapter extends ArrayAdapter<DBData> {
             holder = new FavoriteHolder();
 
             //front view
-            holder.frontOfFavoriteClick = (RelativeLayout) convertView.findViewById(R.id.frontOfFavoriteClick);
-            holder.imageOfFavorite = (RoundedImageView) convertView.findViewById(R.id.ivImageOfFavorite);
-            holder.titleOfFavorite = (TextView) convertView.findViewById(R.id.tvTitleOfFavorite);
-            holder.dateOfFavorite = (TextView) convertView.findViewById(R.id.tvDateOfFavorite);
+            holder.frontOfArchiveClick = (RelativeLayout) convertView.findViewById(R.id.frontOfArchiveClick);
+            holder.imageOfArchive = (RoundedImageView) convertView.findViewById(R.id.ivImageOfArchive);
+            holder.titleOfArchive = (TextView) convertView.findViewById(R.id.tvTitleOfArchive);
+            holder.dateOfArchive = (TextView) convertView.findViewById(R.id.tvDateOfArchive);
 
             //back view
             holder.ibShare = (ImageButton) convertView.findViewById(R.id.ibShare);
@@ -138,36 +138,36 @@ public class ArchiveListAdapter extends ArrayAdapter<DBData> {
 
         if (news != null) {
 
-            holder.titleOfFavorite.setText(news.getHtitle());
-            holder.dateOfFavorite.setText(news.getHdate());
+            holder.titleOfArchive.setText(news.getHtitle());
+            holder.dateOfArchive.setText(news.getHdate());
 
 
             Bitmap bmp = aq.getCachedImage(news.getHimage());
             if (bmp == null) {
-                aq.id(holder.imageOfFavorite).image(news.getHimage(), options);
+                aq.id(holder.imageOfArchive).image(news.getHimage(), options);
                 Log.i(TAG, "image received from server");
             } else {
-                holder.imageOfFavorite.setImageBitmap(bmp);
+                holder.imageOfArchive.setImageBitmap(bmp);
                 Log.i(TAG, "image received from cache");
             }
 
         } else if (blog != null) {
-            holder.titleOfFavorite.setText(blog.getBtitle());
-            holder.dateOfFavorite.setText(blog.getBtitle());
+            holder.titleOfArchive.setText(blog.getBtitle());
+            holder.dateOfArchive.setText(blog.getBtitle());
 
             Bitmap bmp = aq.getCachedImage(blog.getPimage());
             if (bmp == null) {
-                aq.id(holder.imageOfFavorite).image(blog.getPimage(), options);
+                aq.id(holder.imageOfArchive).image(blog.getPimage(), options);
                 Log.i(TAG, "image received from server");
             } else {
-                holder.imageOfFavorite.setImageBitmap(bmp);
+                holder.imageOfArchive.setImageBitmap(bmp);
                 Log.i(TAG, "image received from cache");
             }
 
         } else if (publication != null) {
-            holder.titleOfFavorite.setText(publication.getYtitle());
-            holder.dateOfFavorite.setText(publication.getYdate() + ", " + publication.getYtype());
-            holder.imageOfFavorite.setImageResource(R.drawable.no_image);
+            holder.titleOfArchive.setText(publication.getYtitle());
+            holder.dateOfArchive.setText(publication.getYdate() + ", " + publication.getYtype());
+            holder.imageOfArchive.setImageResource(R.drawable.no_image);
         }
 
 
@@ -177,7 +177,7 @@ public class ArchiveListAdapter extends ArrayAdapter<DBData> {
         holder.ibFavorite.setOnClickListener(myOnClickListener);
         holder.ibFavorited.setOnClickListener(myOnClickListener);
         holder.ibFavorited.setOnClickListener(myOnClickListener);
-        holder.frontOfFavoriteClick.setOnClickListener(myOnClickListener);
+        holder.frontOfArchiveClick.setOnClickListener(myOnClickListener);
 
         Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, dbData.getId(), holder.ibFavorite, holder.ibFavorited);
         Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, dbData.getId(), holder.ibFavorite, holder.ibFavorited);
@@ -378,15 +378,15 @@ public class ArchiveListAdapter extends ArrayAdapter<DBData> {
 
     class FavoriteHolder {
 
-        RoundedImageView imageOfFavorite;
-        TextView titleOfFavorite;
-        TextView dateOfFavorite;
+        RoundedImageView imageOfArchive;
+        TextView titleOfArchive;
+        TextView dateOfArchive;
         ImageButton ibShare;
         ImageButton ibReadList;
         ImageButton ibReadListed;
         ImageButton ibFavorite;
         ImageButton ibFavorited;
-        RelativeLayout frontOfFavoriteClick;
+        RelativeLayout frontOfArchiveClick;
 
 
     }

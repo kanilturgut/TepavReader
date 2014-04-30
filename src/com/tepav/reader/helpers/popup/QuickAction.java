@@ -10,14 +10,16 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.RelativeLayout;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
+import com.tepav.reader.helpers.Util;
 import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.News;
 import com.tepav.reader.model.Publication;
 import org.json.JSONException;
 
-public class QuickAction extends PopupWindows implements OnDismissListener {
+public class QuickAction extends PopupWindows implements OnDismissListener, OnClickListener {
 
     private View mRootView;
     private LayoutInflater mInflater;
@@ -34,6 +36,8 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
     Blog blog = null;
     Publication publication = null;
 
+    DBHandler dbHandler;
+    RelativeLayout rlReadListEmpty, rlReadListNotEmpty, rlFavListEmpty, rlFavListNotEmpty, rlArchiveEmpty, rlArchiveNotEmpty;
 
     /**
      * Constructor allowing orientation override
@@ -43,8 +47,9 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
     public QuickAction(Context context, DBHandler dbHandler, Object object) {
         super(context);
 
+        this.dbHandler = dbHandler;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        setRootViewId(R.layout.popup_horizontal, dbHandler, object);
+        setRootViewId(R.layout.popup_horizontal, object);
 
         mAnimStyle = ANIM_GROW_FROM_CENTER;
     }
@@ -54,12 +59,10 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
      *
      * @param id Layout resource id
      */
-    public void setRootViewId(int id, final DBHandler dbHandler, final Object object) {
+    public void setRootViewId(int id, final Object object) {
         mRootView = mInflater.inflate(id, null);
         mRootView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         setContentView(mRootView);
-
-
 
         if (object instanceof News) {
             news = (News) object;
@@ -69,89 +72,171 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
             publication = (Publication) object;
         }
 
-        LinearLayout llReadList = (LinearLayout) mRootView.findViewById(R.id.llReadList);
-        llReadList.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("OnClick", "llReadList");
+        rlReadListEmpty = (RelativeLayout) mRootView.findViewById(R.id.rlReadListEmpty);
+        rlReadListEmpty.setOnClickListener(this);
 
-                if (news != null) {
-                    try {
-                        dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else if (blog != null) {
-                    try {
-                        dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else if (publication != null) {
-                    try {
-                        dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                dismiss();
-            }
-        });
-        LinearLayout llFavList = (LinearLayout) mRootView.findViewById(R.id.llFavList);
-        llFavList.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("OnClick", "llFavList");
+        rlReadListNotEmpty = (RelativeLayout) mRootView.findViewById(R.id.rlReadListNotEmpty);
+        rlReadListNotEmpty.setOnClickListener(this);
 
-                if (news != null) {
-                    try {
-                        dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else if (blog != null) {
-                    try {
-                        dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else if (publication != null) {
-                    try {
-                        dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+        rlFavListEmpty = (RelativeLayout) mRootView.findViewById(R.id.rlFavListEmpty);
+        rlFavListEmpty.setOnClickListener(this);
+
+        rlFavListNotEmpty = (RelativeLayout) mRootView.findViewById(R.id.rlFavListNotEmpty);
+        rlFavListNotEmpty.setOnClickListener(this);
+
+        rlArchiveEmpty = (RelativeLayout) mRootView.findViewById(R.id.rlArchiveEmpty);
+        rlArchiveEmpty.setOnClickListener(this);
+
+        rlArchiveNotEmpty = (RelativeLayout) mRootView.findViewById(R.id.rlArchiveNotEmpty);
+        rlArchiveNotEmpty.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if (view == rlReadListEmpty) {
+
+            if (news != null) {
+                try {
+                    dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                dismiss();
-            }
-        });
-        LinearLayout llArchive = (LinearLayout) mRootView.findViewById(R.id.llArchive);
-        llArchive.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("OnClick", "llArchive");
-                if (news != null) {
-                    try {
-                        dbHandler.insert(News.toDBData(news), DBHandler.TABLE_ARCHIVE);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else if (blog != null) {
-                    try {
-                        dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_ARCHIVE);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else if (publication != null) {
-                    try {
-                        dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_ARCHIVE);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+            } else if (blog != null) {
+                try {
+                    dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                dismiss();
+            } else if (publication != null) {
+                try {
+                    dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        });
+
+            Util.changeVisibility(rlReadListEmpty);
+            Util.changeVisibility(rlReadListNotEmpty);
+        } else if (view == rlReadListNotEmpty) {
+
+            if (news != null) {
+                try {
+                    dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (blog != null) {
+                try {
+                    dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (publication != null) {
+                try {
+                    dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            Util.changeVisibility(rlReadListEmpty);
+            Util.changeVisibility(rlReadListNotEmpty);
+        } else if (view == rlFavListEmpty) {
+            if (news != null) {
+                try {
+                    dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (blog != null) {
+                try {
+                    dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (publication != null) {
+                try {
+                    dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            Util.changeVisibility(rlFavListEmpty);
+            Util.changeVisibility(rlFavListNotEmpty);
+        } else if (view == rlFavListNotEmpty) {
+            if (news != null) {
+                try {
+                    dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (blog != null) {
+                try {
+                    dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (publication != null) {
+                try {
+                    dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            Util.changeVisibility(rlFavListEmpty);
+            Util.changeVisibility(rlFavListNotEmpty);
+        } else if (view == rlArchiveEmpty) {
+
+            if (news != null) {
+                try {
+                    dbHandler.insert(News.toDBData(news), DBHandler.TABLE_ARCHIVE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (blog != null) {
+                try {
+                    dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_ARCHIVE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (publication != null) {
+                try {
+                    dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_ARCHIVE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            Util.changeVisibility(rlArchiveEmpty);
+            Util.changeVisibility(rlArchiveNotEmpty);
+        } else if (view == rlArchiveNotEmpty) {
+
+            if (news != null) {
+                try {
+                    dbHandler.delete(News.toDBData(news), DBHandler.TABLE_ARCHIVE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (blog != null) {
+                try {
+                    dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_ARCHIVE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (publication != null) {
+                try {
+                    dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_ARCHIVE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Util.changeVisibility(rlArchiveEmpty);
+                Util.changeVisibility(rlArchiveNotEmpty);
+            }
+        }
     }
 
     /**

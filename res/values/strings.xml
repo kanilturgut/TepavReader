@@ -33,7 +33,7 @@
 
     <string-array name="menu_items">
         <item>Haberler</item>
-        <item>Günlükler</item>
+        <item>Günlük</item>
         <item>Araştırma ve Yayınlar</item>
         <item>Raporlar</item>
         <item>Notlar</item>

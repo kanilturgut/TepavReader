@@ -63,9 +63,11 @@ public class FavoriteListAdapter extends ArrayAdapter<DBData> {
 
             @Override
             protected void onPostExecute(List<DBData> dbDatas) {
-                dbDataList = dbDatas;
-                addAll(dbDataList);
-                notifyDataSetChanged();
+                if (dbDatas != null ) {
+                    dbDataList = dbDatas;
+                    addAll(dbDataList);
+                    notifyDataSetChanged();
+                }
             }
         }.execute();
     }

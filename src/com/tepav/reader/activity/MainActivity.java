@@ -107,7 +107,8 @@ public class MainActivity extends FragmentActivity {
                 fragment = new FavoriteFragment();
                 break;
             case Constant.LEFT_MENU_ITEM_ARCHIVE:
-                notImplemented();
+                fragmentTag = getString(R.string.Readed_Documents);
+                fragment = new ArchiveFragment();
                 break;
 
         }

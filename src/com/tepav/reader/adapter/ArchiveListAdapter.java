@@ -32,12 +32,12 @@ import java.util.List;
 
 /**
  * Author : kanilturgut
- * Date : 29.04.2014
- * Time : 16:46
+ * Date : 30.04.2014
+ * Time : 10:42
  */
-public class ReadListListAdapter extends ArrayAdapter<DBData> {
+public class ArchiveListAdapter extends ArrayAdapter<DBData> {
 
-    String TAG = "ReadListListAdapter";
+    String TAG = "FavoriteListAdapter";
     Context context;
     DBHandler dbHandler;
     List<DBData> dbDataList;
@@ -47,8 +47,8 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
     Blog blog = null;
     Publication publication = null;
 
-    public ReadListListAdapter(Context context) {
-        super(context, R.layout.custom_read_list_row);
+    public ArchiveListAdapter(Context context) {
+        super(context, R.layout.custom_archive_list_row);
 
         this.context = context;
         dbHandler = DBHandler.getInstance(context);
@@ -58,11 +58,12 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
             @Override
             protected List<DBData> doInBackground(Void... voids) {
-                return dbHandler.read(DBHandler.TABLE_READ_LIST);
+                return dbHandler.read(DBHandler.TABLE_ARCHIVE);
             }
 
             @Override
             protected void onPostExecute(List<DBData> dbDatas) {
+
                 if (dbDatas != null ) {
                     dbDataList = dbDatas;
                     addAll(dbDataList);
@@ -75,7 +76,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ReadListHolder holder;
+        FavoriteHolder holder;
         DBData dbData = dbDataList.get(position);
 
         if (dbData.getType() == DBData.TYPE_NEWS) {
@@ -106,15 +107,15 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.custom_read_list_row, parent, false);
+            convertView = inflater.inflate(R.layout.custom_archive_list_row, parent, false);
 
-            holder = new ReadListHolder();
+            holder = new FavoriteHolder();
 
             //front view
-            holder.frontOfReadListClick = (RelativeLayout) convertView.findViewById(R.id.frontOfReadListClick);
-            holder.imageOfReadList = (RoundedImageView) convertView.findViewById(R.id.ivImageOfReadList);
-            holder.titleOfReadList = (TextView) convertView.findViewById(R.id.tvTitleOfReadList);
-            holder.dateOfReadList = (TextView) convertView.findViewById(R.id.tvDateOfReadList);
+            holder.frontOfFavoriteClick = (RelativeLayout) convertView.findViewById(R.id.frontOfFavoriteClick);
+            holder.imageOfFavorite = (RoundedImageView) convertView.findViewById(R.id.ivImageOfFavorite);
+            holder.titleOfFavorite = (TextView) convertView.findViewById(R.id.tvTitleOfFavorite);
+            holder.dateOfFavorite = (TextView) convertView.findViewById(R.id.tvDateOfFavorite);
 
             //back view
             holder.ibShare = (ImageButton) convertView.findViewById(R.id.ibShare);
@@ -126,7 +127,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             convertView.setTag(holder);
 
         } else {
-            holder = (ReadListHolder) convertView.getTag();
+            holder = (FavoriteHolder) convertView.getTag();
         }
 
         ImageOptions options = new ImageOptions();
@@ -137,49 +138,49 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
         if (news != null) {
 
-            holder.titleOfReadList.setText("N " + news.getHtitle());
-            holder.dateOfReadList.setText(news.getHdate());
+            holder.titleOfFavorite.setText(news.getHtitle());
+            holder.dateOfFavorite.setText(news.getHdate());
 
 
             Bitmap bmp = aq.getCachedImage(news.getHimage());
             if (bmp == null) {
-                aq.id(holder.imageOfReadList).image(news.getHimage(), options);
+                aq.id(holder.imageOfFavorite).image(news.getHimage(), options);
                 Log.i(TAG, "image received from server");
             } else {
-                holder.imageOfReadList.setImageBitmap(bmp);
+                holder.imageOfFavorite.setImageBitmap(bmp);
                 Log.i(TAG, "image received from cache");
             }
 
         } else if (blog != null) {
-            holder.titleOfReadList.setText("B " + blog.getBtitle());
-            holder.dateOfReadList.setText(blog.getBtitle());
+            holder.titleOfFavorite.setText(blog.getBtitle());
+            holder.dateOfFavorite.setText(blog.getBtitle());
 
             Bitmap bmp = aq.getCachedImage(blog.getPimage());
             if (bmp == null) {
-                aq.id(holder.imageOfReadList).image(blog.getPimage(), options);
+                aq.id(holder.imageOfFavorite).image(blog.getPimage(), options);
                 Log.i(TAG, "image received from server");
             } else {
-                holder.imageOfReadList.setImageBitmap(bmp);
+                holder.imageOfFavorite.setImageBitmap(bmp);
                 Log.i(TAG, "image received from cache");
             }
 
         } else if (publication != null) {
-            holder.titleOfReadList.setText("P " + publication.getYtitle());
-            holder.dateOfReadList.setText(publication.getYdate() + ", " + publication.getYtype());
-            holder.imageOfReadList.setImageResource(R.drawable.no_image);
+            holder.titleOfFavorite.setText(publication.getYtitle());
+            holder.dateOfFavorite.setText(publication.getYdate() + ", " + publication.getYtype());
+            holder.imageOfFavorite.setImageResource(R.drawable.no_image);
         }
 
 
         MyOnClickListener myOnClickListener = new MyOnClickListener(news, blog, publication, position);
         holder.ibShare.setOnClickListener(myOnClickListener);
         holder.ibFavorite.setOnClickListener(myOnClickListener);
-        holder.ibReadList.setOnClickListener(myOnClickListener);
+        holder.ibFavorite.setOnClickListener(myOnClickListener);
         holder.ibFavorited.setOnClickListener(myOnClickListener);
-        holder.ibReadListed.setOnClickListener(myOnClickListener);
-        holder.frontOfReadListClick.setOnClickListener(myOnClickListener);
+        holder.ibFavorited.setOnClickListener(myOnClickListener);
+        holder.frontOfFavoriteClick.setOnClickListener(myOnClickListener);
 
         Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, dbData.getId(), holder.ibFavorite, holder.ibFavorited);
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, dbData.getId(), holder.ibReadList, holder.ibReadListed);
+        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, dbData.getId(), holder.ibFavorite, holder.ibFavorited);
 
         return convertView;
     }
@@ -354,7 +355,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
                     }
 
                     break;
-                case R.id.frontOfReadListClick:
+                case R.id.frontOfFavoriteClick:
 
                     Intent intent = null;
 
@@ -375,20 +376,18 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         }
     }
 
-    class ReadListHolder {
+    class FavoriteHolder {
 
-        RoundedImageView imageOfReadList;
-        TextView titleOfReadList;
-        TextView dateOfReadList;
+        RoundedImageView imageOfFavorite;
+        TextView titleOfFavorite;
+        TextView dateOfFavorite;
         ImageButton ibShare;
-        ImageButton ibFavorite;
-        ImageButton ibFavorited;
         ImageButton ibReadList;
         ImageButton ibReadListed;
-        RelativeLayout frontOfReadListClick;
+        ImageButton ibFavorite;
+        ImageButton ibFavorited;
+        RelativeLayout frontOfFavoriteClick;
 
 
     }
 }
-
-

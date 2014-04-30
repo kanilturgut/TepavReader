@@ -51,67 +51,76 @@
                 android:orientation="horizontal"
                 android:layout_below="@+id/llHeader"
                 android:layout_above="@+id/rlFooter">
+        <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
-        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                      android:id="@+id/llScrollViewChild"
-                      android:orientation="vertical">
 
-            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="5dp"
-                            android:id="@+id/rlNewsDetailNewsHeader">
-
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:id="@+id/tvNewsDetailTitleOfNews"
-                          android:text="Başlık"
-                          android:textStyle="bold"
-                          android:textSize="@dimen/details_title_of_item_font_size"
-                          android:layout_alignParentTop="true"
-                          android:textColor="@color/tepav_siyahi"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                          android:id="@+id/llScrollViewChild"
+                          android:orientation="vertical">
 
                 <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:id="@+id/rlNewsDetailNewsTimeAndComment"
-                                android:layout_marginTop="5dp"
-                                android:layout_below="@+id/tvNewsDetailTitleOfNews">
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/rlNewsDetailNewsHeader">
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:id="@+id/tvNewsDetailTimeInformationOfNews"
-                              android:textColor="@color/gri"
-                              android:textSize="@dimen/details_time_info_of_item_font_size"
-                              android:layout_alignParentLeft="true"
-                              android:text="Yesterday @ 12:14pm"
-                              android:layout_centerVertical="true"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:id="@+id/tvNewsDetailTitleOfNews"
+                              android:text="Başlık"
+                              android:textStyle="bold"
+                              android:textSize="@dimen/details_title_of_item_font_size"
+                              android:layout_alignParentTop="true"
+                              android:textColor="@color/tepav_siyahi"/>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:text="Yorum"
-                              android:layout_alignParentRight="true"
-                              android:layout_centerVertical="true"/>
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                                    android:id="@+id/rlNewsDetailNewsTimeAndComment"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_below="@+id/tvNewsDetailTitleOfNews">
 
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:id="@+id/tvNewsDetailTimeInformationOfNews"
+                                  android:textColor="@color/gri"
+                                  android:textSize="@dimen/details_time_info_of_item_font_size"
+                                  android:layout_alignParentLeft="true"
+                                  android:text="Yesterday @ 12:14pm"
+                                  android:layout_centerVertical="true"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:text="Yorum"
+                                  android:layout_alignParentRight="true"
+                                  android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
                 </RelativeLayout>
-            </RelativeLayout>
 
-            <WebView android:layout_width="match_parent" android:layout_height="wrap_content"
-                     android:layout_marginLeft="10dp"
-                     android:layout_marginRight="10dp"
-                     android:id="@+id/wvNewsDetailContentOfNews">
+                <WebView android:layout_width="match_parent" android:layout_height="wrap_content"
+                         android:layout_marginLeft="10dp"
+                         android:layout_marginRight="10dp"
+                         android:id="@+id/wvNewsDetailContentOfNews">
 
-            </WebView>
+                </WebView>
 
-            <LinearLayout
-                    android:id="@+id/filesLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:orientation="vertical">
-                <TextView
-                        android:id="@+id/fileLink"
+                <LinearLayout
+                        android:id="@+id/filesLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:orientation="vertical">
+                    <TextView
+                            android:id="@+id/fileLink"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
+            <View android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:id="@+id/viewTransparent"
+                  android:background="#88000000"
+                  android:visibility="gone"/>
+
+        </FrameLayout>
 
     </ScrollView>
 

@@ -5,7 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/action_bar_height"
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/left_menu_row_height"
                     android:id="@+id/rlLeftMenuNormal"
                     android:background="@color/beyaz"
                     android:visibility="visible">
@@ -30,7 +30,7 @@
 
     </RelativeLayout>
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/action_bar_height"
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/left_menu_row_height"
                     android:id="@+id/rlLeftMenuSubMenu"
                     android:background="@color/left_menu_background_koyu"
                     android:visibility="visible">
@@ -55,7 +55,7 @@
 
     </RelativeLayout>
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/action_bar_height"
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/left_menu_row_height"
                     android:id="@+id/rlLeftMenuNormalWithCount"
                     android:background="@color/beyaz"
                     android:visibility="visible">

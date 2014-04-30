@@ -21,6 +21,7 @@
     <!-- Left Menu Settings -->
     <dimen name="left_margin_of_left_menu_small">12dp</dimen>
     <dimen name="left_margin_of_left_menu_large">48dp</dimen>
+    <dimen name="left_menu_row_height">60dp</dimen>
 
     <dimen name="right_margin_of_left_menu_small">12dp</dimen>
 

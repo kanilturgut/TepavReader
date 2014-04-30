@@ -41,7 +41,7 @@
 
                 <ImageView android:layout_width="80dp" android:layout_height="80dp"
                            android:layout_marginBottom="10dp"
-                           android:src="@drawable/popup_add_to_list_empty"/>
+                           android:src="@drawable/popup_add_to_list"/>
 
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
@@ -84,7 +84,7 @@
 
                 <ImageView android:layout_width="80dp" android:layout_height="80dp"
                            android:layout_marginBottom="10dp"
-                           android:src="@drawable/popup_add_to_favorites_empty"/>
+                           android:src="@drawable/popup_add_to_favorites"/>
 
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
@@ -123,7 +123,7 @@
 
                 <ImageView android:layout_width="80dp" android:layout_height="80dp"
                            android:layout_marginBottom="10dp"
-                           android:src="@drawable/popup_add_to_list_empty"/>
+                           android:src="@drawable/popup_add_to_list"/>
 
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"

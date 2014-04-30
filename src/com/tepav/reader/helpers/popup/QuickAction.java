@@ -232,10 +232,10 @@ public class QuickAction extends PopupWindows implements OnDismissListener, OnCl
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                Util.changeVisibility(rlArchiveEmpty);
-                Util.changeVisibility(rlArchiveNotEmpty);
             }
+
+            Util.changeVisibility(rlArchiveEmpty);
+            Util.changeVisibility(rlArchiveNotEmpty);
         }
     }
 

@@ -40,14 +40,6 @@
             </LinearLayout>
         </FrameLayout>
 
-
-        <com.tepav.reader.helpers.pagerindicator.CirclePageIndicator
-                android:id="@+id/circleIndicatorOfBlogPager"
-                android:layout_above="@+id/swipeListViewOfBlog"
-                android:layout_marginBottom="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
         <com.tepav.reader.helpers.swipelistview.SwipeListView
                 android:layout_marginTop="@dimen/gradient_height_small"
                 android:id="@+id/swipeListViewOfBlog"
@@ -74,9 +66,19 @@
                     android:id="@+id/rlLoading"
                     android:background="@color/gri">
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:layout_centerInParent="true"
-                  android:text="Yükleniyor.."/>
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_centerInParent="true"
+                      android:orientation="horizontal">
+
+            <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content"
+                         android:layout_marginRight="5dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_gravity="center_vertical"
+                      android:text="@string/loading"/>
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 

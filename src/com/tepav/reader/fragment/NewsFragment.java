@@ -80,17 +80,21 @@ public class NewsFragment extends Fragment {
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
 
-                for (int i = 0; i < Constant.DRAWERS_PAGE_NUMBER; i++) {
-                    try {
-                        newsListForPager.add(News.fromJSON(object.getJSONObject(i)));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                if (object != null) {
 
-                newsPagerAdapter = new NewsPagerAdapter(getFragmentManager(), context, newsListForPager);
-                viewPagerOfNews.setAdapter(newsPagerAdapter);
-                circlePageIndicator.setViewPager(viewPagerOfNews);
+                    for (int i = 0; i < Constant.DRAWERS_PAGE_NUMBER; i++) {
+                        try {
+                            newsListForPager.add(News.fromJSON(object.getJSONObject(i)));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    newsPagerAdapter = new NewsPagerAdapter(getFragmentManager(), context, newsListForPager);
+                    viewPagerOfNews.setAdapter(newsPagerAdapter);
+                    circlePageIndicator.setViewPager(viewPagerOfNews);
+
+                }
 
                 if (rlLoading != null)
                     rlLoading.setVisibility(RelativeLayout.GONE);

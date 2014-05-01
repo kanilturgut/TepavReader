@@ -54,4 +54,7 @@ public class Constant {
     public static final String SHARE_BLOG = "http://www.tepav.org.tr/tr/blog/s/";
     public static final String SHARE_PUBLICATION = "http://www.tepav.org.tr/tr/yayin/s/";
 
+    //shared preferences
+    public static final String SP_LOGIN = "login_preferences";
+
 }

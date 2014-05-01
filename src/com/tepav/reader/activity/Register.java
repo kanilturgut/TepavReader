@@ -4,31 +4,53 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.*;
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
+import com.tepav.reader.helpers.HttpURL;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Author : kanilturgut
  * Date : 01.05.2014
  * Time : 19:21
  */
-public class Register extends Activity {
+public class Register extends Activity implements View.OnClickListener {
 
     Context context;
+
+    EditText etName, etSurname, etEmail, etPassword;
+    TextView tvLogin;
+    Button doRegister;
+    LinearLayout llHeaderBack;
+
+    AQuery aQuery;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         this.context = this;
 
-        TextView tv = (TextView) findViewById(R.id.tvLogin);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(context, Login.class));
-            }
-        });
+        etName = (EditText) findViewById(R.id.etName);
+        etSurname = (EditText) findViewById(R.id.etSurname);
+        etEmail = (EditText) findViewById(R.id.etEmail);
+        etPassword = (EditText) findViewById(R.id.etPassword);
+
+        doRegister = (Button) findViewById(R.id.bDoRegister);
+        doRegister.setOnClickListener(this);
+
+        tvLogin = (TextView) findViewById(R.id.tvLogin);
+        tvLogin.setOnClickListener(this);
+
+        llHeaderBack = (LinearLayout) findViewById(R.id.llHeaderBack);
+        llHeaderBack.setOnClickListener(this);
+
+        aQuery = new AQuery(context);
     }
 
 
@@ -36,6 +58,48 @@ public class Register extends Activity {
     protected void onPause() {
         super.onPause();
 
+        finish();
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if (view == doRegister) {
+
+            String name = etName.getText().toString().trim();
+            String surname = etSurname.getText().toString().trim();
+            String email = etEmail.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
+
+            if (!name.isEmpty() && !surname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("name", name);
+                    jsonObject.put("surname", surname);
+                    jsonObject.put("email", email);
+                    jsonObject.put("password", password);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                aQuery.post(HttpURL.createURL(HttpURL.tepavRegister), jsonObject, Object.class, new AjaxCallback<Object>());
+
+                changeToLogin();
+            } else {
+                Toast.makeText(context, "Boş alanları doldurunuz", Toast.LENGTH_LONG).show();
+            }
+
+        } else if (view == tvLogin) {
+            changeToLogin();
+        } else if (view == llHeaderBack) {
+            onBackPressed();
+        }
+    }
+
+    void changeToLogin() {
+
+        startActivity(new Intent(context, Login.class));
         finish();
     }
 }

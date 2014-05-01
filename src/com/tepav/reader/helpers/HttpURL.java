@@ -22,4 +22,14 @@ public class HttpURL {
     public static final String likeBLog = "/blog/like";
     public static final String likePublication = "/publication/like";
 
+    //register
+    public static final String tepavRegister = "/user/register";
+
+    //login
+    public static final String tepavLogin = "/auth";
+    public static final String facebookLogin = "/auth/facebook/token";
+    public static final String twitterLoginFirstStep = "/auth/twitter/token";
+    public static final String twitterLoginSecondStep = "/auth/twitter/reverse";
+
+
 }

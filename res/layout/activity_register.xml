@@ -81,18 +81,41 @@
             </RelativeLayout>
 
             <EditText android:layout_width="match_parent" android:layout_height="50dp"
+                      android:id="@+id/etName"
                       android:layout_marginTop="20dp"
                       android:background="@drawable/rounded_white"
                       android:paddingLeft="10dp"
-                      android:hint="@string/email"/>
+                      android:singleLine="true"
+                      android:hint="@string/name"/>
 
             <EditText android:layout_width="match_parent" android:layout_height="50dp"
+                      android:id="@+id/etSurname"
+                      android:layout_marginTop="10dp"
+                      android:background="@drawable/rounded_white"
+                      android:paddingLeft="10dp"
+                      android:singleLine="true"
+                      android:hint="@string/surname"/>
+
+            <EditText android:layout_width="match_parent" android:layout_height="50dp"
+                      android:id="@+id/etEmail"
+                      android:layout_marginTop="10dp"
+                      android:background="@drawable/rounded_white"
+                      android:paddingLeft="10dp"
+                      android:singleLine="true"
+                      android:hint="@string/email"
+                      android:inputType="textEmailAddress"/>
+
+            <EditText android:layout_width="match_parent" android:layout_height="50dp"
+                      android:id="@+id/etPassword"
                       android:layout_marginTop="10dp"
                       android:paddingLeft="10dp"
+                      android:inputType="textPassword"
+                      android:singleLine="true"
                       android:background="@drawable/rounded_white"
                       android:hint="@string/password"/>
 
             <Button android:layout_width="match_parent" android:layout_height="50dp"
+                    android:id="@+id/bDoRegister"
                     android:layout_marginTop="20dp"
                     android:text="@string/do_register_upper_case"
                     android:textColor="@color/beyaz"

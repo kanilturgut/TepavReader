@@ -81,18 +81,23 @@
             </RelativeLayout>
 
             <EditText android:layout_width="match_parent" android:layout_height="50dp"
+                      android:id="@+id/etEmail"
                       android:layout_marginTop="20dp"
                       android:background="@drawable/rounded_white"
                       android:paddingLeft="10dp"
-                      android:hint="@string/email"/>
+                      android:hint="@string/email"
+                      android:inputType="textEmailAddress"/>
 
             <EditText android:layout_width="match_parent" android:layout_height="50dp"
+                      android:id="@+id/etPassword"
                       android:layout_marginTop="10dp"
                       android:paddingLeft="10dp"
                       android:background="@drawable/rounded_white"
-                      android:hint="@string/password"/>
+                      android:hint="@string/password"
+                      android:inputType="textPassword"/>
 
             <Button android:layout_width="match_parent" android:layout_height="50dp"
+                    android:id="@+id/bDoLogin"
                     android:layout_marginTop="20dp"
                     android:text="@string/do_login_upper_case"
                     android:textColor="@color/beyaz"

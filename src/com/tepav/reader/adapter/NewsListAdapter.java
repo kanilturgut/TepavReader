@@ -78,6 +78,8 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
             //back view
             holder.ibShare = (ImageButton) convertView.findViewById(R.id.ibShare);
+            holder.ibLike = (ImageButton) convertView.findViewById(R.id.ibLike);
+            holder.ibLiked = (ImageButton) convertView.findViewById(R.id.ibAlreadyLiked);
             holder.ibFavorite = (ImageButton) convertView.findViewById(R.id.ibFavorite);
             holder.ibFavorited = (ImageButton) convertView.findViewById(R.id.ibFavorited);
             holder.ibReadList = (ImageButton) convertView.findViewById(R.id.ibReadList);
@@ -109,6 +111,8 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
         MyOnClickListener myOnClickListener = new MyOnClickListener(position);
         holder.ibShare.setOnClickListener(myOnClickListener);
+        holder.ibLike.setOnClickListener(myOnClickListener);
+        holder.ibLiked.setOnClickListener(myOnClickListener);
         holder.ibFavorite.setOnClickListener(myOnClickListener);
         holder.ibReadList.setOnClickListener(myOnClickListener);
         holder.ibFavorited.setOnClickListener(myOnClickListener);
@@ -136,7 +140,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
             switch (view.getId()) {
                 case R.id.ibShare:
-                    Log.i("DEneme", "share");
+                    Log.i("Deneme", "share");
                     String url = Constant.SHARE_NEWS + news.getHaber_id();
 
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -145,8 +149,30 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     shareIntent.putExtra(Intent.EXTRA_TEXT,  news.getHtitle() + " " + url);
                     context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
                     break;
+                case R.id.ibLike:
+
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("newsId", news.getId());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+/*
+
+                    aq.post(HttpURL.createURL(HttpURL.likeNews), jsonObject, String.class, new AjaxCallback<String>() {
+                        @Override
+                        public void callback(String url, String object, AjaxStatus status) {
+                            super.callback(url, object, status);
+                        }
+                    });
+                    */
+
+                    break;
+                case R.id.ibAlreadyLiked:
+
+                    break;
                 case R.id.ibFavorite:
-                    Log.i("DEneme", "favorite");
+                    Log.i("Deneme", "favorite");
                     try {
                         dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
 
@@ -159,7 +185,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     break;
                 case R.id.ibFavorited:
 
-                    Log.i("DEneme", "favorited");
+                    Log.i("Deneme", "favorited");
                     try {
                         dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
 
@@ -172,7 +198,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     break;
                 case R.id.ibReadList:
 
-                    Log.i("DEneme", "read list");
+                    Log.i("Deneme", "read list");
                     try {
                         dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
 
@@ -183,7 +209,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     }
                     break;
                 case R.id.ibReadListed:
-                    Log.i("DEneme", "readListed");
+                    Log.i("Deneme", "readListed");
                     try {
                         dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
 
@@ -209,6 +235,8 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         TextView titleOfNews;
         TextView dateOfNews;
         ImageButton ibShare;
+        ImageButton ibLike;
+        ImageButton ibLiked;
         ImageButton ibFavorite;
         ImageButton ibFavorited;
         ImageButton ibReadList;

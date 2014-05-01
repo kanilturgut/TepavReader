@@ -1,6 +1,7 @@
 package com.tepav.reader.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,7 @@ public class MainActivity extends FragmentActivity {
     SlidingMenu slidingMenu;
     RelativeLayout btMenu;
     ListView lvLeftMenu;
+    TextView tvLeftMenuHeader;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,14 @@ public class MainActivity extends FragmentActivity {
         TextView textView = (TextView) findViewById(R.id.tvActionBarHeader);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/tahoma.ttf");
         textView.setTypeface(typeface, Typeface.BOLD);
+
+        tvLeftMenuHeader = (TextView) findViewById(R.id.tvLeftMenuHeader);
+        tvLeftMenuHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(context, Register.class));
+            }
+        });
 
         lvLeftMenu = (ListView) findViewById(R.id.lvLeftMenu);
 

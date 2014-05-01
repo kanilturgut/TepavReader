@@ -14,7 +14,7 @@
     <string name="Readed_Documents">Okuduklarım</string>
 
     <string name="content_description">Nothing</string>
-    
+
     <string name="like">Beğen</string>
     <string name="liked">Beğenildi</string>
     <string name="share">Paylaş</string>
@@ -47,4 +47,14 @@
     <string name="open_doc">Dökümanı açmak için tıklayınız</string>
     <string name="not_found_doc">Açmak istediğiniz döküman bulunamadı!</string>
     <string name="no_doc">Bu yayına ait bir döküman bulunmamaktadır</string>
+
+    <string name="do_register_upper_case">Üye Ol</string>
+    <string name="do_register_lower_case">üye ol</string>
+    <string name="do_login_header">Giriş Yapın</string>
+    <string name="do_login_upper_case">Giriş Yap</string>
+    <string name="do_login_lower_case">giriş yap</string>
+    <string name="email">Eposta</string>
+    <string name="password">Şifre</string>
+
+
 </resources>

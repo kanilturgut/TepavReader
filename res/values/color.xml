@@ -17,5 +17,7 @@
     <color name="left_menu_background_koyu">#F3F3F3</color>
 
     <color name="favorites_font_color">#8F979F</color>
+
+    <color name="do_login">#51C4D4</color>
     
 </resources>

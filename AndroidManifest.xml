@@ -29,5 +29,7 @@
         <activity android:name=".activity.BlogDetails"/>
         <activity android:name=".activity.PublicationDetails"/>
         <activity android:name=".activity.PDFDownloadActivity"/>
+        <activity android:name=".activity.Register"/>
+        <activity android:name=".activity.Login"/>
     </application>
 </manifest>

@@ -17,4 +17,9 @@ public class HttpURL {
     public static final String blog = "/blog";
     public static final String publication = "/publication";
 
+    //like
+    public static final String likeNews = "/news/like";
+    public static final String likeBLog = "/blog/like";
+    public static final String likePublication = "/publication/like";
+
 }

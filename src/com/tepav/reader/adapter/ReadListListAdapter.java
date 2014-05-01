@@ -137,7 +137,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
         if (news != null) {
 
-            holder.titleOfReadList.setText("N " + news.getHtitle());
+            holder.titleOfReadList.setText(news.getHtitle());
             holder.dateOfReadList.setText(news.getHdate());
 
 
@@ -151,7 +151,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             }
 
         } else if (blog != null) {
-            holder.titleOfReadList.setText("B " + blog.getBtitle());
+            holder.titleOfReadList.setText(blog.getBtitle());
             holder.dateOfReadList.setText(blog.getBtitle());
 
             Bitmap bmp = aq.getCachedImage(blog.getPimage());
@@ -164,7 +164,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             }
 
         } else if (publication != null) {
-            holder.titleOfReadList.setText("P " + publication.getYtitle());
+            holder.titleOfReadList.setText(publication.getYtitle());
             holder.dateOfReadList.setText(publication.getYdate() + ", " + publication.getYtype());
             holder.imageOfReadList.setImageResource(R.drawable.no_image);
         }

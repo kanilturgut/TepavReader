@@ -17,7 +17,6 @@ import com.tepav.reader.helpers.Util;
 import com.tepav.reader.helpers.popup.QuickAction;
 import com.tepav.reader.model.File;
 import com.tepav.reader.model.News;
-import org.json.JSONException;
 
 /**
  * Author : kanilturgut
@@ -59,9 +58,6 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         llFooterShare.setOnClickListener(this);
         llFooterAddToList.setOnClickListener(this);
         llHeaderBack.setOnClickListener(this);
-
-        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, news.getId(), llFooterLike, llFooterAlreadyLiked);
-        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, news.getId(), llFooterAddToList, llFooterAddedToList);
 
         webView = (WebView) findViewById(R.id.wvNewsDetailContentOfNews);
         webView.loadData(news.getHcontent(), "text/html; charset=UTF-8", null);

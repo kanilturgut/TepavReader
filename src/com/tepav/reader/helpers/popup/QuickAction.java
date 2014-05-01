@@ -62,14 +62,6 @@ public class QuickAction extends PopupWindows implements OnDismissListener, OnCl
         mRootView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         setContentView(mRootView);
 
-        if (object instanceof News) {
-            news = (News) object;
-        } else if (object instanceof Blog) {
-            blog = (Blog) object;
-        } else if (object instanceof Publication) {
-            publication = (Publication) object;
-        }
-
         rlReadListEmpty = (RelativeLayout) mRootView.findViewById(R.id.rlReadListEmpty);
         rlReadListEmpty.setOnClickListener(this);
 
@@ -87,6 +79,28 @@ public class QuickAction extends PopupWindows implements OnDismissListener, OnCl
 
         rlArchiveNotEmpty = (RelativeLayout) mRootView.findViewById(R.id.rlArchiveNotEmpty);
         rlArchiveNotEmpty.setOnClickListener(this);
+
+        if (object instanceof News) {
+            news = (News) object;
+
+            Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, news.getId(), rlReadListEmpty, rlReadListNotEmpty);
+            Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, news.getId(), rlFavListEmpty, rlFavListNotEmpty);
+            Util.checkIfIsContain(dbHandler, DBHandler.TABLE_ARCHIVE, news.getId(), rlArchiveEmpty, rlArchiveNotEmpty);
+        } else if (object instanceof Blog) {
+            blog = (Blog) object;
+
+            Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, blog.getId(), rlReadListEmpty, rlReadListNotEmpty);
+            Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, blog.getId(), rlFavListEmpty, rlFavListNotEmpty);
+            Util.checkIfIsContain(dbHandler, DBHandler.TABLE_ARCHIVE, blog.getId(), rlArchiveEmpty, rlArchiveNotEmpty);
+        } else if (object instanceof Publication) {
+            publication = (Publication) object;
+
+            Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, publication.getId(), rlReadListEmpty, rlReadListNotEmpty);
+            Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, publication.getId(), rlFavListEmpty, rlFavListNotEmpty);
+            Util.checkIfIsContain(dbHandler, DBHandler.TABLE_ARCHIVE, publication.getId(), rlArchiveEmpty, rlArchiveNotEmpty);
+        }
+
+
     }
 
     @Override

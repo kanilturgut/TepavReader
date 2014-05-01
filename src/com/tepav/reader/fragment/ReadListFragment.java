@@ -38,12 +38,15 @@ public class ReadListFragment extends Fragment {
 
         //swipe list view of news
         swipeListViewOfReadList = (SwipeListView) view.findViewById(R.id.swipeListViewOfReadList);
-        swipeListViewOfReadList.setAdapter(new ReadListListAdapter(context));
-
-        rlLoading.setVisibility(View.GONE);
 
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        swipeListViewOfReadList.setAdapter(new ReadListListAdapter(context));
+        rlLoading.setVisibility(View.GONE);
+    }
 }

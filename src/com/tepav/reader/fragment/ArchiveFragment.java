@@ -38,12 +38,15 @@ public class ArchiveFragment extends Fragment {
 
         //swipe list view of news
         swipeListViewOfArchive = (SwipeListView) view.findViewById(R.id.swipeListViewOfArchive);
-        swipeListViewOfArchive.setAdapter(new ArchiveListAdapter(context));
-
-        rlLoading.setVisibility(View.GONE);
 
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        swipeListViewOfArchive.setAdapter(new ArchiveListAdapter(context));
+        rlLoading.setVisibility(View.GONE);
+    }
 }

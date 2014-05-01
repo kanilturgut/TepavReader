@@ -38,12 +38,15 @@ public class FavoriteFragment extends Fragment {
 
         //swipe list view of news
         swipeListViewOfFavorite = (SwipeListView) view.findViewById(R.id.swipeListViewOfFavorite);
-        swipeListViewOfFavorite.setAdapter(new FavoriteListAdapter(context));
-
-        rlLoading.setVisibility(View.GONE);
 
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        swipeListViewOfFavorite.setAdapter(new FavoriteListAdapter(context));
+        rlLoading.setVisibility(View.GONE);
+    }
 }

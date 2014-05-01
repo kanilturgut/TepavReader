@@ -203,6 +203,10 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
                             Publication tmpPub = Publication.fromJSON(object.getJSONObject(i));
                             if (publicationType.equals(context.getString(R.string.Research_And_Publications)))
                                 temp.add(tmpPub);
+                            else if (publicationType.equals(context.getString(R.string.Reports_And_Printed_Publications))) {
+                                if (tmpPub.getYtype().equals(Constant.REPORTS) || tmpPub.getYtype().equals(Constant.PRINTED_PUBLICATIONS))
+                                    temp.add(tmpPub);
+                            }
                             else if (tmpPub.getYtype().equals(publicationType))
                                 temp.add(tmpPub);
 

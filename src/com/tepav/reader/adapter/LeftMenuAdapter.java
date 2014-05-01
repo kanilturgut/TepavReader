@@ -73,16 +73,6 @@ public class LeftMenuAdapter extends ArrayAdapter<String>{
                 tvLeftMenuNormalTitleOfItem.setText(menuItems[position]);
 
                 break;
-            case Constant.LEFT_MENU_ITEM_REPORTS:
-                changeVisibility(rlLeftMenuSubMenu, rlLeftMenuNormalWithCount, rlLeftMenuNormal);
-
-                ivLeftMenuSubMenuImageOfItem = (ImageView) rowView.findViewById(R.id.ivLeftMenuSubMenuImageOfItem);
-                ivLeftMenuSubMenuImageOfItem.setImageResource(R.drawable.raporlar_sidebar_icon);
-
-                tvLeftMenuSubMenuTitleOfItem = (TextView) rowView.findViewById(R.id.tvLeftMenuSubMenuTitleOfItem);
-                tvLeftMenuSubMenuTitleOfItem.setText(menuItems[position]);
-
-                break;
             case Constant.LEFT_MENU_ITEM_NOTES:
                 changeVisibility(rlLeftMenuSubMenu, rlLeftMenuNormalWithCount, rlLeftMenuNormal);
 
@@ -93,7 +83,7 @@ public class LeftMenuAdapter extends ArrayAdapter<String>{
                 tvLeftMenuSubMenuTitleOfItem.setText(menuItems[position]);
 
                 break;
-            case Constant.LEFT_MENU_ITEM_PRINTED_PUBLICATIONS:
+            case Constant.LEFT_MENU_ITEM_REPORTS_AND_PRINTED_PUBLICATIONS:
                 changeVisibility(rlLeftMenuSubMenu, rlLeftMenuNormalWithCount, rlLeftMenuNormal);
 
                 ivLeftMenuSubMenuImageOfItem = (ImageView) rowView.findViewById(R.id.ivLeftMenuSubMenuImageOfItem);

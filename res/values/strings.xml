@@ -7,9 +7,8 @@
     <string name="News">Haberler</string>
     <string name="Blogs">Günlükler</string>
     <string name="Research_And_Publications">Araştırma ve Yayınlar</string>
-    <string name="Reports">Raporlar</string>
     <string name="Notes">Notlar</string>
-    <string name="Printed_Publications">Basılı Yayınlar</string>
+    <string name="Reports_And_Printed_Publications">Raporlar ve Yayınlar</string>
     <string name="Read_List">Okuma Listem</string>
     <string name="Favorites">Favoriler</string>
     <string name="Readed_Documents">Okuduklarım</string>
@@ -35,9 +34,8 @@
         <item>Haberler</item>
         <item>Günlük</item>
         <item>Araştırma ve Yayınlar</item>
-        <item>Raporlar</item>
         <item>Notlar</item>
-        <item>Basılı Yayın</item>
+        <item>Raporlar ve Yayınlar</item>
         <item>Okuma Listem</item>
         <item>Favoriler</item>
         <item>Okuduklarım</item>

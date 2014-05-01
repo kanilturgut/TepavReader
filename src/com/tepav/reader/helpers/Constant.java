@@ -31,12 +31,23 @@ public class Constant {
     public static final int LEFT_MENU_ITEM_NEWS = 0;
     public static final int LEFT_MENU_ITEM_BLOGS = 1;
     public static final int LEFT_MENU_ITEM_RESEARCH_AND_PUBLICATIONS = 2;
-    public static final int LEFT_MENU_ITEM_REPORTS = 3;
-    public static final int LEFT_MENU_ITEM_NOTES = 4;
-    public static final int LEFT_MENU_ITEM_PRINTED_PUBLICATIONS = 5;
-    public static final int LEFT_MENU_ITEM_MY_READ_LIST = 6;
-    public static final int LEFT_MENU_ITEM_FAVORITES = 7;
-    public static final int LEFT_MENU_ITEM_ARCHIVE = 8;
+    public static final int LEFT_MENU_ITEM_NOTES = 3;
+    public static final int LEFT_MENU_ITEM_REPORTS_AND_PRINTED_PUBLICATIONS = 4;
+    public static final int LEFT_MENU_ITEM_MY_READ_LIST = 5;
+    public static final int LEFT_MENU_ITEM_FAVORITES = 6;
+    public static final int LEFT_MENU_ITEM_ARCHIVE = 7;
+
+    //menu items
+    public static final String NEWS = "Haberler";
+    public static final String BLOG = "Günlük";
+    public static final String RESEARCH_AND_PUBLICATIONS = "Araştırma ve Yayınlar";
+    public static final String NOTES = "Notlar";
+    public static final String REPORTS = "Raporlar";
+    public static final String PRINTED_PUBLICATIONS = "Basılı Yayınlar";
+    public static final String MY_READ_LIST = "Okuma Listem";
+    public static final String FAVORITES = "Favoriler";
+    public static final String ARCHIVE = "Okuduklarım";
+
 
     //share url's
     public static final String SHARE_NEWS = "http://www.tepav.org.tr/tr/haberler/s/";

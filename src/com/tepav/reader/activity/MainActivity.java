@@ -86,16 +86,12 @@ public class MainActivity extends FragmentActivity {
                 fragmentTag = getString(R.string.Research_And_Publications);
                 fragment = new PublicationFragment(fragmentTag);
                 break;
-            case Constant.LEFT_MENU_ITEM_REPORTS:
-                fragmentTag = getString(R.string.Reports);
-                fragment = new PublicationFragment(fragmentTag);
-                break;
             case Constant.LEFT_MENU_ITEM_NOTES:
                 fragmentTag = getString(R.string.Notes);
                 fragment = new PublicationFragment(fragmentTag);
                 break;
-            case Constant.LEFT_MENU_ITEM_PRINTED_PUBLICATIONS:
-                fragmentTag = getString(R.string.Printed_Publications);
+            case Constant.LEFT_MENU_ITEM_REPORTS_AND_PRINTED_PUBLICATIONS:
+                fragmentTag = getString(R.string.Reports_And_Printed_Publications);
                 fragment = new PublicationFragment(fragmentTag);
                 break;
             case Constant.LEFT_MENU_ITEM_MY_READ_LIST:

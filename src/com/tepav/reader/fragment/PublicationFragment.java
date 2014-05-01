@@ -43,7 +43,7 @@ public class PublicationFragment extends Fragment {
         rlLoading = (RelativeLayout) view.findViewById(R.id.rlLoading);
 
         TextView tvTypeOfPublication = (TextView) view.findViewById(R.id.tvTypeOfPublication);
-        tvTypeOfPublication.setText(publicationType);
+            tvTypeOfPublication.setText(publicationType);
 
         //swipe list view of publication
         swipeListViewOfPublication = (SwipeListView) view.findViewById(R.id.swipeListViewOfPublication);

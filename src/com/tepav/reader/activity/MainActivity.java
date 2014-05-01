@@ -39,14 +39,6 @@ public class MainActivity extends FragmentActivity {
         textView.setTypeface(typeface, Typeface.BOLD);
 
         lvLeftMenu = (ListView) findViewById(R.id.lvLeftMenu);
-        lvLeftMenu.setAdapter(new LeftMenuAdapter(context, getResources().getStringArray(R.array.menu_items)));
-        lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                onMenuItemClick(parent, view, position, id);
-            }
-
-        });
 
         btMenu = (RelativeLayout) findViewById(R.id.button_menu);
         btMenu.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +55,20 @@ public class MainActivity extends FragmentActivity {
 
         ft.add(R.id.activity_main_content_fragment, fragment, "Haberler");
         ft.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        lvLeftMenu.setAdapter(new LeftMenuAdapter(context, getResources().getStringArray(R.array.menu_items)));
+        lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                onMenuItemClick(parent, view, position, id);
+            }
+
+        });
     }
 
     private void onMenuItemClick(AdapterView<?> parent, View view, int position, long id) {

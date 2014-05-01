@@ -1,6 +1,7 @@
 package com.tepav.reader.adapter;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.tepav.reader.R;
+import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 
 /**
@@ -25,11 +27,15 @@ public class LeftMenuAdapter extends ArrayAdapter<String>{
     ImageView ivLeftMenuNormalImageOfItem, ivLeftMenuSubMenuImageOfItem, ivLeftMenuNormalImageOfItemlWithCount;
     TextView tvLeftMenuNormalTitleOfItem, tvLeftMenuSubMenuTitleOfItem, tvLeftMenuNormalTitleOfItemlWithCount, tvLeftMenuNormalCountOfItemlWithCount;
 
+    DBHandler dbHandler;
+
     public LeftMenuAdapter(Context context, String[] menuItems) {
         super(context, R.layout.custom_row_left_menu, menuItems);
 
         this.context = context;
         this.menuItems = menuItems;
+
+        dbHandler = DBHandler.getInstance(context);
     }
 
     @Override
@@ -122,7 +128,19 @@ public class LeftMenuAdapter extends ArrayAdapter<String>{
                 tvLeftMenuNormalTitleOfItemlWithCount = (TextView) rowView.findViewById(R.id.tvLeftMenuNormalTitleOfItemlWithCount);
                 tvLeftMenuNormalTitleOfItemlWithCount.setText(menuItems[position]);
 
-                tvLeftMenuNormalCountOfItemlWithCount = (TextView) rowView.findViewById(R.id.tvLeftMenuNormalCountOfItemlWithCount);
+                tvLeftMenuNormalCountOfItemlWithCount = (TextView) rowView.findViewById(R.id.tvLeftMenuNormalCountOfItemWithCount);
+                new AsyncTask<Void, Void, Integer>() {
+
+                    @Override
+                    protected Integer doInBackground(Void... voids) {
+                        return dbHandler.size(DBHandler.TABLE_READ_LIST);
+                    }
+
+                    @Override
+                    protected void onPostExecute(Integer integer) {
+                        tvLeftMenuNormalCountOfItemlWithCount.setText(String.valueOf(integer));
+                    }
+                }.execute();
 
 
                 break;

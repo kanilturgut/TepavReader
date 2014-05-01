@@ -75,7 +75,7 @@
                   android:layout_marginLeft="@dimen/left_margin_of_left_menu_small"/>
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:id="@+id/tvLeftMenuNormalCountOfItemlWithCount"
+                  android:id="@+id/tvLeftMenuNormalCountOfItemWithCount"
                   android:layout_centerVertical="true"
                   android:layout_alignParentRight="true"
                   android:layout_marginRight="@dimen/right_margin_of_left_menu_small"

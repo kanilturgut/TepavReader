@@ -30,6 +30,8 @@ public class MainActivity extends FragmentActivity {
     ListView lvLeftMenu;
     TextView tvLeftMenuHeader;
 
+    public static FragmentManager fm = null;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.context = this;
@@ -59,11 +61,11 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        FragmentManager fm = MainActivity.this.getSupportFragmentManager();
+        fm = MainActivity.this.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        NewsFragment fragment = new NewsFragment();
+        HomeFragment fragment = new HomeFragment();
 
-        ft.add(R.id.activity_main_content_fragment, fragment, "Haberler");
+        ft.add(R.id.activity_main_content_fragment, fragment, "Home");
         ft.commit();
     }
 
@@ -85,7 +87,6 @@ public class MainActivity extends FragmentActivity {
 
         String fragmentTag = "";
 
-        FragmentManager fm = MainActivity.this.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment fragment = null;
 
@@ -144,10 +145,6 @@ public class MainActivity extends FragmentActivity {
         } else {
             super.onBackPressed();
         }
-    }
-
-    void notImplemented() {
-        Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT).show();
     }
 
 }

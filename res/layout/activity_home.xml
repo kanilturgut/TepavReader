@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+               android:scaleType="fitXY"
+               android:contentDescription="@string/content_description"
+               android:src="@drawable/blur_background"/>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:background="@android:color/transparent"
+                  android:orientation="vertical">
+
+        <FrameLayout android:layout_width="match_parent" android:layout_height="0dp"
+                     android:layout_marginTop="@dimen/gradient_height"
+                     android:id="@+id/frameNews"
+                     android:layout_weight="1">
+
+            <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                       android:contentDescription="@string/content_description"
+                       android:scaleType="fitXY"
+                       android:src="@drawable/haberler"/>
+
+            <LinearLayout android:layout_width="100dp" android:layout_height="wrap_content"
+                          android:background="@color/petrol_mavisi"
+                          android:layout_gravity="right"
+                          android:layout_marginTop="20dp"
+                          android:orientation="horizontal">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_margin="5dp"
+                          android:text="@string/News"
+                          android:textSize="15sp"
+                          android:textStyle="bold"
+                          android:textColor="@color/beyaz"/>
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <FrameLayout android:layout_width="match_parent" android:layout_height="0dp"
+                     android:layout_marginTop="@dimen/gradient_height"
+                     android:id="@+id/frameBlog"
+                     android:layout_weight="1">
+
+            <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                       android:contentDescription="@string/content_description"
+                       android:scaleType="fitXY"
+                       android:src="@drawable/gunluk"/>
+
+            <LinearLayout android:layout_width="100dp" android:layout_height="wrap_content"
+                          android:background="@color/petrol_mavisi"
+                          android:layout_gravity="left"
+                          android:layout_marginTop="20dp"
+                          android:orientation="horizontal">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_margin="5dp"
+                          android:text="@string/Blogs"
+                          android:textSize="15sp"
+                          android:textStyle="bold"
+                          android:textColor="@color/beyaz"/>
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <FrameLayout android:layout_width="match_parent" android:layout_height="0dp"
+                     android:layout_marginTop="@dimen/gradient_height"
+                     android:id="@+id/framePublication"
+                     android:layout_weight="1">
+
+            <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                       android:contentDescription="@string/content_description"
+                       android:scaleType="fitXY"
+                       android:src="@drawable/arastirma"/>
+
+            <LinearLayout android:layout_width="100dp" android:layout_height="wrap_content"
+                          android:background="@color/petrol_mavisi"
+                          android:layout_gravity="right"
+                          android:layout_marginTop="20dp"
+                          android:orientation="horizontal">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_margin="5dp"
+                          android:text="@string/Research_And_Publications"
+                          android:textSize="15sp"
+                          android:textStyle="bold"
+                          android:textColor="@color/beyaz"/>
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

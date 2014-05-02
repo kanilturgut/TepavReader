@@ -14,7 +14,9 @@ import com.tepav.reader.R;
 import com.tepav.reader.activity.MainActivity;
 
 /**
- * Created by kanilturgut on 02/05/14.
+ * Author   : kanilturgut
+ * Date     : 02/05/14
+ * Time     : 17:27
  */
 public class HomeFragment extends Fragment implements View.OnClickListener {
 

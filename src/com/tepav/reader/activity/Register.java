@@ -3,12 +3,14 @@ package com.tepav.reader.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
@@ -37,7 +39,13 @@ public class Register extends Activity implements View.OnClickListener {
 
     AQuery aQuery;
     LoginButton facebookLogin;
-    String faceAccessToken = "000";
+
+    final String PREF_NAME = "login_preferences";
+    final String PREF_USER_NAME = "name";
+    final String PREF_USER_EMAIL = "email";
+    final String PREF_USER_FACETOKEN = "facebook_token";
+
+    SharedPreferences sharedPreferences = null;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +67,29 @@ public class Register extends Activity implements View.OnClickListener {
         llHeaderBack.setOnClickListener(this);
 
         aQuery = new AQuery(context);
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+
+        if (sharedPreferences.getAll().size() > 0) {
+
+            String token = sharedPreferences.getString(PREF_USER_FACETOKEN, "null");
+            JSONObject jsonObject = new JSONObject();
+            if (!token.equals("null")) {
+                try {
+                    jsonObject.put("access_token", token);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            aQuery.post(HttpURL.createURL(HttpURL.facebookLogin), jsonObject, Object.class, new AjaxCallback<Object>() {
+
+                @Override
+                public void callback(String url, Object object, AjaxStatus status) {
+
+                    finish();
+                }
+            });
+        }
 
         facebookLogin = (LoginButton) findViewById(R.id.authButton);
         facebookLogin.setOnErrorListener(new LoginButton.OnErrorListener() {
@@ -78,11 +109,11 @@ public class Register extends Activity implements View.OnClickListener {
     private final Session.StatusCallback facebookCallback = new Session.StatusCallback() {
 
         @Override
-        public void call(Session session, SessionState state,
+        public void call(final Session session, SessionState state,
                          Exception exception) {
 
             if (session.isOpened()) {
-                faceAccessToken = session.getAccessToken();
+
                 Toast.makeText(context, "Access Token " + session.getAccessToken(), Toast.LENGTH_LONG).show();
                 Log.i(TAG, "Access Token " + session.getAccessToken());
                 Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
@@ -110,41 +141,20 @@ public class Register extends Activity implements View.OnClickListener {
                             Toast.makeText(context, "USER INFO : " + userID + "," + name + "," + username + ","
                                     + email, Toast.LENGTH_LONG).show();
 
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(PREF_USER_NAME, name);
+                            editor.putString(PREF_USER_EMAIL, email);
+                            editor.putString(PREF_USER_FACETOKEN, session.getAccessToken());
+                            editor.commit();
+
+                            finish();
+
                         }
                     }
 
                 });
             }
         }
-
-        Request.GraphUserCallback userCallback = new Request.GraphUserCallback() {
-
-            @Override
-            public void onCompleted(GraphUser user, Response response) {
-                if (user != null) {
-                    Map<String, Object> userMap = user.asMap();
-                    String userID = user.getId();
-                    String name = user.getName();
-                    String username = user.getUsername();
-                    String email = null;
-
-                    if (userMap.containsKey("email")) {
-                        email = userMap.get("email").toString();
-                    } else {
-                        Log.d(TAG, "Facebook email was null");
-                        email = username + "@facebook.com";
-                        Log.d(TAG, "Facebook email -> " + email);
-                    }
-
-                    Log.i(TAG, userID + "," + name + "," + username + ","
-                            + email);
-
-                    Toast.makeText(context, "USER INFO : " + userID + "," + name + "," + username + ","
-                            + email, Toast.LENGTH_LONG).show();
-
-                }
-            }
-        };
     };
 
 
@@ -181,7 +191,7 @@ public class Register extends Activity implements View.OnClickListener {
 
                 changeToLogin();
             } else {
-                Toast.makeText(context, "facebook token : " + faceAccessToken, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Lütfen boşlukları doldurunuz !", Toast.LENGTH_LONG).show();
             }
 
         } else if (view == tvLogin) {

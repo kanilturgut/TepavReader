@@ -9,11 +9,16 @@ import android.view.View;
 import android.widget.*;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
+import com.facebook.*;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
 import com.tepav.reader.R;
 import com.tepav.reader.helpers.HttpURL;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Arrays;
+import java.util.Map;
 
 /**
  * Author : kanilturgut
@@ -22,6 +27,7 @@ import org.json.JSONObject;
  */
 public class Register extends Activity implements View.OnClickListener {
 
+    final String TAG = "Register";
     Context context;
 
     EditText etName, etSurname, etEmail, etPassword;
@@ -30,6 +36,8 @@ public class Register extends Activity implements View.OnClickListener {
     LinearLayout llHeaderBack;
 
     AQuery aQuery;
+    LoginButton facebookLogin;
+    String faceAccessToken = "000";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,14 +59,100 @@ public class Register extends Activity implements View.OnClickListener {
         llHeaderBack.setOnClickListener(this);
 
         aQuery = new AQuery(context);
+
+        facebookLogin = (LoginButton) findViewById(R.id.authButton);
+        facebookLogin.setOnErrorListener(new LoginButton.OnErrorListener() {
+            @Override
+            public void onError(FacebookException error) {
+                Log.i(TAG, "Error " + error.getMessage());
+                Toast.makeText(context, "ERROR : " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // facebook izinlerini set ediyoruz.
+        facebookLogin.setReadPermissions(Arrays.asList("basic_info", "email"));
+        facebookLogin.setSessionStatusCallback(facebookCallback);
+
     }
+
+    private final Session.StatusCallback facebookCallback = new Session.StatusCallback() {
+
+        @Override
+        public void call(Session session, SessionState state,
+                         Exception exception) {
+
+            if (session.isOpened()) {
+                faceAccessToken = session.getAccessToken();
+                Toast.makeText(context, "Access Token " + session.getAccessToken(), Toast.LENGTH_LONG).show();
+                Log.i(TAG, "Access Token " + session.getAccessToken());
+                Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
+
+                    @Override
+                    public void onCompleted(GraphUser user, Response response) {
+                        if (user != null) {
+                            Map<String, Object> userMap = user.asMap();
+                            String userID = user.getId();
+                            String name = user.getName();
+                            String username = user.getUsername();
+                            String email = null;
+
+                            if (userMap.containsKey("email")) {
+                                email = userMap.get("email").toString();
+                            } else {
+                                Log.d(TAG, "Facebook email was null");
+                                email = username + "@facebook.com";
+                                Log.d(TAG, "Facebook email -> " + email);
+                            }
+
+                            Log.i(TAG, userID + "," + name + "," + username + ","
+                                    + email);
+
+                            Toast.makeText(context, "USER INFO : " + userID + "," + name + "," + username + ","
+                                    + email, Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+
+                });
+            }
+        }
+
+        Request.GraphUserCallback userCallback = new Request.GraphUserCallback() {
+
+            @Override
+            public void onCompleted(GraphUser user, Response response) {
+                if (user != null) {
+                    Map<String, Object> userMap = user.asMap();
+                    String userID = user.getId();
+                    String name = user.getName();
+                    String username = user.getUsername();
+                    String email = null;
+
+                    if (userMap.containsKey("email")) {
+                        email = userMap.get("email").toString();
+                    } else {
+                        Log.d(TAG, "Facebook email was null");
+                        email = username + "@facebook.com";
+                        Log.d(TAG, "Facebook email -> " + email);
+                    }
+
+                    Log.i(TAG, userID + "," + name + "," + username + ","
+                            + email);
+
+                    Toast.makeText(context, "USER INFO : " + userID + "," + name + "," + username + ","
+                            + email, Toast.LENGTH_LONG).show();
+
+                }
+            }
+        };
+    };
 
 
     @Override
     protected void onPause() {
         super.onPause();
 
-        finish();
+        //finish();
     }
 
     @Override
@@ -87,7 +181,7 @@ public class Register extends Activity implements View.OnClickListener {
 
                 changeToLogin();
             } else {
-                Toast.makeText(context, "Boş alanları doldurunuz", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "facebook token : " + faceAccessToken, Toast.LENGTH_LONG).show();
             }
 
         } else if (view == tvLogin) {
@@ -101,5 +195,12 @@ public class Register extends Activity implements View.OnClickListener {
 
         startActivity(new Intent(context, Login.class));
         finish();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Session.getActiveSession().onActivityResult(this, requestCode,
+                resultCode, data);
     }
 }

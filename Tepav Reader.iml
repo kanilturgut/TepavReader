@@ -15,8 +15,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="library" />
     <orderEntry type="library" name="libs" level="project" />
+    <orderEntry type="module" module-name="library" />
+    <orderEntry type="module" module-name="facebook" />
   </component>
 </module>
 

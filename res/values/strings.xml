@@ -58,5 +58,7 @@
     <string name="email">Eposta</string>
     <string name="password">Şifre</string>
 
+    <string name="facebook_app_id">403145589827464</string>
+
 
 </resources>

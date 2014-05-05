@@ -28,8 +28,7 @@ public class HttpURL {
     //login
     public static final String tepavLogin = "/auth";
     public static final String facebookLogin = "/auth/facebook/token";
-    public static final String twitterLoginFirstStep = "/auth/twitter/token";
-    public static final String twitterLoginSecondStep = "/auth/twitter/reverse";
+    public static final String twitterLogin = "/auth/twitter/token";
 
 
 }

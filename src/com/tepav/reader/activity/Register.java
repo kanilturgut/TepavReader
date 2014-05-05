@@ -3,7 +3,6 @@ package com.tepav.reader.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +15,12 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.tepav.reader.R;
 import com.tepav.reader.helpers.HttpURL;
+import com.tepav.reader.helpers.MySharedPreferences;
+import com.tepav.reader.helpers.TwitterOperations;
+import com.tepav.reader.model.TepavUser;
+import com.tepav.reader.util.AlertDialogManager;
+import com.tepav.reader.util.ConnectionDetector;
 import org.apache.http.HttpStatus;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -36,23 +39,34 @@ public class Register extends Activity implements View.OnClickListener {
 
     EditText etName, etSurname, etEmail, etPassword;
     TextView tvLogin;
-    Button doRegister;
+    Button doRegister, twitterButton;
     LinearLayout llHeaderBack;
 
     AQuery aQuery;
     LoginButton facebookLogin;
+    TwitterOperations twitterOperations;
 
-    final String PREF_NAME = "login_preferences";
-    final String PREF_USER_NAME = "name";
-    final String PREF_USER_EMAIL = "email";
-    final String PREF_USER_FACETOKEN = "facebook_token";
+    ConnectionDetector connectionDetector;
+    AlertDialogManager alert = new AlertDialogManager();
 
-    SharedPreferences sharedPreferences = null;
+    MySharedPreferences mySharedPreferences;
+
+    Map<String, String> params = null;
+    AjaxCallback<JSONObject> ajaxCallback = null;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         this.context = this;
+
+        twitterOperations = TwitterOperations.getInstance(context);
+        mySharedPreferences = MySharedPreferences.getInstance(context);
+
+        connectionDetector = new ConnectionDetector(context);
+        if (!connectionDetector.isConnectingToInternet()) {
+            alert.showAlertDialog(context, getString(R.string.ad_no_internet_error_title), getString(R.string.ad_no_internet_error_message), false);
+            return;
+        }
 
         etName = (EditText) findViewById(R.id.etName);
         etSurname = (EditText) findViewById(R.id.etSurname);
@@ -69,33 +83,41 @@ public class Register extends Activity implements View.OnClickListener {
         llHeaderBack.setOnClickListener(this);
 
         aQuery = new AQuery(context);
-        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 
-        /*
-        if (sharedPreferences.getAll().size() > 0) {
 
-            String token = sharedPreferences.getString(PREF_USER_FACETOKEN, "null");
-            JSONObject jsonObject = new JSONObject();
-            if (!token.equals("null")) {
-                try {
-                    jsonObject.put("access_token", token);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        if (mySharedPreferences.getSize() > 0) {
+
+            int userType = mySharedPreferences.getUserType();
+
+            if (userType == MySharedPreferences.USER_TYPE_TEPAV) {
+
+                TepavUser tepavUser = mySharedPreferences.getTepavUser();
+
+                ajaxCallback = new AjaxCallback<JSONObject>() {
+
+                    @Override
+                    public void callback(String url, JSONObject object, AjaxStatus status) {
+
+                    }
+                };
+                params = new HashMap<String, String>();
+                params.put("email", tepavUser.getEmail());
+                params.put("password", tepavUser.getEmail());
+                ajaxCallback.params(params);
+                aQuery.ajax(HttpURL.createURL(HttpURL.tepavLogin), JSONObject.class, ajaxCallback);
+
+
+            } else if (userType == MySharedPreferences.USER_TYPE_TWITTER) {
+
+            } else if (userType == MySharedPreferences.USER_TYPE_FACEBOOK) {
+
             }
 
-
-            aQuery.post(HttpURL.createURL(HttpURL.facebookLogin), jsonObject, Object.class, new AjaxCallback<Object>() {
-
-                @Override
-                public void callback(String url, Object object, AjaxStatus status) {
-
-                    finish();
-                }
-            });
-
         }
-        */
+
+
+        twitterButton = (Button) findViewById(R.id.twitterButton);
+        twitterButton.setOnClickListener(this);
 
         facebookLogin = (LoginButton) findViewById(R.id.authButton);
         facebookLogin.setOnErrorListener(new LoginButton.OnErrorListener() {
@@ -110,25 +132,16 @@ public class Register extends Activity implements View.OnClickListener {
         facebookLogin.setReadPermissions(Arrays.asList("basic_info", "email"));
         facebookLogin.setSessionStatusCallback(facebookCallback);
 
-        Button twitterButton = (Button) findViewById(R.id.twitterButton);
-        twitterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "Twitter login clicked");
-            }
-        });
 
     }
 
     private final Session.StatusCallback facebookCallback = new Session.StatusCallback() {
 
         @Override
-        public void call(final Session session, SessionState state,
-                         Exception exception) {
+        public void call(final Session session, SessionState state, Exception exception) {
 
             if (session.isOpened()) {
 
-                Toast.makeText(context, "Access Token " + session.getAccessToken(), Toast.LENGTH_LONG).show();
                 Log.i(TAG, "Access Token " + session.getAccessToken());
                 Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
 
@@ -155,12 +168,7 @@ public class Register extends Activity implements View.OnClickListener {
                             Toast.makeText(context, "USER INFO : " + userID + "," + name + "," + username + ","
                                     + email, Toast.LENGTH_LONG).show();
 
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString(PREF_USER_NAME, name);
-                            editor.putString(PREF_USER_EMAIL, email);
-                            editor.putString(PREF_USER_FACETOKEN, session.getAccessToken());
-                            editor.commit();
-
+                            mySharedPreferences.setFacebookPref(name, email, session.getAccessToken());
                             finish();
 
                         }
@@ -171,42 +179,24 @@ public class Register extends Activity implements View.OnClickListener {
         }
     };
 
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        //finish();
-    }
-
     @Override
     public void onClick(View view) {
 
         if (view == doRegister) {
 
-            String name = etName.getText().toString().trim();
-            String surname = etSurname.getText().toString().trim();
-            String email = etEmail.getText().toString().trim();
-            String password = etPassword.getText().toString().trim();
+            final String name = etName.getText().toString().trim();
+            final String surname = etSurname.getText().toString().trim();
+            final String email = etEmail.getText().toString().trim();
+            final String password = etPassword.getText().toString().trim();
 
             if (!name.isEmpty() && !surname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-
-                final JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("name", name);
-                    jsonObject.put("surname", surname);
-                    jsonObject.put("email", email);
-                    jsonObject.put("password", password);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
                 AjaxCallback<JSONObject> cb = new AjaxCallback<JSONObject>() {
                     @Override
                     public void callback(String url, JSONObject object, AjaxStatus status) {
 
                         if (status.getCode() == HttpStatus.SC_OK) {
-                            changeToLogin(jsonObject);
+                            changeToLogin(name, surname, email, password);
                         }
 
                     }
@@ -225,9 +215,10 @@ public class Register extends Activity implements View.OnClickListener {
             } else {
                 Toast.makeText(context, getString(R.string.fill_all_blank), Toast.LENGTH_LONG).show();
             }
-
         } else if (view == tvLogin) {
             changeToLogin();
+        } else if (view == twitterButton) {
+            twitterOperations.loginToTwitter();
         } else if (view == llHeaderBack) {
             onBackPressed();
         }
@@ -239,30 +230,22 @@ public class Register extends Activity implements View.OnClickListener {
         finish();
     }
 
-    void changeToLogin(JSONObject jsonObject) {
+    void changeToLogin(String... strings) {
 
-        try {
-            String email = jsonObject.getString("email");
-            String password = jsonObject.getString("password");
+        mySharedPreferences.setTepavUserPref(strings[0], strings[1], strings[2], strings[3]);
 
-            Intent intent = new Intent(context, Login.class);
-            intent.putExtra("email", email);
-            intent.putExtra("password", password);
-            startActivity(intent);
+        Intent intent = new Intent(context, Login.class);
+        intent.putExtra("email", strings[2]);
+        intent.putExtra("password", strings[3]);
+        startActivity(intent);
 
-            finish();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        finish();
 
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Session.getActiveSession().onActivityResult(this, requestCode,
-                resultCode, data);
+        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
     }
 }

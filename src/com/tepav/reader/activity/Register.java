@@ -79,15 +79,14 @@ public class Register extends Activity implements View.OnClickListener {
     public void onClick(View view) {
 
         if (view == doRegister) {
-
-            progressDialog = ProgressDialog.show(context, getString(R.string.loading), getString(R.string.register_started));
-
             final String name = etName.getText().toString().trim();
             final String surname = etSurname.getText().toString().trim();
             final String email = etEmail.getText().toString().trim();
             final String password = etPassword.getText().toString().trim();
 
             if (!name.isEmpty() && !surname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+
+                progressDialog = ProgressDialog.show(context, getString(R.string.loading), getString(R.string.register_started));
 
                 AjaxCallback<JSONObject> cb = new AjaxCallback<JSONObject>() {
                     @Override

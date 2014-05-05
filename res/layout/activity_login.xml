@@ -119,6 +119,7 @@
                       android:orientation="horizontal">
 
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:id="@+id/bTwitterLogin"
                     style="@style/TwitterLoginButton"
                     android:text=""
                     android:layout_weight="1"/>

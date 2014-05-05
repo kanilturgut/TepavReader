@@ -50,7 +50,7 @@ public class TwitterOperations {
         mySharedPreferences = MySharedPreferences.getInstance(context);
     }
 
-    boolean isTwitterLoggedInAlready() {
+    public boolean isTwitterLoggedInAlready() {
         TwitterUser twitterUser = mySharedPreferences.getTwitterPref();
 
         return  twitterUser.isLoggedIn();
@@ -73,6 +73,7 @@ public class TwitterOperations {
     }
 
     public void logoutFromTwitter() {
+
         mySharedPreferences.deleteTwitterFromPref();
     }
 
@@ -83,11 +84,6 @@ public class TwitterOperations {
             new GetOAuthAccessTokenTask().execute(verifier);
         }
     }
-
-    public void saveTwitterUserInfoToSP(String userID, String oauthToken, String oauthSecret, boolean loggedIn) {
-        mySharedPreferences.setTwitterPref(userID, oauthToken, oauthSecret, loggedIn);
-    }
-
 
     class GetOAuthRequestTokenTask extends AsyncTask<Void, Void, RequestToken> {
 

@@ -70,4 +70,10 @@
     <string name="ad_no_internet_error_title">İnternet Bağlantı Hatası</string>
     <string name="ad_no_internet_error_message">İnternet Bağlantı Hatası</string>
 
+    <!-- Progress Dialog -->
+    <string name="please_wait">Lütfen Bekleyiniz</string>
+    <string name="login_started">Giriş yapılıyor…</string>
+    <string name="register_started">Kayıt yapılıyor…</string>
+
+
 </resources>

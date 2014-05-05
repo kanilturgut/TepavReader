@@ -49,8 +49,7 @@
                     android:background="@android:color/transparent"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_below="@+id/rlHeader"
-                    android:layout_above="@+id/rlFooter">
+                    android:layout_below="@+id/rlHeader">
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:background="@android:color/transparent"
@@ -120,35 +119,6 @@
                     android:text="@string/do_register_upper_case"
                     android:textColor="@color/beyaz"
                     android:background="@drawable/rounded_black"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="100dp"
-                    android:id="@+id/rlFooter"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/login_footer_background_color">
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:layout_margin="10dp"
-                      android:layout_centerInParent="true"
-                      android:orientation="horizontal">
-
-            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
-                    style="@style/TwitterLoginButton"
-                    android:id="@+id/twitterButton"
-                    android:text=""
-                    android:layout_weight="1"/>
-
-            <com.facebook.widget.LoginButton
-                    xmlns:fb="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:id="@+id/authButton"
-                    fb:login_text=""
-                    fb:logout_text=""
-                    style="@style/FacebookLoginButton" android:layout_weight="1"/>
 
         </LinearLayout>
 

@@ -3,6 +3,7 @@ package com.tepav.reader.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,9 +11,13 @@ import android.widget.*;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.facebook.*;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
 import com.tepav.reader.R;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.MySharedPreferences;
+import com.tepav.reader.helpers.TwitterOperations;
 import com.tepav.reader.model.FacebookUser;
 import com.tepav.reader.model.TepavUser;
 import com.tepav.reader.model.TwitterUser;
@@ -20,6 +25,7 @@ import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,10 +41,12 @@ public class Login extends Activity implements View.OnClickListener {
 
     TextView tvRegister;
     EditText etEmail, etPassword;
-    Button bDoLogin;
+    Button bDoLogin, twitterLoginButton;
     LinearLayout llHeaderBack;
+    LoginButton facebookLoginButton;
 
     AQuery aQuery;
+    TwitterOperations twitterOperations;
     MySharedPreferences mySharedPreferences;
 
     Map<String, String> params = null;
@@ -50,6 +58,7 @@ public class Login extends Activity implements View.OnClickListener {
         this.context = this;
 
         mySharedPreferences = MySharedPreferences.getInstance(context);
+        twitterOperations = TwitterOperations.getInstance(context);
 
         tvRegister = (TextView) findViewById(R.id.tvRegister);
         tvRegister.setOnClickListener(this);
@@ -62,6 +71,22 @@ public class Login extends Activity implements View.OnClickListener {
 
         llHeaderBack = (LinearLayout) findViewById(R.id.llHeaderBack);
         llHeaderBack.setOnClickListener(this);
+
+        twitterLoginButton = (Button) findViewById(R.id.bTwitterLogin);
+        twitterLoginButton.setOnClickListener(this);
+
+        facebookLoginButton = (LoginButton) findViewById(R.id.authButton);
+        facebookLoginButton.setOnErrorListener(new LoginButton.OnErrorListener() {
+            @Override
+            public void onError(FacebookException error) {
+                Log.i(TAG, "Error " + error.getMessage());
+                Toast.makeText(context, "ERROR : " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // facebook izinlerini set ediyoruz.
+        facebookLoginButton.setReadPermissions(Arrays.asList("basic_info", "email"));
+        facebookLoginButton.setSessionStatusCallback(facebookCallback);
 
         //after register
         String email = getIntent().getStringExtra("email");
@@ -78,7 +103,7 @@ public class Login extends Activity implements View.OnClickListener {
         if (mySharedPreferences.getSize() > 0) {
 
             int userType = mySharedPreferences.getUserType();
-            String loginURL= "";
+            String loginURL = "";
 
             if (userType == MySharedPreferences.USER_TYPE_TEPAV) {
 
@@ -92,7 +117,7 @@ public class Login extends Activity implements View.OnClickListener {
                         if (status.getCode() == HttpStatus.SC_OK)
                             finish();
                         else
-                            Log.e(TAG, "ERROR on Login : Login unsuccessful");
+                            Log.e(TAG, "ERROR on Login : " + status.getError());
                     }
                 };
                 params = new HashMap<String, String>();
@@ -114,7 +139,7 @@ public class Login extends Activity implements View.OnClickListener {
                         if (status.getCode() == HttpStatus.SC_OK)
                             finish();
                         else
-                            Log.e(TAG, "ERROR on Login : Login unsuccessful");
+                            Log.e(TAG, "ERROR on Login : " + status.getError());
                     }
                 };
                 params = new HashMap<String, String>();
@@ -134,7 +159,7 @@ public class Login extends Activity implements View.OnClickListener {
                         if (status.getCode() == HttpStatus.SC_OK)
                             finish();
                         else
-                            Log.e(TAG, "ERROR on Login : Login unsuccessful");
+                            Log.e(TAG, "ERROR on Login : " + status.getError());
                     }
                 };
                 params = new HashMap<String, String>();
@@ -142,12 +167,72 @@ public class Login extends Activity implements View.OnClickListener {
             }
 
             Log.i(TAG, "Login started with ...");
-            for (String key: params.keySet()) {
+            for (String key : params.keySet()) {
                 Log.i(TAG, key + " : " + params.get(key));
             }
 
             ajaxCallback.params(params);
             aQuery.ajax(loginURL, JSONObject.class, ajaxCallback);
+        }
+    }
+
+    private final Session.StatusCallback facebookCallback = new Session.StatusCallback() {
+
+        @Override
+        public void call(final Session session, SessionState state, Exception exception) {
+
+            if (session.isOpened()) {
+
+                Log.i(TAG, "Access Token " + session.getAccessToken());
+                Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
+
+                    @Override
+                    public void onCompleted(GraphUser user, Response response) {
+                        if (user != null) {
+                            Map<String, Object> userMap = user.asMap();
+                            String userID = user.getId();
+                            String name = user.getName();
+                            String username = user.getUsername();
+                            String email = null;
+
+                            if (userMap.containsKey("email")) {
+                                email = userMap.get("email").toString();
+                            } else {
+                                Log.d(TAG, "Facebook email was null");
+                                email = username + "@facebook.com";
+                                Log.d(TAG, "Facebook email -> " + email);
+                            }
+
+                            Log.i(TAG, userID + "," + name + "," + username + "," + email);
+
+                            mySharedPreferences.setFacebookPref(name, email, session.getAccessToken());
+                            finish();
+
+                        }
+                    }
+
+                });
+            }
+        }
+    };
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!twitterOperations.isTwitterLoggedInAlready()) {
+            Log.d(TAG, "onResume, isTwitterLoggedInAlready returned false");
+            Uri uri = getIntent().getData();
+            twitterOperations.autoLogin(uri);
+        } else {
+            Log.d(TAG, "onResume, isTwitterLoggedInAlready returned true");
         }
     }
 
@@ -166,6 +251,8 @@ public class Login extends Activity implements View.OnClickListener {
 
         } else if (view == llHeaderBack) {
             onBackPressed();
+        } else if (view == twitterLoginButton) {
+            twitterOperations.loginToTwitter();
         }
     }
 

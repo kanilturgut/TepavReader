@@ -1,29 +1,23 @@
 package com.tepav.reader.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
-import com.facebook.*;
-import com.facebook.model.GraphUser;
-import com.facebook.widget.LoginButton;
 import com.tepav.reader.R;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.MySharedPreferences;
-import com.tepav.reader.helpers.TwitterOperations;
-import com.tepav.reader.model.TepavUser;
 import com.tepav.reader.util.AlertDialogManager;
 import com.tepav.reader.util.ConnectionDetector;
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,27 +33,22 @@ public class Register extends Activity implements View.OnClickListener {
 
     EditText etName, etSurname, etEmail, etPassword;
     TextView tvLogin;
-    Button doRegister, twitterButton;
+    Button doRegister;
     LinearLayout llHeaderBack;
 
+    ProgressDialog progressDialog = null;
     AQuery aQuery;
-    LoginButton facebookLogin;
-    TwitterOperations twitterOperations;
 
     ConnectionDetector connectionDetector;
     AlertDialogManager alert = new AlertDialogManager();
 
     MySharedPreferences mySharedPreferences;
 
-    Map<String, String> params = null;
-    AjaxCallback<JSONObject> ajaxCallback = null;
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         this.context = this;
 
-        twitterOperations = TwitterOperations.getInstance(context);
         mySharedPreferences = MySharedPreferences.getInstance(context);
 
         connectionDetector = new ConnectionDetector(context);
@@ -83,106 +72,15 @@ public class Register extends Activity implements View.OnClickListener {
         llHeaderBack.setOnClickListener(this);
 
         aQuery = new AQuery(context);
-
-
-        if (mySharedPreferences.getSize() > 0) {
-
-            int userType = mySharedPreferences.getUserType();
-
-            if (userType == MySharedPreferences.USER_TYPE_TEPAV) {
-
-                TepavUser tepavUser = mySharedPreferences.getTepavUser();
-
-                ajaxCallback = new AjaxCallback<JSONObject>() {
-
-                    @Override
-                    public void callback(String url, JSONObject object, AjaxStatus status) {
-
-                    }
-                };
-                params = new HashMap<String, String>();
-                params.put("email", tepavUser.getEmail());
-                params.put("password", tepavUser.getEmail());
-                ajaxCallback.params(params);
-                aQuery.ajax(HttpURL.createURL(HttpURL.tepavLogin), JSONObject.class, ajaxCallback);
-
-
-            } else if (userType == MySharedPreferences.USER_TYPE_TWITTER) {
-
-            } else if (userType == MySharedPreferences.USER_TYPE_FACEBOOK) {
-
-            }
-
-        }
-
-
-        twitterButton = (Button) findViewById(R.id.twitterButton);
-        twitterButton.setOnClickListener(this);
-
-        facebookLogin = (LoginButton) findViewById(R.id.authButton);
-        facebookLogin.setOnErrorListener(new LoginButton.OnErrorListener() {
-            @Override
-            public void onError(FacebookException error) {
-                Log.i(TAG, "Error " + error.getMessage());
-                Toast.makeText(context, "ERROR : " + error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        // facebook izinlerini set ediyoruz.
-        facebookLogin.setReadPermissions(Arrays.asList("basic_info", "email"));
-        facebookLogin.setSessionStatusCallback(facebookCallback);
-
-
     }
 
-    private final Session.StatusCallback facebookCallback = new Session.StatusCallback() {
-
-        @Override
-        public void call(final Session session, SessionState state, Exception exception) {
-
-            if (session.isOpened()) {
-
-                Log.i(TAG, "Access Token " + session.getAccessToken());
-                Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
-
-                    @Override
-                    public void onCompleted(GraphUser user, Response response) {
-                        if (user != null) {
-                            Map<String, Object> userMap = user.asMap();
-                            String userID = user.getId();
-                            String name = user.getName();
-                            String username = user.getUsername();
-                            String email = null;
-
-                            if (userMap.containsKey("email")) {
-                                email = userMap.get("email").toString();
-                            } else {
-                                Log.d(TAG, "Facebook email was null");
-                                email = username + "@facebook.com";
-                                Log.d(TAG, "Facebook email -> " + email);
-                            }
-
-                            Log.i(TAG, userID + "," + name + "," + username + ","
-                                    + email);
-
-                            Toast.makeText(context, "USER INFO : " + userID + "," + name + "," + username + ","
-                                    + email, Toast.LENGTH_LONG).show();
-
-                            mySharedPreferences.setFacebookPref(name, email, session.getAccessToken());
-                            finish();
-
-                        }
-                    }
-
-                });
-            }
-        }
-    };
 
     @Override
     public void onClick(View view) {
 
         if (view == doRegister) {
+
+            progressDialog = ProgressDialog.show(context, getString(R.string.loading), getString(R.string.register_started));
 
             final String name = etName.getText().toString().trim();
             final String surname = etSurname.getText().toString().trim();
@@ -196,7 +94,13 @@ public class Register extends Activity implements View.OnClickListener {
                     public void callback(String url, JSONObject object, AjaxStatus status) {
 
                         if (status.getCode() == HttpStatus.SC_OK) {
+
+                            if (progressDialog != null)
+                                progressDialog.dismiss();
+
                             changeToLogin(name, surname, email, password);
+                        } else {
+                            Toast.makeText(context, "Register Failed", Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -217,8 +121,6 @@ public class Register extends Activity implements View.OnClickListener {
             }
         } else if (view == tvLogin) {
             changeToLogin();
-        } else if (view == twitterButton) {
-            twitterOperations.loginToTwitter();
         } else if (view == llHeaderBack) {
             onBackPressed();
         }
@@ -241,11 +143,5 @@ public class Register extends Activity implements View.OnClickListener {
 
         finish();
 
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
     }
 }

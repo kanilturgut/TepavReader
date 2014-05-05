@@ -16,10 +16,12 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.tepav.reader.R;
 import com.tepav.reader.helpers.HttpURL;
+import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -69,6 +71,7 @@ public class Register extends Activity implements View.OnClickListener {
         aQuery = new AQuery(context);
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 
+        /*
         if (sharedPreferences.getAll().size() > 0) {
 
             String token = sharedPreferences.getString(PREF_USER_FACETOKEN, "null");
@@ -81,6 +84,7 @@ public class Register extends Activity implements View.OnClickListener {
                 }
             }
 
+
             aQuery.post(HttpURL.createURL(HttpURL.facebookLogin), jsonObject, Object.class, new AjaxCallback<Object>() {
 
                 @Override
@@ -89,7 +93,9 @@ public class Register extends Activity implements View.OnClickListener {
                     finish();
                 }
             });
+
         }
+        */
 
         facebookLogin = (LoginButton) findViewById(R.id.authButton);
         facebookLogin.setOnErrorListener(new LoginButton.OnErrorListener() {
@@ -103,6 +109,14 @@ public class Register extends Activity implements View.OnClickListener {
         // facebook izinlerini set ediyoruz.
         facebookLogin.setReadPermissions(Arrays.asList("basic_info", "email"));
         facebookLogin.setSessionStatusCallback(facebookCallback);
+
+        Button twitterButton = (Button) findViewById(R.id.twitterButton);
+        twitterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Twitter login clicked");
+            }
+        });
 
     }
 
@@ -177,7 +191,7 @@ public class Register extends Activity implements View.OnClickListener {
 
             if (!name.isEmpty() && !surname.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
 
-                JSONObject jsonObject = new JSONObject();
+                final JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("name", name);
                     jsonObject.put("surname", surname);
@@ -187,11 +201,29 @@ public class Register extends Activity implements View.OnClickListener {
                     e.printStackTrace();
                 }
 
-                aQuery.post(HttpURL.createURL(HttpURL.tepavRegister), jsonObject, Object.class, new AjaxCallback<Object>());
+                AjaxCallback<JSONObject> cb = new AjaxCallback<JSONObject>() {
+                    @Override
+                    public void callback(String url, JSONObject object, AjaxStatus status) {
 
-                changeToLogin();
+                        if (status.getCode() == HttpStatus.SC_OK) {
+                            changeToLogin(jsonObject);
+                        }
+
+                    }
+                };
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("name", name);
+                params.put("surname", surname);
+                params.put("email", email);
+                params.put("password", password);
+
+                cb.params(params);
+
+                aQuery.ajax(HttpURL.createURL(HttpURL.tepavRegister), JSONObject.class, cb);
+
             } else {
-                Toast.makeText(context, "Lütfen boşlukları doldurunuz !", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, getString(R.string.fill_all_blank), Toast.LENGTH_LONG).show();
             }
 
         } else if (view == tvLogin) {
@@ -206,6 +238,26 @@ public class Register extends Activity implements View.OnClickListener {
         startActivity(new Intent(context, Login.class));
         finish();
     }
+
+    void changeToLogin(JSONObject jsonObject) {
+
+        try {
+            String email = jsonObject.getString("email");
+            String password = jsonObject.getString("password");
+
+            Intent intent = new Intent(context, Login.class);
+            intent.putExtra("email", email);
+            intent.putExtra("password", password);
+            startActivity(intent);
+
+            finish();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

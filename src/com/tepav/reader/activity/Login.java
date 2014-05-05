@@ -14,8 +14,12 @@ import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
+import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Author : kanilturgut
@@ -24,6 +28,7 @@ import org.json.JSONObject;
  */
 public class Login extends Activity implements View.OnClickListener {
 
+    final String TAG = "Login";
     Context context;
 
     TextView tvRegister;
@@ -35,8 +40,8 @@ public class Login extends Activity implements View.OnClickListener {
 
     SharedPreferences sharedPreferences;
 
-    final String USER_EMAIL = "user_email";
-    final String USER_PASSWORD = "user_password";
+    final String USER_EMAIL = "email";
+    final String USER_PASSWORD = "password";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +70,16 @@ public class Login extends Activity implements View.OnClickListener {
 
         llHeaderBack = (LinearLayout) findViewById(R.id.llHeaderBack);
         llHeaderBack.setOnClickListener(this);
+
+        //after register
+        String email = getIntent().getStringExtra("email");
+        String password = getIntent().getStringExtra("password");
+        if (email != null && password != null) {
+            if (!email.isEmpty() && !password.isEmpty()) {
+                etEmail.setText(email);
+                etPassword.setText(password);
+            }
+        }
 
         aQuery = new AQuery(context);
     }
@@ -106,20 +121,30 @@ public class Login extends Activity implements View.OnClickListener {
                 e.printStackTrace();
             }
 
-            aQuery.post(HttpURL.createURL(HttpURL.tepavLogin), jsonObject, JSONObject.class, new AjaxCallback<JSONObject>() {
+            AjaxCallback<JSONObject> ajaxCallback = new AjaxCallback<JSONObject>() {
+
                 @Override
                 public void callback(String url, JSONObject object, AjaxStatus status) {
 
-                    if (object != null) {
+                    if (status.getCode() == HttpStatus.SC_OK) {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("user_email", email);
                         editor.putString("user_password", password);
                         editor.commit();
+
+                        Log.i(TAG, "Login successful");
+                        finish();
                     }
 
-                    finish();
                 }
-            });
+            };
+
+            Map<String, String> map = new HashMap<String, String>();
+            map.put(USER_EMAIL, email);
+            map.put(USER_PASSWORD, password);
+
+            ajaxCallback.params(map);
+            aQuery.ajax(HttpURL.createURL(HttpURL.tepavLogin), JSONObject.class, ajaxCallback);
 
         } else {
             Toast.makeText(context, "Boş alanları doldurunuz", Toast.LENGTH_LONG).show();

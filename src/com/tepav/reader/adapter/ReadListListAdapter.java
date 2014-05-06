@@ -21,6 +21,7 @@ import com.tepav.reader.activity.PublicationDetails;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
+import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.DBData;
 import com.tepav.reader.model.News;
@@ -28,6 +29,7 @@ import com.tepav.reader.model.Publication;
 import com.tepav.reader.service.TepavService;
 import org.json.JSONException;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -43,6 +45,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
     List<DBData> dbDataList;
     AQuery aq;
     TepavService tepavService = null;
+    SwipeListView swipeListView;
 
     boolean isPressedLike = false;
     boolean isPressedFavorite = false;
@@ -52,37 +55,27 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
     Blog blog = null;
     Publication publication = null;
 
-    public ReadListListAdapter(Context context) {
-        super(context, R.layout.custom_read_list_row);
+    public ReadListListAdapter(Context context, SwipeListView swipeListView, List<DBData> dbDataList) {
+        super(context, R.layout.custom_read_list_row, dbDataList);
 
         this.context = context;
+        this.swipeListView = swipeListView;
+        this.dbDataList = dbDataList;
+
         dbHandler = DBHandler.getInstance(context);
         aq = new AQuery(context);
         tepavService = TepavService.getInstance();
-
-        new AsyncTask<Void, Void, List<DBData>>() {
-
-            @Override
-            protected List<DBData> doInBackground(Void... voids) {
-                return dbHandler.read(DBHandler.TABLE_READ_LIST);
-            }
-
-            @Override
-            protected void onPostExecute(List<DBData> dbDatas) {
-                if (dbDatas != null) {
-                    dbDataList = dbDatas;
-                    addAll(dbDataList);
-                    notifyDataSetChanged();
-                }
-            }
-        }.execute();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
+
+        isPressedLike = false;
+        isPressedFavorite = false;
+        isPressedArchive = false;
 
         ReadListHolder holder;
-        DBData dbData = dbDataList.get(position);
+        final DBData dbData = dbDataList.get(position);
 
         if (dbData.getType() == DBData.TYPE_NEWS) {
             try {
@@ -127,6 +120,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             holder.ibLike = (ImageButton) convertView.findViewById(R.id.ibLike);
             holder.ibFavorite = (ImageButton) convertView.findViewById(R.id.ibFavorite);
             holder.ibArchive = (ImageButton) convertView.findViewById(R.id.ibArchive);
+            holder.ibDelete = (ImageButton) convertView.findViewById(R.id.ibDelete);
 
             convertView.setTag(holder);
 
@@ -424,6 +418,43 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             }
         });
 
+        holder.ibDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (news != null) {
+                    try {
+                        dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                        tepavService.removeItemFromReadingListOfTepavService(News.toDBData(news));
+                        dbDataList.remove(News.toDBData(news));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else if (blog != null) {
+                    try {
+                        dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
+                        tepavService.removeItemFromReadingListOfTepavService(Blog.toDBData(blog));
+                        dbDataList.remove(Blog.toDBData(blog));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else if (publication != null) {
+                    try {
+                        dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
+                        tepavService.removeItemFromReadingListOfTepavService(Publication.toDBData(publication));
+                        dbDataList.remove(Publication.toDBData(publication));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                remove(dbData);
+                notifyDataSetChanged();
+
+                swipeListView.closeAnimate(position);
+            }
+        });
+
         holder.frontOfReadListClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -444,7 +475,6 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             }
         });
 
-
         return convertView;
     }
 
@@ -457,6 +487,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         ImageButton ibLike;
         ImageButton ibFavorite;
         ImageButton ibArchive;
+        ImageButton ibDelete;
         RelativeLayout frontOfReadListClick;
     }
 }

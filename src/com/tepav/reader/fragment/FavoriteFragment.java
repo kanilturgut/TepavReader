@@ -2,6 +2,7 @@ package com.tepav.reader.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,7 +11,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.FavoriteListAdapter;
+import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
+import com.tepav.reader.model.DBData;
+
+import java.util.List;
 
 /**
  * Author : kanilturgut
@@ -46,7 +51,24 @@ public class FavoriteFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        swipeListViewOfFavorite.setAdapter(new FavoriteListAdapter(context));
-        rlLoading.setVisibility(View.GONE);
+        new GetFavoriteListTask().execute();
+    }
+
+    class GetFavoriteListTask extends AsyncTask<Void, Void, List<DBData>> {
+
+        DBHandler dbHandler = DBHandler.getInstance(context);
+
+        @Override
+        protected List<DBData> doInBackground(Void... voids) {
+            return dbHandler.read(DBHandler.TABLE_FAVORITE);
+        }
+
+        @Override
+        protected void onPostExecute(List<DBData> dbDatas) {
+
+            swipeListViewOfFavorite.setAdapter(new FavoriteListAdapter(context, swipeListViewOfFavorite, dbDatas));
+            rlLoading.setVisibility(View.GONE);
+
+        }
     }
 }

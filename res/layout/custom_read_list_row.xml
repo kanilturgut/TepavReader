@@ -44,6 +44,13 @@
                     android:layout_margin="20dp"
                     android:src="@drawable/okudum_icon"/>
 
+            <ImageButton
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:id="@+id/ibDelete"
+                    android:background="@android:color/transparent"
+                    android:layout_margin="20dp"
+                    android:src="@drawable/ic_action_discard"/>
+
         </LinearLayout>
 
     </RelativeLayout>

@@ -22,10 +22,12 @@ import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Util;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
+import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.DBData;
 import com.tepav.reader.model.News;
 import com.tepav.reader.model.Publication;
+import com.tepav.reader.service.TepavService;
 import org.json.JSONException;
 
 import java.util.List;
@@ -42,34 +44,26 @@ public class FavoriteListAdapter extends ArrayAdapter<DBData> {
     DBHandler dbHandler;
     List<DBData> dbDataList;
     AQuery aq;
+    SwipeListView swipeListView;
+    TepavService tepavService = null;
+
+    boolean isPressedLike = false;
+    boolean isPressedFavorite = false;
+    boolean isPressedArchive = false;
 
     News news = null;
     Blog blog = null;
     Publication publication = null;
 
-    public FavoriteListAdapter(Context context) {
-        super(context, R.layout.custom_read_list_row);
+    public FavoriteListAdapter(Context context, SwipeListView swipeListView, List<DBData> dbDataList) {
+        super(context, R.layout.custom_favorite_list_row, dbDataList);
 
         this.context = context;
+        this.swipeListView = swipeListView;
+        this.dbDataList = dbDataList;
+
         dbHandler = DBHandler.getInstance(context);
         aq = new AQuery(context);
-
-        new AsyncTask<Void, Void, List<DBData>>() {
-
-            @Override
-            protected List<DBData> doInBackground(Void... voids) {
-                return dbHandler.read(DBHandler.TABLE_FAVORITE);
-            }
-
-            @Override
-            protected void onPostExecute(List<DBData> dbDatas) {
-                if (dbDatas != null ) {
-                    dbDataList = dbDatas;
-                    addAll(dbDataList);
-                    notifyDataSetChanged();
-                }
-            }
-        }.execute();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.tepav.reader.adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.Util;
 import com.tepav.reader.model.Publication;
+import com.tepav.reader.service.TepavService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,6 +41,12 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
     AQuery aq;
     DBHandler dbHandler;
     String publicationType;
+    TepavService tepavService = null;
+    ProgressDialog progressDialog = null;
+
+    boolean isPressedLike = false;
+    boolean isPressedFavorite = false;
+    boolean isPressedReadList = false;
 
     public PublicationListAdapter(Context ctx, String type, int number) {
         super(ctx, R.layout.custom_publication_row);
@@ -49,6 +57,9 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
 
         dbHandler = DBHandler.getInstance(context);
         aq = new AQuery(context);
+        tepavService = TepavService.getInstance();
+        progressDialog = ProgressDialog.show(context, context.getString(R.string.please_wait),
+                context.getString(R.string.loading), false, false);
         loadMore();
     }
 
@@ -74,10 +85,9 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
 
             //back view
             holder.ibShare = (ImageButton) convertView.findViewById(R.id.ibShare);
+            holder.ibLike = (ImageButton) convertView.findViewById(R.id.ibLike);
             holder.ibFavorite = (ImageButton) convertView.findViewById(R.id.ibFavorite);
-            holder.ibFavorited = (ImageButton) convertView.findViewById(R.id.ibFavorited);
             holder.ibReadList = (ImageButton) convertView.findViewById(R.id.ibReadList);
-            holder.ibReadListed = (ImageButton) convertView.findViewById(R.id.ibReadListed);
 
             convertView.setTag(holder);
 
@@ -88,16 +98,32 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
         holder.titleOfPublication.setText(publication.getYtitle());
         holder.dateOfPublication.setText(publication.getYdate() + ", " + publication.getYtype());
 
+        if (tepavService != null) {
+            isPressedFavorite = tepavService.checkIfContains(DBHandler.TABLE_FAVORITE, publication.getId());
+            isPressedReadList = tepavService.checkIfContains(DBHandler.TABLE_READ_LIST, publication.getId());
+            isPressedLike = tepavService.checkIfContains(DBHandler.TABLE_LIKE, publication.getId());
+        }
+
+        if (isPressedFavorite)
+            holder.ibFavorite.setImageResource(R.drawable.swipe_favorites_dolu);
+        else
+            holder.ibFavorite.setImageResource(R.drawable.swipe_favorites);
+
+        if (isPressedReadList)
+            holder.ibReadList.setImageResource(R.drawable.okudum_icon_dolu);
+        else
+            holder.ibReadList.setImageResource(R.drawable.okudum_icon);
+
+        if (isPressedLike)
+            holder.ibLike.setImageResource(R.drawable.swipe_like_dolu);
+        else
+            holder.ibLike.setImageResource(R.drawable.swipe_like);
+
         MyOnClickListener myOnClickListener = new MyOnClickListener(position);
         holder.ibShare.setOnClickListener(myOnClickListener);
         holder.ibFavorite.setOnClickListener(myOnClickListener);
         holder.ibReadList.setOnClickListener(myOnClickListener);
-        holder.ibFavorited.setOnClickListener(myOnClickListener);
-        holder.ibReadListed.setOnClickListener(myOnClickListener);
         holder.frontOfPublicationClick.setOnClickListener(myOnClickListener);
-
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, publication.getId(), holder.ibFavorite, holder.ibFavorited);
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, publication.getId(), holder.ibReadList, holder.ibReadListed);
 
         return convertView;
     }
@@ -173,10 +199,9 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
         TextView titleOfPublication;
         TextView dateOfPublication;
         ImageButton ibShare;
+        ImageButton ibLike;
         ImageButton ibFavorite;
-        ImageButton ibFavorited;
         ImageButton ibReadList;
-        ImageButton ibReadListed;
         RelativeLayout frontOfPublicationClick;
     }
 

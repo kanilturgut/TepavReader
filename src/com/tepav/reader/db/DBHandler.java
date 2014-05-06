@@ -22,7 +22,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public static DBHandler dbInstance;
 
-    static final int VERSION = 1;
+    static final int VERSION = 2;
     static final String DATABASE = "tepavReader.db";
 
     public static final String TABLE_READ_LIST = "read_list";
@@ -83,10 +83,10 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL("DROP TABLE IF EXIST " + TABLE_READ_LIST);
-        db.execSQL("DROP TABLE IF EXIST " + TABLE_FAVORITE);
-        db.execSQL("DROP TABLE IF EXIST " + TABLE_ARCHIVE);
-        db.execSQL("DROP TABLE IF EXIST " + TABLE_LIKE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_READ_LIST);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVORITE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARCHIVE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LIKE);
         onCreate(db);
     }
 

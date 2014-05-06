@@ -20,6 +20,7 @@ public class TepavService extends Service {
     public static List<DBData> favoriteList = new LinkedList<DBData>();
     public static List<DBData> readingList = new LinkedList<DBData>();
     public static List<DBData> archiveList = new LinkedList<DBData>();
+    public static List<DBData> likeList = new LinkedList<DBData>();
 
     DBHandler dbHandler = null;
     public static TepavService tepavService = null;
@@ -109,6 +110,24 @@ public class TepavService extends Service {
         }.execute();
     }
 
+    private void readLikeListFromDatabase() {
+
+        // Archive List
+        new AsyncTask<Void, Void, List<DBData>>() {
+
+            @Override
+            protected List<DBData> doInBackground(Void... voids) {
+                return dbHandler.read(DBHandler.TABLE_LIKE);
+            }
+
+            @Override
+            protected void onPostExecute(List<DBData> dbDatas) {
+                if (dbDatas != null)
+                    likeList.addAll(dbDatas);
+            }
+        }.execute();
+    }
+
     public List<DBData> getFavoriteListFromTepavService() {
         return favoriteList;
     }
@@ -119,6 +138,10 @@ public class TepavService extends Service {
 
     public List<DBData> getArchiveListFromTepavService() {
         return archiveList;
+    }
+
+    public List<DBData> getLikeListFromTepavService() {
+        return likeList;
     }
 
     public void addItemToFavoriteListOfTepavService(DBData dbData) {
@@ -133,16 +156,24 @@ public class TepavService extends Service {
         archiveList.add(dbData);
     }
 
+    public void addItemToLikeListOfTepavService(DBData dbData) {
+        likeList.add(dbData);
+    }
+
     public void removeItemFromFavoriteListOfTepavService(DBData dbData) {
         favoriteList.remove(dbData);
     }
 
-    public void removeItemToReadingListOfTepavService(DBData dbData) {
+    public void removeItemFromReadingListOfTepavService(DBData dbData) {
         readingList.remove(dbData);
     }
 
-    public void removeItemToArchiveListOfTepavService(DBData dbData) {
+    public void removeItemFromArchiveListOfTepavService(DBData dbData) {
         archiveList.remove(dbData);
+    }
+
+    public void removeItemFromLikeListOfTepavService(DBData dbData) {
+        likeList.remove(dbData);
     }
 
     public boolean checkIfContains(String tableName, String id) {
@@ -159,6 +190,11 @@ public class TepavService extends Service {
             }
         } else if (tableName.equals(DBHandler.TABLE_ARCHIVE)) {
             for (DBData dbData: getArchiveListFromTepavService()) {
+                if (dbData.getId().equals(id))
+                    return true;
+            }
+        } else if (tableName.equals(DBHandler.TABLE_LIKE)) {
+            for (DBData dbData: getLikeListFromTepavService()) {
                 if (dbData.getId().equals(id))
                     return true;
             }

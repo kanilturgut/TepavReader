@@ -133,6 +133,11 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
         else
             holder.ibReadList.setImageResource(R.drawable.okudum_icon);
 
+        if (isPressedLike)
+            holder.ibLike.setImageResource(R.drawable.swipe_like_dolu);
+        else
+            holder.ibLike.setImageResource(R.drawable.swipe_like);
+
         holder.ibShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,6 +185,22 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
             @Override
             public void onClick(View view) {
 
+                if(!isPressedLike) {
+                    try {
+                        dbHandler.insert(Blog.toDBData(blog),DBHandler.TABLE_LIKE);
+                        tepavService.addItemToLikeListOfTepavService(Blog.toDBData(blog));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        dbHandler.delete(Blog.toDBData(blog),DBHandler.TABLE_LIKE);
+                        tepavService.removeItemFromLikeListOfTepavService(Blog.toDBData(blog));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 isPressedLike = !isPressedLike;
                 ImageButton imageButton = (ImageButton) view;
                 if (!isPressedLike)
@@ -203,7 +224,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
                 } else {
                     try {
                         dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
-                        tepavService.removeItemToReadingListOfTepavService(Blog.toDBData(blog));
+                        tepavService.removeItemFromReadingListOfTepavService(Blog.toDBData(blog));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

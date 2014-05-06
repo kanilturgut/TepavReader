@@ -21,6 +21,7 @@ import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
+import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.News;
 import com.tepav.reader.service.TepavService;
 import org.json.JSONArray;
@@ -128,6 +129,11 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         else
             holder.ibReadList.setImageResource(R.drawable.okudum_icon);
 
+        if (isPressedLike)
+            holder.ibLike.setImageResource(R.drawable.swipe_like_dolu);
+        else
+            holder.ibLike.setImageResource(R.drawable.swipe_like);
+
         holder.ibShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,6 +181,22 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             @Override
             public void onClick(View view) {
 
+                if(!isPressedLike) {
+                    try {
+                        dbHandler.insert(News.toDBData(news),DBHandler.TABLE_LIKE);
+                        tepavService.addItemToLikeListOfTepavService(News.toDBData(news));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        dbHandler.delete(News.toDBData(news),DBHandler.TABLE_LIKE);
+                        tepavService.removeItemFromLikeListOfTepavService(News.toDBData(news));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 isPressedLike = !isPressedLike;
                 ImageButton imageButton = (ImageButton) view;
                 if (!isPressedLike)
@@ -198,7 +220,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                 } else {
                     try {
                         dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-                        tepavService.removeItemToReadingListOfTepavService(News.toDBData(news));
+                        tepavService.removeItemFromReadingListOfTepavService(News.toDBData(news));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

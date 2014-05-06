@@ -26,8 +26,7 @@ public class Splash extends Activity {
 
         context = this;
 
-        DBHandler dbHandler = DBHandler.getInstance(context);
-        TepavService tepavService = TepavService.getInstance();
+        DBHandler.getInstance(context);
 
         startService(new Intent(context, TepavService.class));
 

@@ -40,7 +40,7 @@ public class BlogFragment extends Fragment {
         swipeListViewOfBlog.setAdapter(new BlogListAdapter(context, 1));
 
         if (rlLoading != null)
-        rlLoading.setVisibility(RelativeLayout.GONE);
+            rlLoading.setVisibility(RelativeLayout.GONE);
 
         return view;
     }

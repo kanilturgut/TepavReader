@@ -28,14 +28,6 @@
                     android:layout_margin="20dp"
                     android:src="@drawable/swipe_like"/>
 
-            <ImageButton
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:id="@+id/ibAlreadyLiked"
-                    android:background="@android:color/transparent"
-                    android:layout_margin="20dp"
-                    android:src="@drawable/swipe_like_dolu"
-                    android:visibility="gone"/>
-
 
             <ImageButton
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -44,14 +36,6 @@
                     android:layout_margin="20dp"
                     android:src="@drawable/swipe_favorites"/>
 
-            <ImageButton
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:id="@+id/ibFavorited"
-                    android:background="@android:color/transparent"
-                    android:layout_margin="20dp"
-                    android:src="@drawable/swipe_favorites_dolu"
-                    android:visibility="gone"/>
-
 
             <ImageButton
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -59,14 +43,6 @@
                     android:background="@android:color/transparent"
                     android:layout_margin="20dp"
                     android:src="@drawable/okudum_icon"/>
-
-            <ImageButton
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:id="@+id/ibReadListed"
-                    android:background="@android:color/transparent"
-                    android:layout_margin="20dp"
-                    android:src="@drawable/okudum_icon_dolu"
-                    android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -107,7 +83,6 @@
                 <TextView
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:id="@+id/tvTitleOfBlog"
-                        android:text="Başlık"
                         android:padding="1dp"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -117,7 +92,6 @@
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:id="@+id/tvDateOfBlog"
                         android:padding="1dp"
-                        android:text="26 Ocak 2014"
                         android:textSize="12sp"
                         android:textColor="#C1CBDC"/>
 

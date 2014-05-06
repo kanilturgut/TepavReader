@@ -20,7 +20,7 @@ public class TepavService extends Service {
     public static List<DBData> favoriteList = new LinkedList<DBData>();
     public static List<DBData> readingList = new LinkedList<DBData>();
     public static List<DBData> archiveList = new LinkedList<DBData>();
-    
+
     DBHandler dbHandler = null;
     public static TepavService tepavService = null;
 

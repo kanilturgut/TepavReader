@@ -20,12 +20,12 @@ import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.activity.PublicationDetails;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
-import com.tepav.reader.helpers.Util;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.DBData;
 import com.tepav.reader.model.News;
 import com.tepav.reader.model.Publication;
+import com.tepav.reader.service.TepavService;
 import org.json.JSONException;
 
 import java.util.List;
@@ -42,6 +42,11 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
     DBHandler dbHandler;
     List<DBData> dbDataList;
     AQuery aq;
+    TepavService tepavService = null;
+
+    boolean isPressedLike = false;
+    boolean isPressedFavorite = false;
+    boolean isPressedArchive = false;
 
     News news = null;
     Blog blog = null;
@@ -53,6 +58,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         this.context = context;
         dbHandler = DBHandler.getInstance(context);
         aq = new AQuery(context);
+        tepavService = TepavService.getInstance();
 
         new AsyncTask<Void, Void, List<DBData>>() {
 
@@ -63,7 +69,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
             @Override
             protected void onPostExecute(List<DBData> dbDatas) {
-                if (dbDatas != null ) {
+                if (dbDatas != null) {
                     dbDataList = dbDatas;
                     addAll(dbDataList);
                     notifyDataSetChanged();
@@ -118,10 +124,9 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
             //back view
             holder.ibShare = (ImageButton) convertView.findViewById(R.id.ibShare);
+            holder.ibLike = (ImageButton) convertView.findViewById(R.id.ibLike);
             holder.ibFavorite = (ImageButton) convertView.findViewById(R.id.ibFavorite);
-            holder.ibFavorited = (ImageButton) convertView.findViewById(R.id.ibFavorited);
-            holder.ibReadList = (ImageButton) convertView.findViewById(R.id.ibReadList);
-            holder.ibReadListed = (ImageButton) convertView.findViewById(R.id.ibReadListed);
+            holder.ibArchive = (ImageButton) convertView.findViewById(R.id.ibArchive);
 
             convertView.setTag(holder);
 
@@ -140,6 +145,11 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             holder.titleOfReadList.setText(news.getHtitle());
             holder.dateOfReadList.setText(news.getHdate());
 
+            if (tepavService != null) {
+                isPressedFavorite = tepavService.checkIfContains(DBHandler.TABLE_FAVORITE, news.getId());
+                isPressedArchive = tepavService.checkIfContains(DBHandler.TABLE_ARCHIVE, news.getId());
+                isPressedLike = tepavService.checkIfContains(DBHandler.TABLE_LIKE, news.getId());
+            }
 
             Bitmap bmp = aq.getCachedImage(news.getHimage());
             if (bmp == null) {
@@ -154,6 +164,12 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             holder.titleOfReadList.setText(blog.getBtitle());
             holder.dateOfReadList.setText(blog.getBtitle());
 
+            if (tepavService != null) {
+                isPressedFavorite = tepavService.checkIfContains(DBHandler.TABLE_FAVORITE, blog.getId());
+                isPressedArchive = tepavService.checkIfContains(DBHandler.TABLE_ARCHIVE, blog.getId());
+                isPressedLike = tepavService.checkIfContains(DBHandler.TABLE_LIKE, blog.getId());
+            }
+
             Bitmap bmp = aq.getCachedImage(blog.getPimage());
             if (bmp == null) {
                 aq.id(holder.imageOfReadList).image(blog.getPimage(), options);
@@ -167,212 +183,269 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             holder.titleOfReadList.setText(publication.getYtitle());
             holder.dateOfReadList.setText(publication.getYdate() + ", " + publication.getYtype());
             holder.imageOfReadList.setImageResource(R.drawable.no_image);
-        }
 
-
-        MyOnClickListener myOnClickListener = new MyOnClickListener(news, blog, publication, position);
-        holder.ibShare.setOnClickListener(myOnClickListener);
-        holder.ibFavorite.setOnClickListener(myOnClickListener);
-        holder.ibReadList.setOnClickListener(myOnClickListener);
-        holder.ibFavorited.setOnClickListener(myOnClickListener);
-        holder.ibReadListed.setOnClickListener(myOnClickListener);
-        holder.frontOfReadListClick.setOnClickListener(myOnClickListener);
-
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, dbData.getId(), holder.ibFavorite, holder.ibFavorited);
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, dbData.getId(), holder.ibReadList, holder.ibReadListed);
-
-        return convertView;
-    }
-
-    class MyOnClickListener implements View.OnClickListener {
-
-        News news;
-        Blog blog;
-        Publication publication;
-        int position;
-
-        public MyOnClickListener(News n, Blog b, Publication p, int pos) {
-            this.position = pos;
-            this.news = n;
-            this.blog = b;
-            this.publication = p;
-        }
-
-        @Override
-        public void onClick(View view) {
-
-            DBData dbData = dbDataList.get(position);
-
-            if (dbData.getType() == DBData.TYPE_NEWS) {
-                try {
-                    news = News.fromDBData(dbData);
-                    blog = null;
-                    publication = null;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } else if (dbData.getType() == DBData.TYPE_BLOG) {
-                try {
-                    blog = Blog.fromDBData(dbData);
-                    news = null;
-                    publication = null;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } else if (dbData.getType() == DBData.TYPE_PUBLICATION) {
-                try {
-                    publication = Publication.fromDBData(dbData);
-                    news = null;
-                    blog = null;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            if (tepavService != null) {
+                isPressedFavorite = tepavService.checkIfContains(DBHandler.TABLE_FAVORITE, publication.getId());
+                isPressedArchive = tepavService.checkIfContains(DBHandler.TABLE_ARCHIVE, publication.getId());
+                isPressedLike = tepavService.checkIfContains(DBHandler.TABLE_LIKE, publication.getId());
             }
+        }
 
+        if (isPressedFavorite)
+            holder.ibFavorite.setImageResource(R.drawable.swipe_favorites_dolu);
+        else
+            holder.ibFavorite.setImageResource(R.drawable.swipe_favorites);
 
-            switch (view.getId()) {
-                case R.id.ibShare:
+        if (isPressedArchive)
+            holder.ibArchive.setImageResource(R.drawable.okudum_icon_dolu);
+        else
+            holder.ibArchive.setImageResource(R.drawable.okudum_icon);
 
+        if (isPressedLike)
+            holder.ibLike.setImageResource(R.drawable.swipe_like_dolu);
+        else
+            holder.ibLike.setImageResource(R.drawable.swipe_like);
+
+        holder.ibShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (news != null) {
+
+                    String url = Constant.SHARE_NEWS + news.getHaber_id();
+
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
+                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+
+                } else if (blog != null) {
+                    String url = Constant.SHARE_BLOG + blog.getGunluk_id();
+
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, blog.getBtitle());
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, blog.getBtitle() + " " + url);
+                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                } else if (publication != null) {
+                    String url = Constant.SHARE_PUBLICATION + publication.getYayin_id();
+
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, publication.getYtitle());
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, publication.getYtitle() + " " + url);
+                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                }
+
+            }
+        });
+
+        holder.ibLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isPressedLike) {
                     if (news != null) {
-
-                        String url = Constant.SHARE_NEWS + news.getHaber_id();
-
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
-                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
-
+                        try {
+                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_LIKE);
+                            tepavService.addItemToLikeListOfTepavService(News.toDBData(news));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     } else if (blog != null) {
-                        String url = Constant.SHARE_BLOG + blog.getGunluk_id();
-
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, blog.getBtitle());
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, blog.getBtitle() + " " + url);
-                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                        try {
+                            dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_LIKE);
+                            tepavService.addItemToLikeListOfTepavService(Blog.toDBData(blog));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     } else if (publication != null) {
-                        String url = Constant.SHARE_PUBLICATION + publication.getYayin_id();
-
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, publication.getYtitle());
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, publication.getYtitle() + " " + url);
-                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                        try {
+                            dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_LIKE);
+                            tepavService.addItemToLikeListOfTepavService(Publication.toDBData(publication));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+                } else {
+                    if (news != null) {
+                        try {
+                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_LIKE);
+                            tepavService.removeItemFromLikeListOfTepavService(News.toDBData(news));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (blog != null) {
+                        try {
+                            dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_LIKE);
+                            tepavService.removeItemFromLikeListOfTepavService(Blog.toDBData(blog));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (publication != null) {
+                        try {
+                            dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_LIKE);
+                            tepavService.removeItemFromLikeListOfTepavService(Publication.toDBData(publication));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
 
-                    break;
-                case R.id.ibFavorite:
+                isPressedLike = !isPressedLike;
+                ImageButton imageButton = (ImageButton) view;
+                if (!isPressedLike)
+                    imageButton.setImageResource(R.drawable.swipe_like);
+                else
+                    imageButton.setImageResource(R.drawable.swipe_like_dolu);
+            }
+        });
+
+        holder.ibFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isPressedFavorite) {
 
                     if (news != null) {
                         try {
                             dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                            tepavService.addItemToFavoriteListOfTepavService(News.toDBData(news));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else if (blog != null) {
                         try {
                             dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
+                            tepavService.addItemToFavoriteListOfTepavService(Blog.toDBData(blog));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else if (publication != null) {
                         try {
                             dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
+                            tepavService.addItemToFavoriteListOfTepavService(Publication.toDBData(publication));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-
-                    break;
-                case R.id.ibFavorited:
+                } else {
 
                     if (news != null) {
                         try {
                             dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                            tepavService.removeItemFromFavoriteListOfTepavService(News.toDBData(news));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else if (blog != null) {
                         try {
                             dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
+                            tepavService.removeItemFromFavoriteListOfTepavService(Blog.toDBData(blog));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else if (publication != null) {
                         try {
                             dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
+                            tepavService.removeItemFromFavoriteListOfTepavService(Publication.toDBData(publication));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
+                }
 
-                    break;
-                case R.id.ibReadList:
-
-                    if (news != null) {
-                        try {
-                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    } else if (blog != null) {
-                        try {
-                            dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    } else if (publication != null) {
-                        try {
-                            dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    break;
-                case R.id.ibReadListed:
-
-                    if (news != null) {
-                        try {
-                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    } else if (blog != null) {
-                        try {
-                            dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    } else if (publication != null) {
-                        try {
-                            dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    break;
-                case R.id.frontOfReadListClick:
-
-                    Intent intent = null;
-
-                    if (news != null) {
-                        intent = new Intent(context, NewsDetails.class);
-                        intent.putExtra("class", news);
-                    } else if (blog != null) {
-                        intent = new Intent(context, BlogDetails.class);
-                        intent.putExtra("class", blog);
-                    } else if (publication != null) {
-                        intent = new Intent(context, PublicationDetails.class);
-                        intent.putExtra("class", publication);
-                    }
-
-                    context.startActivity(intent);
-                    break;
+                isPressedFavorite = !isPressedFavorite;
+                ImageButton imageButton = (ImageButton) view;
+                if (isPressedFavorite)
+                    imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
+                else
+                    imageButton.setImageResource(R.drawable.swipe_favorites);
             }
-        }
+        });
+
+        holder.ibArchive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isPressedArchive) {
+
+                    if (news != null) {
+                        try {
+                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_ARCHIVE);
+                            tepavService.addItemToArchiveListOfTepavService(News.toDBData(news));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (blog != null) {
+                        try {
+                            dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_ARCHIVE);
+                            tepavService.addItemToArchiveListOfTepavService(Blog.toDBData(blog));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (publication != null) {
+                        try {
+                            dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_ARCHIVE);
+                            tepavService.addItemToArchiveListOfTepavService(Publication.toDBData(publication));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+
+                    if (news != null) {
+                        try {
+                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_ARCHIVE);
+                            tepavService.removeItemFromArchiveListOfTepavService(News.toDBData(news));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (blog != null) {
+                        try {
+                            dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_ARCHIVE);
+                            tepavService.removeItemFromArchiveListOfTepavService(Blog.toDBData(blog));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (publication != null) {
+                        try {
+                            dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_ARCHIVE);
+                            tepavService.removeItemFromArchiveListOfTepavService(Publication.toDBData(publication));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                isPressedArchive = !isPressedArchive;
+                ImageButton imageButton = (ImageButton) view;
+                if (isPressedArchive)
+                    imageButton.setImageResource(R.drawable.okudum_icon_dolu);
+                else
+                    imageButton.setImageResource(R.drawable.okudum_icon);
+            }
+        });
+
+        holder.frontOfReadListClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = null;
+
+                if (news != null) {
+                    intent = new Intent(context, NewsDetails.class);
+                    intent.putExtra("class", news);
+                } else if (blog != null) {
+                    intent = new Intent(context, BlogDetails.class);
+                    intent.putExtra("class", blog);
+                } else if (publication != null) {
+                    intent = new Intent(context, PublicationDetails.class);
+                    intent.putExtra("class", publication);
+                }
+
+                context.startActivity(intent);
+            }
+        });
+
+
+        return convertView;
     }
 
     class ReadListHolder {
@@ -381,13 +454,10 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         TextView titleOfReadList;
         TextView dateOfReadList;
         ImageButton ibShare;
+        ImageButton ibLike;
         ImageButton ibFavorite;
-        ImageButton ibFavorited;
-        ImageButton ibReadList;
-        ImageButton ibReadListed;
+        ImageButton ibArchive;
         RelativeLayout frontOfReadListClick;
-
-
     }
 }
 

@@ -86,7 +86,7 @@ public class NewsPagerAdapter extends FragmentStatePagerAdapter {
             imageOptions.fileCache = true;
             imageOptions.memCache = true;
             imageOptions.targetWidth = 0;
-            imageOptions.fallback = 0;
+            imageOptions.fallback = R.drawable.no_image;
             imageOptions.ratio = 9f/16f;
             imageOptions.round = 0;
 

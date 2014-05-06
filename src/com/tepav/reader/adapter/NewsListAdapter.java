@@ -140,7 +140,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
             switch (view.getId()) {
                 case R.id.ibShare:
-                    Log.i("Deneme", "share");
+                    Log.i(TAG, "share");
                     String url = Constant.SHARE_NEWS + news.getHaber_id();
 
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -168,11 +168,8 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     */
 
                     break;
-                case R.id.ibAlreadyLiked:
-
-                    break;
                 case R.id.ibFavorite:
-                    Log.i("Deneme", "favorite");
+                    Log.i(TAG, "favorite");
                     try {
                         dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
 
@@ -185,7 +182,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     break;
                 case R.id.ibFavorited:
 
-                    Log.i("Deneme", "favorited");
+                    Log.i(TAG, "favorited");
                     try {
                         dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
 
@@ -198,7 +195,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     break;
                 case R.id.ibReadList:
 
-                    Log.i("Deneme", "read list");
+                    Log.i(TAG, "read list");
                     try {
                         dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
 
@@ -209,7 +206,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     }
                     break;
                 case R.id.ibReadListed:
-                    Log.i("Deneme", "readListed");
+                    Log.i(TAG, "readListed");
                     try {
                         dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
 

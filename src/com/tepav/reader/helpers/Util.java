@@ -97,6 +97,23 @@ public class Util {
         }.execute();
     }
 
+    public static void checkIfIsContainAndSetButton(final DBHandler dbHandler, final String table, final String id, final View firstView) {
+
+        new AsyncTask<Void, Void, Boolean>() {
+
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                return dbHandler.isContain(table, id);
+            }
+
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                super.onPostExecute(aBoolean);
+
+            }
+        }.execute();
+    }
+
     public static boolean canDisplayPdf(Context context) {
         PackageManager packageManager = context.getPackageManager();
         Intent testIntent = new Intent(Intent.ACTION_VIEW);

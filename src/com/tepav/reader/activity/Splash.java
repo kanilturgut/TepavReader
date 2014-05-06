@@ -8,6 +8,7 @@ import android.os.Handler;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
+import com.tepav.reader.service.TepavService;
 
 public class Splash extends Activity {
 
@@ -25,7 +26,10 @@ public class Splash extends Activity {
 
         context = this;
 
-        DBHandler.getInstance(context);
+        DBHandler dbHandler = DBHandler.getInstance(context);
+        TepavService tepavService = TepavService.getInstance();
+
+        startService(new Intent(context, TepavService.class));
 
         //Implementation of handler and its runnable
         startHandler = new Handler();

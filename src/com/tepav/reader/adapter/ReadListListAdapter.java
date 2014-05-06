@@ -3,7 +3,6 @@ package com.tepav.reader.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +28,6 @@ import com.tepav.reader.model.Publication;
 import com.tepav.reader.service.TepavService;
 import org.json.JSONException;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -185,26 +183,27 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             }
         }
 
-        if (isPressedFavorite)
-            holder.ibFavorite.setImageResource(R.drawable.swipe_favorites_dolu);
-        else
-            holder.ibFavorite.setImageResource(R.drawable.swipe_favorites);
+        if (tepavService != null) {
+            if (checkDB(dbData, DBHandler.TABLE_FAVORITE))
+                holder.ibFavorite.setImageResource(R.drawable.swipe_favorites_dolu);
+            else
+                holder.ibFavorite.setImageResource(R.drawable.swipe_favorites);
 
-        if (isPressedArchive)
-            holder.ibArchive.setImageResource(R.drawable.okudum_icon_dolu);
-        else
-            holder.ibArchive.setImageResource(R.drawable.okudum_icon);
+            if (checkDB(dbData, DBHandler.TABLE_ARCHIVE))
+                holder.ibArchive.setImageResource(R.drawable.okudum_icon_dolu);
+            else
+                holder.ibArchive.setImageResource(R.drawable.okudum_icon);
 
-        if (isPressedLike)
-            holder.ibLike.setImageResource(R.drawable.swipe_like_dolu);
-        else
-            holder.ibLike.setImageResource(R.drawable.swipe_like);
+            if (checkDB(dbData, DBHandler.TABLE_LIKE))
+                holder.ibLike.setImageResource(R.drawable.swipe_like_dolu);
+            else
+                holder.ibLike.setImageResource(R.drawable.swipe_like);
+        }
 
         holder.ibShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (news != null) {
-
                     String url = Constant.SHARE_NEWS + news.getHaber_id();
 
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -230,64 +229,38 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
                     shareIntent.putExtra(Intent.EXTRA_TEXT, publication.getYtitle() + " " + url);
                     context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
                 }
-
             }
         });
 
         holder.ibLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isPressedLike) {
+                if (checkDB(dbData, DBHandler.TABLE_LIKE)) {
                     if (news != null) {
-                        try {
-                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_LIKE);
-                            tepavService.addItemToLikeListOfTepavService(News.toDBData(news));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
+                        tepavService.addItemToLikeListOfTepavService(dbData);
                     } else if (blog != null) {
-                        try {
-                            dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_LIKE);
-                            tepavService.addItemToLikeListOfTepavService(Blog.toDBData(blog));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
+                        tepavService.addItemToLikeListOfTepavService(dbData);
                     } else if (publication != null) {
-                        try {
-                            dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_LIKE);
-                            tepavService.addItemToLikeListOfTepavService(Publication.toDBData(publication));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
+                        tepavService.addItemToLikeListOfTepavService(dbData);
                     }
                 } else {
                     if (news != null) {
-                        try {
-                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_LIKE);
-                            tepavService.removeItemFromLikeListOfTepavService(News.toDBData(news));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
+                        tepavService.removeItemFromLikeListOfTepavService(dbData);
                     } else if (blog != null) {
-                        try {
-                            dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_LIKE);
-                            tepavService.removeItemFromLikeListOfTepavService(Blog.toDBData(blog));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
+                        tepavService.removeItemFromLikeListOfTepavService(dbData);
                     } else if (publication != null) {
-                        try {
-                            dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_LIKE);
-                            tepavService.removeItemFromLikeListOfTepavService(Publication.toDBData(publication));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
+                        tepavService.removeItemFromLikeListOfTepavService(dbData);
                     }
                 }
 
-                isPressedLike = !isPressedLike;
                 ImageButton imageButton = (ImageButton) view;
-                if (!isPressedLike)
+                if (!checkDB(dbData, DBHandler.TABLE_LIKE))
                     imageButton.setImageResource(R.drawable.swipe_like);
                 else
                     imageButton.setImageResource(R.drawable.swipe_like_dolu);
@@ -297,59 +270,33 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         holder.ibFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isPressedFavorite) {
-
+                if (!checkDB(dbData, DBHandler.TABLE_FAVORITE)) {
                     if (news != null) {
-                        try {
-                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
-                            tepavService.addItemToFavoriteListOfTepavService(News.toDBData(news));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
+                        tepavService.addItemToFavoriteListOfTepavService(dbData);
                     } else if (blog != null) {
-                        try {
-                            dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
-                            tepavService.addItemToFavoriteListOfTepavService(Blog.toDBData(blog));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
+                        tepavService.addItemToFavoriteListOfTepavService(dbData);
                     } else if (publication != null) {
-                        try {
-                            dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
-                            tepavService.addItemToFavoriteListOfTepavService(Publication.toDBData(publication));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
+                        tepavService.addItemToFavoriteListOfTepavService(dbData);
                     }
                 } else {
 
                     if (news != null) {
-                        try {
-                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
-                            tepavService.removeItemFromFavoriteListOfTepavService(News.toDBData(news));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
+                        tepavService.removeItemFromFavoriteListOfTepavService(dbData);
                     } else if (blog != null) {
-                        try {
-                            dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
-                            tepavService.removeItemFromFavoriteListOfTepavService(Blog.toDBData(blog));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
+                        tepavService.removeItemFromFavoriteListOfTepavService(dbData);
                     } else if (publication != null) {
-                        try {
-                            dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
-                            tepavService.removeItemFromFavoriteListOfTepavService(Publication.toDBData(publication));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
+                        tepavService.removeItemFromFavoriteListOfTepavService(dbData);
                     }
                 }
 
-                isPressedFavorite = !isPressedFavorite;
                 ImageButton imageButton = (ImageButton) view;
-                if (isPressedFavorite)
+                if (checkDB(dbData, DBHandler.TABLE_FAVORITE))
                     imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
                 else
                     imageButton.setImageResource(R.drawable.swipe_favorites);
@@ -359,59 +306,32 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         holder.ibArchive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isPressedArchive) {
-
+                if (!checkDB(dbData, DBHandler.TABLE_ARCHIVE)) {
                     if (news != null) {
-                        try {
-                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_ARCHIVE);
-                            tepavService.addItemToArchiveListOfTepavService(News.toDBData(news));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
+                        tepavService.addItemToArchiveListOfTepavService(dbData);
                     } else if (blog != null) {
-                        try {
-                            dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_ARCHIVE);
-                            tepavService.addItemToArchiveListOfTepavService(Blog.toDBData(blog));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
+                        tepavService.addItemToArchiveListOfTepavService(dbData);
                     } else if (publication != null) {
-                        try {
-                            dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_ARCHIVE);
-                            tepavService.addItemToArchiveListOfTepavService(Publication.toDBData(publication));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
+                        tepavService.addItemToArchiveListOfTepavService(dbData);
                     }
                 } else {
-
                     if (news != null) {
-                        try {
-                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_ARCHIVE);
-                            tepavService.removeItemFromArchiveListOfTepavService(News.toDBData(news));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
+                        tepavService.removeItemFromArchiveListOfTepavService(dbData);
                     } else if (blog != null) {
-                        try {
-                            dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_ARCHIVE);
-                            tepavService.removeItemFromArchiveListOfTepavService(Blog.toDBData(blog));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
+                        tepavService.removeItemFromArchiveListOfTepavService(dbData);
                     } else if (publication != null) {
-                        try {
-                            dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_ARCHIVE);
-                            tepavService.removeItemFromArchiveListOfTepavService(Publication.toDBData(publication));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
+                        tepavService.removeItemFromArchiveListOfTepavService(dbData);
                     }
                 }
 
-                isPressedArchive = !isPressedArchive;
                 ImageButton imageButton = (ImageButton) view;
-                if (isPressedArchive)
+                if (checkDB(dbData, DBHandler.TABLE_ARCHIVE))
                     imageButton.setImageResource(R.drawable.okudum_icon_dolu);
                 else
                     imageButton.setImageResource(R.drawable.okudum_icon);
@@ -421,31 +341,18 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         holder.ibDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (news != null) {
-                    try {
-                        dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-                        tepavService.removeItemFromReadingListOfTepavService(News.toDBData(news));
-                        dbDataList.remove(News.toDBData(news));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
+                    tepavService.removeItemFromReadingListOfTepavService(dbData);
+                    dbDataList.remove(dbData);
                 } else if (blog != null) {
-                    try {
-                        dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
-                        tepavService.removeItemFromReadingListOfTepavService(Blog.toDBData(blog));
-                        dbDataList.remove(Blog.toDBData(blog));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
+                    tepavService.removeItemFromReadingListOfTepavService(dbData);
+                    dbDataList.remove(dbData);
                 } else if (publication != null) {
-                    try {
-                        dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
-                        tepavService.removeItemFromReadingListOfTepavService(Publication.toDBData(publication));
-                        dbDataList.remove(Publication.toDBData(publication));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
+                    tepavService.removeItemFromReadingListOfTepavService(dbData);
+                    dbDataList.remove(dbData);
                 }
 
                 remove(dbData);
@@ -489,6 +396,10 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         ImageButton ibArchive;
         ImageButton ibDelete;
         RelativeLayout frontOfReadListClick;
+    }
+
+    boolean checkDB(DBData dbData, String table) {
+        return tepavService.checkIfContains(table, dbData.getId());
     }
 }
 

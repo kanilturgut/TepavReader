@@ -134,7 +134,6 @@ public class FavoriteListAdapter extends ArrayAdapter<DBData> {
             holder.titleOfFavorite.setText(news.getHtitle());
             holder.dateOfFavorite.setText(news.getHdate());
 
-
             Bitmap bmp = aq.getCachedImage(news.getHimage());
             if (bmp == null) {
                 aq.id(holder.imageOfFavorite).image(news.getHimage(), options);

@@ -52,6 +52,7 @@ public class TepavService extends Service {
         readFavoriteListFromDatabase();
         readReadingListFromDatabase();
         readArchiveListFromDatabase();
+        readLikeListFromDatabase();
 
         return START_STICKY;
     }

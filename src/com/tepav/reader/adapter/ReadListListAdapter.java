@@ -45,10 +45,6 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
     TepavService tepavService = null;
     SwipeListView swipeListView;
 
-    boolean isPressedLike = false;
-    boolean isPressedFavorite = false;
-    boolean isPressedArchive = false;
-
     News news = null;
     Blog blog = null;
     Publication publication = null;
@@ -67,10 +63,6 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-
-        isPressedLike = false;
-        isPressedFavorite = false;
-        isPressedArchive = false;
 
         ReadListHolder holder;
         final DBData dbData = dbDataList.get(position);
@@ -137,12 +129,6 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             holder.titleOfReadList.setText(news.getHtitle());
             holder.dateOfReadList.setText(news.getHdate());
 
-            if (tepavService != null) {
-                isPressedFavorite = tepavService.checkIfContains(DBHandler.TABLE_FAVORITE, news.getId());
-                isPressedArchive = tepavService.checkIfContains(DBHandler.TABLE_ARCHIVE, news.getId());
-                isPressedLike = tepavService.checkIfContains(DBHandler.TABLE_LIKE, news.getId());
-            }
-
             Bitmap bmp = aq.getCachedImage(news.getHimage());
             if (bmp == null) {
                 aq.id(holder.imageOfReadList).image(news.getHimage(), options);
@@ -155,12 +141,6 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         } else if (blog != null) {
             holder.titleOfReadList.setText(blog.getBtitle());
             holder.dateOfReadList.setText(blog.getBtitle());
-
-            if (tepavService != null) {
-                isPressedFavorite = tepavService.checkIfContains(DBHandler.TABLE_FAVORITE, blog.getId());
-                isPressedArchive = tepavService.checkIfContains(DBHandler.TABLE_ARCHIVE, blog.getId());
-                isPressedLike = tepavService.checkIfContains(DBHandler.TABLE_LIKE, blog.getId());
-            }
 
             Bitmap bmp = aq.getCachedImage(blog.getPimage());
             if (bmp == null) {
@@ -175,12 +155,6 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             holder.titleOfReadList.setText(publication.getYtitle());
             holder.dateOfReadList.setText(publication.getYdate() + ", " + publication.getYtype());
             holder.imageOfReadList.setImageResource(R.drawable.no_image);
-
-            if (tepavService != null) {
-                isPressedFavorite = tepavService.checkIfContains(DBHandler.TABLE_FAVORITE, publication.getId());
-                isPressedArchive = tepavService.checkIfContains(DBHandler.TABLE_ARCHIVE, publication.getId());
-                isPressedLike = tepavService.checkIfContains(DBHandler.TABLE_LIKE, publication.getId());
-            }
         }
 
         if (tepavService != null) {
@@ -402,5 +376,3 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         return tepavService.checkIfContains(table, dbData.getId());
     }
 }
-
-

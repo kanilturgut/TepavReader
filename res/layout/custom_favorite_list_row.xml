@@ -19,39 +19,28 @@
                     android:id="@+id/ibShare"
                     android:background="@android:color/transparent"
                     android:layout_margin="20dp"
-                    android:src="@drawable/ic_action_share"/>
-
-
-            <ImageButton
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:id="@+id/ibReadList"
-                    android:background="@android:color/transparent"
-                    android:layout_margin="20dp"
-                    android:src="@drawable/ic_action_favorite"/>
+                    android:src="@drawable/swipe_share"/>
 
             <ImageButton
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:id="@+id/ibReadListed"
+                    android:id="@+id/ibLike"
                     android:background="@android:color/transparent"
                     android:layout_margin="20dp"
-                    android:src="@drawable/ic_action_accept"
-                    android:visibility="gone"/>
-
+                    android:src="@drawable/swipe_like"/>
 
             <ImageButton
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:id="@+id/ibFavorite"
+                    android:id="@+id/ibArchive"
                     android:background="@android:color/transparent"
                     android:layout_margin="20dp"
-                    android:src="@drawable/ic_action_copy"/>
+                    android:src="@drawable/okudum_icon"/>
 
             <ImageButton
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:id="@+id/ibFavorited"
+                    android:id="@+id/ibDelete"
                     android:background="@android:color/transparent"
                     android:layout_margin="20dp"
-                    android:src="@drawable/ic_action_accept"
-                    android:visibility="gone"/>
+                    android:src="@drawable/ic_action_discard"/>
 
         </LinearLayout>
 

@@ -28,6 +28,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String TABLE_READ_LIST = "read_list";
     public static final String TABLE_FAVORITE = "favorite";
     public static final String TABLE_ARCHIVE = "archive";
+    public static final String TABLE_LIKE = "like";
 
 
     static final String COL_ID = "_id";
@@ -70,6 +71,13 @@ public class DBHandler extends SQLiteOpenHelper {
                 + COL_TYPE + " INTEGER "
                 + ");");
 
+        db.execSQL("CREATE TABLE " + TABLE_LIKE
+                + " ("
+                + COL_ID + " TEXT, "
+                + COL_CONTENT + " TEXT, "
+                + COL_TYPE + " INTEGER "
+                + ");");
+
     }
 
     @Override
@@ -78,6 +86,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXIST " + TABLE_READ_LIST);
         db.execSQL("DROP TABLE IF EXIST " + TABLE_FAVORITE);
         db.execSQL("DROP TABLE IF EXIST " + TABLE_ARCHIVE);
+        db.execSQL("DROP TABLE IF EXIST " + TABLE_LIKE);
         onCreate(db);
     }
 

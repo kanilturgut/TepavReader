@@ -62,7 +62,6 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
         tepavService = TepavService.getInstance();
         progressDialog = ProgressDialog.show(context, context.getString(R.string.please_wait),
                 context.getString(R.string.loading), false, false);
-
         loadMore();
     }
 

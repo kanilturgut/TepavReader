@@ -20,9 +20,9 @@ import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
-import com.tepav.reader.helpers.Util;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.model.News;
+import com.tepav.reader.service.TepavService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,7 +43,11 @@ public class NewsListAdapter extends ArrayAdapter<News> {
     int pageNumber;
     AQuery aq;
     DBHandler dbHandler;
-    NewsHolder holder;
+    TepavService tepavService;
+
+    boolean isPressedLike = false;
+    boolean isPressedFavorite = false;
+    boolean isPressedReadList = false;
 
     public NewsListAdapter(Context ctx, int number) {
         super(ctx, R.layout.custom_news_row);
@@ -53,12 +57,14 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
         dbHandler = DBHandler.getInstance(context);
         aq = new AQuery(context);
+        tepavService = TepavService.getInstance();
         loadMore();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        NewsHolder holder;
         final News news = newsList.get(position);
 
         if (position == (newsList.size() - 1))
@@ -79,11 +85,8 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             //back view
             holder.ibShare = (ImageButton) convertView.findViewById(R.id.ibShare);
             holder.ibLike = (ImageButton) convertView.findViewById(R.id.ibLike);
-            holder.ibLiked = (ImageButton) convertView.findViewById(R.id.ibAlreadyLiked);
             holder.ibFavorite = (ImageButton) convertView.findViewById(R.id.ibFavorite);
-            holder.ibFavorited = (ImageButton) convertView.findViewById(R.id.ibFavorited);
             holder.ibReadList = (ImageButton) convertView.findViewById(R.id.ibReadList);
-            holder.ibReadListed = (ImageButton) convertView.findViewById(R.id.ibReadListed);
 
             convertView.setTag(holder);
 
@@ -108,122 +111,118 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
         holder.titleOfNews.setText(news.getHtitle());
         holder.dateOfNews.setText(news.getHdate());
-
-        MyOnClickListener myOnClickListener = new MyOnClickListener(position);
-        holder.ibShare.setOnClickListener(myOnClickListener);
-        holder.ibLike.setOnClickListener(myOnClickListener);
-        holder.ibLiked.setOnClickListener(myOnClickListener);
-        holder.ibFavorite.setOnClickListener(myOnClickListener);
-        holder.ibReadList.setOnClickListener(myOnClickListener);
-        holder.ibFavorited.setOnClickListener(myOnClickListener);
-        holder.ibReadListed.setOnClickListener(myOnClickListener);
-        holder.frontOfNewsClick.setOnClickListener(myOnClickListener);
-
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, news.getId(), holder.ibFavorite, holder.ibFavorited);
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, news.getId(), holder.ibReadList, holder.ibReadListed);
-
-        return convertView;
-    }
-
-    class MyOnClickListener implements View.OnClickListener {
-
-        int position;
-
-        public MyOnClickListener(int pos) {
-            this.position = pos;
+        
+        if (tepavService != null) {
+            isPressedFavorite = tepavService.checkIfContains(DBHandler.TABLE_FAVORITE, news.getId());
+            isPressedReadList = tepavService.checkIfContains(DBHandler.TABLE_READ_LIST, news.getId());
+            isPressedLike = tepavService.checkIfContains(DBHandler.TABLE_LIKE, news.getId());
         }
 
-        @Override
-        public void onClick(View view) {
+        if (isPressedFavorite)
+            holder.ibFavorite.setImageResource(R.drawable.swipe_favorites_dolu);
+        else
+            holder.ibFavorite.setImageResource(R.drawable.swipe_favorites);
 
-            News news = newsList.get(position);
+        if (isPressedReadList)
+            holder.ibReadList.setImageResource(R.drawable.okudum_icon_dolu);
+        else
+            holder.ibReadList.setImageResource(R.drawable.okudum_icon);
 
-            switch (view.getId()) {
-                case R.id.ibShare:
-                    Log.i(TAG, "share");
-                    String url = Constant.SHARE_NEWS + news.getHaber_id();
+        holder.ibShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = Constant.SHARE_NEWS + news.getHaber_id();
 
-                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.setType("text/plain");
-                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
-                    shareIntent.putExtra(Intent.EXTRA_TEXT,  news.getHtitle() + " " + url);
-                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
-                    break;
-                case R.id.ibLike:
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
+                shareIntent.putExtra(Intent.EXTRA_TEXT,  news.getHtitle() + " " + url);
+                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+            }
+        });
 
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        jsonObject.put("newsId", news.getId());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-/*
+        holder.ibFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                    aq.post(HttpURL.createURL(HttpURL.likeNews), jsonObject, String.class, new AjaxCallback<String>() {
-                        @Override
-                        public void callback(String url, String object, AjaxStatus status) {
-                            super.callback(url, object, status);
-                        }
-                    });
-                    */
-
-                    break;
-                case R.id.ibFavorite:
-                    Log.i(TAG, "favorite");
+                if (!isPressedFavorite) {
                     try {
                         dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
-
-                        Util.changeVisibility(holder.ibFavorite);
-                        Util.changeVisibility(holder.ibFavorited);
+                        tepavService.addItemToFavoriteListOfTepavService(News.toDBData(news));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-                    break;
-                case R.id.ibFavorited:
-
-                    Log.i(TAG, "favorited");
+                } else {
                     try {
                         dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
-
-                        Util.changeVisibility(holder.ibFavorite);
-                        Util.changeVisibility(holder.ibFavorited);
+                        tepavService.removeItemFromFavoriteListOfTepavService(News.toDBData(news));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }
 
-                    break;
-                case R.id.ibReadList:
+                isPressedFavorite = !isPressedFavorite;
+                ImageButton imageButton = (ImageButton) view;
+                if (isPressedFavorite)
+                    imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
+                else
+                    imageButton.setImageResource(R.drawable.swipe_favorites);
 
-                    Log.i(TAG, "read list");
+            }
+        });
+
+        holder.ibLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                isPressedLike = !isPressedLike;
+                ImageButton imageButton = (ImageButton) view;
+                if (!isPressedLike)
+                    imageButton.setImageResource(R.drawable.swipe_like);
+                else
+                    imageButton.setImageResource(R.drawable.swipe_like_dolu);
+            }
+        });
+
+        holder.ibReadList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!isPressedReadList) {
                     try {
                         dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-
-                        Util.changeVisibility(holder.ibReadList);
-                        Util.changeVisibility(holder.ibReadListed);
+                        tepavService.addItemToReadingListOfTepavService(News.toDBData(news));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    break;
-                case R.id.ibReadListed:
-                    Log.i(TAG, "readListed");
+                } else {
                     try {
                         dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-
-                        Util.changeVisibility(holder.ibReadList);
-                        Util.changeVisibility(holder.ibReadListed);
+                        tepavService.removeItemToReadingListOfTepavService(News.toDBData(news));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    break;
-                case R.id.frontOfNewsClick:
+                }
 
-                    Intent intent = new Intent(context, NewsDetails.class);
-                    intent.putExtra("class", news);
-                    context.startActivity(intent);
-                    break;
+                isPressedReadList = !isPressedReadList;
+                ImageButton imageButton = (ImageButton) view;
+                if (isPressedReadList)
+                    imageButton.setImageResource(R.drawable.okudum_icon_dolu);
+                else
+                    imageButton.setImageResource(R.drawable.okudum_icon);
             }
-        }
+        });
+        holder.frontOfNewsClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, NewsDetails.class);
+                intent.putExtra("class", news);
+                context.startActivity(intent);
+            }
+        });
+
+
+        return convertView;
     }
 
     class NewsHolder {
@@ -233,11 +232,8 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         TextView dateOfNews;
         ImageButton ibShare;
         ImageButton ibLike;
-        ImageButton ibLiked;
         ImageButton ibFavorite;
-        ImageButton ibFavorited;
         ImageButton ibReadList;
-        ImageButton ibReadListed;
         RelativeLayout frontOfNewsClick;
     }
 

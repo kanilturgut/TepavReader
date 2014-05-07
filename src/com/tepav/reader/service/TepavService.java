@@ -17,6 +17,8 @@ import java.util.List;
  */
 public class TepavService extends Service {
 
+    public static boolean isLoggedIn = false;
+
     public static List<DBData> favoriteList = new LinkedList<DBData>();
     public static List<DBData> readingList = new LinkedList<DBData>();
     public static List<DBData> archiveList = new LinkedList<DBData>();

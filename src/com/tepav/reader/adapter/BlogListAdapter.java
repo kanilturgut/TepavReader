@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ import com.tepav.reader.activity.BlogDetails;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
+import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.model.Blog;
 import com.tepav.reader.service.TepavService;
@@ -108,10 +108,10 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
         Bitmap cachedBitmap = aq.getCachedImage(blog.getPimage());
         if (cachedBitmap == null) {
             aq.id(holder.imageOfBlog).image(blog.getPimage(), options);
-            Log.i(TAG, "image received from server");
+            Logs.i(TAG, "image received from server");
         } else {
             holder.imageOfBlog.setImageBitmap(cachedBitmap);
-            Log.i(TAG, "image received from cache");
+            Logs.i(TAG, "image received from cache");
         }
 
         holder.titleOfBlog.setText(blog.getBtitle());

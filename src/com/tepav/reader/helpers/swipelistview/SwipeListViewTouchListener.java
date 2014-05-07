@@ -23,7 +23,6 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.view.MotionEventCompat;
-import android.util.Log;
 import android.view.*;
 import android.widget.AbsListView;
 import android.widget.ListView;
@@ -31,6 +30,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
+import com.tepav.reader.helpers.Logs;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -420,7 +420,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                 count++;
             }
         }
-        Log.d("SwipeListView", "selected: " + count);
+        Logs.d("SwipeListView", "selected: " + count);
         return count;
     }
 
@@ -472,7 +472,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      * @param position  Position of list
      */
     private void generateAnimate(final View view, final boolean swap, final boolean swapRight, final int position) {
-        Log.d("SwipeListView", "swap: " + swap + " - swapRight: " + swapRight + " - position: " + position);
+        Logs.d("SwipeListView", "swap: " + swap + " - swapRight: " + swapRight + " - position: " + position);
         if (swipeCurrentAction == SwipeListView.SWIPE_ACTION_REVEAL) {
             generateRevealAnimate(view, swap, swapRight, position);
         }
@@ -768,7 +768,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                 boolean swapRight = false;
                 if (minFlingVelocity <= velocityX && velocityX <= maxFlingVelocity && velocityY * 2 < velocityX) {
                     swapRight = velocityTracker.getXVelocity() > 0;
-                    Log.d("SwipeListView", "swapRight: " + swapRight + " - swipingRight: " + swipingRight);
+                    Logs.d("SwipeListView", "swapRight: " + swapRight + " - swipingRight: " + swipingRight);
                     if (swapRight != swipingRight && swipeActionLeft != swipeActionRight) {
                         swap = false;
                     } else if (opened.get(downPosition) && openedRight.get(downPosition) && swapRight) {
@@ -838,7 +838,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                 if (deltaMode > slop && swipeCurrentAction == SwipeListView.SWIPE_ACTION_NONE && velocityY < velocityX) {
                     swiping = true;
                     swipingRight = (deltaX > 0);
-                    Log.d("SwipeListView", "deltaX: " + deltaX + " - swipingRight: " + swipingRight);
+                    Logs.d("SwipeListView", "deltaX: " + deltaX + " - swipingRight: " + swipingRight);
                     if (opened.get(downPosition)) {
                         swipeListView.onStartClose(downPosition, swipingRight);
                         swipeCurrentAction = SwipeListView.SWIPE_ACTION_REVEAL;
@@ -903,7 +903,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             posX += openedRight.get(downPosition) ? -viewWidth + rightOffset : viewWidth - leftOffset;
         }
         if (posX > 0 && !swipingRight) {
-            Log.d("SwipeListView", "change to right");
+            Logs.d("SwipeListView", "change to right");
             swipingRight = !swipingRight;
             swipeCurrentAction = swipeActionRight;
             if (swipeCurrentAction == SwipeListView.SWIPE_ACTION_CHOICE) {
@@ -913,7 +913,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             }
         }
         if (posX < 0 && swipingRight) {
-            Log.d("SwipeListView", "change to left");
+            Logs.d("SwipeListView", "change to left");
             swipingRight = !swipingRight;
             swipeCurrentAction = swipeActionLeft;
             if (swipeCurrentAction == SwipeListView.SWIPE_ACTION_CHOICE) {

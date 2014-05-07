@@ -3,7 +3,6 @@ package com.tepav.reader.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,8 @@ import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
+import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
-import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.News;
 import com.tepav.reader.service.TepavService;
 import org.json.JSONArray;
@@ -104,10 +103,10 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         Bitmap bmp = aq.getCachedImage(news.getHimage());
         if (bmp == null) {
             aq.id(holder.imageOfNews).image(news.getHimage(), options);
-            Log.i(TAG, "image received from server");
+            Logs.i(TAG, "image received from server");
         } else {
             holder.imageOfNews.setImageBitmap(bmp);
-            Log.i(TAG, "image received from cache");
+            Logs.i(TAG, "image received from cache");
         }
 
         holder.titleOfNews.setText(news.getHtitle());

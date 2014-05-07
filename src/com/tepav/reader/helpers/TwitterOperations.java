@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 import com.tepav.reader.model.TwitterUser;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -92,7 +91,7 @@ public class TwitterOperations {
             try {
                 return twitter.getOAuthRequestToken(TWITTER_CALLBACK_URL);
             } catch (TwitterException e) {
-                Log.e(TAG, "ERROR on GetOAuthRequestTokenTask");
+                Logs.e(TAG, "ERROR on GetOAuthRequestTokenTask");
                 e.printStackTrace();
 
                 return null;
@@ -115,7 +114,7 @@ public class TwitterOperations {
             try {
                 return twitter.getOAuthAccessToken(requestToken, strings[0]);
             } catch (TwitterException e) {
-                Log.e(TAG, "ERROR on GetOAuthAccessTokenTask");
+                Logs.e(TAG, "ERROR on GetOAuthAccessTokenTask");
                 e.printStackTrace();
 
                 return null;
@@ -128,7 +127,7 @@ public class TwitterOperations {
             mySharedPreferences.setTwitterPref(String.valueOf(accessToken.getUserId()), accessToken.getToken(),
                     accessToken.getTokenSecret(), true);
 
-            Log.i(TAG, "Twitter OAuth Token added to SP");
+            Logs.i(TAG, "Twitter OAuth Token added to SP");
         }
     }
 }

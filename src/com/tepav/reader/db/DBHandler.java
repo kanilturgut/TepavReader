@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.model.DBData;
 
 import java.util.LinkedList;
@@ -92,7 +93,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public boolean insert(DBData dbData, String table) {
 
-        Log.i(TAG, "insert operation started");
+        Logs.i(TAG, "insert operation started");
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -102,17 +103,17 @@ public class DBHandler extends SQLiteOpenHelper {
         contentValues.put(COL_TYPE, dbData.getType());
 
         if (isContain(table, dbData.getId(), db)) {
-            Log.i(TAG, "item already in the db, it will update");
+            Logs.i(TAG, "item already in the db, it will update");
             update(dbData, table);
             return true;
         } else {
             try {
                 db.insertOrThrow(table, null, contentValues);
                 db.close();
-                Log.i(TAG, "SUCCESS on insert operation");
+                Logs.i(TAG, "SUCCESS on insert operation");
                 return true;
             } catch (Exception e) {
-                Log.e(TAG, "ERROR on insert method", e);
+                Logs.e(TAG, "ERROR on insert method", e);
                 db.close();
                 return false;
             }
@@ -203,7 +204,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public int update(DBData dbData, String table) throws NullPointerException {
 
-        Log.i(TAG, "update operation started");
+        Logs.i(TAG, "update operation started");
 
         SQLiteDatabase db = this.getWritableDatabase();
 

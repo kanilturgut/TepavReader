@@ -15,6 +15,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
 import com.tepav.reader.helpers.Constant;
+import com.tepav.reader.helpers.Logs;
 
 import java.io.File;
 
@@ -55,10 +56,10 @@ public class PDFDownloadActivity extends Activity {
         File newFile = new File(ext, Constant.PDF_TARGET + filename);
 
         if (!newFile.exists()) {
-            Log.i(TAG, newFile.getName() + " doesn't exist, it will download from server");
+            Logs.i(TAG, newFile.getName() + " doesn't exist, it will download from server");
             downloadPDFWithAQuery();
         } else {
-            Log.i(TAG, newFile.getName() + " exist, it will load from file target");
+            Logs.i(TAG, newFile.getName() + " exist, it will load from file target");
             downloadedPDF = newFile;
             buttonOpenDownloadedPDF.setText(getResources().getString(R.string.open_doc));
 

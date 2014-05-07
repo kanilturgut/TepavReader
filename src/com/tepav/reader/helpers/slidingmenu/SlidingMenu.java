@@ -3,13 +3,13 @@ package com.tepav.reader.helpers.slidingmenu;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 import com.tepav.reader.helpers.Constant;
+import com.tepav.reader.helpers.Logs;
 
 public class SlidingMenu extends LinearLayout {
 
@@ -184,7 +184,7 @@ public class SlidingMenu extends LinearLayout {
                 return true;
 
             case MotionEvent.ACTION_UP:
-                Log.d("SlidingMenu.java onContentTouch()", "Up lastDiffX "
+                Logs.d("SlidingMenu.java onContentTouch()", "Up lastDiffX "
                         + lastDiffX);
 
                 if (lastDiffX > 0) {

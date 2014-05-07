@@ -3,7 +3,6 @@ package com.tepav.reader.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.activity.PublicationDetails;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
+import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.Blog;
@@ -132,10 +132,10 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             Bitmap bmp = aq.getCachedImage(news.getHimage());
             if (bmp == null) {
                 aq.id(holder.imageOfReadList).image(news.getHimage(), options);
-                Log.i(TAG, "image received from server");
+                Logs.i(TAG, "image received from server");
             } else {
                 holder.imageOfReadList.setImageBitmap(bmp);
-                Log.i(TAG, "image received from cache");
+                Logs.i(TAG, "image received from cache");
             }
 
         } else if (blog != null) {
@@ -145,10 +145,10 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             Bitmap bmp = aq.getCachedImage(blog.getPimage());
             if (bmp == null) {
                 aq.id(holder.imageOfReadList).image(blog.getPimage(), options);
-                Log.i(TAG, "image received from server");
+                Logs.i(TAG, "image received from server");
             } else {
                 holder.imageOfReadList.setImageBitmap(bmp);
-                Log.i(TAG, "image received from cache");
+                Logs.i(TAG, "image received from cache");
             }
 
         } else if (publication != null) {

@@ -6,12 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
-import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Author : kanilturgut
@@ -19,52 +14,6 @@ import java.util.Date;
  * Time : 22:59
  */
 public class Util {
-
-    //thanks to Mustafa Simav - (https://github.com/msimav)
-    public static String getDateAsString(Context ctx, String date) {
-
-        long now = System.currentTimeMillis();
-        long unixtime = serverDateToDate(date).getTime();
-
-        if (now - unixtime < 0) {
-            return "Just Now";
-        } else if (now - 60 * 1000 < unixtime) { // in fucking min
-            return String.format(ctx.getString(R.string.comp_sec),
-                    ((now - unixtime) / 1000));
-        } else if (now - 60 * 60 * 1000 < unixtime) { // fucking hour
-            return String.format(ctx.getString(R.string.comp_min),
-                    ((now - unixtime) / 60 / 1000));
-        } else if (now - 24 * 60 * 60 * 1000 < unixtime) { // fucking day
-            return String.format(ctx.getString(R.string.comp_hour),
-                    ((now - unixtime) / 60 / 60 / 1000));
-        } else if (now - 7 * 24 * 60 * 60 * 1000 < unixtime) { // fucking week
-            return String.format(ctx.getString(R.string.comp_day),
-                    ((now - unixtime) / 24 / 60 / 60 / 1000));
-        } else if (now - 30 * 7 * 24 * 60 * 60 * 1000 < unixtime) {
-            // fucking month
-            return String.format(ctx.getString(R.string.comp_week),
-                    ((now - unixtime) / 7 / 24 / 60 / 60 / 1000));
-        } else if (now - 12 * 30 * 7 * 24 * 60 * 60 * 1000 < unixtime) {
-            // fucking month
-            return String.format(ctx.getString(R.string.comp_month),
-                    ((now - unixtime) / 30 / 7 / 24 / 60 / 60 / 1000));
-        } else {
-            SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-            return df.format(serverDateToDate(date));
-        }
-    }
-
-    public static Date serverDateToDate(String str) {
-
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-
-        try {
-            return df.parse(str);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return new Date();
-        }
-    }
 
     public static void changeVisibility(View view) {
         Log.i("TAG", "changeVisibility");

@@ -22,6 +22,7 @@ import com.tepav.reader.helpers.TwitterOperations;
 import com.tepav.reader.model.FacebookUser;
 import com.tepav.reader.model.TepavUser;
 import com.tepav.reader.model.TwitterUser;
+import com.tepav.reader.service.TepavService;
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -116,7 +117,7 @@ public class Login extends Activity implements View.OnClickListener {
                     public void callback(String url, JSONObject object, AjaxStatus status) {
 
                         if (status.getCode() == HttpStatus.SC_OK)
-                            finish();
+                            loginSuccessful();
                         else
                             Logs.e(TAG, "ERROR on Login : " + status.getError());
                     }
@@ -138,7 +139,7 @@ public class Login extends Activity implements View.OnClickListener {
                     public void callback(String url, JSONObject object, AjaxStatus status) {
 
                         if (status.getCode() == HttpStatus.SC_OK)
-                            finish();
+                            loginSuccessful();
                         else
                             Logs.e(TAG, "ERROR on Login : " + status.getError());
                     }
@@ -158,7 +159,7 @@ public class Login extends Activity implements View.OnClickListener {
                     public void callback(String url, JSONObject object, AjaxStatus status) {
 
                         if (status.getCode() == HttpStatus.SC_OK)
-                            finish();
+                            loginSuccessful();
                         else
                             Logs.e(TAG, "ERROR on Login : " + status.getError());
                     }
@@ -175,6 +176,11 @@ public class Login extends Activity implements View.OnClickListener {
             ajaxCallback.params(params);
             aQuery.ajax(loginURL, JSONObject.class, ajaxCallback);
         }
+    }
+
+    void loginSuccessful() {
+        Splash.isUserLoggedIn = true;
+        finish();
     }
 
     private final Session.StatusCallback facebookCallback = new Session.StatusCallback() {
@@ -207,7 +213,7 @@ public class Login extends Activity implements View.OnClickListener {
                             Logs.i(TAG, userID + "," + name + "," + username + "," + email);
 
                             mySharedPreferences.setFacebookPref(name, email, session.getAccessToken());
-                            finish();
+                            loginSuccessful();
 
                         }
                     }
@@ -227,6 +233,19 @@ public class Login extends Activity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (!twitterOperations.isTwitterLoggedInAlready()) {
+            Logs.d(TAG, "onResume, isTwitterLoggedInAlready returned false");
+            Uri uri = getIntent().getData();
+            twitterOperations.autoLogin(uri);
+        } else {
+            Logs.d(TAG, "onResume, isTwitterLoggedInAlready returned true");
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
 
         if (!twitterOperations.isTwitterLoggedInAlready()) {
             Logs.d(TAG, "onResume, isTwitterLoggedInAlready returned false");
@@ -276,7 +295,7 @@ public class Login extends Activity implements View.OnClickListener {
 
                     if (status.getCode() == HttpStatus.SC_OK) {
                         Logs.i(TAG, "Login successful");
-                        finish();
+                        loginSuccessful();
                     } else {
                         Toast.makeText(context, "Login Failed", Toast.LENGTH_LONG).show();
                     }

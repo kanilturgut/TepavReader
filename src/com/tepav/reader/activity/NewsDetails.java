@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
@@ -17,6 +18,7 @@ import com.tepav.reader.helpers.Util;
 import com.tepav.reader.helpers.popup.QuickAction;
 import com.tepav.reader.model.File;
 import com.tepav.reader.model.News;
+import com.tepav.reader.service.TepavService;
 
 /**
  * Author : kanilturgut
@@ -122,8 +124,14 @@ public class NewsDetails extends Activity implements View.OnClickListener {
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
         } else if (view == llFooterAddToList) {
 
-            quickAction.show(rlFooter);
-            quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
+            if (Splash.isUserLoggedIn) {
+                quickAction.show(rlFooter);
+                quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
+            } else {
+                Toast.makeText(context, "You must log in first", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(context, Login.class));
+            }
+
 
         } else if (view == llHeaderBack) {
             onBackPressed();

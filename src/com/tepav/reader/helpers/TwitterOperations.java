@@ -24,6 +24,8 @@ public class TwitterOperations {
     Context context;
     String TWITTER_CONSUMER_KEY = "DcCfDjXdMwgwwKJhw0HfWcWMt";
     String TWITTER_CONSUMER_SECRET = "lgSRrO1DwAQxqVJBTiO7CSSkD3Urkmx4InG9ASrqSpd4uRSSU5";
+    //String TWITTER_CONSUMER_KEY = "6OVgh3VmI98dOvfgjcqu48vZT";
+    //String TWITTER_CONSUMER_SECRET = "A0NcqkU4ecYLi0CVOYugVHwvVZDlTqofgEu5KyJ1bXssl8eqMT";
     String TWITTER_CALLBACK_URL = "oauth://tepav";
 
     // Twitter oauth urls
@@ -102,8 +104,10 @@ public class TwitterOperations {
         protected void onPostExecute(RequestToken requestToken) {
             super.onPostExecute(requestToken);
 
-            TwitterOperations.this.requestToken = requestToken;
-            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(requestToken.getAuthenticationURL())));
+            if (requestToken != null) {
+                TwitterOperations.this.requestToken = requestToken;
+                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(requestToken.getAuthenticationURL())));
+            }
         }
     }
 

@@ -59,8 +59,6 @@
     <string name="password">Şifre</string>
 
     <string name="facebook_app_id">403145589827464</string>
-    <string name="twitter_consumer_key">DcCfDjXdMwgwwKJhw0HfWcWMt</string>
-    <string name="twitter_consumer_secret">lgSRrO1DwAQxqVJBTiO7CSSkD3Urkmx4InG9ASrqSpd4uRSSU5</string>
 
     <string name="facebook">Facebook</string>
     <string name="twitter">Twitter</string>

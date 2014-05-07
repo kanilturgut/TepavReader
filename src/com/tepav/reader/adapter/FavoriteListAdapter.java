@@ -19,7 +19,6 @@ import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.activity.PublicationDetails;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
-import com.tepav.reader.helpers.Util;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.Blog;
@@ -205,8 +204,13 @@ public class FavoriteListAdapter extends ArrayAdapter<DBData> {
         holder.ibLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Log.i(TAG, "ibLike clicked");
+
                 if (checkDB(dbData, DBHandler.TABLE_LIKE)) {
+                    Log.i(TAG, "ibLike if");
                     if (news != null) {
+                        Log.i(TAG, "ibLike news");
                         dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
                         tepavService.addItemToLikeListOfTepavService(dbData);
                     } else if (blog != null) {
@@ -217,7 +221,9 @@ public class FavoriteListAdapter extends ArrayAdapter<DBData> {
                         tepavService.addItemToLikeListOfTepavService(dbData);
                     }
                 } else {
+                    Log.i(TAG, "ibLike else");
                     if (news != null) {
+                        Log.i(TAG, "ibLike news");
                         dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
                         tepavService.removeItemFromLikeListOfTepavService(dbData);
                     } else if (blog != null) {
@@ -276,15 +282,15 @@ public class FavoriteListAdapter extends ArrayAdapter<DBData> {
             @Override
             public void onClick(View view) {
                 if (news != null) {
-                    dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
+                    dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
                     tepavService.removeItemFromReadingListOfTepavService(dbData);
                     dbDataList.remove(dbData);
                 } else if (blog != null) {
-                    dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
+                    dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
                     tepavService.removeItemFromReadingListOfTepavService(dbData);
                     dbDataList.remove(dbData);
                 } else if (publication != null) {
-                    dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
+                    dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
                     tepavService.removeItemFromReadingListOfTepavService(dbData);
                     dbDataList.remove(dbData);
                 }
@@ -335,6 +341,3 @@ public class FavoriteListAdapter extends ArrayAdapter<DBData> {
         return tepavService.checkIfContains(table, dbData.getId());
     }
 }
-
-
-

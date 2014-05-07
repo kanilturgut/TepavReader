@@ -9,13 +9,14 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Util;
 import com.tepav.reader.helpers.popup.QuickAction;
 import com.tepav.reader.model.Blog;
-import org.json.JSONException;
+import com.tepav.reader.util.AlertDialogManager;
 
 /**
  * Author : kanilturgut
@@ -58,9 +59,6 @@ public class BlogDetails extends Activity implements View.OnClickListener {
         llFooterAddToList.setOnClickListener(this);
         llHeaderBack.setOnClickListener(this);
 
-        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, blog.getId(), llFooterLike, llFooterAlreadyLiked);
-        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, blog.getId(), llFooterAddToList, llFooterAddedToList);
-
         webView = (WebView) findViewById(R.id.wvBlogDetailContentOfBlog);
         webView.loadData(blog.getBcontent(), "text/html; charset=UTF-8", null);
 
@@ -74,30 +72,42 @@ public class BlogDetails extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        if (view == llFooterLike) {
+        if (Splash.isUserLoggedIn) {
 
-            Util.changeVisibility(llFooterLike);
-            Util.changeVisibility(llFooterAlreadyLiked);
+            if (view == llFooterLike) {
 
-        } else if (view == llFooterAlreadyLiked) {
-            Util.changeVisibility(llFooterLike);
-            Util.changeVisibility(llFooterAlreadyLiked);
+                Util.changeVisibility(llFooterLike);
+                Util.changeVisibility(llFooterAlreadyLiked);
 
-        } else if (view == llFooterShare) {
-            String url = Constant.SHARE_BLOG + blog.getGunluk_id();
+            } else if (view == llFooterAlreadyLiked) {
+                Util.changeVisibility(llFooterLike);
+                Util.changeVisibility(llFooterAlreadyLiked);
 
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, blog.getBtitle());
-            shareIntent.putExtra(Intent.EXTRA_TEXT, blog.getBtitle() + " " + url);
-            startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
-        } else if (view == llFooterAddToList) {
+            } else if (view == llFooterShare) {
+                String url = Constant.SHARE_BLOG + blog.getGunluk_id();
 
-            quickAction.show(rlFooter);
-            quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, blog.getBtitle());
+                shareIntent.putExtra(Intent.EXTRA_TEXT, blog.getBtitle() + " " + url);
+                startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
+            } else if (view == llFooterAddToList) {
 
-        } else if (view == llHeaderBack) {
-            onBackPressed();
+                quickAction.show(rlFooter);
+                quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
+            } else if (view == llHeaderBack) {
+                onBackPressed();
+            }
+
+        } else {
+            if (view == llHeaderBack) {
+                onBackPressed();
+            }
+
+            AlertDialogManager alertDialogManager = new AlertDialogManager();
+            alertDialogManager.showLoginDialog(context, getString(R.string.warning), getString(R.string.must_log_in), false);
+
         }
+
     }
 }

@@ -80,5 +80,8 @@
     </string>
     <string name="problem_no_internet">İnternet Bağlantısı</string>
 
+    <string name="must_log_in">Bu özelliği kullanabilmek için öncelikle giriş yapmalısınız</string>
+    <string name="warning">Uyarı</string>
+
 
 </resources>

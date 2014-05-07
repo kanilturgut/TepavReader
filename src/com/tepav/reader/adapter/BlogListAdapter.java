@@ -185,16 +185,16 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
             @Override
             public void onClick(View view) {
 
-                if(!isPressedLike) {
+                if (!isPressedLike) {
                     try {
-                        dbHandler.insert(Blog.toDBData(blog),DBHandler.TABLE_LIKE);
+                        dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_LIKE);
                         tepavService.addItemToLikeListOfTepavService(Blog.toDBData(blog));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 } else {
                     try {
-                        dbHandler.delete(Blog.toDBData(blog),DBHandler.TABLE_LIKE);
+                        dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_LIKE);
                         tepavService.removeItemFromLikeListOfTepavService(Blog.toDBData(blog));
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -295,7 +295,6 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
 
                     pageNumber++;
                 }
-
                 if (progressDialog != null)
                     progressDialog.dismiss();
             }

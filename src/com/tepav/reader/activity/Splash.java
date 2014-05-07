@@ -18,6 +18,7 @@ import com.tepav.reader.model.FacebookUser;
 import com.tepav.reader.model.TepavUser;
 import com.tepav.reader.model.TwitterUser;
 import com.tepav.reader.service.TepavService;
+import com.tepav.reader.util.ConnectionDetector;
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 
@@ -35,6 +36,8 @@ public class Splash extends Activity {
     AQuery aQuery = null;
     Map<String, String> params = null;
     AjaxCallback<JSONObject> ajaxCallback = null;
+    ConnectionDetector connectionDetector;
+
 
     public static boolean isUserLoggedIn = false;
 
@@ -45,11 +48,10 @@ public class Splash extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-
         context = this;
 
+        connectionDetector = new ConnectionDetector(context);
         DBHandler.getInstance(context);
-
         startService(new Intent(context, TepavService.class));
 
         //Implementation of handler and its runnable
@@ -70,7 +72,7 @@ public class Splash extends Activity {
     protected void onStart() {
         super.onStart();
 
-        if (mySharedPreferences.getSize() > 0) {
+        if (mySharedPreferences.getSize() > 0 && connectionDetector.isConnectingToInternet()) {
 
             int userType = mySharedPreferences.getUserType();
             String loginURL = "";

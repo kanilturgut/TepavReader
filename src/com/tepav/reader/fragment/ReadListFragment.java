@@ -66,7 +66,9 @@ public class ReadListFragment extends Fragment {
 
         @Override
         protected void onPostExecute(List<DBData> dbDatas) {
-            swipeListViewOfReadList.setAdapter(new ReadListListAdapter(context, swipeListViewOfReadList, dbDatas));
+
+            if (dbDatas != null)
+                swipeListViewOfReadList.setAdapter(new ReadListListAdapter(context, swipeListViewOfReadList, dbDatas));
             rlLoading.setVisibility(View.GONE);
         }
     }

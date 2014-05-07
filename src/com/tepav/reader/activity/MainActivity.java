@@ -2,19 +2,22 @@ package com.tepav.reader.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.LeftMenuAdapter;
 import com.tepav.reader.fragment.*;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.slidingmenu.SlidingMenu;
+import com.tepav.reader.util.ConnectionDetector;
 
 /**
  * Author : kanilturgut
@@ -29,6 +32,7 @@ public class MainActivity extends FragmentActivity {
     RelativeLayout btMenu;
     ListView lvLeftMenu;
     TextView tvLeftMenuHeader;
+    ConnectionDetector connectionDetector;
 
     public static FragmentManager fm = null;
 
@@ -38,9 +42,7 @@ public class MainActivity extends FragmentActivity {
         slidingMenu = (SlidingMenu) this.getLayoutInflater().inflate(R.layout.activity_main, null);
         setContentView(slidingMenu);
 
-        TextView textView = (TextView) findViewById(R.id.tvActionBarHeader);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/tahoma.ttf");
-        textView.setTypeface(typeface, Typeface.BOLD);
+        connectionDetector = new ConnectionDetector(context);
 
         tvLeftMenuHeader = (TextView) findViewById(R.id.tvLeftMenuHeader);
         tvLeftMenuHeader.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +66,7 @@ public class MainActivity extends FragmentActivity {
         fm = MainActivity.this.getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         HomeFragment fragment = new HomeFragment();
-
-        ft.add(R.id.activity_main_content_fragment, fragment, "Home");
+        ft.add(R.id.activity_main_content_fragment, fragment, getString(R.string.Home));
         ft.commit();
     }
 
@@ -90,40 +91,63 @@ public class MainActivity extends FragmentActivity {
         FragmentTransaction ft = fm.beginTransaction();
         Fragment fragment = null;
 
-        switch (position) {
-            case Constant.LEFT_MENU_ITEM_NEWS:
-                fragmentTag = getString(R.string.News);
-                fragment = new NewsFragment();
-                break;
-            case Constant.LEFT_MENU_ITEM_BLOGS:
-                fragmentTag = getString(R.string.Blogs);
-                fragment = new BlogFragment();
-                break;
-            case Constant.LEFT_MENU_ITEM_RESEARCH_AND_PUBLICATIONS:
-                fragmentTag = getString(R.string.Research_And_Publications);
-                fragment = new PublicationFragment(fragmentTag);
-                break;
-            case Constant.LEFT_MENU_ITEM_NOTES:
-                fragmentTag = getString(R.string.Notes);
-                fragment = new PublicationFragment(fragmentTag);
-                break;
-            case Constant.LEFT_MENU_ITEM_REPORTS_AND_PRINTED_PUBLICATIONS:
-                fragmentTag = getString(R.string.Reports_And_Printed_Publications);
-                fragment = new PublicationFragment(fragmentTag);
-                break;
-            case Constant.LEFT_MENU_ITEM_MY_READ_LIST:
-                fragmentTag = getString(R.string.Read_List);
-                fragment = new ReadListFragment();
-                break;
-            case Constant.LEFT_MENU_ITEM_FAVORITES:
-                fragmentTag = getString(R.string.Favorites);
-                fragment = new FavoriteFragment();
-                break;
-            case Constant.LEFT_MENU_ITEM_ARCHIVE:
-                fragmentTag = getString(R.string.Readed_Documents);
-                fragment = new ArchiveFragment();
-                break;
+        if (connectionDetector.isConnectingToInternet()) {
 
+            switch (position) {
+                case Constant.LEFT_MENU_ITEM_NEWS:
+                    fragmentTag = getString(R.string.News);
+                    fragment = new NewsFragment();
+                    break;
+                case Constant.LEFT_MENU_ITEM_BLOGS:
+                    fragmentTag = getString(R.string.Blogs);
+                    fragment = new BlogFragment();
+                    break;
+                case Constant.LEFT_MENU_ITEM_RESEARCH_AND_PUBLICATIONS:
+                    fragmentTag = getString(R.string.Research_And_Publications);
+                    fragment = new PublicationFragment(fragmentTag);
+                    break;
+                case Constant.LEFT_MENU_ITEM_NOTES:
+                    fragmentTag = getString(R.string.Notes);
+                    fragment = new PublicationFragment(fragmentTag);
+                    break;
+                case Constant.LEFT_MENU_ITEM_REPORTS_AND_PRINTED_PUBLICATIONS:
+                    fragmentTag = getString(R.string.Reports_And_Printed_Publications);
+                    fragment = new PublicationFragment(fragmentTag);
+                    break;
+                case Constant.LEFT_MENU_ITEM_MY_READ_LIST:
+                    fragmentTag = getString(R.string.Read_List);
+                    fragment = new ReadListFragment();
+                    break;
+                case Constant.LEFT_MENU_ITEM_FAVORITES:
+                    fragmentTag = getString(R.string.Favorites);
+                    fragment = new FavoriteFragment();
+                    break;
+                case Constant.LEFT_MENU_ITEM_ARCHIVE:
+                    fragmentTag = getString(R.string.Readed_Documents);
+                    fragment = new ArchiveFragment();
+                    break;
+            }
+        } else {
+            //only show offline stuff
+
+            switch (position) {
+                case Constant.LEFT_MENU_ITEM_MY_READ_LIST:
+                    fragmentTag = getString(R.string.Read_List);
+                    fragment = new ReadListFragment();
+                    break;
+                case Constant.LEFT_MENU_ITEM_FAVORITES:
+                    fragmentTag = getString(R.string.Favorites);
+                    fragment = new FavoriteFragment();
+                    break;
+                case Constant.LEFT_MENU_ITEM_ARCHIVE:
+                    fragmentTag = getString(R.string.Readed_Documents);
+                    fragment = new ArchiveFragment();
+                    break;
+                default:
+                    fragmentTag = getString(R.string.No_Internet_Fragment);
+                    fragment = new NoInternetConnectionFragment();
+                    break;
+            }
         }
 
 

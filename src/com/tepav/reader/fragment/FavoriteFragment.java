@@ -66,7 +66,8 @@ public class FavoriteFragment extends Fragment {
         @Override
         protected void onPostExecute(List<DBData> dbDatas) {
 
-            swipeListViewOfFavorite.setAdapter(new FavoriteListAdapter(context, swipeListViewOfFavorite, dbDatas));
+            if (dbDatas != null)
+                swipeListViewOfFavorite.setAdapter(new FavoriteListAdapter(context, swipeListViewOfFavorite, dbDatas));
             rlLoading.setVisibility(View.GONE);
 
         }

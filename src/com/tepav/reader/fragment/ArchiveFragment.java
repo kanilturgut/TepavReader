@@ -66,7 +66,8 @@ public class ArchiveFragment extends Fragment {
         @Override
         protected void onPostExecute(List<DBData> dbDatas) {
 
-            swipeListViewOfArchive.setAdapter(new ArchiveListAdapter(context, swipeListViewOfArchive, dbDatas));
+            if (dbDatas != null)
+                swipeListViewOfArchive.setAdapter(new ArchiveListAdapter(context, swipeListViewOfArchive, dbDatas));
             rlLoading.setVisibility(View.GONE);
         }
     }

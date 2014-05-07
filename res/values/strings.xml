@@ -12,6 +12,8 @@
     <string name="Read_List">Okuma Listesi</string>
     <string name="Favorites">Favoriler</string>
     <string name="Readed_Documents">Okuduklarım</string>
+    <string name="Home">Home</string>
+    <string name="No_Internet_Fragment">No Internet Fragmen</string>
 
     <string name="content_description">Nothing</string>
 
@@ -72,6 +74,11 @@
     <string name="please_wait">Lütfen Bekleyiniz</string>
     <string name="login_started">Giriş yapılıyor…</string>
     <string name="register_started">Kayıt yapılıyor…</string>
+
+    <string name="fragment_no_internet">
+        İnternet bağlantınız olmadığı için şu anda yazılar yüklenemiyor. Dilerseniz Okuma Listenizdeki yazılara internet bağlantınız olmaksızın erişebilirsiniz.
+    </string>
+    <string name="problem_no_internet">İnternet Bağlantısı</string>
 
 
 </resources>

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import com.tepav.reader.R;
 import com.tepav.reader.activity.MainActivity;
+import com.tepav.reader.util.ConnectionDetector;
 
 /**
  * Author   : kanilturgut
@@ -22,11 +23,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     Context context;
     FrameLayout frameNews, frameBlog, framePublication;
+    ConnectionDetector connectionDetector;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.context = activity;
+
+        connectionDetector = new ConnectionDetector(context);
     }
 
     @Override
@@ -54,25 +58,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         String fragmentTag = "";
         Fragment fragment = null;
 
-        if (view == frameNews) {
-            fragmentTag = getString(R.string.News);
-            fragment = new NewsFragment();
-        } else if (view == frameBlog) {
-            fragmentTag = getString(R.string.Blogs);
-            fragment = new BlogFragment();
-        } else if (view == framePublication) {
-            fragmentTag = getString(R.string.Research_And_Publications);
-            fragment = new PublicationFragment(fragmentTag);
+        if (connectionDetector.isConnectingToInternet()) {
+
+            if (view == frameNews) {
+                fragmentTag = getString(R.string.News);
+                fragment = new NewsFragment();
+            } else if (view == frameBlog) {
+                fragmentTag = getString(R.string.Blogs);
+                fragment = new BlogFragment();
+            } else if (view == framePublication) {
+                fragmentTag = getString(R.string.Research_And_Publications);
+                fragment = new PublicationFragment(fragmentTag);
+            }
+        } else {
+            fragmentTag = getString(R.string.No_Internet_Fragment);
+            fragment = new NoInternetConnectionFragment();
         }
 
         if (fragment != null) {
-            Fragment myFragment = fragmentManager.findFragmentByTag(fragmentTag);
 
-            if (myFragment == null || !myFragment.isVisible()) {
-                ft.replace(R.id.activity_main_content_fragment, fragment, fragmentTag);
-                ft.commit();
-            }
+            ft.replace(R.id.activity_main_content_fragment, fragment, fragmentTag);
+            ft.commit();
         }
-
     }
 }

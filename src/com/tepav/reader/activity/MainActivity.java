@@ -31,7 +31,7 @@ public class MainActivity extends FragmentActivity {
     SlidingMenu slidingMenu;
     RelativeLayout btMenu;
     ListView lvLeftMenu;
-    TextView tvLeftMenuHeader;
+    TextView tvLeftMenuHeader, tvActionBarHeader;
     ConnectionDetector connectionDetector;
 
     public static FragmentManager fm = null;
@@ -53,7 +53,6 @@ public class MainActivity extends FragmentActivity {
         });
 
         lvLeftMenu = (ListView) findViewById(R.id.lvLeftMenu);
-
         btMenu = (RelativeLayout) findViewById(R.id.button_menu);
         btMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +67,17 @@ public class MainActivity extends FragmentActivity {
         HomeFragment fragment = new HomeFragment();
         ft.add(R.id.activity_main_content_fragment, fragment, getString(R.string.Home));
         ft.commit();
+
+        tvActionBarHeader = (TextView) findViewById(R.id.tvActionBarHeader);
+        tvActionBarHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction ft = fm.beginTransaction();
+                HomeFragment fragment = new HomeFragment();
+                ft.add(R.id.activity_main_content_fragment, fragment, getString(R.string.Home));
+                ft.commit();
+            }
+        });
     }
 
     @Override

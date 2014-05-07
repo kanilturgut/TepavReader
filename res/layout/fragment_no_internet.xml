@@ -2,26 +2,44 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/gri">
+                android:layout_height="match_parent">
+
+    <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+               android:scaleType="fitXY"
+               android:contentDescription="@string/content_description"
+               android:src="@drawable/blur_background"/>
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_centerInParent="true">
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:id="@+id/tvFragmentNoInternetTitle"
-                  android:text="@string/problem_no_internet"
-                  android:textSize="24sp"
-                  android:textStyle="bold"
-                  android:layout_centerHorizontal="true"
-                  android:layout_alignParentTop="true"
-                  android:layout_marginTop="20dp"/>
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:minHeight="60dp"
+                      android:layout_centerHorizontal="true"
+                      android:layout_alignParentTop="true"
+                      android:id="@+id/llFragmentNoInternetTitle"
+                      android:orientation="horizontal">
+
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                       android:layout_margin="5dp"
+                       android:layout_gravity="center_vertical"
+                       android:src="@drawable/ic_action_warning"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_gravity="center_vertical"
+                      android:id="@+id/tvFragmentNoInternetTitle"
+                      android:text="@string/problem_no_internet"
+                      android:textSize="26sp"
+                      android:textStyle="bold"
+                      android:textColor="@color/koyu_gri"/>
+        </LinearLayout>
+
 
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:layout_margin="20dp"
-                  android:textSize="14sp"
+                  android:layout_margin="10dp"
+                  android:textSize="18sp"
+                  android:textColor="@color/koyu_gri"
                   android:gravity="center_horizontal"
-                  android:layout_below="@+id/tvFragmentNoInternetTitle"
+                  android:layout_below="@+id/llFragmentNoInternetTitle"
                   android:text="@string/fragment_no_internet"/>
     </RelativeLayout>
 

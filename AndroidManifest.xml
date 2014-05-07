@@ -28,21 +28,16 @@
 
         <activity android:name=".activity.NewsDetails"/>
         <activity android:name=".activity.BlogDetails"/>
-
         <activity android:name=".activity.PublicationDetails"/>
+
         <activity android:name=".activity.PDFDownloadActivity"
                   android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.Register">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="oauth" android:host="tepav"/>
-            </intent-filter>
-        </activity>
+        <activity android:name=".activity.Register"
+                android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.Login">
+        <activity android:name=".activity.Login"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>

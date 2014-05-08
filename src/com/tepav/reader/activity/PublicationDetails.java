@@ -20,10 +20,11 @@ import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
+import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.Util;
 import com.tepav.reader.helpers.popup.QuickAction;
 import com.tepav.reader.model.Publication;
-import org.json.JSONException;
+import com.tepav.reader.util.AlertDialogManager;
 
 import java.io.File;
 
@@ -83,10 +84,6 @@ public class PublicationDetails extends Activity implements View.OnClickListener
             buttonOpenPDF.setText(getString(R.string.no_doc));
         }
 
-
-        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, publication.getId(), llFooterLike, llFooterAlreadyLiked);
-        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_READ_LIST, publication.getId(), llFooterAddToList, llFooterAddedToList);
-
         webView = (WebView) findViewById(R.id.wvPublicationDetailContentOfPublication);
         webView.loadData(publication.getYcontent(), "text/html; charset=UTF-8", null);
 
@@ -99,31 +96,45 @@ public class PublicationDetails extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        if (view == llFooterLike) {
+
+        if (Splash.isUserLoggedIn) {
+
+            if (view == llFooterLike) {
 
                 Util.changeVisibility(llFooterLike);
                 Util.changeVisibility(llFooterAlreadyLiked);
 
-        } else if (view == llFooterAlreadyLiked) {
+            } else if (view == llFooterAlreadyLiked) {
                 Util.changeVisibility(llFooterLike);
                 Util.changeVisibility(llFooterAlreadyLiked);
 
-        } else if (view == llFooterShare) {
-            String url = Constant.SHARE_PUBLICATION + publication.getYayin_id();
+            } else if (view == llFooterShare) {
+                String url = Constant.SHARE_PUBLICATION + publication.getYayin_id();
 
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, publication.getYtitle());
-            shareIntent.putExtra(Intent.EXTRA_TEXT, publication.getYtitle() + " " + url);
-            startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
-        } else if (view == llFooterAddToList) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, publication.getYtitle());
+                shareIntent.putExtra(Intent.EXTRA_TEXT, publication.getYtitle() + " " + url);
+                startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
+            } else if (view == llFooterAddToList) {
 
-            quickAction.show(rlFooter);
-            quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
-        } else if (view == llHeaderBack) {
-            onBackPressed();
-        } else if (view == buttonOpenPDF) {
-            openPDFAction(downloadedPDF);
+                quickAction.show(rlFooter);
+                quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
+            } else if (view == llHeaderBack) {
+                onBackPressed();
+            } else if (view == buttonOpenPDF) {
+                openPDFAction(downloadedPDF);
+            }
+        } else {
+
+            if (view == llHeaderBack) {
+                onBackPressed();
+            } else if (view == buttonOpenPDF) {
+                openPDFAction(downloadedPDF);
+            } else {
+                AlertDialogManager alertDialogManager = new AlertDialogManager();
+                alertDialogManager.showLoginDialog(context, getString(R.string.warning), getString(R.string.must_log_in), false);
+            }
         }
 
     }
@@ -153,11 +164,11 @@ public class PublicationDetails extends Activity implements View.OnClickListener
         File newFile = new File(ext, Constant.PDF_TARGET + publication.getFiles().get(0).getName());
 
         if (!newFile.exists()) {
-            Log.i(TAG, newFile.getName() + " doesn't exist, it will download from server");
+            Logs.i(TAG, newFile.getName() + " doesn't exist, it will download from server");
             downloadPDFWithAQuery();
         } else {
 
-            Log.i(TAG, newFile.getName() + " exist, it will load from file target");
+            Logs.i(TAG, newFile.getName() + " exist, it will load from file target");
             downloadedPDF = newFile;
             buttonOpenPDF.setText(getResources().getString(R.string.open_doc));
 
@@ -175,7 +186,7 @@ public class PublicationDetails extends Activity implements View.OnClickListener
             @Override
             public void callback(String url, File file, AjaxStatus status) {
 
-                if(file != null) {
+                if (file != null) {
                     downloadedPDF = file;
                     buttonOpenPDF.setText(getString(R.string.open_doc));
                     openPDFAction(downloadedPDF);

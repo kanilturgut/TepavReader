@@ -10,7 +10,6 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
@@ -18,7 +17,7 @@ import com.tepav.reader.helpers.Util;
 import com.tepav.reader.helpers.popup.QuickAction;
 import com.tepav.reader.model.File;
 import com.tepav.reader.model.News;
-import com.tepav.reader.service.TepavService;
+import com.tepav.reader.util.AlertDialogManager;
 
 /**
  * Author : kanilturgut
@@ -105,37 +104,38 @@ public class NewsDetails extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        if (view == llFooterLike) {
+        if (Splash.isUserLoggedIn) {
+            if (view == llFooterLike) {
 
-            Util.changeVisibility(llFooterLike);
-            Util.changeVisibility(llFooterAlreadyLiked);
+                Util.changeVisibility(llFooterLike);
+                Util.changeVisibility(llFooterAlreadyLiked);
 
-        } else if (view == llFooterAlreadyLiked) {
-            Util.changeVisibility(llFooterLike);
-            Util.changeVisibility(llFooterAlreadyLiked);
+            } else if (view == llFooterAlreadyLiked) {
+                Util.changeVisibility(llFooterLike);
+                Util.changeVisibility(llFooterAlreadyLiked);
 
-        } else if (view == llFooterShare) {
-            String url = Constant.SHARE_NEWS + news.getHaber_id();
+            } else if (view == llFooterShare) {
+                String url = Constant.SHARE_NEWS + news.getHaber_id();
 
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
-            shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
-            startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
-        } else if (view == llFooterAddToList) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
+                shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
+                startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
+            } else if (view == llFooterAddToList) {
 
-            if (Splash.isUserLoggedIn) {
                 quickAction.show(rlFooter);
                 quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
-            } else {
-                Toast.makeText(context, "You must log in first", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(context, Login.class));
+            } else if (view == llHeaderBack) {
+                onBackPressed();
             }
-
-
-        } else if (view == llHeaderBack) {
-            onBackPressed();
+        } else {
+            if (view == llHeaderBack) {
+                onBackPressed();
+            } else {
+                AlertDialogManager alertDialogManager = new AlertDialogManager();
+                alertDialogManager.showLoginDialog(context, getString(R.string.warning), getString(R.string.must_log_in), false);
+            }
         }
-
     }
 }

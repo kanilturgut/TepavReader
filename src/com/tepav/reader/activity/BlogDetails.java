@@ -102,11 +102,10 @@ public class BlogDetails extends Activity implements View.OnClickListener {
         } else {
             if (view == llHeaderBack) {
                 onBackPressed();
+            } else {
+                AlertDialogManager alertDialogManager = new AlertDialogManager();
+                alertDialogManager.showLoginDialog(context, getString(R.string.warning), getString(R.string.must_log_in), false);
             }
-
-            AlertDialogManager alertDialogManager = new AlertDialogManager();
-            alertDialogManager.showLoginDialog(context, getString(R.string.warning), getString(R.string.must_log_in), false);
-
         }
 
     }

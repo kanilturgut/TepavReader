@@ -26,7 +26,7 @@
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
                           android:gravity="center_horizontal"
-                          android:text="Okuma Listeme Ekle"/>
+                          android:text="@string/add_my_read_list"/>
 
             </LinearLayout>
 
@@ -46,7 +46,7 @@
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
                           android:gravity="center_horizontal"
-                          android:text="Okuma Listeme Ekle"/>
+                          android:text="@string/add_my_read_list"/>
 
             </LinearLayout>
 
@@ -67,7 +67,7 @@
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
                           android:gravity="center_horizontal"
-                          android:text="Favorilereme Ekle"/>
+                          android:text="@string/add_my_favorites"/>
 
             </LinearLayout>
 
@@ -89,7 +89,7 @@
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
                           android:gravity="center_horizontal"
-                          android:text="Favorilereme Ekle"/>
+                          android:text="@string/add_my_favorites"/>
 
             </LinearLayout>
 
@@ -108,7 +108,7 @@
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
                           android:gravity="center_horizontal"
-                          android:text="Okuduklarıma Ekle"/>
+                          android:text="@string/add_my_archive"/>
 
             </LinearLayout>
 
@@ -128,7 +128,7 @@
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:layout_gravity="center_horizontal"
                           android:gravity="center_horizontal"
-                          android:text="Okuduklarıma Ekle"/>
+                          android:text="@string/add_my_archive"/>
 
             </LinearLayout>
 

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +71,15 @@ public class ReadListFragment extends Fragment {
 
             if (dbDatas != null)
                 swipeListViewOfReadList.setAdapter(new ReadListListAdapter(context, swipeListViewOfReadList, dbDatas));
+            else {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                ListEmptyInformationFragment noInternetConnectionFragment = new ListEmptyInformationFragment(ListEmptyInformationFragment.LIST_TYPE_READING_LIST);
+                fragmentTransaction.replace(R.id.activity_main_content_fragment, noInternetConnectionFragment);
+                fragmentTransaction.commit();
+            }
+
             rlLoading.setVisibility(View.GONE);
         }
     }

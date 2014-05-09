@@ -66,6 +66,10 @@
     <string name="twitter">Twitter</string>
     <string name="fill_all_blank">Lütfen boşlukları doldurunuz !</string>
 
+    <string name="add_my_read_list">Okuma Listeme Ekle</string>
+    <string name="add_my_favorites">Favorilereme Ekle</string>
+    <string name="add_my_archive">Okuduklarıma Ekle</string>
+
     <!-- Alert Dialog -->
     <string name="ad_no_internet_error_title">İnternet Bağlantı Hatası</string>
     <string name="ad_no_internet_error_message">İnternet Bağlantı Hatası</string>
@@ -79,6 +83,11 @@
         İnternet bağlantınız olmadığı için şu anda yazılar yüklenemiyor. Dilerseniz Okuma Listenizdeki yazılara internet bağlantınız olmaksızın erişebilirsiniz.
     </string>
     <string name="problem_no_internet">İnternet Bağlantısı</string>
+
+    <string name="no_list_fragment">Liste Boş</string>
+    <string name="no_item_in_reading_list">Okuma listeniz boş. Bu listeye yazı eklemek için, yazı detayındaki "Listeye Ekle" menüsü altındaki "Okuma Listeme Ekle" butonunu kullanabilirsiniz.</string>
+    <string name="no_item_in_favorites">Favori listeniz boş. Bu listeye yazı eklemek için, yazı detayındaki "Listeye Ekle" menüsü altındaki "Favorilerime Ekle" butonunu kullanabilirsiniz.</string>
+    <string name="no_item_in_archive">Okuduklarım listeniz boş. Bu listeye yazı eklemek için, yazı detayındaki "Listeye Ekle" menüsü altındaki "Okuduklarıma Ekle" butonunu kullanabilirsiniz.</string>
 
     <string name="must_log_in">Bu özelliği kullanabilmek için öncelikle giriş yapmalısınız</string>
     <string name="warning">Uyarı</string>

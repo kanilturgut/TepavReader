@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
-import com.tepav.reader.helpers.Util;
+import com.tepav.reader.util.Util;
 import com.tepav.reader.helpers.popup.QuickAction;
 import com.tepav.reader.model.File;
 import com.tepav.reader.model.News;

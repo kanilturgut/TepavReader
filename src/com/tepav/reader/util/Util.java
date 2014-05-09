@@ -1,4 +1,4 @@
-package com.tepav.reader.helpers;
+package com.tepav.reader.util;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import com.tepav.reader.activity.Splash;
 import com.tepav.reader.db.DBHandler;
 
 /**
@@ -55,6 +56,10 @@ public class Util {
         } else {
             return false;
         }
+    }
+
+    public static boolean checkIfUserLoggedIn() {
+        return Splash.isUserLoggedIn;
     }
 
 }

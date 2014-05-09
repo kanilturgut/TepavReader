@@ -11,7 +11,7 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
-import com.tepav.reader.helpers.Util;
+import com.tepav.reader.util.Util;
 import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.News;
 import com.tepav.reader.model.Publication;

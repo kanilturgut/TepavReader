@@ -16,6 +16,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
 import com.tepav.reader.activity.NewsDetails;
+import com.tepav.reader.activity.Splash;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
@@ -23,6 +24,7 @@ import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.model.News;
 import com.tepav.reader.service.TepavService;
+import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -111,7 +113,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
         holder.titleOfNews.setText(news.getHtitle());
         holder.dateOfNews.setText(news.getHdate());
-        
+
         if (tepavService != null) {
             isPressedFavorite = tepavService.checkIfContains(DBHandler.TABLE_FAVORITE, news.getId());
             isPressedReadList = tepavService.checkIfContains(DBHandler.TABLE_READ_LIST, news.getId());
@@ -136,13 +138,20 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         holder.ibShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = Constant.SHARE_NEWS + news.getHaber_id();
 
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
-                shareIntent.putExtra(Intent.EXTRA_TEXT,  news.getHtitle() + " " + url);
-                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                if (Splash.isUserLoggedIn) {
+
+                    String url = Constant.SHARE_NEWS + news.getHaber_id();
+
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
+                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
+                }
             }
         });
 
@@ -150,29 +159,34 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             @Override
             public void onClick(View view) {
 
-                if (!isPressedFavorite) {
-                    try {
-                        dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
-                        tepavService.addItemToFavoriteListOfTepavService(News.toDBData(news));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if (Splash.isUserLoggedIn) {
+
+                    if (!isPressedFavorite) {
+                        try {
+                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                            tepavService.addItemToFavoriteListOfTepavService(News.toDBData(news));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
+                            tepavService.removeItemFromFavoriteListOfTepavService(News.toDBData(news));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+
+                    isPressedFavorite = !isPressedFavorite;
+                    ImageButton imageButton = (ImageButton) view;
+                    if (isPressedFavorite)
+                        imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
+                    else
+                        imageButton.setImageResource(R.drawable.swipe_favorites);
                 } else {
-                    try {
-                        dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
-                        tepavService.removeItemFromFavoriteListOfTepavService(News.toDBData(news));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
                 }
-
-                isPressedFavorite = !isPressedFavorite;
-                ImageButton imageButton = (ImageButton) view;
-                if (isPressedFavorite)
-                    imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
-                else
-                    imageButton.setImageResource(R.drawable.swipe_favorites);
-
             }
         });
 
@@ -180,28 +194,34 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             @Override
             public void onClick(View view) {
 
-                if(!isPressedLike) {
-                    try {
-                        dbHandler.insert(News.toDBData(news),DBHandler.TABLE_LIKE);
-                        tepavService.addItemToLikeListOfTepavService(News.toDBData(news));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        dbHandler.delete(News.toDBData(news),DBHandler.TABLE_LIKE);
-                        tepavService.removeItemFromLikeListOfTepavService(News.toDBData(news));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                if (Splash.isUserLoggedIn) {
 
-                isPressedLike = !isPressedLike;
-                ImageButton imageButton = (ImageButton) view;
-                if (!isPressedLike)
-                    imageButton.setImageResource(R.drawable.swipe_like);
-                else
-                    imageButton.setImageResource(R.drawable.swipe_like_dolu);
+                    if (!isPressedLike) {
+                        try {
+                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_LIKE);
+                            tepavService.addItemToLikeListOfTepavService(News.toDBData(news));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_LIKE);
+                            tepavService.removeItemFromLikeListOfTepavService(News.toDBData(news));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    isPressedLike = !isPressedLike;
+                    ImageButton imageButton = (ImageButton) view;
+                    if (!isPressedLike)
+                        imageButton.setImageResource(R.drawable.swipe_like);
+                    else
+                        imageButton.setImageResource(R.drawable.swipe_like_dolu);
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
+                }
             }
         });
 
@@ -209,28 +229,34 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             @Override
             public void onClick(View view) {
 
-                if (!isPressedReadList) {
-                    try {
-                        dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-                        tepavService.addItemToReadingListOfTepavService(News.toDBData(news));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-                        tepavService.removeItemFromReadingListOfTepavService(News.toDBData(news));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                if (Splash.isUserLoggedIn) {
 
-                isPressedReadList = !isPressedReadList;
-                ImageButton imageButton = (ImageButton) view;
-                if (isPressedReadList)
-                    imageButton.setImageResource(R.drawable.okudum_icon_dolu);
-                else
-                    imageButton.setImageResource(R.drawable.okudum_icon);
+                    if (!isPressedReadList) {
+                        try {
+                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                            tepavService.addItemToReadingListOfTepavService(News.toDBData(news));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                            tepavService.removeItemFromReadingListOfTepavService(News.toDBData(news));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    isPressedReadList = !isPressedReadList;
+                    ImageButton imageButton = (ImageButton) view;
+                    if (isPressedReadList)
+                        imageButton.setImageResource(R.drawable.okudum_icon_dolu);
+                    else
+                        imageButton.setImageResource(R.drawable.okudum_icon);
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
+                }
             }
         });
         holder.frontOfNewsClick.setOnClickListener(new View.OnClickListener() {

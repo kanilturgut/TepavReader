@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
+import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.util.Util;
-import com.tepav.reader.helpers.popup.QuickAction;
 import com.tepav.reader.model.Blog;
 import com.tepav.reader.util.AlertDialogManager;
 
@@ -26,7 +26,7 @@ public class BlogDetails extends Activity implements View.OnClickListener {
 
     Context context;
     DBHandler dbHandler;
-    QuickAction quickAction;
+    QuickActionForPost quickAction;
 
     Blog blog;
 
@@ -43,7 +43,7 @@ public class BlogDetails extends Activity implements View.OnClickListener {
 
         blog = (Blog) getIntent().getSerializableExtra("class");
         dbHandler = DBHandler.getInstance(context);
-        quickAction = new QuickAction(context, dbHandler, blog);
+        quickAction = new QuickActionForPost(context, dbHandler, blog);
 
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
         llFooterAlreadyLiked = (LinearLayout) findViewById(R.id.llFooterAlreadyLiked);
@@ -93,7 +93,7 @@ public class BlogDetails extends Activity implements View.OnClickListener {
             } else if (view == llFooterAddToList) {
 
                 quickAction.show(rlFooter);
-                quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
+                quickAction.setAnimStyle(QuickActionForPost.ANIM_GROW_FROM_CENTER);
             } else if (view == llHeaderBack) {
                 onBackPressed();
             }

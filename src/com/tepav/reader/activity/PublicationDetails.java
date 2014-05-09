@@ -20,8 +20,8 @@ import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
+import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.util.Util;
-import com.tepav.reader.helpers.popup.QuickAction;
 import com.tepav.reader.model.Publication;
 import com.tepav.reader.util.AlertDialogManager;
 
@@ -37,7 +37,7 @@ public class PublicationDetails extends Activity implements View.OnClickListener
     String TAG = "PublicationDetails";
     Context context;
     DBHandler dbHandler;
-    QuickAction quickAction;
+    QuickActionForPost quickAction;
 
     Publication publication;
 
@@ -58,7 +58,7 @@ public class PublicationDetails extends Activity implements View.OnClickListener
         publication = (Publication) getIntent().getSerializableExtra("class");
         dbHandler = DBHandler.getInstance(context);
         aQuery = new AQuery(context);
-        quickAction = new QuickAction(context, dbHandler, publication);
+        quickAction = new QuickActionForPost(context, dbHandler, publication);
 
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
         llFooterAlreadyLiked = (LinearLayout) findViewById(R.id.llFooterAlreadyLiked);
@@ -118,7 +118,7 @@ public class PublicationDetails extends Activity implements View.OnClickListener
             } else if (view == llFooterAddToList) {
 
                 quickAction.show(rlFooter);
-                quickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
+                quickAction.setAnimStyle(QuickActionForPost.ANIM_GROW_FROM_CENTER);
             } else if (view == llHeaderBack) {
                 onBackPressed();
             } else if (view == buttonOpenPDF) {

@@ -17,7 +17,7 @@ import com.tepav.reader.model.News;
 import com.tepav.reader.model.Publication;
 import org.json.JSONException;
 
-public class QuickAction extends PopupWindows implements OnDismissListener, OnClickListener {
+public class QuickActionForPost extends PopupWindows implements OnDismissListener, OnClickListener {
 
     private View mRootView;
     private LayoutInflater mInflater;
@@ -42,7 +42,7 @@ public class QuickAction extends PopupWindows implements OnDismissListener, OnCl
      *
      * @param context Context
      */
-    public QuickAction(Context context, DBHandler dbHandler, Object object) {
+    public QuickActionForPost(Context context, DBHandler dbHandler, Object object) {
         super(context);
 
         this.dbHandler = dbHandler;
@@ -344,7 +344,7 @@ public class QuickAction extends PopupWindows implements OnDismissListener, OnCl
      * Set listener for window dismissed. This listener will only be fired if the quicakction dialog is dismissed
      * by clicking outside the dialog or clicking on sticky item.
      */
-    public void setOnDismissListener(QuickAction.OnDismissListener listener) {
+    public void setOnDismissListener(QuickActionForPost.OnDismissListener listener) {
         setOnDismissListener(this);
 
         mDismissListener = listener;

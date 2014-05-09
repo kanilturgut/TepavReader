@@ -17,6 +17,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
 import com.tepav.reader.activity.BlogDetails;
+import com.tepav.reader.activity.Splash;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
@@ -24,6 +25,7 @@ import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.model.Blog;
 import com.tepav.reader.service.TepavService;
+import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -141,13 +143,21 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
         holder.ibShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = Constant.SHARE_BLOG + blog.getGunluk_id();
 
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, blog.getBtitle());
-                shareIntent.putExtra(Intent.EXTRA_TEXT, blog.getBtitle() + " " + url);
-                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                if (Splash.isUserLoggedIn) {
+
+                    String url = Constant.SHARE_BLOG + blog.getGunluk_id();
+
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, blog.getBtitle());
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, blog.getBtitle() + " " + url);
+                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
+                }
+
             }
         });
 
@@ -155,28 +165,35 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
             @Override
             public void onClick(View view) {
 
-                if (!isPressedFavorite) {
-                    try {
-                        dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
-                        tepavService.addItemToFavoriteListOfTepavService(Blog.toDBData(blog));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if (Splash.isUserLoggedIn) {
+
+                    if (!isPressedFavorite) {
+                        try {
+                            dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
+                            tepavService.addItemToFavoriteListOfTepavService(Blog.toDBData(blog));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
+                            tepavService.removeItemFromFavoriteListOfTepavService(Blog.toDBData(blog));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+
+                    isPressedFavorite = !isPressedFavorite;
+                    ImageButton imageButton = (ImageButton) view;
+                    if (isPressedFavorite)
+                        imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
+                    else
+                        imageButton.setImageResource(R.drawable.swipe_favorites);
                 } else {
-                    try {
-                        dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_FAVORITE);
-                        tepavService.removeItemFromFavoriteListOfTepavService(Blog.toDBData(blog));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
                 }
 
-                isPressedFavorite = !isPressedFavorite;
-                ImageButton imageButton = (ImageButton) view;
-                if (isPressedFavorite)
-                    imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
-                else
-                    imageButton.setImageResource(R.drawable.swipe_favorites);
 
             }
         });
@@ -185,28 +202,34 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
             @Override
             public void onClick(View view) {
 
-                if (!isPressedLike) {
-                    try {
-                        dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_LIKE);
-                        tepavService.addItemToLikeListOfTepavService(Blog.toDBData(blog));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_LIKE);
-                        tepavService.removeItemFromLikeListOfTepavService(Blog.toDBData(blog));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                if (Splash.isUserLoggedIn) {
 
-                isPressedLike = !isPressedLike;
-                ImageButton imageButton = (ImageButton) view;
-                if (!isPressedLike)
-                    imageButton.setImageResource(R.drawable.swipe_like);
-                else
-                    imageButton.setImageResource(R.drawable.swipe_like_dolu);
+                    if (!isPressedLike) {
+                        try {
+                            dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_LIKE);
+                            tepavService.addItemToLikeListOfTepavService(Blog.toDBData(blog));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_LIKE);
+                            tepavService.removeItemFromLikeListOfTepavService(Blog.toDBData(blog));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    isPressedLike = !isPressedLike;
+                    ImageButton imageButton = (ImageButton) view;
+                    if (!isPressedLike)
+                        imageButton.setImageResource(R.drawable.swipe_like);
+                    else
+                        imageButton.setImageResource(R.drawable.swipe_like_dolu);
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
+                }
             }
         });
 
@@ -214,28 +237,35 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
             @Override
             public void onClick(View view) {
 
-                if (!isPressedReadList) {
-                    try {
-                        dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
-                        tepavService.addItemToReadingListOfTepavService(Blog.toDBData(blog));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                if (Splash.isUserLoggedIn) {
+
+                    if (!isPressedReadList) {
+                        try {
+                            dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
+                            tepavService.addItemToReadingListOfTepavService(Blog.toDBData(blog));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
+                            tepavService.removeItemFromReadingListOfTepavService(Blog.toDBData(blog));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+
+                    isPressedReadList = !isPressedReadList;
+                    ImageButton imageButton = (ImageButton) view;
+                    if (isPressedReadList)
+                        imageButton.setImageResource(R.drawable.okudum_icon_dolu);
+                    else
+                        imageButton.setImageResource(R.drawable.okudum_icon);
                 } else {
-                    try {
-                        dbHandler.delete(Blog.toDBData(blog), DBHandler.TABLE_READ_LIST);
-                        tepavService.removeItemFromReadingListOfTepavService(Blog.toDBData(blog));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
                 }
 
-                isPressedReadList = !isPressedReadList;
-                ImageButton imageButton = (ImageButton) view;
-                if (isPressedReadList)
-                    imageButton.setImageResource(R.drawable.okudum_icon_dolu);
-                else
-                    imageButton.setImageResource(R.drawable.okudum_icon);
             }
         });
         holder.frontOfBlogClick.setOnClickListener(new View.OnClickListener() {

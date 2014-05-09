@@ -110,6 +110,7 @@ public class Register extends Activity implements View.OnClickListener {
                 params.put("surname", surname);
                 params.put("email", email);
                 params.put("password", password);
+                params.put("fullname", name + " " + surname);
 
                 cb.params(params);
 

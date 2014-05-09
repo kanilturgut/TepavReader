@@ -15,11 +15,13 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
 import com.tepav.reader.activity.PublicationDetails;
+import com.tepav.reader.activity.Splash;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.model.Publication;
 import com.tepav.reader.service.TepavService;
+import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -121,13 +123,20 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
         holder.ibShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = Constant.SHARE_NEWS + publication.getYayin_id();
 
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, publication.getYtitle());
-                shareIntent.putExtra(Intent.EXTRA_TEXT,  publication.getYtitle() + " " + url);
-                context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                if (Splash.isUserLoggedIn) {
+
+                    String url = Constant.SHARE_NEWS + publication.getYayin_id();
+
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, publication.getYtitle());
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, publication.getYtitle() + " " + url);
+                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
+                }
             }
         });
 
@@ -135,28 +144,35 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
             @Override
             public void onClick(View view) {
 
-                if (!isPressedFavorite) {
-                    try {
-                        dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
-                        tepavService.addItemToFavoriteListOfTepavService(Publication.toDBData(publication));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
-                        tepavService.removeItemFromFavoriteListOfTepavService(Publication.toDBData(publication));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                if (Splash.isUserLoggedIn) {
 
-                isPressedFavorite = !isPressedFavorite;
-                ImageButton imageButton = (ImageButton) view;
-                if (isPressedFavorite)
-                    imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
-                else
-                    imageButton.setImageResource(R.drawable.swipe_favorites);
+                    if (!isPressedFavorite) {
+                        try {
+                            dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
+                            tepavService.addItemToFavoriteListOfTepavService(Publication.toDBData(publication));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
+                            tepavService.removeItemFromFavoriteListOfTepavService(Publication.toDBData(publication));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    isPressedFavorite = !isPressedFavorite;
+                    ImageButton imageButton = (ImageButton) view;
+                    if (isPressedFavorite)
+                        imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
+                    else
+                        imageButton.setImageResource(R.drawable.swipe_favorites);
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
+
+                }
 
             }
         });
@@ -165,28 +181,35 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
             @Override
             public void onClick(View view) {
 
-                if(!isPressedLike) {
-                    try {
-                        dbHandler.insert(Publication.toDBData(publication),DBHandler.TABLE_LIKE);
-                        tepavService.addItemToLikeListOfTepavService(Publication.toDBData(publication));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        dbHandler.delete(Publication.toDBData(publication),DBHandler.TABLE_LIKE);
-                        tepavService.removeItemFromLikeListOfTepavService(Publication.toDBData(publication));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                if (Splash.isUserLoggedIn) {
 
-                isPressedLike = !isPressedLike;
-                ImageButton imageButton = (ImageButton) view;
-                if (!isPressedLike)
-                    imageButton.setImageResource(R.drawable.swipe_like);
-                else
-                    imageButton.setImageResource(R.drawable.swipe_like_dolu);
+                    if (!isPressedLike) {
+                        try {
+                            dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_LIKE);
+                            tepavService.addItemToLikeListOfTepavService(Publication.toDBData(publication));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_LIKE);
+                            tepavService.removeItemFromLikeListOfTepavService(Publication.toDBData(publication));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    isPressedLike = !isPressedLike;
+                    ImageButton imageButton = (ImageButton) view;
+                    if (!isPressedLike)
+                        imageButton.setImageResource(R.drawable.swipe_like);
+                    else
+                        imageButton.setImageResource(R.drawable.swipe_like_dolu);
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
+
+                }
             }
         });
 
@@ -194,28 +217,35 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
             @Override
             public void onClick(View view) {
 
-                if (!isPressedReadList) {
-                    try {
-                        dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
-                        tepavService.addItemToReadingListOfTepavService(Publication.toDBData(publication));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
-                        tepavService.removeItemFromReadingListOfTepavService(Publication.toDBData(publication));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                if (Splash.isUserLoggedIn) {
 
-                isPressedReadList = !isPressedReadList;
-                ImageButton imageButton = (ImageButton) view;
-                if (isPressedReadList)
-                    imageButton.setImageResource(R.drawable.okudum_icon_dolu);
-                else
-                    imageButton.setImageResource(R.drawable.okudum_icon);
+
+                    if (!isPressedReadList) {
+                        try {
+                            dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
+                            tepavService.addItemToReadingListOfTepavService(Publication.toDBData(publication));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
+                            tepavService.removeItemFromReadingListOfTepavService(Publication.toDBData(publication));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    isPressedReadList = !isPressedReadList;
+                    ImageButton imageButton = (ImageButton) view;
+                    if (isPressedReadList)
+                        imageButton.setImageResource(R.drawable.okudum_icon_dolu);
+                    else
+                        imageButton.setImageResource(R.drawable.okudum_icon);
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
+                }
             }
         });
         holder.frontOfPublicationClick.setOnClickListener(new View.OnClickListener() {
@@ -267,8 +297,7 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
                             else if (publicationType.equals(context.getString(R.string.Reports_And_Printed_Publications))) {
                                 if (tmpPub.getYtype().equals(Constant.REPORTS) || tmpPub.getYtype().equals(Constant.PRINTED_PUBLICATIONS))
                                     temp.add(tmpPub);
-                            }
-                            else if (tmpPub.getYtype().equals(publicationType))
+                            } else if (tmpPub.getYtype().equals(publicationType))
                                 temp.add(tmpPub);
 
                             tmpPub = null;

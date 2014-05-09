@@ -16,6 +16,7 @@ import com.tepav.reader.R;
 import com.tepav.reader.activity.BlogDetails;
 import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.activity.PublicationDetails;
+import com.tepav.reader.activity.Splash;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
@@ -26,6 +27,7 @@ import com.tepav.reader.model.DBData;
 import com.tepav.reader.model.News;
 import com.tepav.reader.model.Publication;
 import com.tepav.reader.service.TepavService;
+import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONException;
 
 import java.util.List;
@@ -177,162 +179,202 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         holder.ibShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (news != null) {
-                    String url = Constant.SHARE_NEWS + news.getHaber_id();
 
-                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.setType("text/plain");
-                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
-                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                if (Splash.isUserLoggedIn) {
 
-                } else if (blog != null) {
-                    String url = Constant.SHARE_BLOG + blog.getGunluk_id();
+                    if (news != null) {
+                        String url = Constant.SHARE_NEWS + news.getHaber_id();
 
-                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.setType("text/plain");
-                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, blog.getBtitle());
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, blog.getBtitle() + " " + url);
-                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
-                } else if (publication != null) {
-                    String url = Constant.SHARE_PUBLICATION + publication.getYayin_id();
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
+                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
 
-                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.setType("text/plain");
-                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, publication.getYtitle());
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, publication.getYtitle() + " " + url);
-                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                    } else if (blog != null) {
+                        String url = Constant.SHARE_BLOG + blog.getGunluk_id();
+
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, blog.getBtitle());
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, blog.getBtitle() + " " + url);
+                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                    } else if (publication != null) {
+                        String url = Constant.SHARE_PUBLICATION + publication.getYayin_id();
+
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, publication.getYtitle());
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, publication.getYtitle() + " " + url);
+                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                    }
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
                 }
+
             }
         });
 
         holder.ibLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkDB(dbData, DBHandler.TABLE_LIKE)) {
-                    if (news != null) {
-                        dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
-                        tepavService.addItemToLikeListOfTepavService(dbData);
-                    } else if (blog != null) {
-                        dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
-                        tepavService.addItemToLikeListOfTepavService(dbData);
-                    } else if (publication != null) {
-                        dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
-                        tepavService.addItemToLikeListOfTepavService(dbData);
-                    }
-                } else {
-                    if (news != null) {
-                        dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
-                        tepavService.removeItemFromLikeListOfTepavService(dbData);
-                    } else if (blog != null) {
-                        dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
-                        tepavService.removeItemFromLikeListOfTepavService(dbData);
-                    } else if (publication != null) {
-                        dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
-                        tepavService.removeItemFromLikeListOfTepavService(dbData);
-                    }
-                }
 
-                ImageButton imageButton = (ImageButton) view;
-                if (!checkDB(dbData, DBHandler.TABLE_LIKE))
-                    imageButton.setImageResource(R.drawable.swipe_like);
-                else
-                    imageButton.setImageResource(R.drawable.swipe_like_dolu);
+                if (Splash.isUserLoggedIn) {
+
+                    if (checkDB(dbData, DBHandler.TABLE_LIKE)) {
+                        if (news != null) {
+                            dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
+                            tepavService.addItemToLikeListOfTepavService(dbData);
+                        } else if (blog != null) {
+                            dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
+                            tepavService.addItemToLikeListOfTepavService(dbData);
+                        } else if (publication != null) {
+                            dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
+                            tepavService.addItemToLikeListOfTepavService(dbData);
+                        }
+                    } else {
+                        if (news != null) {
+                            dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
+                            tepavService.removeItemFromLikeListOfTepavService(dbData);
+                        } else if (blog != null) {
+                            dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
+                            tepavService.removeItemFromLikeListOfTepavService(dbData);
+                        } else if (publication != null) {
+                            dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
+                            tepavService.removeItemFromLikeListOfTepavService(dbData);
+                        }
+                    }
+
+                    ImageButton imageButton = (ImageButton) view;
+                    if (!checkDB(dbData, DBHandler.TABLE_LIKE))
+                        imageButton.setImageResource(R.drawable.swipe_like);
+                    else
+                        imageButton.setImageResource(R.drawable.swipe_like_dolu);
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
+
+                }
             }
         });
 
         holder.ibFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!checkDB(dbData, DBHandler.TABLE_FAVORITE)) {
-                    if (news != null) {
-                        dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
-                        tepavService.addItemToFavoriteListOfTepavService(dbData);
-                    } else if (blog != null) {
-                        dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
-                        tepavService.addItemToFavoriteListOfTepavService(dbData);
-                    } else if (publication != null) {
-                        dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
-                        tepavService.addItemToFavoriteListOfTepavService(dbData);
+
+                if (Splash.isUserLoggedIn) {
+
+                    if (!checkDB(dbData, DBHandler.TABLE_FAVORITE)) {
+                        if (news != null) {
+                            dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
+                            tepavService.addItemToFavoriteListOfTepavService(dbData);
+                        } else if (blog != null) {
+                            dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
+                            tepavService.addItemToFavoriteListOfTepavService(dbData);
+                        } else if (publication != null) {
+                            dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
+                            tepavService.addItemToFavoriteListOfTepavService(dbData);
+                        }
+                    } else {
+
+                        if (news != null) {
+                            dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
+                            tepavService.removeItemFromFavoriteListOfTepavService(dbData);
+                        } else if (blog != null) {
+                            dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
+                            tepavService.removeItemFromFavoriteListOfTepavService(dbData);
+                        } else if (publication != null) {
+                            dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
+                            tepavService.removeItemFromFavoriteListOfTepavService(dbData);
+                        }
                     }
+
+                    ImageButton imageButton = (ImageButton) view;
+                    if (checkDB(dbData, DBHandler.TABLE_FAVORITE))
+                        imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
+                    else
+                        imageButton.setImageResource(R.drawable.swipe_favorites);
                 } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
 
-                    if (news != null) {
-                        dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
-                        tepavService.removeItemFromFavoriteListOfTepavService(dbData);
-                    } else if (blog != null) {
-                        dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
-                        tepavService.removeItemFromFavoriteListOfTepavService(dbData);
-                    } else if (publication != null) {
-                        dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
-                        tepavService.removeItemFromFavoriteListOfTepavService(dbData);
-                    }
                 }
-
-                ImageButton imageButton = (ImageButton) view;
-                if (checkDB(dbData, DBHandler.TABLE_FAVORITE))
-                    imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
-                else
-                    imageButton.setImageResource(R.drawable.swipe_favorites);
             }
         });
 
         holder.ibArchive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!checkDB(dbData, DBHandler.TABLE_ARCHIVE)) {
-                    if (news != null) {
-                        dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
-                        tepavService.addItemToArchiveListOfTepavService(dbData);
-                    } else if (blog != null) {
-                        dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
-                        tepavService.addItemToArchiveListOfTepavService(dbData);
-                    } else if (publication != null) {
-                        dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
-                        tepavService.addItemToArchiveListOfTepavService(dbData);
-                    }
-                } else {
-                    if (news != null) {
-                        dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
-                        tepavService.removeItemFromArchiveListOfTepavService(dbData);
-                    } else if (blog != null) {
-                        dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
-                        tepavService.removeItemFromArchiveListOfTepavService(dbData);
-                    } else if (publication != null) {
-                        dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
-                        tepavService.removeItemFromArchiveListOfTepavService(dbData);
-                    }
-                }
 
-                ImageButton imageButton = (ImageButton) view;
-                if (checkDB(dbData, DBHandler.TABLE_ARCHIVE))
-                    imageButton.setImageResource(R.drawable.okudum_icon_dolu);
-                else
-                    imageButton.setImageResource(R.drawable.okudum_icon);
+                if (Splash.isUserLoggedIn) {
+
+                    if (!checkDB(dbData, DBHandler.TABLE_ARCHIVE)) {
+                        if (news != null) {
+                            dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
+                            tepavService.addItemToArchiveListOfTepavService(dbData);
+                        } else if (blog != null) {
+                            dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
+                            tepavService.addItemToArchiveListOfTepavService(dbData);
+                        } else if (publication != null) {
+                            dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
+                            tepavService.addItemToArchiveListOfTepavService(dbData);
+                        }
+                    } else {
+                        if (news != null) {
+                            dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
+                            tepavService.removeItemFromArchiveListOfTepavService(dbData);
+                        } else if (blog != null) {
+                            dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
+                            tepavService.removeItemFromArchiveListOfTepavService(dbData);
+                        } else if (publication != null) {
+                            dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
+                            tepavService.removeItemFromArchiveListOfTepavService(dbData);
+                        }
+                    }
+
+                    ImageButton imageButton = (ImageButton) view;
+                    if (checkDB(dbData, DBHandler.TABLE_ARCHIVE))
+                        imageButton.setImageResource(R.drawable.okudum_icon_dolu);
+                    else
+                        imageButton.setImageResource(R.drawable.okudum_icon);
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
+
+                }
             }
         });
 
         holder.ibDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (news != null) {
-                    dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
-                    tepavService.removeItemFromReadingListOfTepavService(dbData);
-                    dbDataList.remove(dbData);
-                } else if (blog != null) {
-                    dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
-                    tepavService.removeItemFromReadingListOfTepavService(dbData);
-                    dbDataList.remove(dbData);
-                } else if (publication != null) {
-                    dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
-                    tepavService.removeItemFromReadingListOfTepavService(dbData);
-                    dbDataList.remove(dbData);
+
+                if (Splash.isUserLoggedIn) {
+                    if (news != null) {
+                        dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
+                        tepavService.removeItemFromReadingListOfTepavService(dbData);
+                        dbDataList.remove(dbData);
+                    } else if (blog != null) {
+                        dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
+                        tepavService.removeItemFromReadingListOfTepavService(dbData);
+                        dbDataList.remove(dbData);
+                    } else if (publication != null) {
+                        dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
+                        tepavService.removeItemFromReadingListOfTepavService(dbData);
+                        dbDataList.remove(dbData);
+                    }
+
+                    remove(dbData);
+                    notifyDataSetChanged();
+
+                    swipeListView.closeAnimate(position);
+
+                } else {
+                    AlertDialogManager alertDialogManager = new AlertDialogManager();
+                    alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
+
                 }
-
-                remove(dbData);
-                notifyDataSetChanged();
-
-                swipeListView.closeAnimate(position);
             }
         });
 

@@ -23,6 +23,7 @@ import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.model.News;
+import com.tepav.reader.service.LikeOperation;
 import com.tepav.reader.service.OfflineList;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONArray;
@@ -156,6 +157,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                     if (!checkDB(news, DBHandler.TABLE_LIKE)) {
                         try {
                             dbHandler.insert(News.toDBData(news), DBHandler.TABLE_LIKE);
+                            LikeOperation.doLike(context, News.toDBData(news));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -20,6 +20,7 @@ import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.model.Publication;
+import com.tepav.reader.service.LikeOperation;
 import com.tepav.reader.service.OfflineList;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONArray;
@@ -141,6 +142,7 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
                     if (!checkDB(publication, DBHandler.TABLE_LIKE)) {
                         try {
                             dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_LIKE);
+                            LikeOperation.doLike(context, Publication.toDBData(publication));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

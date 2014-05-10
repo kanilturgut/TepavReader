@@ -35,7 +35,7 @@ public class LikeOperation {
                 super.callback(url, object, status);
 
                 if (status.getCode() == HttpStatus.SC_OK) {
-                    Logs.e(TAG, "SUCCESS");
+                    Logs.i(TAG, "SUCCESS");
                 } else {
                     Logs.e(TAG, "FAILED");
                 }

@@ -16,6 +16,7 @@ import java.util.LinkedList;
  */
 public class OfflineList {
 
+    final String TAG = "OfflineList";
     Context context;
     DBHandler dbHandler;
     public static OfflineList offlineList = null;
@@ -219,4 +220,34 @@ public class OfflineList {
         return false;
     }
 
+
+    public void add(DBData dbData, String table) {
+
+        Logs.i(TAG, "add operation started");
+
+        if (table.equals(DBHandler.TABLE_READ_LIST)) {
+            offlineList.addItemToReadingListOfTepavService(dbData);
+        } else if (table.equals(DBHandler.TABLE_FAVORITE)) {
+            offlineList.addItemToFavoriteListOfTepavService(dbData);
+        } else if (table.equals(DBHandler.TABLE_ARCHIVE)) {
+            offlineList.addItemToArchiveListOfTepavService(dbData);
+        } else if (table.equals(DBHandler.TABLE_LIKE)) {
+            offlineList.addItemToLikeListOfTepavService(dbData);
+        }
+    }
+
+    public void remove(DBData dbData, String table) {
+
+        Logs.i(TAG, "remove operation started");
+
+        if (table.equals(DBHandler.TABLE_READ_LIST)) {
+            offlineList.removeItemFromReadingListOfTepavService(dbData);
+        } else if (table.equals(DBHandler.TABLE_FAVORITE)) {
+            offlineList.removeItemFromFavoriteListOfTepavService(dbData);
+        } else if (table.equals(DBHandler.TABLE_ARCHIVE)) {
+            offlineList.removeItemFromArchiveListOfTepavService(dbData);
+        } else if (table.equals(DBHandler.TABLE_LIKE)) {
+            offlineList.removeItemFromLikeListOfTepavService(dbData);
+        }
+    }
 }

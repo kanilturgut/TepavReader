@@ -104,25 +104,42 @@ public class DBHandler extends SQLiteOpenHelper {
         contentValues.put(COL_CONTENT, dbData.getContent());
         contentValues.put(COL_TYPE, dbData.getType());
 
+        boolean process;
+
         if (isContain(table, dbData.getId(), db)) {
             Logs.i(TAG, "item already in the db, it will update");
             update(dbData, table);
-            return true;
+            process = true;
         } else {
             try {
                 db.insertOrThrow(table, null, contentValues);
-                db.close();
                 Logs.i(TAG, "SUCCESS on insert operation");
 
-                add(dbData, table);
+                OfflineList offlineList = OfflineList.getInstance(ctx);
+                offlineList.add(dbData, table);
 
-                return true;
+                process = true;
             } catch (Exception e) {
                 Logs.e(TAG, "ERROR on insert method", e);
-                db.close();
-                return false;
+                process = false;
             }
         }
+
+        if (process) {
+            if (table.equals(DBHandler.TABLE_ARCHIVE)) {
+                // Check if same element is already in ReadingList, if yes delete it
+                if (isContain(DBHandler.TABLE_READ_LIST, dbData.getId(), db)) {
+                    Logs.d(TAG, "element also in the ReadingList, it will be delete");
+                    delete(dbData, DBHandler.TABLE_READ_LIST);
+                    db.close();
+
+                    return true;
+                }
+            }
+        }
+
+        db.close();
+        return process;
     }
 
     //reads all
@@ -227,37 +244,8 @@ public class DBHandler extends SQLiteOpenHelper {
         db.delete(table, COL_ID + " = ?", new String[]{dbData.getId()});
         db.close();
 
-        remove(dbData, table);
-
-    }
-
-    public void add(DBData dbData, String table) {
-        Logs.i(TAG, "add operation started for offline list");
-
         OfflineList offlineList = OfflineList.getInstance(ctx);
-        if (table.equals(DBHandler.TABLE_READ_LIST)) {
-            offlineList.addItemToReadingListOfTepavService(dbData);
-        } else if (table.equals(DBHandler.TABLE_FAVORITE)) {
-            offlineList.addItemToFavoriteListOfTepavService(dbData);
-        } else if (table.equals(DBHandler.TABLE_ARCHIVE)) {
-            offlineList.addItemToArchiveListOfTepavService(dbData);
-        } else if (table.equals(DBHandler.TABLE_LIKE)) {
-            offlineList.addItemToLikeListOfTepavService(dbData);
-        }
-    }
+        offlineList.remove(dbData, table);
 
-    public void remove(DBData dbData, String table) {
-        Logs.i(TAG, "remove operation started offline list");
-
-        OfflineList offlineList = OfflineList.getInstance(ctx);
-        if (table.equals(DBHandler.TABLE_READ_LIST)) {
-            offlineList.removeItemFromReadingListOfTepavService(dbData);
-        } else if (table.equals(DBHandler.TABLE_FAVORITE)) {
-            offlineList.removeItemFromFavoriteListOfTepavService(dbData);
-        } else if (table.equals(DBHandler.TABLE_ARCHIVE)) {
-            offlineList.removeItemFromArchiveListOfTepavService(dbData);
-        } else if (table.equals(DBHandler.TABLE_LIKE)) {
-            offlineList.removeItemFromLikeListOfTepavService(dbData);
-        }
     }
 }

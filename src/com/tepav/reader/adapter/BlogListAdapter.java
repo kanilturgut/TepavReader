@@ -273,6 +273,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
             public void onClick(View view) {
                 Intent intent = new Intent(context, BlogDetails.class);
                 intent.putExtra("class", blog);
+                intent.putExtra("fromWhere", Constant.DETAILS_FROM_POST);
                 context.startActivity(intent);
             }
         });

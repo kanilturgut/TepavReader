@@ -57,4 +57,8 @@ public class Constant {
     //shared preferences
     public static final String SP_LOGIN = "login_preferences";
 
+    // Details of post (Whether normal QuickAction or QuickActionForList)
+    public static int DETAILS_FROM_POST = 0;
+    public static int DETAILS_FROM_LIST = 1;
+
 }

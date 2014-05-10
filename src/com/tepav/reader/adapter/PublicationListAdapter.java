@@ -253,6 +253,7 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
             public void onClick(View view) {
                 Intent intent = new Intent(context, PublicationDetails.class);
                 intent.putExtra("class", publication);
+                intent.putExtra("fromWhere", Constant.DETAILS_FROM_POST);
                 context.startActivity(intent);
             }
         });

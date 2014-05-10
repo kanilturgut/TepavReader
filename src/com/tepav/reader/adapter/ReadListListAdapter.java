@@ -20,6 +20,7 @@ import com.tepav.reader.activity.Splash;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
+import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.Blog;
@@ -394,7 +395,12 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
                     intent.putExtra("class", publication);
                 }
 
-                context.startActivity(intent);
+                if (intent != null) {
+
+                    intent.putExtra("fromWhere", Constant.DETAILS_FROM_LIST);
+                    intent.putExtra("listType", QuickActionForList.LIST_TYPE_READING_LIST);
+                    context.startActivity(intent);
+                }
             }
         });
 

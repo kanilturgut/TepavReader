@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
+import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.util.Util;
 import com.tepav.reader.model.Blog;
@@ -27,6 +28,8 @@ public class BlogDetails extends Activity implements View.OnClickListener {
     Context context;
     DBHandler dbHandler;
     QuickActionForPost quickAction;
+    QuickActionForList quickActionForList;
+    int fromWhere, listType;
 
     Blog blog;
 
@@ -42,8 +45,17 @@ public class BlogDetails extends Activity implements View.OnClickListener {
         this.context = this;
 
         blog = (Blog) getIntent().getSerializableExtra("class");
+        fromWhere = getIntent().getIntExtra("fromWhere", -1);
+        listType = getIntent().getIntExtra("listType", -1);
         dbHandler = DBHandler.getInstance(context);
-        quickAction = new QuickActionForPost(context, dbHandler, blog);
+
+        if (fromWhere == Constant.DETAILS_FROM_LIST) {
+            quickActionForList = new QuickActionForList(context, dbHandler, blog, listType);
+        }
+        else if (fromWhere == Constant.DETAILS_FROM_POST) {
+            quickAction = new QuickActionForPost(context, dbHandler, blog);
+        }
+
 
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
         llFooterAlreadyLiked = (LinearLayout) findViewById(R.id.llFooterAlreadyLiked);
@@ -92,8 +104,15 @@ public class BlogDetails extends Activity implements View.OnClickListener {
                 startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
             } else if (view == llFooterAddToList) {
 
-                quickAction.show(rlFooter);
-                quickAction.setAnimStyle(QuickActionForPost.ANIM_GROW_FROM_CENTER);
+                if (quickActionForList != null) {
+                    quickActionForList.show(rlFooter);
+                    quickActionForList.setAnimStyle(QuickActionForPost.ANIM_GROW_FROM_CENTER);
+                } else if (quickAction != null) {
+                    quickAction.show(rlFooter);
+                    quickAction.setAnimStyle(QuickActionForPost.ANIM_GROW_FROM_CENTER);
+
+                }
+
             } else if (view == llHeaderBack) {
                 onBackPressed();
             }

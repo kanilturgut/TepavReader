@@ -264,6 +264,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             public void onClick(View view) {
                 Intent intent = new Intent(context, NewsDetails.class);
                 intent.putExtra("class", news);
+                intent.putExtra("fromWhere", Constant.DETAILS_FROM_POST);
                 context.startActivity(intent);
             }
         });

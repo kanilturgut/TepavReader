@@ -121,9 +121,9 @@ public class QuickActionForList extends PopupWindows implements PopupWindow.OnDi
             Util.changeVisibility(rlReadListEmpty);
             Util.changeVisibility(rlFavListEmpty);
         } else if (listType == LIST_TYPE_ARCHIVE) {
-            Util.checkIfIsContain(dbHandler, DBHandler.TABLE_ARCHIVE, dbData.getId(), rlArchiveEmpty, rlArchiveNotEmpty);
+            Util.checkIfIsContain(dbHandler, DBHandler.TABLE_ARCHIVE, dbData.getId(), rlFavListEmpty, rlFavListNotEmpty);
             Util.changeVisibility(rlReadListEmpty);
-            Util.changeVisibility(rlFavListEmpty);
+            Util.changeVisibility(rlArchiveEmpty);
         }
 
     }

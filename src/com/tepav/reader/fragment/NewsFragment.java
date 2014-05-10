@@ -25,7 +25,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Author : kanilturgut
@@ -41,7 +40,7 @@ public class NewsFragment extends Fragment {
     NewsPagerAdapter newsPagerAdapter;
     CirclePageIndicator circlePageIndicator;
 
-    List<News> newsListForPager = new LinkedList<News>();
+    LinkedList<News> newsListForPager = new LinkedList<News>();
 
     RelativeLayout rlLoading;
 

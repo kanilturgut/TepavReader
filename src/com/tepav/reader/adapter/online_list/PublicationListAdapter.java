@@ -19,17 +19,14 @@ import com.tepav.reader.activity.Splash;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
-import com.tepav.reader.model.News;
 import com.tepav.reader.model.Publication;
 import com.tepav.reader.service.OfflineList;
-import com.tepav.reader.service.TepavService;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Author : kanilturgut
@@ -39,7 +36,7 @@ import java.util.List;
 public class PublicationListAdapter extends ArrayAdapter<Publication> {
 
     Context context;
-    List<Publication> publicationList = new LinkedList<Publication>();
+    LinkedList<Publication> publicationList = new LinkedList<Publication>();
     int pageNumber;
     AQuery aq;
     DBHandler dbHandler;
@@ -278,7 +275,7 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
 
-                List<Publication> temp = new LinkedList<Publication>();
+                LinkedList<Publication> temp = new LinkedList<Publication>();
 
                 if (object != null && object.length() != 0) {
                     for (int i = 0; i < object.length(); i++) {

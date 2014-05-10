@@ -6,7 +6,6 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Author : kanilturgut
@@ -27,8 +26,8 @@ public class Publication implements Serializable{
     String ytype;
     String ytype_id;
     String id;
-    List<String> likes;
-    List<File> files;
+    LinkedList<String> likes;
+    LinkedList<File> files;
     String date;
 
     public String getYayin_id() {
@@ -95,19 +94,19 @@ public class Publication implements Serializable{
         this.id = id;
     }
 
-    public List<String> getLikes() {
+    public LinkedList<String> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<String> likes) {
+    public void setLikes(LinkedList<String> likes) {
         this.likes = likes;
     }
 
-    public List<File> getFiles() {
+    public LinkedList<File> getFiles() {
         return files;
     }
 
-    public void setFiles(List<File> files) {
+    public void setFiles(LinkedList<File> files) {
         this.files = files;
     }
 
@@ -132,14 +131,14 @@ public class Publication implements Serializable{
         publication.setId(jsonObject.getString("_id"));
 
         JSONArray likersArray = jsonObject.getJSONArray("likes");
-        List<String> likers = new LinkedList<String>();
+        LinkedList<String> likers = new LinkedList<String>();
         for (int i = 0; i < likersArray.length(); i++) {
             likers.add(likersArray.getJSONObject(i).toString());
         }
         publication.setLikes(likers);
 
         JSONArray filesArray = jsonObject.getJSONArray("files");
-        List<File> fileList = new LinkedList<File>();
+        LinkedList<File> fileList = new LinkedList<File>();
         for (int i = 0 ; i < filesArray.length() ; i++){
             fileList.add(File.fromJSON(filesArray.getJSONObject(i)));
         }

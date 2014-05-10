@@ -6,15 +6,13 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
- *
  * Author : kanilturgut
  * Date : 15.04.2014
  * Time : 13:42
  */
-public class News extends DBData implements Serializable{
+public class News extends DBData implements Serializable {
 
     String haber_id;
     String htitle;
@@ -24,7 +22,7 @@ public class News extends DBData implements Serializable{
     String himage;
     String id;
     String date;
-    List<File> files;
+    LinkedList<File> files;
 
     public String getHaber_id() {
         return haber_id;
@@ -90,11 +88,11 @@ public class News extends DBData implements Serializable{
         this.date = date;
     }
 
-    public List<File> getFiles() {
+    public LinkedList<File> getFiles() {
         return files;
     }
 
-    public void setFiles(List<File> files) {
+    public void setFiles(LinkedList<File> files) {
         this.files = files;
     }
 
@@ -112,9 +110,9 @@ public class News extends DBData implements Serializable{
         news.setDate(jsonObject.getString("date"));
 
         JSONArray filesArray = jsonObject.getJSONArray("files");
-        List<File> fileList = new LinkedList<File>();
+        LinkedList<File> fileList = new LinkedList<File>();
 
-        for (int i = 0 ; i < filesArray.length() ; i++){
+        for (int i = 0; i < filesArray.length(); i++) {
             fileList.add(File.fromJSON(filesArray.getJSONObject(i)));
         }
 
@@ -137,7 +135,7 @@ public class News extends DBData implements Serializable{
         jsonObject.put("date", news.getDate());
 
         JSONArray jsonArray = new JSONArray();
-        for (File file: news.getFiles()) {
+        for (File file : news.getFiles()) {
             jsonArray.put(File.toJSON(file));
         }
         jsonObject.put("files", jsonArray);

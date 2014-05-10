@@ -2,11 +2,12 @@ package com.tepav.reader.service;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import com.tepav.reader.db.DBHandler;
+import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.model.DBData;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Author   : kanilturgut
@@ -18,7 +19,7 @@ public class OfflineList {
     Context context;
     DBHandler dbHandler;
     public static OfflineList offlineList = null;
-    public static List<DBData> favoriteList, readingList, archiveList, likeList;
+    public static LinkedList<DBData> favoriteList, readingList, archiveList, likeList;
 
 
     public static OfflineList getInstance(Context context) {
@@ -62,15 +63,15 @@ public class OfflineList {
     private void readFavoriteListFromDatabase() {
 
         // Favorite List
-        new AsyncTask<Void, Void, List<DBData>>() {
+        new AsyncTask<Void, Void, LinkedList<DBData>>() {
 
             @Override
-            protected List<DBData> doInBackground(Void... voids) {
+            protected LinkedList<DBData> doInBackground(Void... voids) {
                 return dbHandler.read(DBHandler.TABLE_FAVORITE);
             }
 
             @Override
-            protected void onPostExecute(List<DBData> dbDatas) {
+            protected void onPostExecute(LinkedList<DBData> dbDatas) {
                 if (dbDatas != null)
                     favoriteList.addAll(dbDatas);
             }
@@ -80,15 +81,15 @@ public class OfflineList {
     private void readReadingListFromDatabase() {
 
         // Reading List
-        new AsyncTask<Void, Void, List<DBData>>() {
+        new AsyncTask<Void, Void, LinkedList<DBData>>() {
 
             @Override
-            protected List<DBData> doInBackground(Void... voids) {
+            protected LinkedList<DBData> doInBackground(Void... voids) {
                 return dbHandler.read(DBHandler.TABLE_READ_LIST);
             }
 
             @Override
-            protected void onPostExecute(List<DBData> dbDatas) {
+            protected void onPostExecute(LinkedList<DBData> dbDatas) {
                 if (dbDatas != null)
                     readingList.addAll(dbDatas);
             }
@@ -98,15 +99,15 @@ public class OfflineList {
     private void readArchiveListFromDatabase() {
 
         // Archive List
-        new AsyncTask<Void, Void, List<DBData>>() {
+        new AsyncTask<Void, Void, LinkedList<DBData>>() {
 
             @Override
-            protected List<DBData> doInBackground(Void... voids) {
+            protected LinkedList<DBData> doInBackground(Void... voids) {
                 return dbHandler.read(DBHandler.TABLE_ARCHIVE);
             }
 
             @Override
-            protected void onPostExecute(List<DBData> dbDatas) {
+            protected void onPostExecute(LinkedList<DBData> dbDatas) {
                 if (dbDatas != null)
                     archiveList.addAll(dbDatas);
             }
@@ -116,15 +117,15 @@ public class OfflineList {
     private void readLikeListFromDatabase() {
 
         // Archive List
-        new AsyncTask<Void, Void, List<DBData>>() {
+        new AsyncTask<Void, Void, LinkedList<DBData>>() {
 
             @Override
-            protected List<DBData> doInBackground(Void... voids) {
+            protected LinkedList<DBData> doInBackground(Void... voids) {
                 return dbHandler.read(DBHandler.TABLE_LIKE);
             }
 
             @Override
-            protected void onPostExecute(List<DBData> dbDatas) {
+            protected void onPostExecute(LinkedList<DBData> dbDatas) {
                 if (dbDatas != null)
                     likeList.addAll(dbDatas);
             }
@@ -152,22 +153,42 @@ public class OfflineList {
     }
 
     public void removeItemFromFavoriteListOfTepavService(DBData dbData) {
-        favoriteList.remove(dbData);
+
+        for (int i = 0; i < favoriteList.size(); i++) {
+            if (favoriteList.get(i).getId().equals(dbData.getId())) {
+                favoriteList.remove(i);
+            }
+        }
 
     }
 
     public void removeItemFromReadingListOfTepavService(DBData dbData) {
-        readingList.remove(dbData);
+
+        for (int i = 0; i < readingList.size(); i++) {
+            if (readingList.get(i).getId().equals(dbData.getId())) {
+                readingList.remove(i);
+            }
+        }
 
     }
 
     public void removeItemFromArchiveListOfTepavService(DBData dbData) {
-        archiveList.remove(dbData);
+
+        for (int i = 0; i < archiveList.size(); i++) {
+            if (archiveList.get(i).getId().equals(dbData.getId())) {
+                archiveList.remove(i);
+            }
+        }
 
     }
 
     public void removeItemFromLikeListOfTepavService(DBData dbData) {
-        likeList.remove(dbData);
+
+        for (int i = 0; i < likeList.size(); i++) {
+            if (likeList.get(i).getId().equals(dbData.getId())) {
+                likeList.remove(i);
+            }
+        }
 
     }
 

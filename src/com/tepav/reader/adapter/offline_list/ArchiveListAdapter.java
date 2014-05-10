@@ -31,7 +31,7 @@ import com.tepav.reader.service.OfflineList;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONException;
 
-import java.util.List;
+import java.util.LinkedList;
 
 /**
  * Author : kanilturgut
@@ -43,12 +43,12 @@ public class ArchiveListAdapter extends ArrayAdapter<DBData> {
     String TAG = "FavoriteListAdapter";
     Context context;
     DBHandler dbHandler;
-    List<DBData> dbDataList;
+    LinkedList<DBData> dbDataList;
     AQuery aq;
     SwipeListView swipeListView;
     OfflineList offlineList;
 
-    public ArchiveListAdapter(Context context, SwipeListView swipeListView, List<DBData> dbDataList) {
+    public ArchiveListAdapter(Context context, SwipeListView swipeListView, LinkedList<DBData> dbDataList) {
         super(context, R.layout.custom_archive_list_row, dbDataList);
 
         this.context = context;

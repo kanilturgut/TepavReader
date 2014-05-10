@@ -17,7 +17,8 @@ import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.DBData;
 
-import java.util.List;
+import java.util.LinkedList;
+
 
 /**
  * Author : kanilturgut
@@ -57,17 +58,17 @@ public class ReadListFragment extends Fragment {
         getReadListTask.execute();
     }
 
-    class GetReadListTask extends AsyncTask<Void, Void, List<DBData>> {
+    class GetReadListTask extends AsyncTask<Void, Void, LinkedList<DBData>> {
 
         DBHandler dbHandler = DBHandler.getInstance(context);
 
         @Override
-        protected List<DBData> doInBackground(Void... voids) {
+        protected LinkedList<DBData> doInBackground(Void... voids) {
             return dbHandler.read(DBHandler.TABLE_READ_LIST);
         }
 
         @Override
-        protected void onPostExecute(List<DBData> dbDatas) {
+        protected void onPostExecute(LinkedList<DBData> dbDatas) {
 
             if (dbDatas != null)
                 swipeListViewOfReadList.setAdapter(new ReadListListAdapter(context, swipeListViewOfReadList, dbDatas));

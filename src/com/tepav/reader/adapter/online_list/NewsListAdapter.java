@@ -30,7 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Author : kanilturgut
@@ -41,7 +40,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
     String TAG = "NewsListAdapter";
     Context context;
-    List<News> newsList = new LinkedList<News>();
+    LinkedList<News> newsList = new LinkedList<News>();
     int pageNumber;
     AQuery aq;
     DBHandler dbHandler;
@@ -218,25 +217,24 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
                 if (Splash.isUserLoggedIn) {
 
+                    ImageButton imageButton = (ImageButton) view;
+
                     if (!checkDB(news, DBHandler.TABLE_READ_LIST)) {
                         try {
                             dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                            imageButton.setImageResource(R.drawable.okudum_icon_dolu);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else {
                         try {
                             dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
+                            imageButton.setImageResource(R.drawable.okudum_icon);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-                    ImageButton imageButton = (ImageButton) view;
-                    if (checkDB(news, DBHandler.TABLE_READ_LIST))
-                        imageButton.setImageResource(R.drawable.okudum_icon_dolu);
-                    else
-                        imageButton.setImageResource(R.drawable.okudum_icon);
                 } else {
                     AlertDialogManager alertDialogManager = new AlertDialogManager();
                     alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
@@ -289,7 +287,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
 
-                List<News> temp = new LinkedList<News>();
+                LinkedList<News> temp = new LinkedList<News>();
 
                 if (object != null && object.length() != 0) {
                     for (int i = 0; i < object.length(); i++) {

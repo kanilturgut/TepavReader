@@ -10,7 +10,6 @@ import com.tepav.reader.model.DBData;
 import com.tepav.reader.service.OfflineList;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Author : kanilturgut
@@ -115,16 +114,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 db.close();
                 Logs.i(TAG, "SUCCESS on insert operation");
 
-                OfflineList offlineList = OfflineList.getInstance(ctx);
-                if (table.equals(DBHandler.TABLE_READ_LIST)) {
-                    offlineList.addItemToReadingListOfTepavService(dbData);
-                } else if (table.equals(DBHandler.TABLE_FAVORITE)) {
-                    offlineList.addItemToFavoriteListOfTepavService(dbData);
-                } else if (table.equals(DBHandler.TABLE_ARCHIVE)) {
-                    offlineList.addItemToArchiveListOfTepavService(dbData);
-                } else if (table.equals(DBHandler.TABLE_LIKE)) {
-                    offlineList.addItemToLikeListOfTepavService(dbData);
-                }
+                add(dbData, table);
 
                 return true;
             } catch (Exception e) {
@@ -136,7 +126,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     //reads all
-    public List<DBData> read(String table) throws NullPointerException {
+    public LinkedList<DBData> read(String table) throws NullPointerException {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -146,7 +136,7 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
 
-                List<DBData> dbDataList = new LinkedList<DBData>();
+                LinkedList<DBData> dbDataList = new LinkedList<DBData>();
 
                 do {
                     DBData dbData = new DBData();
@@ -231,11 +221,33 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void delete(DBData dbData, String table) throws NullPointerException {
+        Logs.i(TAG, "delete operation started");
 
         SQLiteDatabase db = this.getWritableDatabase();
-
         db.delete(table, COL_ID + " = ?", new String[]{dbData.getId()});
         db.close();
+
+        remove(dbData, table);
+
+    }
+
+    public void add(DBData dbData, String table) {
+        Logs.i(TAG, "add operation started for offline list");
+
+        OfflineList offlineList = OfflineList.getInstance(ctx);
+        if (table.equals(DBHandler.TABLE_READ_LIST)) {
+            offlineList.addItemToReadingListOfTepavService(dbData);
+        } else if (table.equals(DBHandler.TABLE_FAVORITE)) {
+            offlineList.addItemToFavoriteListOfTepavService(dbData);
+        } else if (table.equals(DBHandler.TABLE_ARCHIVE)) {
+            offlineList.addItemToArchiveListOfTepavService(dbData);
+        } else if (table.equals(DBHandler.TABLE_LIKE)) {
+            offlineList.addItemToLikeListOfTepavService(dbData);
+        }
+    }
+
+    public void remove(DBData dbData, String table) {
+        Logs.i(TAG, "remove operation started offline list");
 
         OfflineList offlineList = OfflineList.getInstance(ctx);
         if (table.equals(DBHandler.TABLE_READ_LIST)) {

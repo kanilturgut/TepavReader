@@ -31,7 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Author : kanilturgut
@@ -42,7 +41,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
 
     String TAG = "BlogListAdapter";
     Context context;
-    List<Blog> blogList = new LinkedList<Blog>();
+    LinkedList<Blog> blogList = new LinkedList<Blog>();
     int pageNumber;
     AQuery aq;
     DBHandler dbHandler;
@@ -296,7 +295,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
             @Override
             public void callback(String url, JSONArray object, AjaxStatus status) {
 
-                List<Blog> temp = new LinkedList<Blog>();
+                LinkedList<Blog> temp = new LinkedList<Blog>();
 
                 if (object != null && object.length() != 0) {
                     for (int i = 0; i < object.length(); i++) {

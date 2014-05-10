@@ -18,7 +18,8 @@ import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.model.News;
 import org.json.JSONException;
 
-import java.util.List;
+import java.util.LinkedList;
+
 
 /**
  * Author : kanilturgut
@@ -29,9 +30,9 @@ public class NewsPagerAdapter extends FragmentStatePagerAdapter {
 
     static Context context = null;
     public static final String ARG_PAGE = "page";
-    static List<News> newsList;
+    static LinkedList<News> newsList;
 
-    public NewsPagerAdapter(FragmentManager fm, Context c, List<News> list) {
+    public NewsPagerAdapter(FragmentManager fm, Context c, LinkedList<News> list) {
         super(fm);
 
         context = c;

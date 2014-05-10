@@ -17,7 +17,8 @@ import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.DBData;
 
-import java.util.List;
+import java.util.LinkedList;
+
 
 /**
  * Author : kanilturgut
@@ -56,17 +57,17 @@ public class ArchiveFragment extends Fragment {
         new GetArchiveListTask().execute();
     }
 
-    class GetArchiveListTask extends AsyncTask<Void, Void, List<DBData>> {
+    class GetArchiveListTask extends AsyncTask<Void, Void, LinkedList<DBData>> {
 
         DBHandler dbHandler = DBHandler.getInstance(context);
 
         @Override
-        protected List<DBData> doInBackground(Void... voids) {
+        protected LinkedList<DBData> doInBackground(Void... voids) {
             return dbHandler.read(DBHandler.TABLE_ARCHIVE);
         }
 
         @Override
-        protected void onPostExecute(List<DBData> dbDatas) {
+        protected void onPostExecute(LinkedList<DBData> dbDatas) {
 
             if (dbDatas != null)
                 swipeListViewOfArchive.setAdapter(new ArchiveListAdapter(context, swipeListViewOfArchive, dbDatas));

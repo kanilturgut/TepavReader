@@ -5,9 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.model.DBData;
+import com.tepav.reader.service.OfflineList;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +22,7 @@ public class DBHandler extends SQLiteOpenHelper {
     static final String TAG = "DBHandler";
 
     public static DBHandler dbInstance;
+    static Context ctx;
 
     static final int VERSION = 2;
     static final String DATABASE = "tepavReader.db";
@@ -31,15 +32,17 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String TABLE_ARCHIVE = "archive";
     public static final String TABLE_LIKE = "like";
 
-
     static final String COL_ID = "_id";
     static final String COL_CONTENT = "content";
     static final String COL_TYPE = "type";
 
     public static DBHandler getInstance(Context context) {
 
-        if (dbInstance == null)
+        if (dbInstance == null) {
             dbInstance = new DBHandler(context.getApplicationContext());
+            ctx = context;
+        }
+
 
         return dbInstance;
     }
@@ -111,6 +114,18 @@ public class DBHandler extends SQLiteOpenHelper {
                 db.insertOrThrow(table, null, contentValues);
                 db.close();
                 Logs.i(TAG, "SUCCESS on insert operation");
+
+                OfflineList offlineList = OfflineList.getInstance(ctx);
+                if (table.equals(DBHandler.TABLE_READ_LIST)) {
+                    offlineList.addItemToReadingListOfTepavService(dbData);
+                } else if (table.equals(DBHandler.TABLE_FAVORITE)) {
+                    offlineList.addItemToFavoriteListOfTepavService(dbData);
+                } else if (table.equals(DBHandler.TABLE_ARCHIVE)) {
+                    offlineList.addItemToArchiveListOfTepavService(dbData);
+                } else if (table.equals(DBHandler.TABLE_LIKE)) {
+                    offlineList.addItemToLikeListOfTepavService(dbData);
+                }
+
                 return true;
             } catch (Exception e) {
                 Logs.e(TAG, "ERROR on insert method", e);
@@ -201,7 +216,6 @@ public class DBHandler extends SQLiteOpenHelper {
         return null;
     }
 
-
     public int update(DBData dbData, String table) throws NullPointerException {
 
         Logs.i(TAG, "update operation started");
@@ -222,5 +236,16 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.delete(table, COL_ID + " = ?", new String[]{dbData.getId()});
         db.close();
+
+        OfflineList offlineList = OfflineList.getInstance(ctx);
+        if (table.equals(DBHandler.TABLE_READ_LIST)) {
+            offlineList.removeItemFromReadingListOfTepavService(dbData);
+        } else if (table.equals(DBHandler.TABLE_FAVORITE)) {
+            offlineList.removeItemFromFavoriteListOfTepavService(dbData);
+        } else if (table.equals(DBHandler.TABLE_ARCHIVE)) {
+            offlineList.removeItemFromArchiveListOfTepavService(dbData);
+        } else if (table.equals(DBHandler.TABLE_LIKE)) {
+            offlineList.removeItemFromLikeListOfTepavService(dbData);
+        }
     }
 }

@@ -17,6 +17,7 @@ import com.tepav.reader.helpers.MySharedPreferences;
 import com.tepav.reader.model.FacebookUser;
 import com.tepav.reader.model.TepavUser;
 import com.tepav.reader.model.TwitterUser;
+import com.tepav.reader.service.OfflineList;
 import com.tepav.reader.service.TepavService;
 import com.tepav.reader.util.ConnectionDetector;
 import org.apache.http.HttpStatus;
@@ -52,7 +53,9 @@ public class Splash extends Activity {
 
         connectionDetector = new ConnectionDetector(context);
         DBHandler.getInstance(context);
-        startService(new Intent(context, TepavService.class));
+
+        OfflineList offlineList = OfflineList.getInstance(context);
+        offlineList.startReadingFromDatabase();
 
         //Implementation of handler and its runnable
         startHandler = new Handler();

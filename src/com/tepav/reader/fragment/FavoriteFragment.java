@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import com.tepav.reader.R;
-import com.tepav.reader.adapter.FavoriteListAdapter;
+import com.tepav.reader.adapter.offline_list.FavoriteListAdapter;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
 import com.tepav.reader.model.DBData;

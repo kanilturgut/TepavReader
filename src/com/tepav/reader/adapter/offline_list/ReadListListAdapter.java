@@ -1,4 +1,4 @@
-package com.tepav.reader.adapter;
+package com.tepav.reader.adapter.offline_list;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +27,7 @@ import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.DBData;
 import com.tepav.reader.model.News;
 import com.tepav.reader.model.Publication;
-import com.tepav.reader.service.TepavService;
+import com.tepav.reader.service.OfflineList;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONException;
 
@@ -45,9 +45,8 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
     DBHandler dbHandler;
     List<DBData> dbDataList;
     AQuery aq;
-    TepavService tepavService = null;
     SwipeListView swipeListView;
-
+    OfflineList offlineList;
 
     public ReadListListAdapter(Context context, SwipeListView swipeListView, List<DBData> dbDataList) {
         super(context, R.layout.custom_read_list_row, dbDataList);
@@ -58,7 +57,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
         dbHandler = DBHandler.getInstance(context);
         aq = new AQuery(context);
-        tepavService = TepavService.getInstance();
+        offlineList = OfflineList.getInstance(context);
     }
 
     @Override
@@ -97,8 +96,6 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
                 title = publication.getYtitle();
                 date = publication.getDate() + " " + publication.getYtype();
                 imageUrl = "";
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -154,7 +151,8 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             holder.imageOfReadList.setImageResource(R.drawable.no_image);
         }
 
-        if (tepavService != null) {
+        // swipe list icons
+        if (offlineList != null) {
             if (checkDB(dbData, DBHandler.TABLE_FAVORITE))
                 holder.ibFavorite.setImageResource(R.drawable.swipe_favorites_dolu);
             else
@@ -178,35 +176,36 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
                 if (Splash.isUserLoggedIn) {
 
                     String title = "";
+                    String url = "";
 
                     if (dbData.getType() == DBData.TYPE_NEWS) {
                         try {
                             title = News.fromDBData(dbData).getHtitle();
+                            url = Constant.SHARE_NEWS + dbData.getId();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else if (dbData.getType() == DBData.TYPE_BLOG) {
                         try {
                             title = Blog.fromDBData(dbData).getBtitle();
+                            url = Constant.SHARE_BLOG + dbData.getId();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else if (dbData.getType() == DBData.TYPE_PUBLICATION) {
                         try {
                             title = Publication.fromDBData(dbData).getYtitle();
+                            url = Constant.SHARE_PUBLICATION + dbData.getId();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-                        String url = Constant.SHARE_NEWS + dbData.getId();
-
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, title);
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, title + " " + url);
-                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
-
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, title);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, title + " " + url);
+                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
 
                 } else {
                     AlertDialogManager alertDialogManager = new AlertDialogManager();
@@ -224,10 +223,8 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
                     if (checkDB(dbData, DBHandler.TABLE_LIKE)) {
                         dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
-                        tepavService.addItemToLikeListOfTepavService(dbData);
                     } else {
                         dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
-                        tepavService.removeItemFromLikeListOfTepavService(dbData);
                     }
 
                     ImageButton imageButton = (ImageButton) view;
@@ -251,10 +248,8 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
                     if (!checkDB(dbData, DBHandler.TABLE_FAVORITE)) {
                         dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
-                        tepavService.addItemToFavoriteListOfTepavService(dbData);
                     } else {
                         dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
-                        tepavService.removeItemFromFavoriteListOfTepavService(dbData);
                     }
 
                     ImageButton imageButton = (ImageButton) view;
@@ -278,10 +273,8 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
                     if (!checkDB(dbData, DBHandler.TABLE_ARCHIVE)) {
                         dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
-                        tepavService.addItemToArchiveListOfTepavService(dbData);
                     } else {
                         dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
-                        tepavService.removeItemFromArchiveListOfTepavService(dbData);
                     }
 
                     ImageButton imageButton = (ImageButton) view;
@@ -303,7 +296,6 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
                 if (Splash.isUserLoggedIn) {
                     dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
-                    tepavService.removeItemFromReadingListOfTepavService(dbData);
                     dbDataList.remove(dbData);
 
                     remove(dbData);
@@ -361,6 +353,6 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
     }
 
     boolean checkDB(DBData dbData, String table) {
-        return tepavService.checkIfContains(table, dbData.getId());
+        return offlineList.checkIfContains(table, dbData.getId());
     }
 }

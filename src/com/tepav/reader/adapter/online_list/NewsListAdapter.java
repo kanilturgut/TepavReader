@@ -1,4 +1,4 @@
-package com.tepav.reader.adapter;
+package com.tepav.reader.adapter.online_list;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +23,7 @@ import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.model.News;
-import com.tepav.reader.service.TepavService;
+import com.tepav.reader.service.OfflineList;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,11 +45,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
     int pageNumber;
     AQuery aq;
     DBHandler dbHandler;
-    TepavService tepavService;
-
-    boolean isPressedLike = false;
-    boolean isPressedFavorite = false;
-    boolean isPressedReadList = false;
+    OfflineList offlineList;
 
     public NewsListAdapter(Context ctx, int number) {
         super(ctx, R.layout.custom_news_row);
@@ -58,8 +54,8 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         this.pageNumber = number;
 
         dbHandler = DBHandler.getInstance(context);
+        offlineList = OfflineList.getInstance(context);
         aq = new AQuery(context);
-        tepavService = TepavService.getInstance();
         loadMore();
     }
 
@@ -114,26 +110,23 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         holder.titleOfNews.setText(news.getHtitle());
         holder.dateOfNews.setText(news.getHdate());
 
-        if (tepavService != null) {
-            isPressedFavorite = tepavService.checkIfContains(DBHandler.TABLE_FAVORITE, news.getId());
-            isPressedReadList = tepavService.checkIfContains(DBHandler.TABLE_READ_LIST, news.getId());
-            isPressedLike = tepavService.checkIfContains(DBHandler.TABLE_LIKE, news.getId());
+        // swipe list icons
+        if (offlineList != null) {
+            if (checkDB(news, DBHandler.TABLE_FAVORITE))
+                holder.ibFavorite.setImageResource(R.drawable.swipe_favorites_dolu);
+            else
+                holder.ibFavorite.setImageResource(R.drawable.swipe_favorites);
+
+            if (checkDB(news, DBHandler.TABLE_READ_LIST))
+                holder.ibReadList.setImageResource(R.drawable.okudum_icon_dolu);
+            else
+                holder.ibReadList.setImageResource(R.drawable.okudum_icon);
+
+            if (checkDB(news, DBHandler.TABLE_LIKE))
+                holder.ibLike.setImageResource(R.drawable.swipe_like_dolu);
+            else
+                holder.ibLike.setImageResource(R.drawable.swipe_like);
         }
-
-        if (isPressedFavorite)
-            holder.ibFavorite.setImageResource(R.drawable.swipe_favorites_dolu);
-        else
-            holder.ibFavorite.setImageResource(R.drawable.swipe_favorites);
-
-        if (isPressedReadList)
-            holder.ibReadList.setImageResource(R.drawable.okudum_icon_dolu);
-        else
-            holder.ibReadList.setImageResource(R.drawable.okudum_icon);
-
-        if (isPressedLike)
-            holder.ibLike.setImageResource(R.drawable.swipe_like_dolu);
-        else
-            holder.ibLike.setImageResource(R.drawable.swipe_like);
 
         holder.ibShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,34 +148,31 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             }
         });
 
-        holder.ibFavorite.setOnClickListener(new View.OnClickListener() {
+        holder.ibLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (Splash.isUserLoggedIn) {
 
-                    if (!isPressedFavorite) {
+                    if (!checkDB(news, DBHandler.TABLE_LIKE)) {
                         try {
-                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
-                            tepavService.addItemToFavoriteListOfTepavService(News.toDBData(news));
+                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_LIKE);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else {
                         try {
-                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
-                            tepavService.removeItemFromFavoriteListOfTepavService(News.toDBData(news));
+                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_LIKE);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-                    isPressedFavorite = !isPressedFavorite;
                     ImageButton imageButton = (ImageButton) view;
-                    if (isPressedFavorite)
-                        imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
+                    if (!checkDB(news, DBHandler.TABLE_LIKE))
+                        imageButton.setImageResource(R.drawable.swipe_like);
                     else
-                        imageButton.setImageResource(R.drawable.swipe_favorites);
+                        imageButton.setImageResource(R.drawable.swipe_like_dolu);
                 } else {
                     AlertDialogManager alertDialogManager = new AlertDialogManager();
                     alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
@@ -190,34 +180,31 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             }
         });
 
-        holder.ibLike.setOnClickListener(new View.OnClickListener() {
+        holder.ibFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (Splash.isUserLoggedIn) {
 
-                    if (!isPressedLike) {
+                    if (!checkDB(news, DBHandler.TABLE_FAVORITE)) {
                         try {
-                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_LIKE);
-                            tepavService.addItemToLikeListOfTepavService(News.toDBData(news));
+                            dbHandler.insert(News.toDBData(news), DBHandler.TABLE_FAVORITE);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else {
                         try {
-                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_LIKE);
-                            tepavService.removeItemFromLikeListOfTepavService(News.toDBData(news));
+                            dbHandler.delete(News.toDBData(news), DBHandler.TABLE_FAVORITE);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-                    isPressedLike = !isPressedLike;
                     ImageButton imageButton = (ImageButton) view;
-                    if (!isPressedLike)
-                        imageButton.setImageResource(R.drawable.swipe_like);
+                    if (checkDB(news, DBHandler.TABLE_FAVORITE))
+                        imageButton.setImageResource(R.drawable.swipe_favorites_dolu);
                     else
-                        imageButton.setImageResource(R.drawable.swipe_like_dolu);
+                        imageButton.setImageResource(R.drawable.swipe_favorites);
                 } else {
                     AlertDialogManager alertDialogManager = new AlertDialogManager();
                     alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
@@ -231,25 +218,22 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
                 if (Splash.isUserLoggedIn) {
 
-                    if (!isPressedReadList) {
+                    if (!checkDB(news, DBHandler.TABLE_READ_LIST)) {
                         try {
                             dbHandler.insert(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-                            tepavService.addItemToReadingListOfTepavService(News.toDBData(news));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else {
                         try {
                             dbHandler.delete(News.toDBData(news), DBHandler.TABLE_READ_LIST);
-                            tepavService.removeItemFromReadingListOfTepavService(News.toDBData(news));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-                    isPressedReadList = !isPressedReadList;
                     ImageButton imageButton = (ImageButton) view;
-                    if (isPressedReadList)
+                    if (checkDB(news, DBHandler.TABLE_READ_LIST))
                         imageButton.setImageResource(R.drawable.okudum_icon_dolu);
                     else
                         imageButton.setImageResource(R.drawable.okudum_icon);
@@ -325,5 +309,9 @@ public class NewsListAdapter extends ArrayAdapter<News> {
                 }
             }
         });
+    }
+
+    boolean checkDB(News news, String table) {
+        return offlineList.checkIfContains(table, news.getId());
     }
 }

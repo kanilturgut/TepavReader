@@ -295,6 +295,16 @@ public class Login extends Activity implements View.OnClickListener {
 
                     if (status.getCode() == HttpStatus.SC_OK) {
                         Logs.i(TAG, "Login successful");
+
+                        try {
+                            String name = object.getString("name");
+                            String surname = object.getString("surname");
+
+                            mySharedPreferences.setTepavUserPref(name, surname, email, password);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                         loginSuccessful();
                     } else {
                         Toast.makeText(context, "Login Failed", Toast.LENGTH_LONG).show();

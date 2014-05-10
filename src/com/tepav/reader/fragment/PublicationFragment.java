@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import com.tepav.reader.R;
-import com.tepav.reader.adapter.PublicationListAdapter;
+import com.tepav.reader.adapter.online_list.PublicationListAdapter;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
 
 /**

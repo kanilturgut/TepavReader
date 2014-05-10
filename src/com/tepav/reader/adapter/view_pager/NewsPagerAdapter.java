@@ -1,4 +1,4 @@
-package com.tepav.reader.adapter;
+package com.tepav.reader.adapter.view_pager;
 
 import android.content.Context;
 import android.content.Intent;

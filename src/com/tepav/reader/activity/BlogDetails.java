@@ -56,7 +56,6 @@ public class BlogDetails extends Activity implements View.OnClickListener {
             quickAction = new QuickActionForPost(context, dbHandler, blog);
         }
 
-
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
         llFooterAlreadyLiked = (LinearLayout) findViewById(R.id.llFooterAlreadyLiked);
         llFooterShare = (LinearLayout) findViewById(R.id.llFooterShare);
@@ -110,7 +109,6 @@ public class BlogDetails extends Activity implements View.OnClickListener {
                 } else if (quickAction != null) {
                     quickAction.show(rlFooter);
                     quickAction.setAnimStyle(QuickActionForPost.ANIM_GROW_FROM_CENTER);
-
                 }
 
             } else if (view == llHeaderBack) {

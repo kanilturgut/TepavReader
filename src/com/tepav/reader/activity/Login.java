@@ -280,14 +280,6 @@ public class Login extends Activity implements View.OnClickListener {
 
         if (!email.isEmpty() && !password.isEmpty()) {
 
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("email", email);
-                jsonObject.put("password", password);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
             AjaxCallback<JSONObject> ajaxCallback = new AjaxCallback<JSONObject>() {
 
                 @Override

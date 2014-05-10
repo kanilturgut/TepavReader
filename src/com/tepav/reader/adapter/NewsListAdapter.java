@@ -262,10 +262,15 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         holder.frontOfNewsClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(context, NewsDetails.class);
-                intent.putExtra("class", news);
-                intent.putExtra("fromWhere", Constant.DETAILS_FROM_POST);
-                context.startActivity(intent);
+                try {
+                    intent.putExtra("class", News.toDBData(news));
+                    intent.putExtra("fromWhere", Constant.DETAILS_FROM_POST);
+                    context.startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

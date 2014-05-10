@@ -1,11 +1,13 @@
 package com.tepav.reader.model;
 
+import java.io.Serializable;
+
 /**
  * Author : kanilturgut
  * Date : 18.04.2014
  * Time : 15:21
  */
-public class DBData {
+public class DBData implements Serializable{
 
     //types
     public static int TYPE_NEWS = 0;

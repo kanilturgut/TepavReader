@@ -252,9 +252,13 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PublicationDetails.class);
-                intent.putExtra("class", publication);
-                intent.putExtra("fromWhere", Constant.DETAILS_FROM_POST);
-                context.startActivity(intent);
+                try {
+                    intent.putExtra("class", Publication.toDBData(publication));
+                    intent.putExtra("fromWhere", Constant.DETAILS_FROM_POST);
+                    context.startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

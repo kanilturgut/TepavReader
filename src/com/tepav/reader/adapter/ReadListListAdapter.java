@@ -48,9 +48,6 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
     TepavService tepavService = null;
     SwipeListView swipeListView;
 
-    News news = null;
-    Blog blog = null;
-    Publication publication = null;
 
     public ReadListListAdapter(Context context, SwipeListView swipeListView, List<DBData> dbDataList) {
         super(context, R.layout.custom_read_list_row, dbDataList);
@@ -70,27 +67,38 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         ReadListHolder holder;
         final DBData dbData = dbDataList.get(position);
 
+        String title = "";
+        String date = "";
+        String imageUrl = "";
+
         if (dbData.getType() == DBData.TYPE_NEWS) {
+
             try {
-                news = News.fromDBData(dbData);
-                blog = null;
-                publication = null;
+                News news = News.fromDBData(dbData);
+                title = news.getHtitle();
+                date = news.getDate();
+                imageUrl = news.getHimage();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
         } else if (dbData.getType() == DBData.TYPE_BLOG) {
             try {
-                blog = Blog.fromDBData(dbData);
-                news = null;
-                publication = null;
+                Blog blog = Blog.fromDBData(dbData);
+                title = blog.getBtitle();
+                date = blog.getDate();
+                imageUrl = blog.getPimage();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         } else if (dbData.getType() == DBData.TYPE_PUBLICATION) {
             try {
-                publication = Publication.fromDBData(dbData);
-                news = null;
-                blog = null;
+                Publication publication = Publication.fromDBData(dbData);
+                title = publication.getYtitle();
+                date = publication.getDate() + " " + publication.getYtype();
+                imageUrl = "";
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -127,36 +135,22 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
         options.targetWidth = 0;
         options.fallback = R.drawable.no_image;
 
-        if (news != null) {
+        if (title != null && !title.isEmpty() && !title.equals(""))
+            holder.titleOfReadList.setText(title);
 
-            holder.titleOfReadList.setText(news.getHtitle());
-            holder.dateOfReadList.setText(news.getHdate());
+        if (date != null && !date.isEmpty() && !date.equals(""))
+            holder.dateOfReadList.setText(date);
 
-            Bitmap bmp = aq.getCachedImage(news.getHimage());
+        if (imageUrl != null && !imageUrl.isEmpty() && !imageUrl.equals("")) {
+            Bitmap bmp = aq.getCachedImage(imageUrl);
             if (bmp == null) {
-                aq.id(holder.imageOfReadList).image(news.getHimage(), options);
+                aq.id(holder.imageOfReadList).image(imageUrl, options);
                 Logs.i(TAG, "image received from server");
             } else {
                 holder.imageOfReadList.setImageBitmap(bmp);
                 Logs.i(TAG, "image received from cache");
             }
-
-        } else if (blog != null) {
-            holder.titleOfReadList.setText(blog.getBtitle());
-            holder.dateOfReadList.setText(blog.getBtitle());
-
-            Bitmap bmp = aq.getCachedImage(blog.getPimage());
-            if (bmp == null) {
-                aq.id(holder.imageOfReadList).image(blog.getPimage(), options);
-                Logs.i(TAG, "image received from server");
-            } else {
-                holder.imageOfReadList.setImageBitmap(bmp);
-                Logs.i(TAG, "image received from cache");
-            }
-
-        } else if (publication != null) {
-            holder.titleOfReadList.setText(publication.getYtitle());
-            holder.dateOfReadList.setText(publication.getYdate() + ", " + publication.getYtype());
+        } else {
             holder.imageOfReadList.setImageResource(R.drawable.no_image);
         }
 
@@ -183,32 +177,37 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
                 if (Splash.isUserLoggedIn) {
 
-                    if (news != null) {
-                        String url = Constant.SHARE_NEWS + news.getHaber_id();
+                    String title = "";
 
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
-                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
-
-                    } else if (blog != null) {
-                        String url = Constant.SHARE_BLOG + blog.getGunluk_id();
-
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, blog.getBtitle());
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, blog.getBtitle() + " " + url);
-                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
-                    } else if (publication != null) {
-                        String url = Constant.SHARE_PUBLICATION + publication.getYayin_id();
-
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, publication.getYtitle());
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, publication.getYtitle() + " " + url);
-                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                    if (dbData.getType() == DBData.TYPE_NEWS) {
+                        try {
+                            title = News.fromDBData(dbData).getHtitle();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (dbData.getType() == DBData.TYPE_BLOG) {
+                        try {
+                            title = Blog.fromDBData(dbData).getBtitle();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (dbData.getType() == DBData.TYPE_PUBLICATION) {
+                        try {
+                            title = Publication.fromDBData(dbData).getYtitle();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
+
+                        String url = Constant.SHARE_NEWS + dbData.getId();
+
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, title);
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, title + " " + url);
+                        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+
+
                 } else {
                     AlertDialogManager alertDialogManager = new AlertDialogManager();
                     alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);
@@ -224,27 +223,11 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
                 if (Splash.isUserLoggedIn) {
 
                     if (checkDB(dbData, DBHandler.TABLE_LIKE)) {
-                        if (news != null) {
-                            dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
-                            tepavService.addItemToLikeListOfTepavService(dbData);
-                        } else if (blog != null) {
-                            dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
-                            tepavService.addItemToLikeListOfTepavService(dbData);
-                        } else if (publication != null) {
-                            dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
-                            tepavService.addItemToLikeListOfTepavService(dbData);
-                        }
+                        dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
+                        tepavService.addItemToLikeListOfTepavService(dbData);
                     } else {
-                        if (news != null) {
-                            dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
-                            tepavService.removeItemFromLikeListOfTepavService(dbData);
-                        } else if (blog != null) {
-                            dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
-                            tepavService.removeItemFromLikeListOfTepavService(dbData);
-                        } else if (publication != null) {
-                            dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
-                            tepavService.removeItemFromLikeListOfTepavService(dbData);
-                        }
+                        dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
+                        tepavService.removeItemFromLikeListOfTepavService(dbData);
                     }
 
                     ImageButton imageButton = (ImageButton) view;
@@ -267,28 +250,11 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
                 if (Splash.isUserLoggedIn) {
 
                     if (!checkDB(dbData, DBHandler.TABLE_FAVORITE)) {
-                        if (news != null) {
-                            dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
-                            tepavService.addItemToFavoriteListOfTepavService(dbData);
-                        } else if (blog != null) {
-                            dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
-                            tepavService.addItemToFavoriteListOfTepavService(dbData);
-                        } else if (publication != null) {
-                            dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
-                            tepavService.addItemToFavoriteListOfTepavService(dbData);
-                        }
+                        dbHandler.insert(dbData, DBHandler.TABLE_FAVORITE);
+                        tepavService.addItemToFavoriteListOfTepavService(dbData);
                     } else {
-
-                        if (news != null) {
-                            dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
-                            tepavService.removeItemFromFavoriteListOfTepavService(dbData);
-                        } else if (blog != null) {
-                            dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
-                            tepavService.removeItemFromFavoriteListOfTepavService(dbData);
-                        } else if (publication != null) {
-                            dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
-                            tepavService.removeItemFromFavoriteListOfTepavService(dbData);
-                        }
+                        dbHandler.delete(dbData, DBHandler.TABLE_FAVORITE);
+                        tepavService.removeItemFromFavoriteListOfTepavService(dbData);
                     }
 
                     ImageButton imageButton = (ImageButton) view;
@@ -311,27 +277,11 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
                 if (Splash.isUserLoggedIn) {
 
                     if (!checkDB(dbData, DBHandler.TABLE_ARCHIVE)) {
-                        if (news != null) {
-                            dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
-                            tepavService.addItemToArchiveListOfTepavService(dbData);
-                        } else if (blog != null) {
-                            dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
-                            tepavService.addItemToArchiveListOfTepavService(dbData);
-                        } else if (publication != null) {
-                            dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
-                            tepavService.addItemToArchiveListOfTepavService(dbData);
-                        }
+                        dbHandler.insert(dbData, DBHandler.TABLE_ARCHIVE);
+                        tepavService.addItemToArchiveListOfTepavService(dbData);
                     } else {
-                        if (news != null) {
-                            dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
-                            tepavService.removeItemFromArchiveListOfTepavService(dbData);
-                        } else if (blog != null) {
-                            dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
-                            tepavService.removeItemFromArchiveListOfTepavService(dbData);
-                        } else if (publication != null) {
-                            dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
-                            tepavService.removeItemFromArchiveListOfTepavService(dbData);
-                        }
+                        dbHandler.delete(dbData, DBHandler.TABLE_ARCHIVE);
+                        tepavService.removeItemFromArchiveListOfTepavService(dbData);
                     }
 
                     ImageButton imageButton = (ImageButton) view;
@@ -352,19 +302,9 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             public void onClick(View view) {
 
                 if (Splash.isUserLoggedIn) {
-                    if (news != null) {
-                        dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
-                        tepavService.removeItemFromReadingListOfTepavService(dbData);
-                        dbDataList.remove(dbData);
-                    } else if (blog != null) {
-                        dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
-                        tepavService.removeItemFromReadingListOfTepavService(dbData);
-                        dbDataList.remove(dbData);
-                    } else if (publication != null) {
-                        dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
-                        tepavService.removeItemFromReadingListOfTepavService(dbData);
-                        dbDataList.remove(dbData);
-                    }
+                    dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
+                    tepavService.removeItemFromReadingListOfTepavService(dbData);
+                    dbDataList.remove(dbData);
 
                     remove(dbData);
                     notifyDataSetChanged();
@@ -384,15 +324,15 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             public void onClick(View view) {
                 Intent intent = null;
 
-                if (news != null) {
+                if (dbData.getType() == DBData.TYPE_NEWS) {
                     intent = new Intent(context, NewsDetails.class);
-                    intent.putExtra("class", news);
-                } else if (blog != null) {
+                    intent.putExtra("class", dbData);
+                } else if (dbData.getType() == DBData.TYPE_BLOG) {
                     intent = new Intent(context, BlogDetails.class);
-                    intent.putExtra("class", blog);
-                } else if (publication != null) {
+                    intent.putExtra("class", dbData);
+                } else if (dbData.getType() == DBData.TYPE_PUBLICATION) {
                     intent = new Intent(context, PublicationDetails.class);
-                    intent.putExtra("class", publication);
+                    intent.putExtra("class", dbData);
                 }
 
                 if (intent != null) {

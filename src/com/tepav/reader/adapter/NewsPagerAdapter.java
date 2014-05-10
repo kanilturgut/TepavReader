@@ -16,6 +16,7 @@ import com.tepav.reader.R;
 import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.model.News;
+import org.json.JSONException;
 
 import java.util.List;
 
@@ -96,8 +97,13 @@ public class NewsPagerAdapter extends FragmentStatePagerAdapter {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, NewsDetails.class);
-                    intent.putExtra("class", newsList.get(myPageNumber));
-                    context.startActivity(intent);
+                    try {
+                        intent.putExtra("class", News.toDBData(newsList.get(myPageNumber)));
+                        intent.putExtra("fromWhere", Constant.DETAILS_FROM_POST);
+                        context.startActivity(intent);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
 

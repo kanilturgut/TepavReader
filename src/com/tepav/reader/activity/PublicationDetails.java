@@ -22,9 +22,11 @@ import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
+import com.tepav.reader.model.DBData;
 import com.tepav.reader.util.Util;
 import com.tepav.reader.model.Publication;
 import com.tepav.reader.util.AlertDialogManager;
+import org.json.JSONException;
 
 import java.io.File;
 
@@ -58,7 +60,12 @@ public class PublicationDetails extends Activity implements View.OnClickListener
         setContentView(R.layout.activity_publication_details);
         this.context = this;
 
-        publication = (Publication) getIntent().getSerializableExtra("class");
+        try {
+            publication =Publication.fromDBData((DBData) getIntent().getSerializableExtra("class"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         fromWhere = getIntent().getIntExtra("fromWhere", -1);
         listType = getIntent().getIntExtra("listType", -1);
         dbHandler = DBHandler.getInstance(context);

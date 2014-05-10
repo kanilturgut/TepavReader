@@ -133,8 +133,9 @@ public class Publication implements Serializable{
         JSONArray likersArray = jsonObject.getJSONArray("likes");
         LinkedList<String> likers = new LinkedList<String>();
         for (int i = 0; i < likersArray.length(); i++) {
-            likers.add(likersArray.getJSONObject(i).toString());
+            likers.add(likersArray.getString(i));
         }
+
         publication.setLikes(likers);
 
         JSONArray filesArray = jsonObject.getJSONArray("files");

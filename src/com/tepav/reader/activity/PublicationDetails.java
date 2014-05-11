@@ -184,6 +184,7 @@ public class PublicationDetails extends Activity implements View.OnClickListener
 
         File ext = Environment.getExternalStorageDirectory();
         File newFile = new File(ext, Constant.PDF_TARGET + publication.getFiles().get(0).getName());
+        Logs.i(TAG, "target : " + newFile);
 
         if (!newFile.exists()) {
             Logs.i(TAG, newFile.getName() + " doesn't exist, it will download from server");

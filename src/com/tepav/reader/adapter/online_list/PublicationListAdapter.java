@@ -20,6 +20,7 @@ import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.model.Publication;
+import com.tepav.reader.service.DownloadPdfFromSwipeList;
 import com.tepav.reader.service.LikeOperation;
 import com.tepav.reader.service.OfflineList;
 import com.tepav.reader.util.AlertDialogManager;
@@ -176,12 +177,14 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
                     if (!checkDB(publication, DBHandler.TABLE_FAVORITE)) {
                         try {
                             dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
+                            DownloadPdfFromSwipeList.doDownloadPdf(context, publication.getFiles().get(0).getName(), publication.getFiles().get(0).getUrl());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else {
                         try {
                             dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_FAVORITE);
+                            DownloadPdfFromSwipeList.doDeletePdf(publication.getFiles().get(0).getName());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -212,12 +215,14 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
                     if (!checkDB(publication, DBHandler.TABLE_READ_LIST)) {
                         try {
                             dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
+                            DownloadPdfFromSwipeList.doDownloadPdf(context, publication.getFiles().get(0).getName(), publication.getFiles().get(0).getUrl());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else {
                         try {
                             dbHandler.delete(Publication.toDBData(publication), DBHandler.TABLE_READ_LIST);
+                            DownloadPdfFromSwipeList.doDeletePdf(publication.getFiles().get(0).getName());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

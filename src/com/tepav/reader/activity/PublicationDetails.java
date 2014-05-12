@@ -18,6 +18,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
+import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.popup.QuickActionForList;
@@ -70,7 +71,7 @@ public class PublicationDetails extends Activity implements View.OnClickListener
         fromWhere = getIntent().getIntExtra("fromWhere", -1);
         listType = getIntent().getIntExtra("listType", -1);
         dbHandler = DBHandler.getInstance(context);
-        aQuery = new AQuery(context);
+        aQuery = Aquery.getInstance(context);
 
         viewTransparent = findViewById(R.id.viewTransparent);
 

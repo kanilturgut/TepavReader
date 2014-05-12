@@ -4,6 +4,7 @@ import android.content.Context;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.model.DBData;
@@ -24,7 +25,7 @@ public class LikeOperation {
 
     public static void doLike(Context context, DBData dbData) {
 
-        AQuery aQuery = new AQuery(context);
+        AQuery aQuery = Aquery.getInstance(context);
         String url = "";
         Map<String, String> map = new HashMap<String, String>();
 

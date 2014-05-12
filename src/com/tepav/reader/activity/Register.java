@@ -11,6 +11,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
+import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.MySharedPreferences;
 import com.tepav.reader.util.AlertDialogManager;
@@ -71,7 +72,7 @@ public class Register extends Activity implements View.OnClickListener {
         llHeaderBack = (LinearLayout) findViewById(R.id.llHeaderBack);
         llHeaderBack.setOnClickListener(this);
 
-        aQuery = new AQuery(context);
+        aQuery = Aquery.getInstance(context);
     }
 
 

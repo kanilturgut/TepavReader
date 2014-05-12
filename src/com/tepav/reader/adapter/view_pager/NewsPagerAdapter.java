@@ -14,6 +14,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
 import com.tepav.reader.activity.NewsDetails;
+import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.model.News;
 import org.json.JSONException;
@@ -73,7 +74,7 @@ public class NewsPagerAdapter extends FragmentStatePagerAdapter {
 
             myPageNumber = getArguments().getInt(ARG_PAGE);
 
-            aq = new AQuery(context);
+            aq = Aquery.getInstance(context);
 
         }
 

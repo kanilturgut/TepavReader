@@ -10,10 +10,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
-import com.tepav.reader.helpers.Constant;
-import com.tepav.reader.helpers.HttpURL;
-import com.tepav.reader.helpers.Logs;
-import com.tepav.reader.helpers.MySharedPreferences;
+import com.tepav.reader.helpers.*;
 import com.tepav.reader.model.FacebookUser;
 import com.tepav.reader.model.TepavUser;
 import com.tepav.reader.model.TwitterUser;
@@ -21,9 +18,11 @@ import com.tepav.reader.service.OfflineList;
 import com.tepav.reader.service.TepavService;
 import com.tepav.reader.util.ConnectionDetector;
 import org.apache.http.HttpStatus;
+import org.apache.http.cookie.Cookie;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Splash extends Activity {
@@ -68,13 +67,14 @@ public class Splash extends Activity {
         };
 
         mySharedPreferences = MySharedPreferences.getInstance(context);
-        aQuery = new AQuery(context);
+        aQuery = Aquery.getInstance(context);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
+        List<Cookie> cookies;
         if (mySharedPreferences.getSize() > 0 && connectionDetector.isConnectingToInternet()) {
 
             int userType = mySharedPreferences.getUserType();

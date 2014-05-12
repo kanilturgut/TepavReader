@@ -14,6 +14,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
+import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
 
@@ -40,7 +41,7 @@ public class PDFDownloadActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_download);
         this.context = this;
-        aQuery = new AQuery(context);
+        aQuery = Aquery.getInstance(context);
 
         buttonOpenDownloadedPDF = (Button) findViewById(R.id.buttonOpenDownloadedPDF);
 

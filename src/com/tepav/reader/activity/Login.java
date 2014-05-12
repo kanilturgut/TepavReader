@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.androidquery.AQuery;
@@ -15,14 +14,10 @@ import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.tepav.reader.R;
-import com.tepav.reader.helpers.HttpURL;
-import com.tepav.reader.helpers.Logs;
-import com.tepav.reader.helpers.MySharedPreferences;
-import com.tepav.reader.helpers.TwitterOperations;
+import com.tepav.reader.helpers.*;
 import com.tepav.reader.model.FacebookUser;
 import com.tepav.reader.model.TepavUser;
 import com.tepav.reader.model.TwitterUser;
-import com.tepav.reader.service.TepavService;
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -100,7 +95,7 @@ public class Login extends Activity implements View.OnClickListener {
             }
         }
 
-        aQuery = new AQuery(context);
+        aQuery = Aquery.getInstance(context);
 
         if (mySharedPreferences.getSize() > 0) {
 

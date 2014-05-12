@@ -18,6 +18,7 @@ import com.tepav.reader.R;
 import com.tepav.reader.activity.NewsDetails;
 import com.tepav.reader.activity.Splash;
 import com.tepav.reader.db.DBHandler;
+import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.Logs;
@@ -55,7 +56,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
         dbHandler = DBHandler.getInstance(context);
         offlineList = OfflineList.getInstance(context);
-        aq = new AQuery(context);
+        aq = Aquery.getInstance(context);
         loadMore();
     }
 

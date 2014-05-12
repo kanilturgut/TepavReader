@@ -5,6 +5,7 @@ import android.os.Environment;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
 
@@ -30,7 +31,7 @@ public class DownloadPdfFromSwipeList {
         } else {
             Logs.i(TAG, filename + " doesn't exist on external storage, it will download");
 
-            AQuery aQuery = new AQuery(context);
+            AQuery aQuery = Aquery.getInstance(context);
             aQuery.download(url, newFile, new AjaxCallback<File>() {
 
                 @Override

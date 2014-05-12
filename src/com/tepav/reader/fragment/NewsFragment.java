@@ -14,6 +14,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.online_list.NewsListAdapter;
 import com.tepav.reader.adapter.view_pager.NewsPagerAdapter;
+import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.WrapContentHeightViewPager;
@@ -73,7 +74,7 @@ public class NewsFragment extends Fragment {
         }
 
 
-        AQuery aQuery = new AQuery(context);
+        AQuery aQuery = Aquery.getInstance(context);
         aQuery.post(HttpURL.createURL(HttpURL.news), jsonObject, JSONArray.class, new AjaxCallback<JSONArray>() {
 
             @Override

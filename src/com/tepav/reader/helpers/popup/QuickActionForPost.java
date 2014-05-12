@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageButton;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import com.tepav.reader.R;
@@ -36,6 +37,7 @@ public class QuickActionForPost extends PopupWindows implements OnDismissListene
 
     DBHandler dbHandler;
     RelativeLayout rlReadListEmpty, rlReadListNotEmpty, rlFavListEmpty, rlFavListNotEmpty, rlArchiveEmpty, rlArchiveNotEmpty;
+    ImageButton popupDismissButton;
 
     /**
      * Constructor allowing orientation override
@@ -100,7 +102,8 @@ public class QuickActionForPost extends PopupWindows implements OnDismissListene
             Util.checkIfIsContain(dbHandler, DBHandler.TABLE_ARCHIVE, publication.getId(), rlArchiveEmpty, rlArchiveNotEmpty);
         }
 
-
+        popupDismissButton = (ImageButton) mRootView.findViewById(R.id.popupDismissButton);
+        popupDismissButton.setOnClickListener(this);
     }
 
     @Override
@@ -248,6 +251,10 @@ public class QuickActionForPost extends PopupWindows implements OnDismissListene
 
             Util.changeVisibility(rlArchiveEmpty);
             Util.changeVisibility(rlArchiveNotEmpty);
+        } else if (view == popupDismissButton) {
+
+            this.onDismiss();
+            dismiss();
         }
     }
 

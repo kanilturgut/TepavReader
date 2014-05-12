@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import com.tepav.reader.R;
@@ -43,6 +44,7 @@ public class QuickActionForList extends PopupWindows implements PopupWindow.OnDi
 
     DBHandler dbHandler;
     RelativeLayout rlReadListEmpty, rlReadListNotEmpty, rlFavListEmpty, rlFavListNotEmpty, rlArchiveEmpty, rlArchiveNotEmpty;
+    ImageButton popupDismissButton;
 
     DBData dbData = null;
 
@@ -111,7 +113,6 @@ public class QuickActionForList extends PopupWindows implements PopupWindow.OnDi
         rlArchiveNotEmpty = (RelativeLayout) mRootView.findViewById(R.id.rlArchiveNotEmpty);
         rlArchiveNotEmpty.setOnClickListener(this);
 
-
         if (listType == LIST_TYPE_READING_LIST) {
             Util.checkIfIsContain(dbHandler, DBHandler.TABLE_FAVORITE, dbData.getId(), rlFavListEmpty, rlFavListNotEmpty);
             Util.checkIfIsContain(dbHandler, DBHandler.TABLE_ARCHIVE, dbData.getId(), rlArchiveEmpty, rlArchiveNotEmpty);
@@ -125,6 +126,9 @@ public class QuickActionForList extends PopupWindows implements PopupWindow.OnDi
             Util.changeVisibility(rlReadListEmpty);
             Util.changeVisibility(rlArchiveEmpty);
         }
+
+        popupDismissButton = (ImageButton) mRootView.findViewById(R.id.popupDismissButton);
+        popupDismissButton.setOnClickListener(this);
 
     }
 
@@ -176,6 +180,10 @@ public class QuickActionForList extends PopupWindows implements PopupWindow.OnDi
 
             Util.changeVisibility(rlArchiveEmpty);
             Util.changeVisibility(rlArchiveNotEmpty);
+        } else if (view == popupDismissButton) {
+
+            this.onDismiss();
+            dismiss();
         }
     }
 

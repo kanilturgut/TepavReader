@@ -14,10 +14,10 @@ import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
-import com.tepav.reader.model.DBData;
-import com.tepav.reader.util.Util;
 import com.tepav.reader.model.Blog;
+import com.tepav.reader.model.DBData;
 import com.tepav.reader.util.AlertDialogManager;
+import com.tepav.reader.util.Util;
 import org.json.JSONException;
 
 /**
@@ -40,6 +40,7 @@ public class BlogDetails extends Activity implements View.OnClickListener {
 
     LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList;
     RelativeLayout rlFooter;
+    View viewTransparent;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +57,24 @@ public class BlogDetails extends Activity implements View.OnClickListener {
         listType = getIntent().getIntExtra("listType", -1);
         dbHandler = DBHandler.getInstance(context);
 
+        viewTransparent = findViewById(R.id.viewTransparent);
+
         if (fromWhere == Constant.DETAILS_FROM_LIST) {
             quickActionForList = new QuickActionForList(context, dbHandler, blog, listType);
-        }
-        else if (fromWhere == Constant.DETAILS_FROM_POST) {
+            quickActionForList.setOnDismissListener(new QuickActionForList.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    viewTransparent.setVisibility(View.INVISIBLE);
+                }
+            });
+        } else if (fromWhere == Constant.DETAILS_FROM_POST) {
             quickAction = new QuickActionForPost(context, dbHandler, blog);
+            quickAction.setOnDismissListener(new QuickActionForPost.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    viewTransparent.setVisibility(View.INVISIBLE);
+                }
+            });
         }
 
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
@@ -109,6 +123,8 @@ public class BlogDetails extends Activity implements View.OnClickListener {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, blog.getBtitle() + " " + url);
                 startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
             } else if (view == llFooterAddToList) {
+
+                viewTransparent.setVisibility(View.VISIBLE);
 
                 if (quickActionForList != null) {
                     quickActionForList.show(rlFooter);

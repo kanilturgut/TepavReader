@@ -46,72 +46,84 @@
     </RelativeLayout>
 
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:background="@color/beyaz"
-                    android:layout_marginTop="@dimen/gradient_height"
-                    android:layout_below="@+id/llHeader"
-                    android:layout_above="@+id/rlFooter">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                 android:layout_below="@+id/llHeader"
+                 android:layout_above="@+id/rlFooter">
 
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:layout_alignParentTop="true"
-                      android:id="@+id/llScrollViewChild"
-                      android:orientation="vertical">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:background="@color/beyaz"
+                        android:layout_marginTop="@dimen/gradient_height"
+                        android:layout_below="@+id/llHeader"
+                        android:layout_above="@+id/rlFooter">
 
-            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="5dp"
-                            android:id="@+id/rlPublicationDetailPublicationHeader">
-
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:id="@+id/tvPublicationDetailTitleOfPublication"
-                          android:text="Başlık"
-                          android:textStyle="bold"
-                          android:textSize="@dimen/details_title_of_item_font_size"
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:layout_alignParentTop="true"
-                          android:textColor="@color/tepav_siyahi"/>
+                          android:id="@+id/llScrollViewChild"
+                          android:orientation="vertical">
 
                 <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:id="@+id/rlPublicationDetailPublicationTimeAndComment"
-                                android:layout_marginTop="5dp"
-                                android:layout_below="@+id/tvPublicationDetailTitleOfPublication">
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/rlPublicationDetailPublicationHeader">
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:id="@+id/tvPublicationDetailTimeInformationOfPublication"
-                              android:textColor="@color/gri"
-                              android:textSize="@dimen/details_time_info_of_item_font_size"
-                              android:layout_alignParentLeft="true"
-                              android:text="Yesterday @ 12:14pm"
-                              android:layout_centerVertical="true"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:id="@+id/tvPublicationDetailTitleOfPublication"
+                              android:text="Başlık"
+                              android:textStyle="bold"
+                              android:textSize="@dimen/details_title_of_item_font_size"
+                              android:layout_alignParentTop="true"
+                              android:textColor="@color/tepav_siyahi"/>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:text="Yorum"
-                              android:layout_alignParentRight="true"
-                              android:layout_centerVertical="true"/>
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                                    android:id="@+id/rlPublicationDetailPublicationTimeAndComment"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_below="@+id/tvPublicationDetailTitleOfPublication">
 
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:id="@+id/tvPublicationDetailTimeInformationOfPublication"
+                                  android:textColor="@color/gri"
+                                  android:textSize="@dimen/details_time_info_of_item_font_size"
+                                  android:layout_alignParentLeft="true"
+                                  android:text="Yesterday @ 12:14pm"
+                                  android:layout_centerVertical="true"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:text="Yorum"
+                                  android:layout_alignParentRight="true"
+                                  android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
                 </RelativeLayout>
-            </RelativeLayout>
 
-            <WebView android:layout_width="match_parent" android:layout_height="wrap_content"
-                     android:layout_marginLeft="10dp"
-                     android:layout_marginRight="10dp"
-                     android:id="@+id/wvPublicationDetailContentOfPublication">
+                <WebView android:layout_width="match_parent" android:layout_height="wrap_content"
+                         android:layout_marginLeft="10dp"
+                         android:layout_marginRight="10dp"
+                         android:id="@+id/wvPublicationDetailContentOfPublication">
 
-            </WebView>
-        </LinearLayout>
+                </WebView>
+            </LinearLayout>
 
-        <Button
-                android:id="@+id/buttonOpenPDF"
-                android:layout_width="match_parent"
-                android:text="@string/doc_downloading"
-                android:layout_below="@+id/llScrollViewChild"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:textColor="#BBBBBB"
-                android:gravity="center"/>
+            <Button
+                    android:id="@+id/buttonOpenPDF"
+                    android:layout_width="match_parent"
+                    android:text="@string/doc_downloading"
+                    android:layout_below="@+id/llScrollViewChild"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:textColor="#BBBBBB"
+                    android:gravity="center"/>
 
-    </RelativeLayout>
+        </RelativeLayout>
+
+
+        <View android:layout_width="match_parent" android:layout_height="match_parent"
+              android:id="@+id/viewTransparent"
+              android:background="#BB000000"
+              android:visibility="invisible"/>
+
+    </FrameLayout>
 
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/footer_bar_height"

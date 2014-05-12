@@ -45,61 +45,69 @@
 
     </RelativeLayout>
 
-    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
-                android:background="@color/beyaz"
-                android:layout_marginTop="@dimen/gradient_height"
-                android:orientation="horizontal"
-                android:layout_below="@+id/llHeader"
-                android:layout_above="@+id/rlFooter">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                 android:layout_below="@+id/llHeader"
+                 android:layout_above="@+id/rlFooter">
 
-        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                      android:orientation="vertical">
+        <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:background="@color/beyaz"
+                    android:layout_marginTop="@dimen/gradient_height"
+                    android:orientation="horizontal">
 
-            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="5dp"
-                            android:id="@+id/rlBlogDetailBlogHeader">
-
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:id="@+id/tvBlogDetailTitleOfBlog"
-                          android:text="Başlık"
-                          android:textStyle="bold"
-                          android:textSize="@dimen/details_title_of_item_font_size"
-                          android:layout_alignParentTop="true"
-                          android:textColor="@color/tepav_siyahi"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                          android:orientation="vertical">
 
                 <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:id="@+id/rlBlogDetailBlogTimeAndComment"
-                                android:layout_marginTop="5dp"
-                                android:layout_below="@+id/tvBlogDetailTitleOfBlog">
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="5dp"
+                                android:id="@+id/rlBlogDetailBlogHeader">
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:id="@+id/tvBlogDetailTimeInformationOfBlog"
-                              android:textColor="@color/gri"
-                              android:textSize="@dimen/details_time_info_of_item_font_size"
-                              android:layout_alignParentLeft="true"
-                              android:text="Yesterday @ 12:14pm"
-                              android:layout_centerVertical="true"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:id="@+id/tvBlogDetailTitleOfBlog"
+                              android:text="Başlık"
+                              android:textStyle="bold"
+                              android:textSize="@dimen/details_title_of_item_font_size"
+                              android:layout_alignParentTop="true"
+                              android:textColor="@color/tepav_siyahi"/>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:text="Yorum"
-                              android:layout_alignParentRight="true"
-                              android:layout_centerVertical="true"/>
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                                    android:id="@+id/rlBlogDetailBlogTimeAndComment"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_below="@+id/tvBlogDetailTitleOfBlog">
 
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:id="@+id/tvBlogDetailTimeInformationOfBlog"
+                                  android:textColor="@color/gri"
+                                  android:textSize="@dimen/details_time_info_of_item_font_size"
+                                  android:layout_alignParentLeft="true"
+                                  android:text="Yesterday @ 12:14pm"
+                                  android:layout_centerVertical="true"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                  android:text="Yorum"
+                                  android:layout_alignParentRight="true"
+                                  android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
                 </RelativeLayout>
-            </RelativeLayout>
 
-            <WebView android:layout_width="match_parent" android:layout_height="wrap_content"
-                     android:layout_marginLeft="10dp"
-                     android:layout_marginRight="10dp"
-                     android:id="@+id/wvBlogDetailContentOfBlog">
+                <WebView android:layout_width="match_parent" android:layout_height="wrap_content"
+                         android:layout_marginLeft="10dp"
+                         android:layout_marginRight="10dp"
+                         android:id="@+id/wvBlogDetailContentOfBlog">
 
-            </WebView>
-        </LinearLayout>
+                </WebView>
+            </LinearLayout>
 
-    </ScrollView>
+        </ScrollView>
+
+        <View android:layout_width="match_parent" android:layout_height="match_parent"
+              android:id="@+id/viewTransparent"
+              android:background="#BB000000"
+              android:visibility="invisible"/>
+    </FrameLayout>
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="50dp"
                     android:background="@color/tepav_siyahi"

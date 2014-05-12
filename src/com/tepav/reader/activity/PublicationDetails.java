@@ -50,6 +50,7 @@ public class PublicationDetails extends Activity implements View.OnClickListener
     TextView titleOfPublication, timeOfPublication;
     LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, filesLayout;
     RelativeLayout rlFooter;
+    View viewTransparent;
     Button buttonOpenPDF;
 
     AQuery aQuery = null;
@@ -71,11 +72,25 @@ public class PublicationDetails extends Activity implements View.OnClickListener
         dbHandler = DBHandler.getInstance(context);
         aQuery = new AQuery(context);
 
+        viewTransparent = findViewById(R.id.viewTransparent);
+
         if (fromWhere == Constant.DETAILS_FROM_LIST) {
             quickActionForList = new QuickActionForList(context, dbHandler, publication, listType);
+            quickActionForList.setOnDismissListener(new QuickActionForList.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    viewTransparent.setVisibility(View.INVISIBLE);
+                }
+            });
         }
         else if (fromWhere == Constant.DETAILS_FROM_POST) {
             quickAction = new QuickActionForPost(context, dbHandler, publication);
+            quickAction.setOnDismissListener(new QuickActionForPost.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    viewTransparent.setVisibility(View.INVISIBLE);
+                }
+            });
         }
 
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
@@ -134,6 +149,8 @@ public class PublicationDetails extends Activity implements View.OnClickListener
                 shareIntent.putExtra(Intent.EXTRA_TEXT, publication.getYtitle() + " " + url);
                 startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
             } else if (view == llFooterAddToList) {
+
+                viewTransparent.setVisibility(View.VISIBLE);
 
                 if (quickActionForList != null) {
                     quickActionForList.show(rlFooter);

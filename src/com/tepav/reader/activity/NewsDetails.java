@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.tepav.reader.R;
@@ -42,6 +43,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
 
     LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, filesLayout;
     RelativeLayout rlFooter;
+    View viewTransparent;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,11 +60,25 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         listType = getIntent().getIntExtra("listType", -1);
         dbHandler = DBHandler.getInstance(context);
 
+        viewTransparent = findViewById(R.id.viewTransparent);
+
         if (fromWhere == Constant.DETAILS_FROM_LIST) {
             quickActionForList = new QuickActionForList(context, dbHandler, news, listType);
+            quickActionForList.setOnDismissListener(new QuickActionForList.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    viewTransparent.setVisibility(View.INVISIBLE);
+                }
+            });
         }
         else if (fromWhere == Constant.DETAILS_FROM_POST) {
             quickAction = new QuickActionForPost(context, dbHandler, news);
+            quickAction.setOnDismissListener(new QuickActionForPost.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    viewTransparent.setVisibility(View.INVISIBLE);
+                }
+            });
         }
 
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
@@ -143,9 +159,11 @@ public class NewsDetails extends Activity implements View.OnClickListener {
                 startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
             } else if (view == llFooterAddToList) {
 
+                viewTransparent.setVisibility(View.VISIBLE);
+
                 if (quickActionForList != null) {
                     quickActionForList.show(rlFooter);
-                    quickActionForList.setAnimStyle(QuickActionForPost.ANIM_GROW_FROM_CENTER);
+                    quickActionForList.setAnimStyle(QuickActionForList.ANIM_GROW_FROM_CENTER);
                 } else if (quickAction != null) {
                     quickAction.show(rlFooter);
                     quickAction.setAnimStyle(QuickActionForPost.ANIM_GROW_FROM_CENTER);

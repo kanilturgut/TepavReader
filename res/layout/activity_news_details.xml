@@ -45,13 +45,14 @@
 
     </RelativeLayout>
 
-    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
-                android:background="@color/beyaz"
-                android:layout_marginTop="@dimen/gradient_height"
-                android:orientation="horizontal"
-                android:layout_below="@+id/llHeader"
-                android:layout_above="@+id/rlFooter">
-        <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                 android:layout_below="@+id/llHeader"
+                 android:layout_above="@+id/rlFooter">
+
+        <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:background="@color/beyaz"
+                    android:layout_marginTop="@dimen/gradient_height"
+                    android:orientation="horizontal">
 
 
             <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
@@ -115,14 +116,14 @@
 
             </LinearLayout>
 
-            <View android:layout_width="match_parent" android:layout_height="match_parent"
-                  android:id="@+id/viewTransparent"
-                  android:background="#88000000"
-                  android:visibility="gone"/>
+        </ScrollView>
 
-        </FrameLayout>
+        <View android:layout_width="match_parent" android:layout_height="match_parent"
+              android:id="@+id/viewTransparent"
+              android:background="#BB000000"
+              android:visibility="invisible"/>
 
-    </ScrollView>
+    </FrameLayout>
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="@dimen/footer_bar_height"
                     android:background="@color/tepav_siyahi"

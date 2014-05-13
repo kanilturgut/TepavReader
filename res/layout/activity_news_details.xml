@@ -88,7 +88,10 @@
                                   android:layout_centerVertical="true"/>
 
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                  android:text="Yorum"
+                                  android:id="@+id/tvComment"
+                                  android:text="Yorum Yaz"
+                                  android:textColor="@color/gri"
+                                  android:drawableRight="@drawable/comment"
                                   android:layout_alignParentRight="true"
                                   android:layout_centerVertical="true"/>
 

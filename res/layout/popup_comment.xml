@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:padding="20dp"
+                  android:background="@color/beyaz"
+                  android:id="@+id/llCommentHeader">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="YORUM EKLE"
+                  android:textSize="20sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/tepav_siyahi"/>
+
+        <TextView android:layout_width="match_parent" android:layout_height="30dp"
+                  android:id="@+id/tvCommentUsername"
+                  android:layout_gravity="center_vertical"
+                  android:layout_marginTop="10dp"
+                  android:padding="5dp"
+                  android:gravity="center_vertical"
+                  android:text="Barış Okur"
+                  android:background="@drawable/stroke_text_view"
+                  android:textColor="@color/koyu_gri"/>
+
+        <TextView android:layout_width="match_parent" android:layout_height="30dp"
+                  android:id="@+id/tvCommentUserEmail"
+                  android:layout_gravity="center_vertical"
+                  android:layout_marginTop="10dp"
+                  android:padding="5dp"
+                  android:gravity="center_vertical"
+                  android:text="baris@okur.com"
+                  android:background="@drawable/stroke_text_view"
+                  android:textColor="@color/koyu_gri"/>
+
+
+    </LinearLayout>
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:id="@+id/rlCommentContent"
+                    android:layout_below="@+id/llCommentHeader"
+                    android:padding="20dp"
+                    android:background="#EDEDED">
+
+        <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/etCommentContent"
+                  android:textColor="@color/koyu_gri"
+                  android:padding="5dp"
+                  android:lines="4"
+                  android:background="@drawable/rounded_stroke_no_color"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:background="#EDEDED"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp"
+                    android:layout_below="@+id/rlCommentContent">
+
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/bCommentSend"
+                android:minWidth="90dp"
+                android:background="@drawable/rounded_corners"
+                android:text="Gönder"
+                android:textColor="@color/beyaz"
+                android:layout_alignParentRight="true"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tvCommentCancel"
+                android:text="İptal"
+                android:layout_toLeftOf="@+id/bCommentSend"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/koyu_gri"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

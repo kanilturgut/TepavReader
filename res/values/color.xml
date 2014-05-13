@@ -20,5 +20,9 @@
 
     <color name="do_login">#51C4D4</color>
     <color name="login_footer_background_color">#F0F4F7</color>
-    
+
+    <color name="crouton_confirm">#81D900</color>
+    <color name="crouton_alert">#FF001C</color>
+    <color name="crouton_info">#00E1FF</color>
+
 </resources>

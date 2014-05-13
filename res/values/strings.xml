@@ -92,5 +92,7 @@
     <string name="must_log_in">Bu özelliği kullanabilmek için öncelikle giriş yapmalısınız</string>
     <string name="warning">Uyarı</string>
 
+    <string name="you_are_liked_this_post">Bu yazıyı beğendiniz</string>
+
 
 </resources>

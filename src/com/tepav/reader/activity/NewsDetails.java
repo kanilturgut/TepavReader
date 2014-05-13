@@ -14,11 +14,14 @@ import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
+import com.tepav.reader.helpers.crouton.Crouton;
+import com.tepav.reader.helpers.crouton.Style;
 import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.model.DBData;
 import com.tepav.reader.model.File;
 import com.tepav.reader.model.News;
+import com.tepav.reader.operation.CroutonMaker;
 import com.tepav.reader.operation.LikeOperation;
 import com.tepav.reader.util.AlertDialogManager;
 import com.tepav.reader.util.Util;
@@ -110,7 +113,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
             filesLayout.addView(createTextView(file));
         }
 
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_LIKE, news.getId(), llFooterLike, llFooterAlreadyLiked);
+        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_LIKE, news.getId(), llFooterLike, llFooterAlreadyLiked);
 
     }
 
@@ -149,12 +152,14 @@ public class NewsDetails extends Activity implements View.OnClickListener {
                 try {
                     dbHandler.insert(News.toDBData(news), DBHandler.TABLE_LIKE);
                     LikeOperation.doLike(News.toDBData(news));
+                    CroutonMaker.confirm(NewsDetails.this, getString(R.string.you_are_liked_this_post));
+
                 } catch (JSONException e) {
                     Logs.e(TAG, "ERROR on like", e);
                 }
 
-                Util.changeVisibility(llFooterLike);
-                Util.changeVisibility(llFooterAlreadyLiked);
+                //Util.changeVisibility(llFooterLike);
+                //Util.changeVisibility(llFooterAlreadyLiked);
 
             } else if (view == llFooterAlreadyLiked) {
                 Util.changeVisibility(llFooterLike);
@@ -190,5 +195,12 @@ public class NewsDetails extends Activity implements View.OnClickListener {
                 alertDialogManager.showLoginDialog(context, getString(R.string.warning), getString(R.string.must_log_in), false);
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Crouton.cancelAllCroutons();
     }
 }

@@ -24,6 +24,7 @@ import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.model.DBData;
+import com.tepav.reader.operation.LikeOperation;
 import com.tepav.reader.util.Util;
 import com.tepav.reader.model.Publication;
 import com.tepav.reader.util.AlertDialogManager;
@@ -38,7 +39,7 @@ import java.io.File;
  */
 public class PublicationDetails extends Activity implements View.OnClickListener {
 
-    String TAG = "PublicationDetails";
+    final String TAG = "PublicationDetails";
     Context context;
     DBHandler dbHandler;
     QuickActionForPost quickAction;
@@ -125,6 +126,8 @@ public class PublicationDetails extends Activity implements View.OnClickListener
 
         timeOfPublication = (TextView) findViewById(R.id.tvPublicationDetailTimeInformationOfPublication);
         timeOfPublication.setText(publication.getYdate() + " - " + publication.getYtype());
+
+        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_LIKE, publication.getId(), llFooterLike, llFooterAlreadyLiked);
     }
 
     @Override
@@ -133,6 +136,13 @@ public class PublicationDetails extends Activity implements View.OnClickListener
         if (Splash.isUserLoggedIn) {
 
             if (view == llFooterLike) {
+
+                try {
+                    dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_LIKE);
+                    LikeOperation.doLike(Publication.toDBData(publication));
+                } catch (JSONException e) {
+                    Logs.e(TAG, "ERROR on like", e);
+                }
 
                 Util.changeVisibility(llFooterLike);
                 Util.changeVisibility(llFooterAlreadyLiked);

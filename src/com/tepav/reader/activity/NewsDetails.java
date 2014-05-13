@@ -8,19 +8,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
+import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.model.DBData;
-import com.tepav.reader.util.Util;
 import com.tepav.reader.model.File;
 import com.tepav.reader.model.News;
+import com.tepav.reader.operation.LikeOperation;
 import com.tepav.reader.util.AlertDialogManager;
+import com.tepav.reader.util.Util;
 import org.json.JSONException;
 
 /**
@@ -30,6 +31,7 @@ import org.json.JSONException;
  */
 public class NewsDetails extends Activity implements View.OnClickListener {
 
+    final String TAG = "NewsDetails";
     Context context;
     DBHandler dbHandler;
     QuickActionForPost quickAction;
@@ -108,6 +110,8 @@ public class NewsDetails extends Activity implements View.OnClickListener {
             filesLayout.addView(createTextView(file));
         }
 
+        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_LIKE, news.getId(), llFooterLike, llFooterAlreadyLiked);
+
     }
 
     TextView createTextView(final File file) {
@@ -141,6 +145,13 @@ public class NewsDetails extends Activity implements View.OnClickListener {
 
         if (Splash.isUserLoggedIn) {
             if (view == llFooterLike) {
+
+                try {
+                    dbHandler.insert(News.toDBData(news), DBHandler.TABLE_LIKE);
+                    LikeOperation.doLike(News.toDBData(news));
+                } catch (JSONException e) {
+                    Logs.e(TAG, "ERROR on like", e);
+                }
 
                 Util.changeVisibility(llFooterLike);
                 Util.changeVisibility(llFooterAlreadyLiked);

@@ -12,10 +12,12 @@ import android.widget.TextView;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
+import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.DBData;
+import com.tepav.reader.operation.LikeOperation;
 import com.tepav.reader.util.AlertDialogManager;
 import com.tepav.reader.util.Util;
 import org.json.JSONException;
@@ -27,6 +29,7 @@ import org.json.JSONException;
  */
 public class BlogDetails extends Activity implements View.OnClickListener {
 
+    final String TAG = "BlogDetails";
     Context context;
     DBHandler dbHandler;
     QuickActionForPost quickAction;
@@ -98,6 +101,8 @@ public class BlogDetails extends Activity implements View.OnClickListener {
 
         timeOfBlog = (TextView) findViewById(R.id.tvBlogDetailTimeInformationOfBlog);
         timeOfBlog.setText(blog.getBdate());
+
+        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_LIKE, blog.getId(), llFooterLike, llFooterAlreadyLiked);
     }
 
     @Override
@@ -106,6 +111,13 @@ public class BlogDetails extends Activity implements View.OnClickListener {
         if (Splash.isUserLoggedIn) {
 
             if (view == llFooterLike) {
+
+                try {
+                    dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_LIKE);
+                    LikeOperation.doLike(Blog.toDBData(blog));
+                } catch (JSONException e) {
+                    Logs.e(TAG, "ERROR on like", e);
+                }
 
                 Util.changeVisibility(llFooterLike);
                 Util.changeVisibility(llFooterAlreadyLiked);

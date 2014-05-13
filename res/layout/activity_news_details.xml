@@ -165,7 +165,7 @@
                     android:orientation="horizontal">
 
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="@string/liked"
+                          android:text="@string/like"
                           android:layout_gravity="center_vertical"
                           android:textColor="@color/beyaz"
                           android:textSize="@dimen/footer_button_font_size"/>
@@ -230,30 +230,6 @@
                         android:src="@drawable/ic_action_copy_light"/>
 
             </LinearLayout>
-
-            <LinearLayout
-                    android:id="@+id/llFooterAddedToList"
-                    android:visibility="gone"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="5dp"
-                    android:orientation="horizontal">
-
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="@string/added_to_list"
-                          android:layout_gravity="center_vertical"
-                          android:textColor="@color/beyaz"
-                          android:textSize="@dimen/footer_button_font_size"/>
-
-                <ImageView
-                        android:contentDescription="@string/added_to_list"
-                        android:layout_width="@dimen/footer_button_size"
-                        android:layout_height="@dimen/footer_button_size"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_action_accept"/>
-
-            </LinearLayout>
-
         </LinearLayout>
 
     </RelativeLayout>

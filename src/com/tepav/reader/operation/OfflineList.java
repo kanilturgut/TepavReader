@@ -1,8 +1,7 @@
-package com.tepav.reader.service;
+package com.tepav.reader.operation;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.model.DBData;

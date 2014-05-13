@@ -21,9 +21,9 @@ import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.model.Publication;
-import com.tepav.reader.service.DownloadPdfFromSwipeList;
-import com.tepav.reader.service.LikeOperation;
-import com.tepav.reader.service.OfflineList;
+import com.tepav.reader.operation.DownloadPdfFromSwipeList;
+import com.tepav.reader.operation.LikeOperation;
+import com.tepav.reader.operation.OfflineList;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -144,7 +144,7 @@ public class PublicationListAdapter extends ArrayAdapter<Publication> {
                     if (!checkDB(publication, DBHandler.TABLE_LIKE)) {
                         try {
                             dbHandler.insert(Publication.toDBData(publication), DBHandler.TABLE_LIKE);
-                            LikeOperation.doLike(context, Publication.toDBData(publication));
+                            LikeOperation.doLike(Publication.toDBData(publication));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

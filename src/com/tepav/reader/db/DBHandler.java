@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.model.DBData;
-import com.tepav.reader.service.OfflineList;
+import com.tepav.reader.operation.OfflineList;
 
 import java.util.LinkedList;
 

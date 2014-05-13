@@ -25,8 +25,8 @@ import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.model.Blog;
-import com.tepav.reader.service.LikeOperation;
-import com.tepav.reader.service.OfflineList;
+import com.tepav.reader.operation.LikeOperation;
+import com.tepav.reader.operation.OfflineList;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -164,7 +164,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
                     if (!checkDB(blog, DBHandler.TABLE_LIKE)) {
                         try {
                             dbHandler.insert(Blog.toDBData(blog), DBHandler.TABLE_LIKE);
-                            LikeOperation.doLike(context, Blog.toDBData(blog));
+                            LikeOperation.doLike(Blog.toDBData(blog));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

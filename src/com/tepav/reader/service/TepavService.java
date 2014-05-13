@@ -3,6 +3,7 @@ package com.tepav.reader.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import com.tepav.reader.operation.OfflineList;
 
 /**
  * Author   : kanilturgut

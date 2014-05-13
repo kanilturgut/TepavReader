@@ -3,26 +3,24 @@ package com.tepav.reader.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
 import com.tepav.reader.R;
+import com.tepav.reader.backend.Requests;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.*;
-import com.tepav.reader.model.FacebookUser;
 import com.tepav.reader.model.TepavUser;
-import com.tepav.reader.model.TwitterUser;
-import com.tepav.reader.service.OfflineList;
-import com.tepav.reader.service.TepavService;
+import com.tepav.reader.operation.OfflineList;
 import com.tepav.reader.util.ConnectionDetector;
+import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.cookie.Cookie;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.List;
+import java.io.IOException;
 import java.util.Map;
 
 public class Splash extends Activity {
@@ -81,8 +79,54 @@ public class Splash extends Activity {
 
             if (userType == MySharedPreferences.USER_TYPE_TEPAV) {
 
+                final TepavUser tepavUser = mySharedPreferences.getTepavUser();
+
+                new AsyncTask<Void, Void, HttpResponse>() {
+
+                    @Override
+                    protected HttpResponse doInBackground(Void... voids) {
+
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("email", tepavUser.getEmail());
+                            jsonObject.put("password", tepavUser.getPassword());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        try {
+                            return Requests.post(HttpURL.tepavLogin, jsonObject.toString());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Logs.e(TAG, "LOGIN FAILED", e);
+                            return null;
+                        }
+                    }
+
+                    @Override
+                    protected void onPostExecute(HttpResponse httpResponse) {
+
+                        try {
+                            String resp = Requests.readResponse(httpResponse);
+                            Logs.i(TAG, "response is " + resp);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK))
+                            loginSuccessful();
+                        else
+                            loginUnsuccessful();
+                    }
+                }.execute();
+
+                /*
+
+
+
                 loginURL = HttpURL.createURL(HttpURL.tepavLogin);
-                TepavUser tepavUser = mySharedPreferences.getTepavUser();
+                //TepavUser tepavUser = mySharedPreferences.getTepavUser();
                 ajaxCallback = new AjaxCallback<JSONObject>() {
 
                     @Override
@@ -156,9 +200,13 @@ public class Splash extends Activity {
 
             ajaxCallback.params(params);
             aQuery.ajax(loginURL, JSONObject.class, ajaxCallback);
-        } else {
-            //call runnable
-            startHandler.postDelayed(startRunnable, Constant.SPLASH_TRANSITION_TIME);
+             */
+            } else {
+                //call runnable
+                startHandler.postDelayed(startRunnable, Constant.SPLASH_TRANSITION_TIME);
+            }
+
+
         }
     }
 

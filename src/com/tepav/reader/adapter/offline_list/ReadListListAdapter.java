@@ -28,7 +28,7 @@ import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.DBData;
 import com.tepav.reader.model.News;
 import com.tepav.reader.model.Publication;
-import com.tepav.reader.service.OfflineList;
+import com.tepav.reader.operation.OfflineList;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONException;
 

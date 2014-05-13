@@ -58,17 +58,22 @@ public class LikeOperation {
 
             @Override
             protected void onPostExecute(HttpResponse httpResponse) {
-                try {
-                    String resp = Requests.readResponse(httpResponse);
-                    Logs.i(TAG, "response is " + resp);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
-                if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK))
-                    Logs.i(TAG, "SUCCESS");
-                else
-                    Logs.e(TAG, "FAILED");
+                if (httpResponse != null) {
+
+                    try {
+                        String resp = Requests.readResponse(httpResponse);
+                        Logs.i(TAG, "response is " + resp);
+                    } catch (IOException e) {
+                        Logs.e(TAG, "ERROR on reading httpResponse", e);
+                    }
+
+                    if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
+                        Logs.i(TAG, "SUCCESS");
+                    } else {
+                        Logs.e(TAG, "FAILED");
+                    }
+                }
             }
         }.execute();
     }

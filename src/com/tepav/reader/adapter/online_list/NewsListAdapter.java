@@ -27,11 +27,15 @@ import com.tepav.reader.model.News;
 import com.tepav.reader.service.LikeOperation;
 import com.tepav.reader.service.OfflineList;
 import com.tepav.reader.util.AlertDialogManager;
+import org.apache.http.HttpStatus;
+import org.apache.http.cookie.Cookie;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Author : kanilturgut
@@ -133,15 +137,44 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             @Override
             public void onClick(View view) {
 
+
                 if (Splash.isUserLoggedIn) {
 
-                    String url = Constant.SHARE_NEWS + news.getHaber_id();
+                    /*
+                String url = Constant.SHARE_NEWS + news.getHaber_id();
 
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT, news.getHtitle());
                     shareIntent.putExtra(Intent.EXTRA_TEXT, news.getHtitle() + " " + url);
                     context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)));
+                 */
+
+                    Map<String, String> map = new HashMap<String, String>();
+
+                    AjaxCallback<JSONObject> ajaxCallback = new AjaxCallback<JSONObject>() {
+
+                        @Override
+                        public void callback(String url, JSONObject object, AjaxStatus status) {
+                            super.callback(url, object, status);
+
+                            if (status.getCode() == HttpStatus.SC_OK) {
+                                Logs.i(TAG, "SUCCESS");
+                            } else {
+                                Logs.e(TAG, "FAILED");
+                            }
+                        }
+                    };
+
+                    map.put("comment", "denememememe");
+                    map.put("contentId", news.getId());
+
+                    for (Cookie cookie: Aquery.cookies)
+                        ajaxCallback.cookie(cookie.getName(), cookie.getValue());
+
+                    aq.ajax(HttpURL.createURL(HttpURL.addComment), JSONObject.class, ajaxCallback);
+
+
                 } else {
                     AlertDialogManager alertDialogManager = new AlertDialogManager();
                     alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);

@@ -30,5 +30,9 @@ public class HttpURL {
     public static final String facebookLogin = "/auth/facebook/token";
     public static final String twitterLogin = "/auth/twitter/token";
 
+    // comment
+    public static final String addComment = "/comment/add";
+    public static final String getComment = "/comment/getComments";
+
 
 }

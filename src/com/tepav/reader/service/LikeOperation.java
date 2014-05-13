@@ -9,6 +9,7 @@ import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.model.DBData;
 import org.apache.http.HttpStatus;
+import org.apache.http.cookie.Cookie;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -55,6 +56,10 @@ public class LikeOperation {
         }
 
         ajaxCallback.params(map);
+
+        for (Cookie cookie: Aquery.cookies)
+            ajaxCallback.cookie(cookie.getName(), cookie.getValue());
+
         aQuery.ajax(url, JSONObject.class, ajaxCallback);
     }
 

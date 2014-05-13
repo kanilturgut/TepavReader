@@ -74,7 +74,6 @@ public class Splash extends Activity {
     protected void onStart() {
         super.onStart();
 
-        List<Cookie> cookies;
         if (mySharedPreferences.getSize() > 0 && connectionDetector.isConnectingToInternet()) {
 
             int userType = mySharedPreferences.getUserType();
@@ -89,9 +88,11 @@ public class Splash extends Activity {
                     @Override
                     public void callback(String url, JSONObject object, AjaxStatus status) {
 
-                        if (status.getCode() == HttpStatus.SC_OK)
+                        Aquery.addCookieList(status);
+
+                        if (status.getCode() == HttpStatus.SC_OK) {
                             loginSuccessful();
-                        else {
+                        } else {
                             Logs.e(TAG, "ERROR on Login : " + status.getError());
                             loginUnsuccessful();
                         }
@@ -109,6 +110,8 @@ public class Splash extends Activity {
 
                     @Override
                     public void callback(String url, JSONObject object, AjaxStatus status) {
+
+                        Aquery.addCookieList(status);
 
                         if (status.getCode() == HttpStatus.SC_OK)
                             loginSuccessful();
@@ -131,6 +134,8 @@ public class Splash extends Activity {
 
                     @Override
                     public void callback(String url, JSONObject object, AjaxStatus status) {
+
+                        Aquery.addCookieList(status);
 
                         if (status.getCode() == HttpStatus.SC_OK)
                             loginSuccessful();

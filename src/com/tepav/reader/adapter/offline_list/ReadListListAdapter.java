@@ -28,6 +28,7 @@ import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.DBData;
 import com.tepav.reader.model.News;
 import com.tepav.reader.model.Publication;
+import com.tepav.reader.operation.LikeOperation;
 import com.tepav.reader.operation.OfflineList;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONException;
@@ -224,6 +225,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
 
                     if (checkDB(dbData, DBHandler.TABLE_LIKE)) {
                         dbHandler.insert(dbData, DBHandler.TABLE_LIKE);
+                        LikeOperation.doLike(dbData);
                     } else {
                         dbHandler.delete(dbData, DBHandler.TABLE_LIKE);
                     }

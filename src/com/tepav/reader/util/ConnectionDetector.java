@@ -12,8 +12,24 @@ import android.net.NetworkInfo;
 public class ConnectionDetector {
 
     private Context context;
+    public static ConnectionDetector connectionDetector = null;
 
-    public ConnectionDetector(Context context) {
+    public static ConnectionDetector getInstance(Context context) {
+
+        if (connectionDetector == null)
+            connectionDetector = new ConnectionDetector(context);
+
+        return connectionDetector;
+    }
+
+    public static ConnectionDetector getInstance() {
+        if (connectionDetector != null)
+            return connectionDetector;
+
+        return null;
+    }
+
+    private ConnectionDetector(Context context) {
         this.context = context;
     }
 

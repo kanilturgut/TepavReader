@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         super.onAttach(activity);
         this.context = activity;
 
-        connectionDetector = new ConnectionDetector(context);
+        connectionDetector = ConnectionDetector.getInstance(context);
     }
 
     @Override

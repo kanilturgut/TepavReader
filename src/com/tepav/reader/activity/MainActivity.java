@@ -42,7 +42,7 @@ public class MainActivity extends FragmentActivity {
         slidingMenu = (SlidingMenu) this.getLayoutInflater().inflate(R.layout.activity_main, null);
         setContentView(slidingMenu);
 
-        connectionDetector = new ConnectionDetector(context);
+        connectionDetector = ConnectionDetector.getInstance(context);
 
         tvLeftMenuHeader = (TextView) findViewById(R.id.tvLeftMenuHeader);
         tvLeftMenuHeader.setOnClickListener(new View.OnClickListener() {

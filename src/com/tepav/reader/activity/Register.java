@@ -52,7 +52,7 @@ public class Register extends Activity implements View.OnClickListener {
 
         mySharedPreferences = MySharedPreferences.getInstance(context);
 
-        connectionDetector = new ConnectionDetector(context);
+        connectionDetector = ConnectionDetector.getInstance(context);
         if (!connectionDetector.isConnectingToInternet()) {
             alert.showAlertDialog(context, getString(R.string.ad_no_internet_error_title), getString(R.string.ad_no_internet_error_message), false);
             return;

@@ -51,7 +51,7 @@ public class Splash extends Activity {
         setContentView(R.layout.splash);
         context = this;
 
-        connectionDetector = new ConnectionDetector(context);
+        connectionDetector = ConnectionDetector.getInstance(context);
         DBHandler.getInstance(context);
 
         OfflineList offlineList = OfflineList.getInstance(context);

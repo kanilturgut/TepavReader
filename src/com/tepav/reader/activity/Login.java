@@ -102,7 +102,7 @@ public class Login extends Activity implements View.OnClickListener {
             }
         }
 
-        connectionDetector = new ConnectionDetector(context);
+        connectionDetector = ConnectionDetector.getInstance(context);
 
         if (mySharedPreferences.getSize() > 0 && connectionDetector.isConnectingToInternet()) {
 
@@ -154,14 +154,14 @@ public class Login extends Activity implements View.OnClickListener {
                                 e.printStackTrace();
                             }
 
+                            if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
+                                loginSuccessful();
+                            } else
+                                loginUnsuccessful();
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
-                        if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
-                            loginSuccessful();
-                        } else
-                            loginUnsuccessful();
                     }
                 }.execute();
 
@@ -212,14 +212,14 @@ public class Login extends Activity implements View.OnClickListener {
                                 e.printStackTrace();
                             }
 
+                            if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
+                                loginSuccessful();
+                            } else
+                                loginUnsuccessful();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
-                        if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
-                            loginSuccessful();
-                        } else
-                            loginUnsuccessful();
                     }
                 }.execute();
 
@@ -268,14 +268,14 @@ public class Login extends Activity implements View.OnClickListener {
                                 e.printStackTrace();
                             }
 
+                            if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
+                                loginSuccessful();
+                            } else
+                                loginUnsuccessful();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
-                        if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
-                            loginSuccessful();
-                        } else
-                            loginUnsuccessful();
                     }
                 }.execute();
 
@@ -437,14 +437,14 @@ public class Login extends Activity implements View.OnClickListener {
                             e.printStackTrace();
                         }
 
+                        if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
+                            loginSuccessful();
+                        } else
+                            loginUnsuccessful();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
-                    if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
-                        loginSuccessful();
-                    } else
-                        loginUnsuccessful();
                 }
             }.execute();
         } else {

@@ -2,6 +2,8 @@ package com.tepav.reader.helpers.popup;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +69,39 @@ public class CommentWindows extends PopupWindows implements PopupWindow.OnDismis
         tvUserEmail = (TextView) mRootView.findViewById(R.id.tvCommentUserEmail);
         tvUserEmail.setText(user.email);
 
+        bSendComment = (Button) mRootView.findViewById(R.id.bCommentSend);
+        bSendComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String comment = etCommentContent.getText().toString().trim();
+                if(!comment.isEmpty())
+                    CommentOperation.addComment(contentId, comment);
+
+            }
+        });
+
         etCommentContent = (EditText) mRootView.findViewById(R.id.etCommentContent);
+        etCommentContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().isEmpty()) {
+                    bSendComment.setVisibility(View.INVISIBLE);
+                } else {
+                    bSendComment.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         tvCancel = (TextView) mRootView.findViewById(R.id.tvCommentCancel);
         tvCancel.setOnClickListener(new View.OnClickListener() {
@@ -78,13 +112,7 @@ public class CommentWindows extends PopupWindows implements PopupWindow.OnDismis
             }
         });
 
-        bSendComment = (Button) mRootView.findViewById(R.id.bCommentSend);
-        bSendComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CommentOperation.addComment(contentId, etCommentContent.getText().toString().trim());
-            }
-        });
+
 
     }
 

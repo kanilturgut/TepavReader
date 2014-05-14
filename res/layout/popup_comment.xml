@@ -47,6 +47,7 @@
 
         <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:id="@+id/etCommentContent"
+                  android:hint="Yorumunuz"
                   android:textColor="@color/koyu_gri"
                   android:padding="5dp"
                   android:lines="4"
@@ -64,6 +65,7 @@
                 android:id="@+id/bCommentSend"
                 android:minWidth="90dp"
                 android:background="@drawable/rounded_corners"
+                android:visibility="invisible"
                 android:text="Gönder"
                 android:textColor="@color/beyaz"
                 android:layout_alignParentRight="true"/>

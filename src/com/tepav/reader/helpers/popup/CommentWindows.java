@@ -12,6 +12,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.tepav.reader.R;
 import com.tepav.reader.model.DBData;
+import com.tepav.reader.model.User;
+import com.tepav.reader.operation.CommentOperation;
 
 /**
  * Author   : kanilturgut
@@ -51,14 +53,20 @@ public class CommentWindows extends PopupWindows implements PopupWindow.OnDismis
      *
      * @param id Layout resource id
      */
-    public void setRootViewId(int id, String contentId) {
+    public void setRootViewId(int id, final String contentId) {
         mRootView = mInflater.inflate(id, null);
         mRootView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         setContentView(mRootView);
 
 
+        User user = User.getInstance();
+
         tvUsername = (TextView) mRootView.findViewById(R.id.tvCommentUsername);
+        tvUsername.setText(user.fullname);
+
         tvUserEmail = (TextView) mRootView.findViewById(R.id.tvCommentUserEmail);
+        tvUserEmail.setText(user.email);
+
         etCommentContent = (EditText) mRootView.findViewById(R.id.etCommentContent);
 
         tvCancel = (TextView) mRootView.findViewById(R.id.tvCommentCancel);
@@ -74,7 +82,7 @@ public class CommentWindows extends PopupWindows implements PopupWindow.OnDismis
         bSendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                CommentOperation.addComment(contentId, etCommentContent.getText().toString().trim());
             }
         });
 

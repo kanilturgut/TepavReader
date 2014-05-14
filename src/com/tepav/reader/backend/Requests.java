@@ -1,6 +1,5 @@
 package com.tepav.reader.backend;
 
-import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.Logs;
 import org.apache.http.HttpResponse;

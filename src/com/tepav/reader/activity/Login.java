@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -14,14 +15,19 @@ import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.tepav.reader.R;
+import com.tepav.reader.backend.Requests;
 import com.tepav.reader.helpers.*;
 import com.tepav.reader.model.FacebookUser;
 import com.tepav.reader.model.TepavUser;
 import com.tepav.reader.model.TwitterUser;
+import com.tepav.reader.model.User;
+import com.tepav.reader.util.ConnectionDetector;
+import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,12 +48,13 @@ public class Login extends Activity implements View.OnClickListener {
     LinearLayout llHeaderBack;
     LoginButton facebookLoginButton;
 
-    AQuery aQuery;
+   // AQuery aQuery;
     TwitterOperations twitterOperations;
     MySharedPreferences mySharedPreferences;
 
     Map<String, String> params = null;
     AjaxCallback<JSONObject> ajaxCallback = null;
+    ConnectionDetector connectionDetector;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,87 +102,197 @@ public class Login extends Activity implements View.OnClickListener {
             }
         }
 
-        aQuery = Aquery.getInstance(context);
+        connectionDetector = new ConnectionDetector(context);
 
-        if (mySharedPreferences.getSize() > 0) {
+        if (mySharedPreferences.getSize() > 0 && connectionDetector.isConnectingToInternet()) {
 
             int userType = mySharedPreferences.getUserType();
-            String loginURL = "";
 
             if (userType == MySharedPreferences.USER_TYPE_TEPAV) {
 
-                loginURL = HttpURL.createURL(HttpURL.tepavLogin);
-                TepavUser tepavUser = mySharedPreferences.getTepavUser();
-                ajaxCallback = new AjaxCallback<JSONObject>() {
+                final TepavUser tepavUser = mySharedPreferences.getTepavUser();
+
+                new AsyncTask<Void, Void, HttpResponse>() {
 
                     @Override
-                    public void callback(String url, JSONObject object, AjaxStatus status) {
+                    protected HttpResponse doInBackground(Void... voids) {
 
-                        if (status.getCode() == HttpStatus.SC_OK)
-                            loginSuccessful();
-                        else
-                            Logs.e(TAG, "ERROR on Login : " + status.getError());
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("email", tepavUser.getEmail());
+                            jsonObject.put("password", tepavUser.getPassword());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        try {
+                            return Requests.post(HttpURL.tepavLogin, jsonObject.toString());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Logs.e(TAG, "LOGIN FAILED", e);
+                            return null;
+                        }
                     }
-                };
-                params = new HashMap<String, String>();
-                params.put("email", tepavUser.getEmail());
-                params.put("password", tepavUser.getPassword());
 
-                etEmail.setText(tepavUser.getEmail());
-                etPassword.setText(tepavUser.getPassword());
+                    @Override
+                    protected void onPostExecute(HttpResponse httpResponse) {
+
+                        try {
+                            String resp = Requests.readResponse(httpResponse);
+                            Logs.i(TAG, "response is " + resp);
+
+                            try {
+                                JSONObject object = new JSONObject(resp);
+                                String fullname = object.getString("fullname");
+                                String email = object.getString("email");
+
+                                User.setUser(fullname, email);
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
+                            loginSuccessful();
+                        } else
+                            loginUnsuccessful();
+                    }
+                }.execute();
 
             } else if (userType == MySharedPreferences.USER_TYPE_TWITTER) {
 
-                loginURL = HttpURL.createURL(HttpURL.twitterLogin);
-                TwitterUser twitterUser = mySharedPreferences.getTwitterPref();
-                ajaxCallback = new AjaxCallback<JSONObject>() {
+                final TwitterUser twitterUser = mySharedPreferences.getTwitterPref();
+
+                new AsyncTask<Void, Void, HttpResponse>() {
 
                     @Override
-                    public void callback(String url, JSONObject object, AjaxStatus status) {
+                    protected HttpResponse doInBackground(Void... voids) {
 
-                        if (status.getCode() == HttpStatus.SC_OK)
-                            loginSuccessful();
-                        else
-                            Logs.e(TAG, "ERROR on Login : " + status.getError());
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("oauth_token", twitterUser.getOauthToken());
+                            jsonObject.put("oauth_token_secret", twitterUser.getOauthSecret());
+                            jsonObject.put("user_id", twitterUser.getUserID());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        try {
+                            return Requests.post(HttpURL.twitterLogin, jsonObject.toString());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Logs.e(TAG, "LOGIN FAILED", e);
+                            return null;
+                        }
                     }
-                };
-                params = new HashMap<String, String>();
-                params.put("oauth_token", twitterUser.getOauthToken());
-                params.put("oauth_token_secret", twitterUser.getOauthSecret());
-                params.put("user_id", twitterUser.getUserID());
+
+                    @Override
+                    protected void onPostExecute(HttpResponse httpResponse) {
+
+                        try {
+                            String resp = Requests.readResponse(httpResponse);
+                            Logs.i(TAG, "response is " + resp);
+
+                            try {
+                                JSONObject object = new JSONObject(resp);
+                                String fullname = object.getString("fullname");
+                                String email = object.getString("email");
+
+                                User.setUser(fullname, email);
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
+                            loginSuccessful();
+                        } else
+                            loginUnsuccessful();
+                    }
+                }.execute();
 
             } else if (userType == MySharedPreferences.USER_TYPE_FACEBOOK) {
 
-                loginURL = HttpURL.createURL(HttpURL.facebookLogin);
-                FacebookUser facebookUser = mySharedPreferences.getFacebookPref();
-                ajaxCallback = new AjaxCallback<JSONObject>() {
+                final FacebookUser facebookUser = mySharedPreferences.getFacebookPref();
+
+                new AsyncTask<Void, Void, HttpResponse>() {
 
                     @Override
-                    public void callback(String url, JSONObject object, AjaxStatus status) {
+                    protected HttpResponse doInBackground(Void... voids) {
 
-                        if (status.getCode() == HttpStatus.SC_OK)
-                            loginSuccessful();
-                        else
-                            Logs.e(TAG, "ERROR on Login : " + status.getError());
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("access_token", facebookUser.getToken());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        try {
+                            return Requests.post(HttpURL.facebookLogin, jsonObject.toString());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Logs.e(TAG, "LOGIN FAILED", e);
+                            return null;
+                        }
                     }
-                };
-                params = new HashMap<String, String>();
-                params.put("access_token", facebookUser.getToken());
+
+                    @Override
+                    protected void onPostExecute(HttpResponse httpResponse) {
+
+                        try {
+                            String resp = Requests.readResponse(httpResponse);
+                            Logs.i(TAG, "response is " + resp);
+
+                            try {
+                                JSONObject object = new JSONObject(resp);
+                                String fullname = object.getString("fullname");
+                                String email = object.getString("email");
+
+                                User.setUser(fullname, email);
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
+                            loginSuccessful();
+                        } else
+                            loginUnsuccessful();
+                    }
+                }.execute();
+
             }
 
-            Logs.i(TAG, "Login started with ...");
-            for (String key : params.keySet()) {
-                Logs.i(TAG, key + " : " + params.get(key));
-            }
-
-            ajaxCallback.params(params);
-            aQuery.ajax(loginURL, JSONObject.class, ajaxCallback);
         }
     }
 
     void loginSuccessful() {
         Splash.isUserLoggedIn = true;
         finish();
+    }
+
+    void loginUnsuccessful() {
+        Splash.isUserLoggedIn = false;
+        Toast.makeText(context, "Giriş İşlemi Başarısız", Toast.LENGTH_LONG).show();
+
     }
 
     private final Session.StatusCallback facebookCallback = new Session.StatusCallback() {
@@ -275,37 +392,61 @@ public class Login extends Activity implements View.OnClickListener {
 
         if (!email.isEmpty() && !password.isEmpty()) {
 
-            AjaxCallback<JSONObject> ajaxCallback = new AjaxCallback<JSONObject>() {
+            new AsyncTask<Void, Void, HttpResponse>() {
 
                 @Override
-                public void callback(String url, JSONObject object, AjaxStatus status) {
+                protected HttpResponse doInBackground(Void... voids) {
 
-                    if (status.getCode() == HttpStatus.SC_OK) {
-                        Logs.i(TAG, "Login successful");
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("email", email);
+                        jsonObject.put("password", password);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    try {
+                        return Requests.post(HttpURL.tepavLogin, jsonObject.toString());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Logs.e(TAG, "LOGIN FAILED", e);
+                        return null;
+                    }
+                }
+
+                @Override
+                protected void onPostExecute(HttpResponse httpResponse) {
+
+                    try {
+                        String resp = Requests.readResponse(httpResponse);
+                        Logs.i(TAG, "response is " + resp);
 
                         try {
+                            JSONObject object = new JSONObject(resp);
                             String name = object.getString("name");
                             String surname = object.getString("surname");
+                            String fullname = object.getString("fullname");
+                            String email = object.getString("email");
 
                             mySharedPreferences.setTepavUserPref(name, surname, email, password);
+                            User.setUser(fullname, email);
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        loginSuccessful();
-                    } else {
-                        Toast.makeText(context, "Login Failed", Toast.LENGTH_LONG).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+
+                    if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
+                        loginSuccessful();
+                    } else
+                        loginUnsuccessful();
                 }
-            };
-
-            Map<String, String> map = new HashMap<String, String>();
-            map.put("email", email);
-            map.put("password", password);
-
-            ajaxCallback.params(map);
-            aQuery.ajax(HttpURL.createURL(HttpURL.tepavLogin), JSONObject.class, ajaxCallback);
-
+            }.execute();
         } else {
             Toast.makeText(context, "Boş alanları doldurunuz", Toast.LENGTH_LONG).show();
         }

@@ -203,6 +203,19 @@ public class MySharedPreferences {
         return tepavUser;
     }
 
+    /**
+     * Delete TepavUser from shared preferences
+     */
+    public void deleteTepavFromPref() {
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove(PREF_KEY_TEPAV_NAME);
+        editor.remove(PREF_KEY_TEPAV_SURNAME);
+        editor.remove(PREF_KEY_TEPAV_EMAIL);
+        editor.remove(PREF_KEY_TEPAV_PASSWORD);
+        editor.commit();
+    }
+
 
     /**
      *

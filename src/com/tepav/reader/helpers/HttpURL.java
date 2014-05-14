@@ -34,5 +34,11 @@ public class HttpURL {
     public static final String addComment = "/comment/add";
     public static final String getComment = "/comment/getComments";
 
+    // share
+    public static final String shareNews = "/news/share";
+    public static final String shareBLog = "/blog/share";
+    public static final String sharePublication = "/publication/share";
+
+
 
 }

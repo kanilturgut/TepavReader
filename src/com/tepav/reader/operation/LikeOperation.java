@@ -49,10 +49,10 @@ public class LikeOperation {
                 try {
                     return Requests.post(url, map.toString());
                 } catch (IOException e) {
-                    e.printStackTrace();
                     Logs.e(TAG, "LIKE_OPERATION FAILED", e);
-                    return null;
                 }
+
+                return null;
             }
 
 

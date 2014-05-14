@@ -21,9 +21,11 @@ import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
+import com.tepav.reader.helpers.popup.CommentWindows;
 import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.model.DBData;
+import com.tepav.reader.model.News;
 import com.tepav.reader.operation.LikeOperation;
 import com.tepav.reader.util.Util;
 import com.tepav.reader.model.Publication;
@@ -44,12 +46,13 @@ public class PublicationDetails extends Activity implements View.OnClickListener
     DBHandler dbHandler;
     QuickActionForPost quickAction;
     QuickActionForList quickActionForList;
+    CommentWindows commentWindows;
     int fromWhere, listType;
 
     Publication publication;
 
     WebView webView;
-    TextView titleOfPublication, timeOfPublication;
+    TextView titleOfPublication, timeOfPublication, tvComment;
     LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, filesLayout;
     RelativeLayout rlFooter;
     View viewTransparent;
@@ -95,6 +98,18 @@ public class PublicationDetails extends Activity implements View.OnClickListener
             });
         }
 
+        try {
+            commentWindows = new CommentWindows(context, Publication.toDBData(publication));
+            commentWindows.setOnDismissListener(new CommentWindows.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    viewTransparent.setVisibility(View.INVISIBLE);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
         llFooterAlreadyLiked = (LinearLayout) findViewById(R.id.llFooterAlreadyLiked);
         llFooterShare = (LinearLayout) findViewById(R.id.llFooterShare);
@@ -102,12 +117,14 @@ public class PublicationDetails extends Activity implements View.OnClickListener
         llHeaderBack = (LinearLayout) findViewById(R.id.llHeaderBack);
         filesLayout = (LinearLayout) findViewById(R.id.filesLayout);
         rlFooter = (RelativeLayout) findViewById(R.id.rlFooter);
+        tvComment = (TextView) findViewById(R.id.tvComment);
 
         llFooterLike.setOnClickListener(this);
         llFooterAlreadyLiked.setOnClickListener(this);
         llFooterShare.setOnClickListener(this);
         llFooterAddToList.setOnClickListener(this);
         llHeaderBack.setOnClickListener(this);
+        tvComment.setOnClickListener(this);
 
         buttonOpenPDF = (Button) findViewById(R.id.buttonOpenPDF);
         buttonOpenPDF.setOnClickListener(this);
@@ -174,6 +191,12 @@ public class PublicationDetails extends Activity implements View.OnClickListener
                 onBackPressed();
             } else if (view == buttonOpenPDF) {
                 openPDFAction(downloadedPDF);
+            } else if (view == tvComment) {
+
+                viewTransparent.setVisibility(View.VISIBLE);
+                commentWindows.setAnimStyle(CommentWindows.ANIM_GROW_FROM_CENTER);
+                commentWindows.show(view);
+
             }
         } else {
 

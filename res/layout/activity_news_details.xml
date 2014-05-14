@@ -89,7 +89,7 @@
 
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                   android:id="@+id/tvComment"
-                                  android:text="Yorum Yaz"
+                                  android:text="@string/write_a_comment"
                                   android:textColor="@color/gri"
                                   android:drawableRight="@drawable/comment"
                                   android:layout_alignParentRight="true"

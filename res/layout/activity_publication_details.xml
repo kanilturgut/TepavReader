@@ -52,9 +52,7 @@
 
         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:background="@color/beyaz"
-                        android:layout_marginTop="@dimen/gradient_height"
-                        android:layout_below="@+id/llHeader"
-                        android:layout_above="@+id/rlFooter">
+                        android:layout_marginTop="@dimen/gradient_height">
 
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:layout_alignParentTop="true"
@@ -90,7 +88,10 @@
                                   android:layout_centerVertical="true"/>
 
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                  android:text="Yorum"
+                                  android:id="@+id/tvComment"
+                                  android:drawableRight="@drawable/comment"
+                                  android:text="@string/write_a_comment"
+                                  android:textColor="@color/gri"
                                   android:layout_alignParentRight="true"
                                   android:layout_centerVertical="true"/>
 

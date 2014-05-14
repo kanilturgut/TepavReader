@@ -13,10 +13,12 @@ import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
+import com.tepav.reader.helpers.popup.CommentWindows;
 import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.DBData;
+import com.tepav.reader.model.News;
 import com.tepav.reader.operation.LikeOperation;
 import com.tepav.reader.util.AlertDialogManager;
 import com.tepav.reader.util.Util;
@@ -34,12 +36,13 @@ public class BlogDetails extends Activity implements View.OnClickListener {
     DBHandler dbHandler;
     QuickActionForPost quickAction;
     QuickActionForList quickActionForList;
+    CommentWindows commentWindows;
     int fromWhere, listType;
 
     Blog blog;
 
     WebView webView;
-    TextView titleOfBlog, timeOfBlog;
+    TextView titleOfBlog, timeOfBlog, tvComment;
 
     LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList;
     RelativeLayout rlFooter;
@@ -80,18 +83,32 @@ public class BlogDetails extends Activity implements View.OnClickListener {
             });
         }
 
+        try {
+            commentWindows = new CommentWindows(context, Blog.toDBData(blog));
+            commentWindows.setOnDismissListener(new CommentWindows.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    viewTransparent.setVisibility(View.INVISIBLE);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
         llFooterAlreadyLiked = (LinearLayout) findViewById(R.id.llFooterAlreadyLiked);
         llFooterShare = (LinearLayout) findViewById(R.id.llFooterShare);
         llFooterAddToList = (LinearLayout) findViewById(R.id.llFooterAddToList);
         llHeaderBack = (LinearLayout) findViewById(R.id.llHeaderBack);
         rlFooter = (RelativeLayout) findViewById(R.id.rlFooter);
+        tvComment = (TextView) findViewById(R.id.tvComment);
 
         llFooterLike.setOnClickListener(this);
         llFooterAlreadyLiked.setOnClickListener(this);
         llFooterShare.setOnClickListener(this);
         llFooterAddToList.setOnClickListener(this);
         llHeaderBack.setOnClickListener(this);
+        tvComment.setOnClickListener(this);
 
         webView = (WebView) findViewById(R.id.wvBlogDetailContentOfBlog);
         webView.loadData(blog.getBcontent(), "text/html; charset=UTF-8", null);
@@ -148,6 +165,11 @@ public class BlogDetails extends Activity implements View.OnClickListener {
 
             } else if (view == llHeaderBack) {
                 onBackPressed();
+            }else if (view == tvComment) {
+
+                viewTransparent.setVisibility(View.VISIBLE);
+                commentWindows.setAnimStyle(CommentWindows.ANIM_GROW_FROM_CENTER);
+                commentWindows.show(view);
             }
 
         } else {

@@ -24,9 +24,11 @@ import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.popup.CommentWindows;
 import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
+import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.DBData;
 import com.tepav.reader.model.News;
 import com.tepav.reader.operation.LikeOperation;
+import com.tepav.reader.operation.ShareOperation;
 import com.tepav.reader.util.Util;
 import com.tepav.reader.model.Publication;
 import com.tepav.reader.util.AlertDialogManager;
@@ -98,18 +100,6 @@ public class PublicationDetails extends Activity implements View.OnClickListener
             });
         }
 
-        try {
-            commentWindows = new CommentWindows(context, Publication.toDBData(publication));
-            commentWindows.setOnDismissListener(new CommentWindows.OnDismissListener() {
-                @Override
-                public void onDismiss() {
-                    viewTransparent.setVisibility(View.INVISIBLE);
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
         llFooterAlreadyLiked = (LinearLayout) findViewById(R.id.llFooterAlreadyLiked);
         llFooterShare = (LinearLayout) findViewById(R.id.llFooterShare);
@@ -169,6 +159,13 @@ public class PublicationDetails extends Activity implements View.OnClickListener
                 Util.changeVisibility(llFooterAlreadyLiked);
 
             } else if (view == llFooterShare) {
+
+                try {
+                    ShareOperation.doShare(context, Publication.toDBData(publication));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 String url = Constant.SHARE_PUBLICATION + publication.getYayin_id();
 
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -192,6 +189,18 @@ public class PublicationDetails extends Activity implements View.OnClickListener
             } else if (view == buttonOpenPDF) {
                 openPDFAction(downloadedPDF);
             } else if (view == tvComment) {
+
+                try {
+                    commentWindows = new CommentWindows(context, Publication.toDBData(publication));
+                    commentWindows.setOnDismissListener(new CommentWindows.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            viewTransparent.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 viewTransparent.setVisibility(View.VISIBLE);
                 commentWindows.setAnimStyle(CommentWindows.ANIM_GROW_FROM_CENTER);

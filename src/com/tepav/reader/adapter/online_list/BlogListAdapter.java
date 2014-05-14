@@ -27,6 +27,7 @@ import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.model.Blog;
 import com.tepav.reader.operation.LikeOperation;
 import com.tepav.reader.operation.OfflineList;
+import com.tepav.reader.operation.ShareOperation;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -139,6 +140,12 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
             public void onClick(View view) {
 
                 if (Splash.isUserLoggedIn) {
+
+                    try {
+                        ShareOperation.doShare(context, Blog.toDBData(blog));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
                     String url = Constant.SHARE_BLOG + blog.getGunluk_id();
 

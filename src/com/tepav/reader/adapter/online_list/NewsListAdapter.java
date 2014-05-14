@@ -26,6 +26,7 @@ import com.tepav.reader.helpers.roundedimageview.RoundedImageView;
 import com.tepav.reader.model.News;
 import com.tepav.reader.operation.LikeOperation;
 import com.tepav.reader.operation.OfflineList;
+import com.tepav.reader.operation.ShareOperation;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -134,6 +135,12 @@ public class NewsListAdapter extends ArrayAdapter<News> {
             public void onClick(View view) {
 
                 if (Splash.isUserLoggedIn) {
+
+                    try {
+                        ShareOperation.doShare(context, News.toDBData(news));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
                     String url = Constant.SHARE_NEWS + news.getHaber_id();
 

@@ -83,10 +83,6 @@ public class ShareOperation {
                 }
             }.execute();
 
-        } else {
-            AlertDialogManager alertDialogManager = new AlertDialogManager();
-            alertDialogManager.showAlertDialog(context, context.getString(R.string.please_wait),
-                    context.getString(R.string.ad_no_internet_error_message), false);
         }
     }
 }

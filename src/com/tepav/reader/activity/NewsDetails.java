@@ -21,6 +21,7 @@ import com.tepav.reader.model.DBData;
 import com.tepav.reader.model.File;
 import com.tepav.reader.model.News;
 import com.tepav.reader.operation.LikeOperation;
+import com.tepav.reader.operation.ShareOperation;
 import com.tepav.reader.util.AlertDialogManager;
 import com.tepav.reader.util.Util;
 import org.json.JSONException;
@@ -82,18 +83,6 @@ public class NewsDetails extends Activity implements View.OnClickListener {
                     viewTransparent.setVisibility(View.INVISIBLE);
                 }
             });
-        }
-
-        try {
-            commentWindows = new CommentWindows(context, News.toDBData(news));
-            commentWindows.setOnDismissListener(new CommentWindows.OnDismissListener() {
-                @Override
-                public void onDismiss() {
-                    viewTransparent.setVisibility(View.INVISIBLE);
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
 
         llFooterLike = (LinearLayout) findViewById(R.id.llFooterLike);
@@ -174,6 +163,13 @@ public class NewsDetails extends Activity implements View.OnClickListener {
                 Util.changeVisibility(llFooterAlreadyLiked);
 
             } else if (view == llFooterShare) {
+
+                try {
+                    ShareOperation.doShare(context, News.toDBData(news));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 String url = Constant.SHARE_NEWS + news.getHaber_id();
 
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -195,6 +191,18 @@ public class NewsDetails extends Activity implements View.OnClickListener {
             } else if (view == llHeaderBack) {
                 onBackPressed();
             } else if (view == tvComment) {
+
+                try {
+                    commentWindows = new CommentWindows(context, News.toDBData(news));
+                    commentWindows.setOnDismissListener(new CommentWindows.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            viewTransparent.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 viewTransparent.setVisibility(View.VISIBLE);
                 commentWindows.setAnimStyle(CommentWindows.ANIM_GROW_FROM_CENTER);

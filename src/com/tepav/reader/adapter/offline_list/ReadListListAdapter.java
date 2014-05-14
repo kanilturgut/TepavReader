@@ -30,6 +30,7 @@ import com.tepav.reader.model.News;
 import com.tepav.reader.model.Publication;
 import com.tepav.reader.operation.LikeOperation;
 import com.tepav.reader.operation.OfflineList;
+import com.tepav.reader.operation.ShareOperation;
 import com.tepav.reader.util.AlertDialogManager;
 import org.json.JSONException;
 
@@ -202,6 +203,8 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
                             e.printStackTrace();
                         }
                     }
+
+                    ShareOperation.doShare(context, dbData);
 
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");

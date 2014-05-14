@@ -64,10 +64,12 @@ public class CommentWindows extends PopupWindows implements PopupWindow.OnDismis
         User user = User.getInstance();
 
         tvUsername = (TextView) mRootView.findViewById(R.id.tvCommentUsername);
-        tvUsername.setText(user.fullname);
+        if (user != null && !user.fullname.isEmpty())
+            tvUsername.setText(user.fullname);
 
         tvUserEmail = (TextView) mRootView.findViewById(R.id.tvCommentUserEmail);
-        tvUserEmail.setText(user.email);
+        if (user != null && !user.email.isEmpty())
+            tvUserEmail.setText(user.email);
 
         bSendComment = (Button) mRootView.findViewById(R.id.bCommentSend);
         bSendComment.setOnClickListener(new View.OnClickListener() {

@@ -50,7 +50,7 @@ public class LikeOperation {
                     return Requests.post(url, map.toString());
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Logs.e(TAG, "LOGIN FAILED", e);
+                    Logs.e(TAG, "LIKE_OPERATION FAILED", e);
                     return null;
                 }
             }

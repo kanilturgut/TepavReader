@@ -2,7 +2,6 @@ package com.tepav.reader.backend;
 
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.Logs;
-import com.tepav.reader.util.ConnectionDetector;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
@@ -66,29 +65,24 @@ public class Requests {
     public static HttpResponse post(String path, String data)
             throws IOException {
 
-        if (ConnectionDetector.getInstance().isConnectingToInternet()) {
-
-            HttpClient httpclient = Requests.getInstance().getHttpClient();
-            HttpResponse response;
-            HttpPost postRequest = new HttpPost(domain + path);
-            postRequest.setHeader("Accept", "application/json");
-            StringEntity input = null;
-            try {
-                input = new StringEntity(data, HTTP.UTF_8);
-            } catch (UnsupportedEncodingException e) {
-                Logs.e("Requests.post", "Unexpected UnsupportedEncodingException", e);
-            }
-            input.setContentType("application/json; charset=UTF-8");
-            input.setContentEncoding("UTF-8");
-
-            postRequest.setEntity(input);
-            response = httpclient.execute(postRequest);
-
-            return response;
-        } else {
-            Logs.e("Requests","ConnectionDetector doesn't detect any connection");
-            throw new IOException();
+        HttpClient httpclient = Requests.getInstance().getHttpClient();
+        HttpResponse response;
+        HttpPost postRequest = new HttpPost(domain + path);
+        postRequest.setHeader("Accept", "application/json");
+        StringEntity input = null;
+        try {
+            input = new StringEntity(data, HTTP.UTF_8);
+        } catch (UnsupportedEncodingException e) {
+            Logs.e("Requests.post", "Unexpected UnsupportedEncodingException", e);
         }
+        input.setContentType("application/json; charset=UTF-8");
+        input.setContentEncoding("UTF-8");
+
+        postRequest.setEntity(input);
+        response = httpclient.execute(postRequest);
+
+        return response;
+
     }
 
     public static HttpResponse put(String path, String data) throws IOException {

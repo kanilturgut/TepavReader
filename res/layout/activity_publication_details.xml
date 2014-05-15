@@ -52,6 +52,28 @@
                    android:layout_marginRight="10dp"
                    android:src="@drawable/adjust_font"/>
 
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:id="@+id/tvActionBarHeader"
+                  android:layout_margin="5dp"
+                  android:text="@string/tepav"
+                  android:textStyle="bold"
+                  android:textSize="@dimen/tepav_header_font_size"
+                  android:textColor="@color/tepav_siyahi"
+                  android:layout_centerInParent="true"/>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="2dp"
+                      android:orientation="horizontal"
+                      android:layout_alignParentBottom="true">
+            <View android:layout_width="0dp" android:layout_height="match_parent"
+                  android:background="@drawable/action_bar_bottom_left"
+                  android:layout_weight="1"/>
+
+            <View android:layout_width="0dp" android:layout_height="match_parent"
+                  android:background="@drawable/action_bar_bottom_right"
+                  android:layout_weight="1"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 

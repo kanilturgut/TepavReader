@@ -6,6 +6,7 @@
     <dimen name="action_bar_toggle_area">75dp</dimen>
     <dimen name="action_bar_back_button_font_size">18sp</dimen>
     <dimen name="action_bar_back_button_size">24dp</dimen>
+    <dimen name="action_bar_adjust_button_size">32dp</dimen>
 
     <dimen name="gradient_height">8dp</dimen>
     <dimen name="gradient_height_small">4dp</dimen>

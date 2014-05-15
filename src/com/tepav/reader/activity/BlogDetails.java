@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.popup.CommentWindows;
+import com.tepav.reader.helpers.popup.PopupAdjustFontSize;
 import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.model.Blog;
@@ -44,8 +43,9 @@ public class BlogDetails extends Activity implements View.OnClickListener {
 
     WebView webView;
     TextView titleOfBlog, timeOfBlog, tvComment;
-
     LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList;
+    ImageView ivAdjustFontSize;
+
     RelativeLayout rlFooter;
     View viewTransparent;
 
@@ -91,6 +91,7 @@ public class BlogDetails extends Activity implements View.OnClickListener {
         llHeaderBack = (LinearLayout) findViewById(R.id.llHeaderBack);
         rlFooter = (RelativeLayout) findViewById(R.id.rlFooter);
         tvComment = (TextView) findViewById(R.id.tvComment);
+        ivAdjustFontSize = (ImageView)findViewById(R.id.ivAdjustFontSize);
 
         llFooterLike.setOnClickListener(this);
         llFooterAlreadyLiked.setOnClickListener(this);
@@ -98,6 +99,7 @@ public class BlogDetails extends Activity implements View.OnClickListener {
         llFooterAddToList.setOnClickListener(this);
         llHeaderBack.setOnClickListener(this);
         tvComment.setOnClickListener(this);
+        ivAdjustFontSize.setOnClickListener(this);
 
         webView = (WebView) findViewById(R.id.wvBlogDetailContentOfBlog);
         webView.loadData(blog.getBcontent(), "text/html; charset=UTF-8", null);
@@ -108,7 +110,7 @@ public class BlogDetails extends Activity implements View.OnClickListener {
         timeOfBlog = (TextView) findViewById(R.id.tvBlogDetailTimeInformationOfBlog);
         timeOfBlog.setText(blog.getBdate());
 
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_LIKE, blog.getId(), llFooterLike, llFooterAlreadyLiked);
+        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_LIKE, blog.getId(), llFooterLike, llFooterAlreadyLiked);
     }
 
     @Override
@@ -125,8 +127,8 @@ public class BlogDetails extends Activity implements View.OnClickListener {
                     Logs.e(TAG, "ERROR on like", e);
                 }
 
-                Util.changeVisibility(llFooterLike);
-                Util.changeVisibility(llFooterAlreadyLiked);
+                //Util.changeVisibility(llFooterLike);
+                //Util.changeVisibility(llFooterAlreadyLiked);
 
             } else if (view == llFooterAlreadyLiked) {
                 Util.changeVisibility(llFooterLike);
@@ -177,11 +179,21 @@ public class BlogDetails extends Activity implements View.OnClickListener {
                 viewTransparent.setVisibility(View.VISIBLE);
                 commentWindows.setAnimStyle(CommentWindows.ANIM_GROW_FROM_CENTER);
                 commentWindows.show(view);
+            } else if (view == ivAdjustFontSize) {
+                Logs.i(TAG, "ivAdjustFontSize");
+                PopupAdjustFontSize popupAdjustFontSize = new PopupAdjustFontSize(context, webView);
+                popupAdjustFontSize.setAnimStyle(PopupAdjustFontSize.ANIM_GROW_FROM_CENTER);
+                popupAdjustFontSize.show(rlFooter);
             }
 
         } else {
             if (view == llHeaderBack) {
                 onBackPressed();
+            } else if (view == ivAdjustFontSize) {
+                Logs.i(TAG, "ivAdjustFontSize");
+                PopupAdjustFontSize popupAdjustFontSize = new PopupAdjustFontSize(context, webView);
+                popupAdjustFontSize.setAnimStyle(PopupAdjustFontSize.ANIM_GROW_FROM_CENTER);
+                popupAdjustFontSize.show(rlFooter);
             } else {
                 AlertDialogManager alertDialogManager = new AlertDialogManager();
                 alertDialogManager.showLoginDialog(context, getString(R.string.warning), getString(R.string.must_log_in), false);

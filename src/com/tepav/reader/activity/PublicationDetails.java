@@ -9,10 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
@@ -22,6 +19,7 @@ import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.popup.CommentWindows;
+import com.tepav.reader.helpers.popup.PopupAdjustFontSize;
 import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.model.Blog;
@@ -56,6 +54,8 @@ public class PublicationDetails extends Activity implements View.OnClickListener
     WebView webView;
     TextView titleOfPublication, timeOfPublication, tvComment;
     LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, filesLayout;
+    ImageView ivAdjustFontSize;
+
     RelativeLayout rlFooter;
     View viewTransparent;
     Button buttonOpenPDF;
@@ -108,6 +108,7 @@ public class PublicationDetails extends Activity implements View.OnClickListener
         filesLayout = (LinearLayout) findViewById(R.id.filesLayout);
         rlFooter = (RelativeLayout) findViewById(R.id.rlFooter);
         tvComment = (TextView) findViewById(R.id.tvComment);
+        ivAdjustFontSize = (ImageView)findViewById(R.id.ivAdjustFontSize);
 
         llFooterLike.setOnClickListener(this);
         llFooterAlreadyLiked.setOnClickListener(this);
@@ -115,6 +116,7 @@ public class PublicationDetails extends Activity implements View.OnClickListener
         llFooterAddToList.setOnClickListener(this);
         llHeaderBack.setOnClickListener(this);
         tvComment.setOnClickListener(this);
+        ivAdjustFontSize.setOnClickListener(this);
 
         buttonOpenPDF = (Button) findViewById(R.id.buttonOpenPDF);
         buttonOpenPDF.setOnClickListener(this);
@@ -134,7 +136,7 @@ public class PublicationDetails extends Activity implements View.OnClickListener
         timeOfPublication = (TextView) findViewById(R.id.tvPublicationDetailTimeInformationOfPublication);
         timeOfPublication.setText(publication.getYdate() + " - " + publication.getYtype());
 
-        Util.checkIfIsContain(dbHandler, DBHandler.TABLE_LIKE, publication.getId(), llFooterLike, llFooterAlreadyLiked);
+        //Util.checkIfIsContain(dbHandler, DBHandler.TABLE_LIKE, publication.getId(), llFooterLike, llFooterAlreadyLiked);
     }
 
     @Override
@@ -151,8 +153,8 @@ public class PublicationDetails extends Activity implements View.OnClickListener
                     Logs.e(TAG, "ERROR on like", e);
                 }
 
-                Util.changeVisibility(llFooterLike);
-                Util.changeVisibility(llFooterAlreadyLiked);
+                //Util.changeVisibility(llFooterLike);
+                //Util.changeVisibility(llFooterAlreadyLiked);
 
             } else if (view == llFooterAlreadyLiked) {
                 Util.changeVisibility(llFooterLike);
@@ -206,6 +208,10 @@ public class PublicationDetails extends Activity implements View.OnClickListener
                 commentWindows.setAnimStyle(CommentWindows.ANIM_GROW_FROM_CENTER);
                 commentWindows.show(view);
 
+            } else if (view == ivAdjustFontSize) {
+                PopupAdjustFontSize popupAdjustFontSize = new PopupAdjustFontSize(context, webView);
+                popupAdjustFontSize.setAnimStyle(PopupAdjustFontSize.ANIM_GROW_FROM_CENTER);
+                popupAdjustFontSize.show(rlFooter);
             }
         } else {
 
@@ -213,6 +219,10 @@ public class PublicationDetails extends Activity implements View.OnClickListener
                 onBackPressed();
             } else if (view == buttonOpenPDF) {
                 openPDFAction(downloadedPDF);
+            } else if (view == ivAdjustFontSize) {
+                PopupAdjustFontSize popupAdjustFontSize = new PopupAdjustFontSize(context, webView);
+                popupAdjustFontSize.setAnimStyle(PopupAdjustFontSize.ANIM_GROW_FROM_CENTER);
+                popupAdjustFontSize.show(rlFooter);
             } else {
                 AlertDialogManager alertDialogManager = new AlertDialogManager();
                 alertDialogManager.showLoginDialog(context, getString(R.string.warning), getString(R.string.must_log_in), false);

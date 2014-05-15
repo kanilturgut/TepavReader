@@ -62,6 +62,7 @@ public class Constant {
     public static int DETAILS_FROM_LIST = 1;
 
     // Default font size
+    public static int DEFAULT_TEPAV_FONT_SIZE = 16;
     public static int DEFAULT_FONT_SIZE = 16;
 
 }

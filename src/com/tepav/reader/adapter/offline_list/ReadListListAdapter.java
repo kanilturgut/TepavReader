@@ -78,7 +78,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             try {
                 News news = News.fromDBData(dbData);
                 title = news.getHtitle();
-                date = news.getDate();
+                date = news.getHdate();
                 imageUrl = news.getHimage();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -88,7 +88,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             try {
                 Blog blog = Blog.fromDBData(dbData);
                 title = blog.getBtitle();
-                date = blog.getDate();
+                date = blog.getBdate();
                 imageUrl = blog.getPimage();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -97,7 +97,7 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
             try {
                 Publication publication = Publication.fromDBData(dbData);
                 title = publication.getYtitle();
-                date = publication.getDate() + " " + publication.getYtype();
+                date = publication.getYdate() + " " + publication.getYtype();
                 imageUrl = "";
             } catch (JSONException e) {
                 e.printStackTrace();

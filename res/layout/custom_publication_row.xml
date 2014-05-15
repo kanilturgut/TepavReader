@@ -63,7 +63,7 @@
                     app:corner_radius="5dp"
                     android:scaleType="centerCrop"
                     android:id="@+id/ivImageOfPublication"
-                    android:src="@drawable/ic_launcher"
+                    android:src="@drawable/tepav_t"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="10dp"

@@ -98,7 +98,7 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         options.fileCache = true;
         options.memCache = true;
         options.targetWidth = 0;
-        options.fallback = R.drawable.no_image;
+        options.fallback = R.drawable.tepav_t;
 
         Bitmap bmp = aq.getCachedImage(news.getHimage());
         if (bmp == null) {

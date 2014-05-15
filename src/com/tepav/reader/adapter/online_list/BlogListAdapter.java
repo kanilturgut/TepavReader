@@ -103,7 +103,7 @@ public class BlogListAdapter extends ArrayAdapter<Blog> {
         options.fileCache = true;
         options.memCache = true;
         options.targetWidth = 0;
-        options.fallback = R.drawable.no_image;
+        options.fallback = R.drawable.tepav_t;
 
         Bitmap cachedBitmap = aq.getCachedImage(blog.getPimage());
         if (cachedBitmap == null) {

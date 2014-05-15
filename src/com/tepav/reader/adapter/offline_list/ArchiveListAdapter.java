@@ -131,7 +131,7 @@ public class ArchiveListAdapter extends ArrayAdapter<DBData> {
         options.fileCache = true;
         options.memCache = true;
         options.targetWidth = 0;
-        options.fallback = R.drawable.no_image;
+        options.fallback = R.drawable.tepav_t;
 
 
         if (title != null && !title.isEmpty() && !title.equals(""))
@@ -150,7 +150,7 @@ public class ArchiveListAdapter extends ArrayAdapter<DBData> {
                 Logs.i(TAG, "image received from cache");
             }
         } else {
-            holder.imageOfArchive.setImageResource(R.drawable.no_image);
+            holder.imageOfArchive.setImageResource(R.drawable.tepav_t);
         }
 
         // swipe list icons

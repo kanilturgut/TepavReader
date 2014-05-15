@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.helpers.popup.CommentWindows;
+import com.tepav.reader.helpers.popup.PopupAdjustFontSize;
 import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.model.DBData;
@@ -45,8 +47,9 @@ public class NewsDetails extends Activity implements View.OnClickListener {
 
     WebView webView;
     TextView titleOfNews, timeOfNews, tvComment;
-
     LinearLayout llHeaderBack, llFooterLike, llFooterAlreadyLiked, llFooterShare, llFooterAddToList, filesLayout;
+    ImageView ivAdjustFontSize;
+
     RelativeLayout rlFooter;
     View viewTransparent;
 
@@ -93,6 +96,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         filesLayout = (LinearLayout) findViewById(R.id.filesLayout);
         rlFooter = (RelativeLayout) findViewById(R.id.rlFooter);
         tvComment = (TextView) findViewById(R.id.tvComment);
+        ivAdjustFontSize = (ImageView)findViewById(R.id.ivAdjustFontSize);
 
         llFooterLike.setOnClickListener(this);
         llFooterAlreadyLiked.setOnClickListener(this);
@@ -100,6 +104,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         llFooterAddToList.setOnClickListener(this);
         llHeaderBack.setOnClickListener(this);
         tvComment.setOnClickListener(this);
+        ivAdjustFontSize.setOnClickListener(this);
 
         webView = (WebView) findViewById(R.id.wvNewsDetailContentOfNews);
         webView.loadData(news.getHcontent(), "text/html; charset=UTF-8", null);
@@ -208,15 +213,24 @@ public class NewsDetails extends Activity implements View.OnClickListener {
                 commentWindows.setAnimStyle(CommentWindows.ANIM_GROW_FROM_CENTER);
                 commentWindows.show(view);
 
+            } else if (view == ivAdjustFontSize) {
+                PopupAdjustFontSize popupAdjustFontSize = new PopupAdjustFontSize(context, webView);
+                popupAdjustFontSize.setAnimStyle(PopupAdjustFontSize.ANIM_GROW_FROM_CENTER);
+                popupAdjustFontSize.show(rlFooter);
             }
         } else {
             if (view == llHeaderBack) {
                 onBackPressed();
-            } else {
+            } else if (view == ivAdjustFontSize) {
+                PopupAdjustFontSize popupAdjustFontSize = new PopupAdjustFontSize(context, webView);
+                popupAdjustFontSize.setAnimStyle(PopupAdjustFontSize.ANIM_GROW_FROM_CENTER);
+                popupAdjustFontSize.show(rlFooter);
+            }else {
                 AlertDialogManager alertDialogManager = new AlertDialogManager();
                 alertDialogManager.showLoginDialog(context, getString(R.string.warning), getString(R.string.must_log_in), false);
             }
         }
+
     }
 
 }

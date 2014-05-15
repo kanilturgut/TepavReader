@@ -43,6 +43,14 @@
                 android:textColor="@color/tepav_siyahi"
                 android:layout_centerInParent="true"/>
 
+        <ImageView android:layout_width="@dimen/action_bar_back_button_size"
+                   android:layout_height="@dimen/action_bar_back_button_size"
+                   android:contentDescription="@string/content_description"
+                   android:layout_alignParentRight="true"
+                   android:layout_centerVertical="true"
+                   android:layout_marginRight="10dp"
+                   android:src="@drawable/adjust_font"/>
+
     </RelativeLayout>
 
 

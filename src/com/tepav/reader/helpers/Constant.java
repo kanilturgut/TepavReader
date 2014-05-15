@@ -61,4 +61,7 @@ public class Constant {
     public static int DETAILS_FROM_POST = 0;
     public static int DETAILS_FROM_LIST = 1;
 
+    // Default font size
+    public static int DEFAULT_FONT_SIZE = 16;
+
 }

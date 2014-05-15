@@ -26,9 +26,14 @@
         <activity android:name=".activity.MainActivity"
                   android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.NewsDetails"/>
-        <activity android:name=".activity.BlogDetails"/>
-        <activity android:name=".activity.PublicationDetails"/>
+        <activity android:name=".activity.NewsDetails"
+                  android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <activity android:name=".activity.BlogDetails"
+                  android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <activity android:name=".activity.PublicationDetails"
+                  android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <activity android:name=".activity.PDFDownloadActivity"
                   android:screenOrientation="portrait"/>

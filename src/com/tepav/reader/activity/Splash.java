@@ -35,8 +35,6 @@ public class Splash extends Activity {
 
     MySharedPreferences mySharedPreferences = null;
     AQuery aQuery = null;
-    Map<String, String> params = null;
-    AjaxCallback<JSONObject> ajaxCallback = null;
     ConnectionDetector connectionDetector;
 
 

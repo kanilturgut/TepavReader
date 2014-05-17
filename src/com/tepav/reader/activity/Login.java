@@ -48,12 +48,9 @@ public class Login extends Activity implements View.OnClickListener {
     LinearLayout llHeaderBack;
     LoginButton facebookLoginButton;
 
-   // AQuery aQuery;
     TwitterOperations twitterOperations;
     MySharedPreferences mySharedPreferences;
 
-    Map<String, String> params = null;
-    AjaxCallback<JSONObject> ajaxCallback = null;
     ConnectionDetector connectionDetector;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -105,182 +102,13 @@ public class Login extends Activity implements View.OnClickListener {
         connectionDetector = ConnectionDetector.getInstance(context);
 
         if (mySharedPreferences.getSize() > 0 && connectionDetector.isConnectingToInternet()) {
-
-            int userType = mySharedPreferences.getUserType();
-
-            if (userType == MySharedPreferences.USER_TYPE_TEPAV) {
-
-                final TepavUser tepavUser = mySharedPreferences.getTepavUser();
-
-                new AsyncTask<Void, Void, HttpResponse>() {
-
-                    @Override
-                    protected HttpResponse doInBackground(Void... voids) {
-
-                        JSONObject jsonObject = new JSONObject();
-                        try {
-                            jsonObject.put("email", tepavUser.getEmail());
-                            jsonObject.put("password", tepavUser.getPassword());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                        try {
-                            return Requests.post(HttpURL.tepavLogin, jsonObject.toString());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Logs.e(TAG, "LOGIN FAILED", e);
-                            return null;
-                        }
-                    }
-
-                    @Override
-                    protected void onPostExecute(HttpResponse httpResponse) {
-
-                        try {
-                            String resp = Requests.readResponse(httpResponse);
-                            Logs.i(TAG, "response is " + resp);
-
-                            try {
-                                JSONObject object = new JSONObject(resp);
-                                String fullname = object.getString("fullname");
-                                String email = object.getString("email");
-
-                                User.setUser(fullname, email);
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
-                                loginSuccessful();
-                            } else
-                                loginUnsuccessful();
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }.execute();
-
-            } else if (userType == MySharedPreferences.USER_TYPE_TWITTER) {
-
-                final TwitterUser twitterUser = mySharedPreferences.getTwitterPref();
-
-                new AsyncTask<Void, Void, HttpResponse>() {
-
-                    @Override
-                    protected HttpResponse doInBackground(Void... voids) {
-
-                        JSONObject jsonObject = new JSONObject();
-                        try {
-                            jsonObject.put("oauth_token", twitterUser.getOauthToken());
-                            jsonObject.put("oauth_token_secret", twitterUser.getOauthSecret());
-                            jsonObject.put("user_id", twitterUser.getUserID());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                        try {
-                            return Requests.post(HttpURL.twitterLogin, jsonObject.toString());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Logs.e(TAG, "LOGIN FAILED", e);
-                            return null;
-                        }
-                    }
-
-                    @Override
-                    protected void onPostExecute(HttpResponse httpResponse) {
-
-                        try {
-                            String resp = Requests.readResponse(httpResponse);
-                            Logs.i(TAG, "response is " + resp);
-
-                            try {
-                                JSONObject object = new JSONObject(resp);
-                                String fullname = object.getString("fullname");
-                                String email = object.getString("email");
-
-                                User.setUser(fullname, email);
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
-                                loginSuccessful();
-                            } else
-                                loginUnsuccessful();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }.execute();
-
-            } else if (userType == MySharedPreferences.USER_TYPE_FACEBOOK) {
-
-                final FacebookUser facebookUser = mySharedPreferences.getFacebookPref();
-
-                new AsyncTask<Void, Void, HttpResponse>() {
-
-                    @Override
-                    protected HttpResponse doInBackground(Void... voids) {
-
-                        JSONObject jsonObject = new JSONObject();
-                        try {
-                            jsonObject.put("access_token", facebookUser.getToken());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                        try {
-                            return Requests.post(HttpURL.facebookLogin, jsonObject.toString());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Logs.e(TAG, "LOGIN FAILED", e);
-                            return null;
-                        }
-                    }
-
-                    @Override
-                    protected void onPostExecute(HttpResponse httpResponse) {
-
-                        try {
-                            String resp = Requests.readResponse(httpResponse);
-                            Logs.i(TAG, "response is " + resp);
-
-                            try {
-                                JSONObject object = new JSONObject(resp);
-                                String fullname = object.getString("fullname");
-                                String email = object.getString("email");
-
-                                User.setUser(fullname, email);
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
-                                loginSuccessful();
-                            } else
-                                loginUnsuccessful();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }.execute();
-
+            if (mySharedPreferences.getUserType() == MySharedPreferences.USER_TYPE_TEPAV) {
+                doTepavLogin();
+            } else if (mySharedPreferences.getUserType() == MySharedPreferences.USER_TYPE_TWITTER) {
+                doTwitterLogin();
+            } else if (mySharedPreferences.getUserType() == MySharedPreferences.USER_TYPE_FACEBOOK) {
+                doFacebookLogin();
             }
-
         }
     }
 
@@ -325,7 +153,7 @@ public class Login extends Activity implements View.OnClickListener {
                             Logs.i(TAG, userID + "," + name + "," + username + "," + email);
 
                             mySharedPreferences.setFacebookPref(name, email, session.getAccessToken());
-                            loginSuccessful();
+                            doFacebookLogin();
 
                         }
                     }
@@ -386,6 +214,180 @@ public class Login extends Activity implements View.OnClickListener {
         } else if (view == twitterLoginButton) {
             twitterOperations.loginToTwitter();
         }
+    }
+
+    void doFacebookLogin() {
+
+        final FacebookUser facebookUser = mySharedPreferences.getFacebookPref();
+
+        new AsyncTask<Void, Void, HttpResponse>() {
+
+            @Override
+            protected HttpResponse doInBackground(Void... voids) {
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("access_token", facebookUser.getToken());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                try {
+                    return Requests.post(HttpURL.facebookLogin, jsonObject.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Logs.e(TAG, "LOGIN FAILED", e);
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(HttpResponse httpResponse) {
+
+                try {
+                    String resp = Requests.readResponse(httpResponse);
+                    Logs.i(TAG, "response is " + resp);
+
+                    try {
+                        JSONObject object = new JSONObject(resp);
+                        String fullname = object.getString("fullname");
+                        String email = object.getString("email");
+
+                        User.setUser(fullname, email);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
+                        loginSuccessful();
+                    } else
+                        loginUnsuccessful();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.execute();
+
+    }
+
+    void doTwitterLogin() {
+
+        final TwitterUser twitterUser = mySharedPreferences.getTwitterPref();
+
+        new AsyncTask<Void, Void, HttpResponse>() {
+
+            @Override
+            protected HttpResponse doInBackground(Void... voids) {
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("oauth_token", twitterUser.getOauthToken());
+                    jsonObject.put("oauth_token_secret", twitterUser.getOauthSecret());
+                    jsonObject.put("user_id", twitterUser.getUserID());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                try {
+                    return Requests.post(HttpURL.twitterLogin, jsonObject.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Logs.e(TAG, "LOGIN FAILED", e);
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(HttpResponse httpResponse) {
+
+                try {
+                    String resp = Requests.readResponse(httpResponse);
+                    Logs.i(TAG, "response is " + resp);
+
+                    try {
+                        JSONObject object = new JSONObject(resp);
+                        String fullname = object.getString("fullname");
+                        String email = object.getString("email");
+
+                        User.setUser(fullname, email);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
+                        loginSuccessful();
+                    } else
+                        loginUnsuccessful();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.execute();
+    }
+
+    void doTepavLogin() {
+
+        final TepavUser tepavUser = mySharedPreferences.getTepavUser();
+
+        new AsyncTask<Void, Void, HttpResponse>() {
+
+            @Override
+            protected HttpResponse doInBackground(Void... voids) {
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("email", tepavUser.getEmail());
+                    jsonObject.put("password", tepavUser.getPassword());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                try {
+                    return Requests.post(HttpURL.tepavLogin, jsonObject.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Logs.e(TAG, "LOGIN FAILED", e);
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(HttpResponse httpResponse) {
+
+                try {
+                    String resp = Requests.readResponse(httpResponse);
+                    Logs.i(TAG, "response is " + resp);
+
+                    try {
+                        JSONObject object = new JSONObject(resp);
+                        String fullname = object.getString("fullname");
+                        String email = object.getString("email");
+
+                        User.setUser(fullname, email);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK)) {
+                        loginSuccessful();
+                    } else
+                        loginUnsuccessful();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.execute();
     }
 
     void doLogin(final String email, final String password) {

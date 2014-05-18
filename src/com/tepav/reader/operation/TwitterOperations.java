@@ -1,9 +1,11 @@
-package com.tepav.reader.helpers;
+package com.tepav.reader.operation;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import com.tepav.reader.helpers.Logs;
+import com.tepav.reader.helpers.MySharedPreferences;
 import com.tepav.reader.model.TwitterUser;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;

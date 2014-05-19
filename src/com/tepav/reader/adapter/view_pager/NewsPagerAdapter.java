@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
@@ -82,6 +83,9 @@ public class NewsPagerAdapter extends FragmentStatePagerAdapter {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
             View view = inflater.inflate(R.layout.custom_news_pager, container, false);
+
+            TextView tvNewsPagerNewsTitle = (TextView) view.findViewById(R.id.tvNewsPagerNewsTitle);
+            tvNewsPagerNewsTitle.setText(newsList.get(myPageNumber).getHtitle());
 
             ImageView imageView = (ImageView) view.findViewById(R.id.newsPagerImageOfNews);
 

@@ -45,7 +45,7 @@
         <com.tepav.reader.helpers.pagerindicator.CirclePageIndicator
                 android:id="@+id/circleIndicatorOfNewsPager"
                 android:layout_above="@+id/swipeListViewOfNews"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

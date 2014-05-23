@@ -57,6 +57,17 @@ public class MainActivity extends FragmentActivity {
         btMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                lvLeftMenu.setAdapter(new LeftMenuAdapter(context, getResources().getStringArray(R.array.menu_items)));
+                lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        onMenuItemClick(parent, view, position, id);
+                    }
+
+                });
+
+
                 // Show/hide the menu
                 slidingMenu.toggleMenu();
             }
@@ -77,20 +88,6 @@ public class MainActivity extends FragmentActivity {
                 ft.add(R.id.activity_main_content_fragment, fragment, getString(R.string.Home));
                 ft.commit();
             }
-        });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        lvLeftMenu.setAdapter(new LeftMenuAdapter(context, getResources().getStringArray(R.array.menu_items)));
-        lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                onMenuItemClick(parent, view, position, id);
-            }
-
         });
     }
 

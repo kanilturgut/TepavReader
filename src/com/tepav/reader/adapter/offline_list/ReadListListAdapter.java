@@ -6,17 +6,11 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
 import com.tepav.reader.R;
-import com.tepav.reader.activity.BlogDetails;
-import com.tepav.reader.activity.NewsDetails;
-import com.tepav.reader.activity.PublicationDetails;
-import com.tepav.reader.activity.Splash;
+import com.tepav.reader.activity.*;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.Constant;
@@ -288,6 +282,18 @@ public class ReadListListAdapter extends ArrayAdapter<DBData> {
                         imageButton.setImageResource(R.drawable.okudum_icon_dolu);
                     else
                         imageButton.setImageResource(R.drawable.okudum_icon);
+
+
+                    dbHandler.delete(dbData, DBHandler.TABLE_READ_LIST);
+                    dbDataList.remove(dbData);
+
+                    remove(dbData);
+                    notifyDataSetChanged();
+
+                    swipeListView.closeAnimate(position);
+
+                    Toast.makeText(context, "Yazı Okuduklarım listenize taşındı",Toast.LENGTH_LONG).show();
+
                 } else {
                     AlertDialogManager alertDialogManager = new AlertDialogManager();
                     alertDialogManager.showLoginDialog(context, context.getString(R.string.warning), context.getString(R.string.must_log_in), false);

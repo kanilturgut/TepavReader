@@ -22,7 +22,6 @@
                   android:layout_marginTop="10dp"
                   android:padding="5dp"
                   android:gravity="center_vertical"
-                  android:text="Barış Okur"
                   android:background="@drawable/stroke_text_view"
                   android:textColor="@color/koyu_gri"/>
 
@@ -32,7 +31,6 @@
                   android:layout_marginTop="10dp"
                   android:padding="5dp"
                   android:gravity="center_vertical"
-                  android:text="baris@okur.com"
                   android:background="@drawable/stroke_text_view"
                   android:textColor="@color/koyu_gri"/>
 
@@ -65,7 +63,7 @@
                 android:id="@+id/bCommentSend"
                 android:minWidth="90dp"
                 android:background="@drawable/rounded_corners"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:text="Gönder"
                 android:textColor="@color/beyaz"
                 android:layout_alignParentRight="true"/>

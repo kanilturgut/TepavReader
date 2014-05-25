@@ -25,6 +25,7 @@ public class MySharedPreferences {
     final String PREF_KEY_TWITTER_OAUTH_SECRET = "oauth_token_secret";
     final String PREF_KEY_TWITTER_LOGIN = "isTwitterLoggedIn";
     final String PREF_KEY_TWITTER_USER_ID = "twitter_user_id";
+    final String PREF_KEY_TWITTER_EMAIL = "twitter_email";
 
     // Preference keys for Facebook
     final String PREF_KEY_FACEBOOK_USERNAME = "facebook_user_name";
@@ -130,13 +131,14 @@ public class MySharedPreferences {
      * @param oauthSecret twitter oauth token secret
      * @param loggedIn whether user logged in or not
      */
-    public void setTwitterPref(String userID, String oauthToken, String oauthSecret, boolean loggedIn) {
+    public void setTwitterPref(String userID, String oauthToken, String oauthSecret, boolean loggedIn, String email) {
 
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(PREF_KEY_TWITTER_USER_ID, userID);
         editor.putString(PREF_KEY_TWITTER_OAUTH_TOKEN, oauthToken);
         editor.putString(PREF_KEY_TWITTER_OAUTH_SECRET, oauthSecret);
         editor.putBoolean(PREF_KEY_TWITTER_LOGIN, loggedIn);
+        editor.putString(PREF_KEY_TWITTER_EMAIL, email);
         editor.commit();
     }
 
@@ -152,6 +154,7 @@ public class MySharedPreferences {
         twitterUser.setOauthToken(sp.getString(PREF_KEY_TWITTER_OAUTH_TOKEN, null));
         twitterUser.setOauthSecret(sp.getString(PREF_KEY_TWITTER_OAUTH_SECRET, null));
         twitterUser.setLoggedIn(sp.getBoolean(PREF_KEY_TWITTER_LOGIN, false));
+        twitterUser.setEmail(sp.getString(PREF_KEY_TWITTER_EMAIL, null));
 
         return twitterUser;
     }
@@ -166,6 +169,7 @@ public class MySharedPreferences {
         editor.remove(PREF_KEY_TWITTER_OAUTH_TOKEN);
         editor.remove(PREF_KEY_TWITTER_OAUTH_SECRET);
         editor.remove(PREF_KEY_TWITTER_LOGIN);
+        editor.remove(PREF_KEY_TWITTER_EMAIL);
         editor.commit();
     }
 

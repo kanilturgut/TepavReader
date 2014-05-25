@@ -28,14 +28,14 @@ public class TwitterOperations {
     //String TWITTER_CONSUMER_SECRET = "lgSRrO1DwAQxqVJBTiO7CSSkD3Urkmx4InG9ASrqSpd4uRSSU5";
     String TWITTER_CONSUMER_KEY = "6OVgh3VmI98dOvfgjcqu48vZT";
     String TWITTER_CONSUMER_SECRET = "A0NcqkU4ecYLi0CVOYugVHwvVZDlTqofgEu5KyJ1bXssl8eqMT";
-    String TWITTER_CALLBACK_URL = "oauth://tepav";
+    public static String TWITTER_CALLBACK_URL = "oauth://tepav";
 
     // Twitter oauth urls
-    final String URL_TWITTER_OAUTH_VERIFIER = "oauth_verifier";
+    public static final String URL_TWITTER_OAUTH_VERIFIER = "oauth_verifier";
 
     // Twitter
-    Twitter twitter;
-    RequestToken requestToken;
+    public static Twitter twitter;
+    public static RequestToken requestToken;
 
     static TwitterOperations twitterOperations = null;
     MySharedPreferences mySharedPreferences = null;
@@ -80,14 +80,6 @@ public class TwitterOperations {
         mySharedPreferences.deleteTwitterFromPref();
     }
 
-    public void autoLogin(Uri uri) {
-
-        if (uri != null && uri.toString().startsWith(TWITTER_CALLBACK_URL)) {
-            String verifier = uri.getQueryParameter(URL_TWITTER_OAUTH_VERIFIER);
-            new GetOAuthAccessTokenTask().execute(verifier);
-        }
-    }
-
     class GetOAuthRequestTokenTask extends AsyncTask<Void, Void, RequestToken> {
 
         @Override
@@ -113,27 +105,5 @@ public class TwitterOperations {
         }
     }
 
-    class GetOAuthAccessTokenTask extends AsyncTask<String, Void, AccessToken> {
 
-        @Override
-        protected AccessToken doInBackground(String... strings) {
-            try {
-                return twitter.getOAuthAccessToken(requestToken, strings[0]);
-            } catch (TwitterException e) {
-                Logs.e(TAG, "ERROR on GetOAuthAccessTokenTask");
-                e.printStackTrace();
-
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(AccessToken accessToken) {
-
-            mySharedPreferences.setTwitterPref(String.valueOf(accessToken.getUserId()), accessToken.getToken(),
-                    accessToken.getTokenSecret(), true);
-
-            Logs.i(TAG, "Twitter OAuth Token added to SP");
-        }
-    }
 }

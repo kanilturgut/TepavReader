@@ -173,7 +173,7 @@ public class Splash extends Activity {
                             try {
                                 JSONObject object = new JSONObject(resp);
                                 String fullname = object.getString("fullname");
-                                String email = object.getString("email");
+                                String email = mySharedPreferences.getTwitterPref().getEmail();
 
                                 User.setUser(fullname, email);
 

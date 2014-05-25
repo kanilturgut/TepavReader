@@ -11,6 +11,7 @@ public class TwitterUser {
     String oauthToken;
     String oauthSecret;
     boolean isLoggedIn;
+    String email;
 
     public String getUserID() {
         return userID;
@@ -42,5 +43,13 @@ public class TwitterUser {
 
     public void setLoggedIn(boolean isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

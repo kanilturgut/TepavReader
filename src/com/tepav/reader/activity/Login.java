@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import com.facebook.*;
+import com.facebook.AccessToken;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 import com.tepav.reader.R;
@@ -24,6 +25,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.auth.*;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -174,7 +178,7 @@ public class Login extends Activity implements View.OnClickListener {
         if (!twitterOperations.isTwitterLoggedInAlready()) {
             Logs.d(TAG, "onResume, isTwitterLoggedInAlready returned false");
             Uri uri = getIntent().getData();
-            twitterOperations.autoLogin(uri);
+            autoLogin(uri, TwitterOperations.twitter, TwitterOperations.requestToken);
         } else {
             Logs.d(TAG, "onResume, isTwitterLoggedInAlready returned true");
         }
@@ -187,9 +191,17 @@ public class Login extends Activity implements View.OnClickListener {
         if (!twitterOperations.isTwitterLoggedInAlready()) {
             Logs.d(TAG, "onResume, isTwitterLoggedInAlready returned false");
             Uri uri = getIntent().getData();
-            twitterOperations.autoLogin(uri);
+            autoLogin(uri, TwitterOperations.twitter, TwitterOperations.requestToken);
         } else {
             Logs.d(TAG, "onResume, isTwitterLoggedInAlready returned true");
+            try {
+
+                if (!mySharedPreferences.getTwitterPref().getEmail().equals(""))
+                    finish();
+            } catch (Exception e) {
+                Logs.e(TAG, "onRestart", e);
+            }
+
         }
     }
 
@@ -308,7 +320,7 @@ public class Login extends Activity implements View.OnClickListener {
                     try {
                         JSONObject object = new JSONObject(resp);
                         String fullname = object.getString("fullname");
-                        String email = object.getString("email");
+                        String email = mySharedPreferences.getTwitterPref().getEmail();
 
                         User.setUser(fullname, email);
 
@@ -448,6 +460,48 @@ public class Login extends Activity implements View.OnClickListener {
             }.execute();
         } else {
             Toast.makeText(context, "Boş alanları doldurunuz", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    void autoLogin(Uri uri, Twitter twitter, RequestToken requestToken) {
+
+        if (uri != null && uri.toString().startsWith(TwitterOperations.TWITTER_CALLBACK_URL)) {
+            String verifier = uri.getQueryParameter(TwitterOperations.URL_TWITTER_OAUTH_VERIFIER);
+            GetOAuthAccessTokenTask getOAuthAccessTokenTask = new GetOAuthAccessTokenTask(twitter, requestToken);
+            getOAuthAccessTokenTask.execute(verifier);
+        }
+    }
+
+    class GetOAuthAccessTokenTask extends AsyncTask<String, Void, twitter4j.auth.AccessToken> {
+
+        Twitter twitter;
+        RequestToken requestToken;
+
+        public GetOAuthAccessTokenTask(Twitter twitter, RequestToken requestToken) {
+            this.twitter = twitter;
+            this.requestToken = requestToken;
+        }
+
+        @Override
+        protected twitter4j.auth.AccessToken doInBackground(String... strings) {
+            try {
+                return twitter.getOAuthAccessToken(requestToken, strings[0]);
+            } catch (TwitterException e) {
+                Logs.e(TAG, "ERROR on GetOAuthAccessTokenTask");
+                e.printStackTrace();
+
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(twitter4j.auth.AccessToken accessToken) {
+
+            Intent intent = new Intent(context, GetEmailForTwitter.class);
+            intent.putExtra("user_id", String.valueOf(accessToken.getUserId()));
+            intent.putExtra("token", accessToken.getToken());
+            intent.putExtra("tokenSecret", accessToken.getTokenSecret());
+            startActivity(intent);
         }
     }
 }

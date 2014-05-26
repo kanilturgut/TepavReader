@@ -107,6 +107,8 @@
 
     <string name="logout">Çıkış Yap</string>
     <string name="save_settings">Ayarları Kaydet</string>
+    <string name="fullname">adı-soyadı</string>
+    <string name="eposta">eposta</string>
 
 
 </resources>

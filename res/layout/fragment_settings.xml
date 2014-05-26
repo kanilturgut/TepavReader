@@ -23,45 +23,111 @@
               android:layout_marginTop="30dp"
               android:layout_marginBottom="30dp"/>
 
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                    android:layout_below="@+id/tvTypeOfSettings">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/rlUserInformation"
+                  android:padding="30dp"
+                  android:background="@color/beyaz"
+                  android:layout_above="@+id/rlNotificationSettings"
+                  android:gravity="bottom"
+                  android:orientation="vertical">
+
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/tvNotificationSettingFullname"
+                      android:background="@drawable/stroke_bottom_text_view"
+                      android:gravity="left"
+                      android:layout_alignParentLeft="true"
+                      android:textColor="@color/gri"
+                      android:textSize="22sp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_gravity="right"
+                      android:textColor="@color/gri"
+                      android:layout_alignParentRight="true"
+                      android:gravity="right"
+                      android:textSize="12sp"
+                      android:text="@string/fullname"/>
+
+        </RelativeLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="0.1dp"
+              android:layout_marginTop="5dp"
+              android:background="@color/gri"/>
+
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/tvNotificationSettingEmail"
+                      android:background="@drawable/stroke_bottom_text_view"
+                      android:gravity="left"
+                      android:textSize="22sp"
+                      android:textColor="@color/gri"
+                      android:layout_alignParentLeft="true"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_gravity="right"
+                      android:layout_alignParentRight="true"
+                      android:textColor="@color/gri"
+                      android:textSize="12sp"
+                      android:gravity="right"
+                      android:text="@string/eposta"/>
+
+        </RelativeLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="0.1dp"
+              android:layout_marginTop="5dp"
+              android:background="@color/gri"/>
+
+    </LinearLayout>
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/rlNotificationSettings">
 
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:padding="20dp"
-                      android:background="@color/beyaz"
+                      android:background="@android:color/transparent"
                       android:orientation="vertical">
 
-            <Switch
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/koyu_gri"
-                    android:text="Yeni Haber Geldiğinde Uyar"
-                    android:id="@+id/switchNews"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:padding="20dp"
+                          android:background="@color/beyaz">
+                <Switch
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gri"
+                        android:text="Yeni Haber Geldiğinde Uyar"
+                        android:id="@+id/switchNews"/>
 
-            <Switch
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/koyu_gri"
-                    android:text="Yeni Günlük Geldiğinde Uyar"
-                    android:id="@+id/switchBlog"/>
+                <Switch
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gri"
+                        android:text="Yeni Günlük Geldiğinde Uyar"
+                        android:id="@+id/switchBlog"/>
 
-            <Switch
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/koyu_gri"
-                    android:text="Yeni Yayın Geldiğinde Uyar"
-                    android:id="@+id/switchPublication"/>
+                <Switch
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gri"
+                        android:text="Yeni Yayın Geldiğinde Uyar"
+                        android:id="@+id/switchPublication"/>
+            </LinearLayout>
+
 
             <Button android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:id="@+id/bSaveNotificationSettings"
-                    android:layout_marginTop="20dp"
+                    android:layout_margin="20dp"
                     android:background="@drawable/rounded_corners"
                     android:visibility="visible"
                     android:text="@string/save_settings"

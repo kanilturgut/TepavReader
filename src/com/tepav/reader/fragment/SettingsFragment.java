@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.tepav.reader.R;
 import com.tepav.reader.backend.Requests;
@@ -36,8 +37,11 @@ public class SettingsFragment extends Fragment {
 
     Button bSaveSettings;
     Switch sNews, sBlog, sPublication;
+    TextView tvEmail, tvFullname;
+
     User user;
     boolean notificationNews, notificationBlog, notificationPublication;
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -110,10 +114,16 @@ public class SettingsFragment extends Fragment {
         sBlog = (Switch) view.findViewById(R.id.switchBlog);
         sPublication = (Switch) view.findViewById(R.id.switchPublication);
 
+        tvEmail = (TextView) view.findViewById(R.id.tvNotificationSettingEmail);
+        tvFullname = (TextView) view.findViewById(R.id.tvNotificationSettingFullname);
+
         if (user != null) {
             sNews.setChecked(user.notificationNews);
             sBlog.setChecked(user.notificationBlog);
             sPublication.setChecked(user.notificationPublication);
+            tvFullname.setText(user.fullname);
+            tvEmail.setText(user.email);
+
         } else {
             sNews.setChecked(true);
             sBlog.setChecked(true);

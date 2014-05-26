@@ -48,6 +48,7 @@
                 android:background="@color/beyaz">
 
             <RelativeLayout android:layout_width="@dimen/action_bar_toggle_area" android:layout_height="match_parent"
+                            android:background="?android:attr/selectableItemBackground"
                             android:layout_alignParentLeft="true"
                             android:id="@+id/button_menu">
                 <ImageView

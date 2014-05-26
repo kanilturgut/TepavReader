@@ -48,7 +48,7 @@ public class MainActivity extends FragmentActivity {
         tvLeftMenuHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(context, Register.class));
+                startActivity(new Intent(context, Login.class));
             }
         });
 

@@ -2,12 +2,17 @@ package com.tepav.reader.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
@@ -63,6 +68,14 @@ public class NewsFragment extends Fragment {
         //swipe list view of news
         swipeListViewOfNews = (SwipeListView) view.findViewById(R.id.swipeListViewOfNews);
         swipeListViewOfNews.setAdapter(new NewsListAdapter(context, 1));
+
+        // Creating a textview
+        TextView textView = new TextView(context);
+        textView.setText(context.getString(R.string.visit_web_page));
+        textView.setBackgroundColor(getResources().getColor(R.color.beyaz));
+        textView.setGravity(Gravity.CENTER);
+        textView.setPadding(20, 20, 20, 20);
+        swipeListViewOfNews.addFooterView(textView);
 
         JSONObject jsonObject = new JSONObject();
         try {

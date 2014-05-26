@@ -3,19 +3,23 @@ package com.tepav.reader.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.tepav.reader.R;
 import com.tepav.reader.backend.Requests;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.*;
-import com.tepav.reader.model.FacebookUser;
-import com.tepav.reader.model.TepavUser;
-import com.tepav.reader.model.TwitterUser;
-import com.tepav.reader.model.User;
+import com.tepav.reader.model.*;
 import com.tepav.reader.operation.OfflineList;
 import com.tepav.reader.util.ConnectionDetector;
 import org.apache.http.HttpResponse;
@@ -37,8 +41,12 @@ public class Splash extends Activity {
     AQuery aQuery = null;
     ConnectionDetector connectionDetector;
 
-
     public static boolean isUserLoggedIn = false;
+
+
+    static GoogleCloudMessaging gcm;
+    static final String GOOGLE_PROJECT_ID = "938861743378";
+    private String regId;
 
     /**
      * Called when the activity is first created.
@@ -68,7 +76,104 @@ public class Splash extends Activity {
 
         mySharedPreferences = MySharedPreferences.getInstance(context);
         aQuery = Aquery.getInstance(context);
+
+        if (connectionDetector.isConnectingToInternet())
+            registerGCM();
     }
+
+    public String registerGCM() {
+
+        gcm = GoogleCloudMessaging.getInstance(context);
+        regId = getRegistrationId();
+
+        if (TextUtils.isEmpty(regId)) {
+
+            registerInBackground();
+
+            Logs.d("RegisterActivity",
+                    "registerGCM - successfully registered with GCM server - regId: "
+                            + regId
+            );
+        } else {
+            Logs.d(TAG, "RegId already available. RegId: " + regId);
+        }
+        return regId;
+    }
+
+    private String getRegistrationId() {
+
+        String registrationId = MySharedPreferences.getInstance(context).getGCMInformation().getRegId();
+
+        if (registrationId != null) {
+            if (registrationId.isEmpty()) {
+                Logs.i(TAG, "Registration not found.");
+                return "";
+            }
+            int registeredVersion = Integer.parseInt(MySharedPreferences.getInstance(context).getGCMInformation().getAppVersion());
+            int currentVersion = getAppVersion();
+            if (registeredVersion != currentVersion) {
+                Logs.i(TAG, "App version changed.");
+                return "";
+            }
+        }
+
+        return registrationId;
+    }
+
+    private int getAppVersion() {
+        try {
+            PackageInfo packageInfo = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            Logs.d("RegisterActivity",
+                    "I never expected this! Going down, going down!" + e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void registerInBackground() {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String msg = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(context);
+                    }
+                    regId = gcm.register(GOOGLE_PROJECT_ID);
+                    Logs.d("RegisterActivity", "registerInBackground - regId: "
+                            + regId);
+                    msg = "Device registered, registration ID=" + regId;
+
+                    storeRegistrationId(regId);
+                } catch (IOException ex) {
+                    msg = "Error :" + ex.getMessage();
+                    Logs.d("RegisterActivity", "Error: " + msg);
+                }
+                Logs.d("RegisterActivity", "AsyncTask completed: " + msg);
+                return msg;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+                Logs.d(TAG, "Registered with GCM Server." + msg);
+            }
+        }.execute(null, null, null);
+    }
+
+    private void storeRegistrationId(String regId) {
+
+        int appVersion = getAppVersion();
+        Logs.i(TAG, "Saving regId on app version " + appVersion);
+
+        GCM gcm = new GCM();
+        gcm.setRegId(regId);
+        gcm.setAppVersion(String.valueOf(appVersion));
+
+        mySharedPreferences.saveGCMInformation(gcm);
+    }
+
 
     @Override
     protected void onStart() {
@@ -249,8 +354,10 @@ public class Splash extends Activity {
                     }
                 }.execute();
 
+            } else {
+                //call runnable
+                startHandler.postDelayed(startRunnable, Constant.SPLASH_TRANSITION_TIME);
             }
-
         } else {
             //call runnable
             startHandler.postDelayed(startRunnable, Constant.SPLASH_TRANSITION_TIME);

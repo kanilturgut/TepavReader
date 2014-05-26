@@ -3,6 +3,7 @@ package com.tepav.reader.helpers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.tepav.reader.model.FacebookUser;
+import com.tepav.reader.model.GCM;
 import com.tepav.reader.model.TepavUser;
 import com.tepav.reader.model.TwitterUser;
 
@@ -42,6 +43,11 @@ public class MySharedPreferences {
     public static final int USER_TYPE_TEPAV = 0;
     public static final int USER_TYPE_TWITTER = 1;
     public static final int USER_TYPE_FACEBOOK = 2;
+
+
+    //Shared Preferences for GCM
+    final String PREF_GCM_REG_ID = "regId";
+    final String PREF_GCM_APP_VERSION = "appVersion";
 
     /**
      * Create an object
@@ -236,4 +242,22 @@ public class MySharedPreferences {
         else
             return -1;
     }
+
+
+    public void saveGCMInformation(GCM gcm) {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(PREF_GCM_REG_ID, gcm.getRegId());
+        editor.putString(PREF_GCM_APP_VERSION, gcm.getAppVersion());
+        editor.commit();
+    }
+
+    public GCM getGCMInformation() {
+        GCM gcm = new GCM();
+        gcm.setRegId(sp.getString(PREF_GCM_REG_ID, null));
+        gcm.setAppVersion(sp.getString(PREF_GCM_APP_VERSION, null));
+
+        return gcm;
+    }
+
+
 }

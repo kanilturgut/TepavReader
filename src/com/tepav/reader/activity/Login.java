@@ -114,6 +114,41 @@ public class Login extends Activity implements View.OnClickListener {
     }
 
     void loginSuccessful() {
+
+        new AsyncTask<Void, Void, HttpResponse>() {
+
+            @Override
+            protected HttpResponse doInBackground(Void... voids) {
+
+                if (mySharedPreferences.getGCMInformation().getRegId().isEmpty())
+                    cancel(true);
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("android", mySharedPreferences.getGCMInformation().getRegId());
+
+                    return Requests.post(HttpURL.registerGCM, jsonObject.toString());
+
+                } catch (JSONException e) {
+                    Logs.e(TAG, "GCM REGISTRATION FAILED", e);
+                } catch (IOException e) {
+                    Logs.e(TAG, "GCM REGISTRATION FAILED", e);
+                }
+
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(HttpResponse httpResponse) {
+                super.onPostExecute(httpResponse);
+
+                if (Requests.checkStatusCode(httpResponse, HttpStatus.SC_OK))
+                    Logs.d(TAG, "GCM REGISTRATION SUCCESS");
+            }
+        }.execute();
+
+
         Splash.isUserLoggedIn = true;
         finish();
     }

@@ -39,6 +39,10 @@ public class HttpURL {
     public static final String shareBLog = "/blog/share";
     public static final String sharePublication = "/publication/share";
 
+    //GCM registration
+    public static final String registerGCM = "/user/sendDeviceId";
+    public static final String notificationSettings = "/user/notificationSettings";
+
 
 
 }

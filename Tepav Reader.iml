@@ -18,6 +18,8 @@
     <orderEntry type="library" name="libs" level="project" />
     <orderEntry type="module" module-name="library" />
     <orderEntry type="module" module-name="facebook" />
+    <orderEntry type="module" module-name="google-play-services_lib" />
+    <orderEntry type="library" name="google-play-services" level="project" />
   </component>
 </module>
 

@@ -293,7 +293,11 @@ public class Login extends Activity implements View.OnClickListener {
                         String fullname = object.getString("fullname");
                         String email = object.getString("email");
 
-                        User.setUser(fullname, email);
+                        boolean newsNoti = object.getBoolean("sendNewsNotification");
+                        boolean blogNoti = object.getBoolean("sendBlogNotification");
+                        boolean publicationNoti = object.getBoolean("sendPublicationNotification");
+
+                        User.setUser(fullname, email, newsNoti, blogNoti, publicationNoti);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -352,7 +356,11 @@ public class Login extends Activity implements View.OnClickListener {
                         String fullname = object.getString("fullname");
                         String email = mySharedPreferences.getTwitterPref().getEmail();
 
-                        User.setUser(fullname, email);
+                        boolean newsNoti = object.getBoolean("sendNewsNotification");
+                        boolean blogNoti = object.getBoolean("sendBlogNotification");
+                        boolean publicationNoti = object.getBoolean("sendPublicationNotification");
+
+                        User.setUser(fullname, email, newsNoti, blogNoti, publicationNoti);
 
 
                     } catch (JSONException e) {
@@ -410,7 +418,11 @@ public class Login extends Activity implements View.OnClickListener {
                         String fullname = object.getString("fullname");
                         String email = object.getString("email");
 
-                        User.setUser(fullname, email);
+                        boolean newsNoti = object.getBoolean("sendNewsNotification");
+                        boolean blogNoti = object.getBoolean("sendBlogNotification");
+                        boolean publicationNoti = object.getBoolean("sendPublicationNotification");
+
+                        User.setUser(fullname, email, newsNoti, blogNoti, publicationNoti);
 
 
                     } catch (JSONException e) {
@@ -471,7 +483,11 @@ public class Login extends Activity implements View.OnClickListener {
                             String email = object.getString("email");
 
                             mySharedPreferences.setTepavUserPref(name, surname, email, password);
-                            User.setUser(fullname, email);
+                            boolean newsNoti = object.getBoolean("sendNewsNotification");
+                            boolean blogNoti = object.getBoolean("sendBlogNotification");
+                            boolean publicationNoti = object.getBoolean("sendPublicationNotification");
+
+                            User.setUser(fullname, email, newsNoti, blogNoti, publicationNoti);
 
 
                         } catch (JSONException e) {

@@ -17,6 +17,7 @@ import com.tepav.reader.adapter.LeftMenuAdapter;
 import com.tepav.reader.fragment.*;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.slidingmenu.SlidingMenu;
+import com.tepav.reader.util.AlertDialogManager;
 import com.tepav.reader.util.ConnectionDetector;
 
 /**
@@ -133,6 +134,15 @@ public class MainActivity extends FragmentActivity {
                     fragmentTag = getString(R.string.Readed_Documents);
                     fragment = new ArchiveFragment();
                     break;
+                case Constant.LEFT_MENU_ITEM_SETTINGS:
+                    if (Splash.isUserLoggedIn) {
+                        fragmentTag = getString(R.string.Settings);
+                        fragment = new SettingsFragment();
+                     } else {
+                        AlertDialogManager alertDialogManager = new AlertDialogManager();
+                        alertDialogManager.showLoginDialog(context, getString(R.string.warning), getString(R.string.must_log_in), false);
+                    }
+                    break;
             }
         } else {
             //only show offline stuff
@@ -149,6 +159,10 @@ public class MainActivity extends FragmentActivity {
                 case Constant.LEFT_MENU_ITEM_ARCHIVE:
                     fragmentTag = getString(R.string.Readed_Documents);
                     fragment = new ArchiveFragment();
+                    break;
+                case Constant.LEFT_MENU_ITEM_SETTINGS:
+                    fragmentTag = getString(R.string.Settings);
+                    fragment = new SettingsFragment();
                     break;
                 default:
                     fragmentTag = getString(R.string.No_Internet_Fragment);

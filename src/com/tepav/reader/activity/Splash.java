@@ -222,7 +222,11 @@ public class Splash extends Activity {
                                 String fullname = object.getString("fullname");
                                 String email = object.getString("email");
 
-                                User.setUser(fullname, email);
+                                boolean newsNoti = object.getBoolean("sendNewsNotification");
+                                boolean blogNoti = object.getBoolean("sendBlogNotification");
+                                boolean publicationNoti = object.getBoolean("sendPublicationNotification");
+
+                                User.setUser(fullname, email, newsNoti, blogNoti, publicationNoti);
 
 
                             } catch (JSONException e) {
@@ -280,7 +284,11 @@ public class Splash extends Activity {
                                 String fullname = object.getString("fullname");
                                 String email = mySharedPreferences.getTwitterPref().getEmail();
 
-                                User.setUser(fullname, email);
+                                boolean newsNoti = object.getBoolean("sendNewsNotification");
+                                boolean blogNoti = object.getBoolean("sendBlogNotification");
+                                boolean publicationNoti = object.getBoolean("sendPublicationNotification");
+
+                                User.setUser(fullname, email, newsNoti, blogNoti, publicationNoti);
 
 
                             } catch (JSONException e) {
@@ -336,7 +344,11 @@ public class Splash extends Activity {
                                 String fullname = object.getString("fullname");
                                 String email = object.getString("email");
 
-                                User.setUser(fullname, email);
+                                boolean newsNoti = object.getBoolean("sendNewsNotification");
+                                boolean blogNoti = object.getBoolean("sendBlogNotification");
+                                boolean publicationNoti = object.getBoolean("sendPublicationNotification");
+
+                                User.setUser(fullname, email, newsNoti, blogNoti, publicationNoti);
 
 
                             } catch (JSONException e) {

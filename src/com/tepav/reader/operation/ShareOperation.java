@@ -39,14 +39,14 @@ public class ShareOperation {
 
                     try {
                         if (dbData.getType() == DBData.TYPE_NEWS) {
-                            url = HttpURL.likeNews;
+                            url = HttpURL.shareNews;
                             map.put("newsId", dbData.getId());
 
                         } else if (dbData.getType() == DBData.TYPE_BLOG) {
-                            url = HttpURL.likeBLog;
+                            url = HttpURL.shareBLog;
                             map.put("blogId", dbData.getId());
                         } else if (dbData.getType() == DBData.TYPE_PUBLICATION) {
-                            url = HttpURL.likePublication;
+                            url = HttpURL.sharePublication;
                             map.put("publicationId", dbData.getId());
                         }
                     } catch (JSONException e) {

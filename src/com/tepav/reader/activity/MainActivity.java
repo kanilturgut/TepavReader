@@ -1,12 +1,12 @@
 package com.tepav.reader.activity;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Vibrator;
-import android.support.v4.app.*;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -49,29 +49,7 @@ public class MainActivity extends FragmentActivity {
         tvLeftMenuHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(context, Login.class));
-
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                        .setAutoCancel(true)
-                        .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle(context.getResources().getString(R.string.app_name))
-                        .setContentText("Yeni bir içerik mevcut");
-
-                Intent resultIntent = new Intent(context, Splash.class);
-
-                TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-                stackBuilder.addParentStack(Splash.class);
-                stackBuilder.addNextIntent(resultIntent);
-
-                Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-                long[] pattern = { 0, 100, 600, 100, 700};
-                vibrator.vibrate(pattern, -1);
-
-                PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setContentIntent(resultPendingIntent);
-
-                NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                mNotificationManager.notify(0, mBuilder.build());
+                startActivity(new Intent(context, Login.class));
             }
         });
 
@@ -160,7 +138,7 @@ public class MainActivity extends FragmentActivity {
                     if (Splash.isUserLoggedIn) {
                         fragmentTag = getString(R.string.Settings);
                         fragment = new SettingsFragment();
-                     } else {
+                    } else {
                         AlertDialogManager alertDialogManager = new AlertDialogManager();
                         alertDialogManager.showLoginDialog(context, getString(R.string.warning), getString(R.string.must_log_in), false);
                     }

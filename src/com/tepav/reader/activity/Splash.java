@@ -3,17 +3,13 @@ package com.tepav.reader.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxCallback;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.tepav.reader.R;
 import com.tepav.reader.backend.Requests;
@@ -28,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class Splash extends Activity {
 
@@ -90,12 +85,9 @@ public class Splash extends Activity {
 
             registerInBackground();
 
-            Logs.d("RegisterActivity",
-                    "registerGCM - successfully registered with GCM server - regId: "
-                            + regId
-            );
+            Logs.e(TAG, "registerGCM - successfully registered with GCM server - regId: " + regId);
         } else {
-            Logs.d(TAG, "RegId already available. RegId: " + regId);
+            Logs.e(TAG, "RegId already available. RegId: " + regId);
         }
         return regId;
     }
@@ -142,16 +134,15 @@ public class Splash extends Activity {
                         gcm = GoogleCloudMessaging.getInstance(context);
                     }
                     regId = gcm.register(GOOGLE_PROJECT_ID);
-                    Logs.d("RegisterActivity", "registerInBackground - regId: "
-                            + regId);
+                    Logs.d(TAG, "registerInBackground - regId: " + regId);
                     msg = "Device registered, registration ID=" + regId;
 
                     storeRegistrationId(regId);
                 } catch (IOException ex) {
                     msg = "Error :" + ex.getMessage();
-                    Logs.d("RegisterActivity", "Error: " + msg);
+                    Logs.d(TAG, "Error: " + msg);
                 }
-                Logs.d("RegisterActivity", "AsyncTask completed: " + msg);
+                Logs.d(TAG, "AsyncTask completed: " + msg);
                 return msg;
             }
 

@@ -79,6 +79,15 @@ public class LeftMenuAdapter extends ArrayAdapter<String>{
                 tvLeftMenuNormalTitleOfItem.setText(menuItems[position]);
 
                 break;
+            case Constant.LEFT_MENU_ITEM_SETTINGS:
+                changeVisibility(rlLeftMenuNormal, rlLeftMenuSubMenu, rlLeftMenuNormalWithCount);
+
+                ivLeftMenuNormalImageOfItem = (ImageView) rowView.findViewById(R.id.ivLeftMenuNormalImageOfItem);
+                ivLeftMenuNormalImageOfItem.setImageResource(R.drawable.ic_action_settings);
+
+                tvLeftMenuNormalTitleOfItem = (TextView) rowView.findViewById(R.id.tvLeftMenuNormalTitleOfItem);
+                tvLeftMenuNormalTitleOfItem.setText(menuItems[position]);
+                break;
             case Constant.LEFT_MENU_ITEM_NOTES:
                 changeVisibility(rlLeftMenuSubMenu, rlLeftMenuNormalWithCount, rlLeftMenuNormal);
 
@@ -144,7 +153,6 @@ public class LeftMenuAdapter extends ArrayAdapter<String>{
 
 
                 break;
-
         }
 
         return rowView;

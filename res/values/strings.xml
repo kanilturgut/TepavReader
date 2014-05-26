@@ -41,6 +41,7 @@
         <item>Okuma Listem</item>
         <item>Favoriler</item>
         <item>Okuduklarım</item>
+        <item>Ayarlar</item>
     </string-array>
 
     <string name="loading">Yükleniyor…</string>

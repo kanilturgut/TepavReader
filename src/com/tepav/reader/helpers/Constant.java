@@ -36,6 +36,7 @@ public class Constant {
     public static final int LEFT_MENU_ITEM_MY_READ_LIST = 5;
     public static final int LEFT_MENU_ITEM_FAVORITES = 6;
     public static final int LEFT_MENU_ITEM_ARCHIVE = 7;
+    public static final int LEFT_MENU_ITEM_SETTINGS = 8;
 
     //menu items
     public static final String NEWS = "Haberler";

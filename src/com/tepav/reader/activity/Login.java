@@ -181,6 +181,7 @@ public class Login extends Activity implements View.OnClickListener {
             autoLogin(uri, TwitterOperations.twitter, TwitterOperations.requestToken);
         } else {
             Logs.d(TAG, "onResume, isTwitterLoggedInAlready returned true");
+            doTwitterLogin();
         }
     }
 
@@ -194,14 +195,8 @@ public class Login extends Activity implements View.OnClickListener {
             autoLogin(uri, TwitterOperations.twitter, TwitterOperations.requestToken);
         } else {
             Logs.d(TAG, "onResume, isTwitterLoggedInAlready returned true");
-            try {
-
-                if (!mySharedPreferences.getTwitterPref().getEmail().equals(""))
-                    finish();
-            } catch (Exception e) {
-                Logs.e(TAG, "onRestart", e);
-            }
-
+            if (!mySharedPreferences.getTwitterPref().getEmail().equals(""))
+                doTwitterLogin();
         }
     }
 

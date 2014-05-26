@@ -1,6 +1,8 @@
 package com.tepav.reader.operation;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 import com.tepav.reader.backend.Requests;
 import com.tepav.reader.helpers.HttpURL;
 import com.tepav.reader.helpers.Logs;
@@ -20,6 +22,8 @@ import java.io.IOException;
 public class LikeOperation {
 
     final static String TAG = "LikeOperation";
+    Context context;
+
 
     public static void doLike(final DBData dbData) {
 

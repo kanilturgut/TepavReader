@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 import com.tepav.reader.helpers.Logs;
 import com.tepav.reader.model.DBData;
 import com.tepav.reader.operation.OfflineList;
@@ -119,6 +120,20 @@ public class DBHandler extends SQLiteOpenHelper {
                 offlineList.add(dbData, table);
 
                 process = true;
+
+                String text = "";
+                if (table.equals(DBHandler.TABLE_READ_LIST)) {
+                    text = "Yazıyı okuma listenize eklediniz";
+                } else if (table.equals(DBHandler.TABLE_FAVORITE)) {
+                    text = "Yazıyı favoriler listenize eklediniz";
+                } else if (table.equals(DBHandler.TABLE_ARCHIVE)) {
+                    text = "Yazıyı okuduklarım listenize eklediniz";
+                } else if (table.equals(DBHandler.TABLE_LIKE)) {
+                    text = "Yazıyı beğendiniz";
+                }
+
+                Toast.makeText(ctx, text, Toast.LENGTH_SHORT).show();
+
             } catch (Exception e) {
                 Logs.e(TAG, "ERROR on insert method", e);
                 process = false;

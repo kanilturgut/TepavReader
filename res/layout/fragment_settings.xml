@@ -42,7 +42,7 @@
                       android:textSize="22sp"/>
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:layout_gravity="right"
+                      android:layout_gravity="right|center_vertical"
                       android:textColor="@color/gri"
                       android:layout_alignParentRight="true"
                       android:gravity="right"
@@ -67,7 +67,7 @@
                       android:layout_alignParentLeft="true"/>
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:layout_gravity="right"
+                      android:layout_gravity="right|center_vertical"
                       android:layout_alignParentRight="true"
                       android:textColor="@color/gri"
                       android:textSize="12sp"

@@ -58,8 +58,4 @@ public class Util {
         }
     }
 
-    public static boolean checkIfUserLoggedIn() {
-        return Splash.isUserLoggedIn;
-    }
-
 }

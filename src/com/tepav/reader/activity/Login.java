@@ -195,6 +195,8 @@ public class Login extends Activity implements View.OnClickListener {
                     }
 
                 });
+            } else {
+                Logs.e(TAG, "Facebook login failed", exception);
             }
         }
     };

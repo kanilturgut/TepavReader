@@ -24,7 +24,7 @@ public class GCMReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                 .setAutoCancel(true)
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.appicon)
                 .setContentTitle(context.getResources().getString(R.string.app_name))
                 .setContentText("Yeni bir içerik mevcut");
 

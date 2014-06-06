@@ -113,4 +113,9 @@
     <string name="visit_web_page">Daha eski tarihli dokümanları görmek için tepav.org.tr\'yi ziyaret ediniz</string>
 
 
+    <string name="settings_notification_news">Yeni Haber Geldiğinde Uyar</string>
+    <string name="settings_notification_blog">Yeni Günlük Geldiğinde Uyar</string>
+    <string name="settings_notification_publication">Yeni Yayın Geldiğinde Uyar</string>
+
+
 </resources>

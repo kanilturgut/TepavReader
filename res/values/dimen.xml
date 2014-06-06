@@ -28,4 +28,6 @@
 
     <dimen name="text_size_of_left_menu">18sp</dimen>
 
+    <dimen name="width_of_frame_information">150dp</dimen>
+
 </resources>

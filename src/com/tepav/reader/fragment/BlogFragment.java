@@ -33,7 +33,7 @@ public class BlogFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_blog, null);
+        View view = inflater.inflate(R.layout.fragment_blog, null);
 
         rlLoading = (RelativeLayout) view.findViewById(R.id.rlLoading);
 

@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_home, null);
+        View view = inflater.inflate(R.layout.fragment_home, null);
 
         frameNews = (FrameLayout) view.findViewById(R.id.frameNews);
         frameNews.setOnClickListener(this);

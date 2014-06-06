@@ -38,7 +38,7 @@ public class PublicationFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_publication, null);
+        View view = inflater.inflate(R.layout.fragment_publication, null);
 
         rlLoading = (RelativeLayout) view.findViewById(R.id.rlLoading);
 

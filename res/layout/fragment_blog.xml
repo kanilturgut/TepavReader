@@ -25,7 +25,7 @@
                        android:scaleType="fitXY"
                        android:src="@drawable/main_page_blog"/>
 
-            <LinearLayout android:layout_width="100dp" android:layout_height="wrap_content"
+            <LinearLayout android:layout_width="@dimen/width_of_frame_information" android:layout_height="wrap_content"
                           android:background="@color/petrol_mavisi"
                           android:layout_gravity="right"
                           android:layout_marginTop="20dp"

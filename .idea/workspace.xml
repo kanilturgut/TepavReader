@@ -1,0 +1,1714 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidConfiguredLogFilters">
+    <filters>
+      <filter>
+        <option name="name" value="app: com.tepav.reader" />
+        <option name="packageNamePattern" value="com.tepav.reader" />
+      </filter>
+    </filters>
+  </component>
+  <component name="AndroidLayoutPreviewToolWindow">
+    <option name="state">
+      <GlobalState>
+        <option name="visible" value="false" />
+      </GlobalState>
+    </option>
+  </component>
+  <component name="AndroidLayouts">
+    <shared>
+      <config>
+        <devices>
+          <device id="Nexus 5" />
+        </devices>
+      </config>
+    </shared>
+    <layouts>
+      <layout url="file://$PROJECT_DIR$/res/layout/activity_login.xml">
+        <config>
+          <theme>@android:style/Theme.Holo.Light.NoActionBar</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/res/layout/fragment_news.xml">
+        <config>
+          <theme>@android:style/Theme.Holo.Light.NoActionBar</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/res/layout/fragment_no_internet.xml">
+        <config>
+          <theme>@android:style/Theme.Holo.Light.NoActionBar</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/res/layout/fragment_settings.xml">
+        <config>
+          <theme>@android:style/Theme.Holo.Light.NoActionBar</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/res/layout/popup_comment.xml">
+        <config>
+          <theme>@android:style/Theme.Holo.Light.NoActionBar</theme>
+        </config>
+      </layout>
+    </layouts>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.tepav.reader" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4f802848-c474-491d-9b71-edd17b04475c" name="Default" comment="" />
+    <ignored path="Tepav Reader.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="Tepav Reader" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="2850">
+              <caret line="68" column="19" selection-start-line="68" selection-start-column="19" selection-end-line="68" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HomeFragment.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/fragment/HomeFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
+              <caret line="37" column="50" selection-start-line="37" selection-start-column="50" selection-end-line="37" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fragment_home.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/fragment_home.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.333333" vertical-offset="150" max-vertical-offset="1545">
+              <caret line="25" column="81" selection-start-line="25" selection-start-column="81" selection-end-line="25" selection-end-column="81" />
+              <folding>
+                <element signature="e#2610#2645#0" expanded="true" />
+                <element signature="e#4004#4039#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArchiveFragment.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/fragment/ArchiveFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1095">
+              <caret line="42" column="53" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NewsFragment.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/fragment/NewsFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="1380">
+              <caret line="57" column="51" selection-start-line="57" selection-start-column="51" selection-end-line="57" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fragment_publication.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/fragment_publication.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-14.444445" vertical-offset="0" max-vertical-offset="1170">
+              <caret line="26" column="81" selection-start-line="26" selection-start-column="81" selection-end-line="26" selection-end-column="81" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fragment_blog.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/res/layout/fragment_blog.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.73170733" vertical-offset="135" max-vertical-offset="1350">
+              <caret line="27" column="81" selection-start-line="27" selection-start-column="81" selection-end-line="27" selection-end-column="81" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dimen.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/values/dimen.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
+              <caret line="30" column="50" selection-start-line="30" selection-start-column="50" selection-end-line="30" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="true" />
+    </FindUsagesManager>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="$USER_HOME$/android/kanilturgut.keystore" />
+    <option name="KEY_ALIAS" value="kanilturgut" />
+  </component>
+  <component name="Git.Settings">
+    <option name="SYNC_SETTING" value="DONT" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="cache_last_request" />
+      </map>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/Register.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/helpers/popup/CommentWindows.java" />
+        <option value="$PROJECT_DIR$/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/res/layout/activity_blog_details.xml" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/operation/LikeOperation.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/activity/BlogDetails.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/activity/NewsDetails.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/adapter/online_list/BlogListAdapter.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/adapter/online_list/PublicationListAdapter.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/adapter/offline_list/ArchiveListAdapter.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/activity/PublicationDetails.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/adapter/offline_list/ReadListListAdapter.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/adapter/offline_list/FavoriteListAdapter.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/db/DBHandler.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/helpers/MySharedPreferences.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/model/GCM.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/activity/PDFDownloadActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/helpers/HttpURL.java" />
+        <option value="$PROJECT_DIR$/res/layout/custom_news_row.xml" />
+        <option value="$PROJECT_DIR$/res/layout/custom_publication_row.xml" />
+        <option value="$PROJECT_DIR$/res/layout/custom_blog_row.xml" />
+        <option value="$PROJECT_DIR$/res/layout/custom_archive_list_row.xml" />
+        <option value="$PROJECT_DIR$/res/layout/custom_read_list_row.xml" />
+        <option value="$PROJECT_DIR$/res/layout/custom_favorite_list_row.xml" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/operation/ShareOperation.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/helpers/Constant.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/adapter/LeftMenuAdapter.java" />
+        <option value="$PROJECT_DIR$/res/layout/fragment_archive.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/rounded_corners.xml" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/model/User.java" />
+        <option value="$PROJECT_DIR$/res/drawable/stroke_bottom_text_view.xml" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/fragment/SettingsFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/util/Util.java" />
+        <option value="$PROJECT_DIR$/res/layout/fragment_settings.xml" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/operation/TwitterOperations.java" />
+        <option value="$PROJECT_DIR$/res/layout/activity_news.xml" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/fragment/NewsFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/adapter/online_list/NewsListAdapter.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/fragment/BlogFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/fragment/PublicationFragment.java" />
+        <option value="$PROJECT_DIR$/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/activity/Login.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/activity/Splash.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/receiver/GCMReceiver.java" />
+        <option value="$PROJECT_DIR$/res/layout/custom_row_left_menu.xml" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/activity/MainActivity.java" />
+        <option value="$PROJECT_DIR$/res/values/dimen.xml" />
+        <option value="$PROJECT_DIR$/res/layout/fragment_home.xml" />
+        <option value="$PROJECT_DIR$/res/layout/activity_publication.xml" />
+        <option value="$PROJECT_DIR$/res/layout/fragment_news_list.xml" />
+        <option value="$PROJECT_DIR$/res/layout/activity_blog.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="22" />
+    <option name="width" value="1440" />
+    <option name="height" value="874" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>XPath</id>
+          </State>
+          <State>
+            <id>XSLT</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Abstraction issues</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectStructureProblems">
+    <ignored-problems>
+      <problem id="module-circular-dependency(project:general)" />
+    </ignored-problems>
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tepav Reader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tepav Reader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TepavReader" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tepav Reader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TepavReader" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reader" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tepav Reader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TepavReader" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reader" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragment" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tepav Reader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TepavReader" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/android/adt-bundle-mac-x86_64-20140321/sdk/extras/google/google_play_services/libproject" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="LayoutCode.rearrangeEntriesXML" value="true" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="LayoutCode.rearrangeEntriesJava" value="false" />
+    <property name="ExportedModule" value="Tepav Reader" />
+    <property name="ExportedApkPath" value="$PROJECT_DIR$/Tepav Reader.apk" />
+    <property name="AndroidRunProguardForReleaseBuild" value="false" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
+    <property name="FullScreen" value="false" />
+    <property name="AndroidTargetDevices" value="4d008a0a06353043" />
+    <property name="SearchEverywhereHistoryKey" value="Consta&#9;FILE&#9;file:///Users/kanilturgut/IdeaProjects/TepavReader/src/com/tepav/reader/helpers/Constant.java&#10;Const&#9;PSI&#9;JAVA://com.tepav.reader.helpers.Constant" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.tepav.reader.util" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res/drawable" />
+      <recent name="$PROJECT_DIR$/src/com/tepav/reader/util" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/com/tepav/reader/helpers" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Android Application.Tepav Reader">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$" />
+      <setting name="debug" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="GriffonRunConfigurationType" factoryName="Griffon">
+      <module name="" />
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="depsClasspath" value="true" />
+      <setting name="passParentEnv" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
+    <configuration default="true" type="XSLT" factoryName="XSLT">
+      <option name="myOutputFile" />
+      <option name="myOpenOutputFile" value="false" />
+      <option name="myOpenInBrowser" value="false" />
+      <option name="mySmartErrorHandling" value="true" />
+      <option name="myRunnerPort" value="34873" />
+      <option name="myVmArguments" />
+      <option name="myWorkingDirectory" />
+      <option name="myModule" />
+      <option name="myJdk" />
+      <parameters />
+      <OutputType value="CONSOLE" save-to-file="false" />
+      <FileType name="XML" />
+      <JdkChoice value="FROM_MODULE" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="Tepav Reader" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="USB_DEVICE" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Tepav Reader" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="Tepav Reader" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="USB_DEVICE" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <RunnerSettings RunnerId="AndroidDebugRunner" />
+      <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Android Application.Tepav Reader" />
+    </list>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SliceManager">
+    <option name="analysisUIOptions">
+      <AnalysisUIOptions />
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4f802848-c474-491d-9b71-edd17b04475c" name="Default" comment="" />
+      <created>1398979564351</created>
+      <updated>1398979564351</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Facebook login implemented">
+      <created>1399038082973</created>
+      <updated>1399038082973</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Home Screen implemented">
+      <created>1399040588628</created>
+      <updated>1399040588628</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Facebook login and its settings">
+      <created>1399050713728</created>
+      <updated>1399050713728</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Login implemented">
+      <created>1399273893308</created>
+      <updated>1399273893308</updated>
+    </task>
+    <task id="LOCAL-00005" summary="twitter lib added">
+      <created>1399274332368</created>
+      <updated>1399274332368</updated>
+    </task>
+    <task id="LOCAL-00006" summary="AlertDialogManager implemented">
+      <created>1399274989838</created>
+      <updated>1399274989838</updated>
+    </task>
+    <task id="LOCAL-00007" summary="ConnectionDetector implemented">
+      <created>1399275147222</created>
+      <updated>1399275147222</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Login and Register">
+      <created>1399294398595</created>
+      <updated>1399294398595</updated>
+    </task>
+    <task id="LOCAL-00009" summary="social login removed from register screen&#10;">
+      <created>1399296335827</created>
+      <updated>1399296335827</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Login and Register">
+      <created>1399311069376</created>
+      <updated>1399311069376</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Like table added">
+      <created>1399365590200</created>
+      <updated>1399365590200</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Tepav Service added and blog list adapter changed within new information">
+      <created>1399365623477</created>
+      <updated>1399365623477</updated>
+    </task>
+    <task id="LOCAL-00013" summary="BlogList button control">
+      <created>1399378722063</created>
+      <updated>1399378722064</updated>
+    </task>
+    <task id="LOCAL-00014" summary="NewsList button control">
+      <created>1399379704631</created>
+      <updated>1399379704631</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Database version upgraded and table_like added to db">
+      <created>1399381207512</created>
+      <updated>1399381207512</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Publication list">
+      <created>1399381925448</created>
+      <updated>1399381925448</updated>
+    </task>
+    <task id="LOCAL-00017" summary="method removed from Util">
+      <created>1399381996080</created>
+      <updated>1399381996080</updated>
+    </task>
+    <task id="LOCAL-00018" summary="fallback image added to news pager adapter">
+      <created>1399382834606</created>
+      <updated>1399382834606</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Service updated">
+      <created>1399385075263</created>
+      <updated>1399385075264</updated>
+    </task>
+    <task id="LOCAL-00020" summary="ReadList changed to scenario">
+      <created>1399385273828</created>
+      <updated>1399385273828</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Fav List">
+      <created>1399395900006</created>
+      <updated>1399395900006</updated>
+    </task>
+    <task id="LOCAL-00022" summary="static variable problem solved">
+      <created>1399399536404</created>
+      <updated>1399399536404</updated>
+    </task>
+    <task id="LOCAL-00023" summary="favorite list">
+      <created>1399400330690</created>
+      <updated>1399400330690</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Archive list">
+      <created>1399453207856</created>
+      <updated>1399453207856</updated>
+    </task>
+    <task id="LOCAL-00025" summary="refactor">
+      <created>1399462435989</created>
+      <updated>1399462435989</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Log changed to Logs">
+      <created>1399463280925</created>
+      <updated>1399463280925</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Screen orientation">
+      <created>1399463586657</created>
+      <updated>1399463586657</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Login on Splash">
+      <created>1399480814087</created>
+      <updated>1399480814087</updated>
+    </task>
+    <task id="LOCAL-00029" summary="No internet">
+      <created>1399483970336</created>
+      <updated>1399483970336</updated>
+    </task>
+    <task id="LOCAL-00030" summary="No internet">
+      <created>1399485846223</created>
+      <updated>1399485846223</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Some images added to project">
+      <created>1399485871241</created>
+      <updated>1399485871241</updated>
+    </task>
+    <task id="LOCAL-00032" summary="New alert added">
+      <created>1399493093079</created>
+      <updated>1399493093079</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Login required info given for some user actions">
+      <created>1399581385885</created>
+      <updated>1399581385885</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Refactoring">
+      <created>1399615352999</created>
+      <updated>1399615352999</updated>
+    </task>
+    <task id="LOCAL-00035" summary="ArchiveListAdapter user logged in control">
+      <created>1399615559871</created>
+      <updated>1399615559871</updated>
+    </task>
+    <task id="LOCAL-00036" summary="BlogListAdapter user logged in control">
+      <created>1399615685915</created>
+      <updated>1399615685915</updated>
+    </task>
+    <task id="LOCAL-00037" summary="FavoriteListAdapter user logged in control">
+      <created>1399616034053</created>
+      <updated>1399616034053</updated>
+    </task>
+    <task id="LOCAL-00038" summary="PublicationListAdapter user logged in control">
+      <created>1399618128585</created>
+      <updated>1399618128585</updated>
+    </task>
+    <task id="LOCAL-00039" summary="fullname added to register params">
+      <created>1399618149191</created>
+      <updated>1399618149191</updated>
+    </task>
+    <task id="LOCAL-00040" summary="ReadListAdapter is user logged in control added">
+      <created>1399618307937</created>
+      <updated>1399618307937</updated>
+    </task>
+    <task id="LOCAL-00041" summary="empty control for lists">
+      <created>1399625053423</created>
+      <updated>1399625053423</updated>
+    </task>
+    <task id="LOCAL-00042" summary="refactoring on QuickAction">
+      <created>1399625170891</created>
+      <updated>1399625170891</updated>
+    </task>
+    <task id="LOCAL-00043" summary="QuickAction for list implemented">
+      <created>1399636531976</created>
+      <updated>1399636531976</updated>
+    </task>
+    <task id="LOCAL-00044" summary="QuickAction vs QuickActionList added to Blog">
+      <created>1399732771873</created>
+      <updated>1399732771873</updated>
+    </task>
+    <task id="LOCAL-00045" summary="QuickAction vs QuickActionList added to Blog">
+      <created>1399733995154</created>
+      <updated>1399733995154</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Global variable problem solved">
+      <created>1399738591663</created>
+      <updated>1399738591663</updated>
+    </task>
+    <task id="LOCAL-00047" summary="offline listelere alma işlemi database işleminden çıkarılıp linkedlistler üzerinden yürümeye başladı. Service kaldırıldı. Register olmadan login olmaya çalışan userın bilgileri sp ye kaydedildi. Tüm listeler gözden geçirildi">
+      <created>1399752216048</created>
+      <updated>1399752216048</updated>
+    </task>
+    <task id="LOCAL-00048" summary="LinkedList remove fixed">
+      <created>1399758406917</created>
+      <updated>1399758406917</updated>
+    </task>
+    <task id="LOCAL-00049" summary="likers list fixed">
+      <created>1399758904158</created>
+      <updated>1399758904158</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Archive and Read List settings.">
+      <created>1399760560056</created>
+      <updated>1399760560056</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Scenario 4.1">
+      <created>1399761586472</created>
+      <updated>1399761586472</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Refactoring">
+      <created>1399761604100</created>
+      <updated>1399761604100</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Like operation implemented">
+      <created>1399761621045</created>
+      <updated>1399761621045</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Like operations">
+      <created>1399762166076</created>
+      <updated>1399762166076</updated>
+    </task>
+    <task id="LOCAL-00055" summary="pdf download from swiple list">
+      <created>1399793864145</created>
+      <updated>1399793864145</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Dismiss button added to Popup Window">
+      <created>1399893403189</created>
+      <updated>1399893403189</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Popup menu background color and dismiss button added">
+      <created>1399897956992</created>
+      <updated>1399897956992</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Aquery singleton">
+      <created>1399914236342</created>
+      <updated>1399914236343</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Cookies after login">
+      <created>1399959787420</created>
+      <updated>1399959787420</updated>
+    </task>
+    <task id="LOCAL-00060" summary="AQuery cookies doesn't work properly, so Requests.java implemented">
+      <created>1399962051007</created>
+      <updated>1399962051008</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Comment operation implemented">
+      <created>1399963843555</created>
+      <updated>1399963843556</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Like operation for online lists">
+      <created>1399964936210</created>
+      <updated>1399964936210</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Crouton">
+      <created>1399976794227</created>
+      <updated>1399976794227</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Comment added, crouton deleted">
+      <created>1399982272922</created>
+      <updated>1399982272922</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Login is not using AQuery anymore in order to get cookie">
+      <created>1400043144032</created>
+      <updated>1400043144032</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Comment isEmpty control">
+      <created>1400043686025</created>
+      <updated>1400043686025</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Comment service implemented">
+      <created>1400053156633</created>
+      <updated>1400053156633</updated>
+    </task>
+    <task id="LOCAL-00068" summary="ConnectionDetector getInstance implemented, Splash creates a singleton ConnectionDetector object">
+      <created>1400054610963</created>
+      <updated>1400054610964</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Refactoring on LikeOperation">
+      <created>1400055017049</created>
+      <updated>1400055017050</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Delete function added for TepavUser">
+      <created>1400055452173</created>
+      <updated>1400055452173</updated>
+    </task>
+    <task id="LOCAL-00071" summary="ConnectionDetector deleted from Requests.java">
+      <created>1400055613367</created>
+      <updated>1400055613367</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Share operation implemented">
+      <created>1400056535817</created>
+      <updated>1400056535818</updated>
+    </task>
+    <task id="LOCAL-00073" summary="CommentWindows will trigger every single onclick action">
+      <created>1400057424562</created>
+      <updated>1400057424562</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Adjusting font size">
+      <created>1400154938906</created>
+      <updated>1400154938906</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Adjusting font size in all screen">
+      <created>1400156040116</created>
+      <updated>1400156040117</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Tepav_t icon">
+      <created>1400157780437</created>
+      <updated>1400157780437</updated>
+    </task>
+    <task id="LOCAL-00077" summary="getDate changed to getHdate, getBdate or getYdate">
+      <created>1400158086769</created>
+      <updated>1400158086769</updated>
+    </task>
+    <task id="LOCAL-00078" summary="action bar bottom gradient added to all screens">
+      <created>1400158748182</created>
+      <updated>1400158748182</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Login methods changed">
+      <created>1400353164623</created>
+      <updated>1400353164623</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Refactoring on Splash">
+      <created>1400353264147</created>
+      <updated>1400353264147</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Refactoring">
+      <created>1400406688303</created>
+      <updated>1400406688304</updated>
+    </task>
+    <task id="LOCAL-00082" summary="News header added to news pager">
+      <created>1400505197686</created>
+      <updated>1400505197686</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Refactroing">
+      <created>1400507123994</created>
+      <updated>1400507123994</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Publication image changed">
+      <created>1400508653054</created>
+      <updated>1400508653055</updated>
+    </task>
+    <task id="LOCAL-00085" summary="ReadList te bulunan bir yazı, arşive eklenince okuma listesinden düşecek">
+      <created>1400827120565</created>
+      <updated>1400827120565</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Twitter login :D">
+      <created>1401048164485</created>
+      <updated>1401048164486</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Tepav twitter login ve comment popup bitti">
+      <created>1401052721507</created>
+      <updated>1401052721507</updated>
+    </task>
+    <task id="LOCAL-00088" summary="ikonlar 43x43 hale getirildi">
+      <created>1401086219376</created>
+      <updated>1401086219376</updated>
+    </task>
+    <task id="LOCAL-00089" summary="background select effect eklendi">
+      <created>1401087789385</created>
+      <updated>1401087789385</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Operation bilgisi eklendi">
+      <created>1401092008692</created>
+      <updated>1401092008692</updated>
+    </task>
+    <task id="LOCAL-00091" summary="GCM implemented, and also date maxLength=10">
+      <created>1401111721951</created>
+      <updated>1401111721951</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Share url ler güncellendi">
+      <created>1401112601385</created>
+      <updated>1401112601385</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Ayarlar sol menüye eklendi">
+      <created>1401113236245</created>
+      <updated>1401113236245</updated>
+    </task>
+    <task id="LOCAL-00094" summary="Settings menu implemented">
+      <created>1401125125691</created>
+      <updated>1401125125691</updated>
+    </task>
+    <task id="LOCAL-00095" summary="Settings menu edited">
+      <created>1401133863819</created>
+      <updated>1401133863819</updated>
+    </task>
+    <task id="LOCAL-00096" summary="GCM">
+      <created>1401135375525</created>
+      <updated>1401135375525</updated>
+    </task>
+    <task id="LOCAL-00097" summary="GCM">
+      <created>1401135910770</created>
+      <updated>1401135910770</updated>
+    </task>
+    <task id="LOCAL-00098" summary="Liste sonlarındaki web sitemizi ziyaret edin yazısı eklendi">
+      <created>1401137341576</created>
+      <updated>1401137341576</updated>
+    </task>
+    <task id="LOCAL-00099" summary="settings ikonları">
+      <created>1401137478919</created>
+      <updated>1401137478919</updated>
+    </task>
+    <task id="LOCAL-00100" summary="Daha eski tarihli dokümanları görmek için tepav.org.tr'yi ziyaret edin.">
+      <created>1401215460467</created>
+      <updated>1401215460467</updated>
+    </task>
+    <task id="LOCAL-00101" summary="Tepav Facebook account">
+      <created>1401283139547</created>
+      <updated>1401283139547</updated>
+    </task>
+    <task id="LOCAL-00102" summary="App icon added">
+      <created>1401354713731</created>
+      <updated>1401354713731</updated>
+    </task>
+    <task id="LOCAL-00103" summary="Image compress">
+      <created>1401647694061</created>
+      <updated>1401647694061</updated>
+    </task>
+    <task id="LOCAL-00104" summary="Notification içerisinde gösterilecek olan ikon güncellendi">
+      <created>1401815024747</created>
+      <updated>1401815024747</updated>
+    </task>
+    <task id="LOCAL-00105" summary="Image dosyalarının boyutları düştü">
+      <created>1401889387627</created>
+      <updated>1401889387627</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Sol menüde textColor lar değiştirildi, ayrıca settings ikonunun rengi daha gri hale getirildi">
+      <created>1402033225312</created>
+      <updated>1402033225312</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="22" width="1440" height="874" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32449856" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39233956" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3938619" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31585678" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42838874" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20845272" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31585678" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32712215" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32815734" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23676682" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32608697" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32879657" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49068323" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32480818" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5140665" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
+    <MESSAGE value="Refactoring" />
+    <MESSAGE value="News header added to news pager" />
+    <MESSAGE value="Refactroing" />
+    <MESSAGE value="Publication image changed" />
+    <MESSAGE value="ReadList te bulunan bir yazı, arşive eklenince okuma listesinden düşecek" />
+    <MESSAGE value="Twitter login :D" />
+    <MESSAGE value="Tepav twitter login ve comment popup bitti" />
+    <MESSAGE value="ikonlar 43x43 hale getirildi" />
+    <MESSAGE value="background select effect eklendi" />
+    <MESSAGE value="Operation bilgisi eklendi" />
+    <MESSAGE value="GCM implemented, and also date maxLength=10" />
+    <MESSAGE value="Share url ler güncellendi" />
+    <MESSAGE value="Ayarlar sol menüye eklendi" />
+    <MESSAGE value="Settings menu implemented" />
+    <MESSAGE value="Settings menu edited" />
+    <MESSAGE value="GCM" />
+    <MESSAGE value="Liste sonlarındaki web sitemizi ziyaret edin yazısı eklendi" />
+    <MESSAGE value="settings ikonları" />
+    <MESSAGE value="Daha eski tarihli dokümanları görmek için tepav.org.tr'yi ziyaret edin." />
+    <MESSAGE value="Tepav Facebook account" />
+    <MESSAGE value="App icon added" />
+    <MESSAGE value="Image compress" />
+    <MESSAGE value="Notification içerisinde gösterilecek olan ikon güncellendi" />
+    <MESSAGE value="Image dosyalarının boyutları düştü" />
+    <MESSAGE value="Sol menüde textColor lar değiştirildi, ayrıca settings ikonunun rengi daha gri hale getirildi" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sol menüde textColor lar değiştirildi, ayrıca settings ikonunun rengi daha gri hale getirildi" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/tepav/reader/adapter/online_list/BlogListAdapter.java</url>
+          <line>289</line>
+          <properties />
+          <option name="timeStamp" value="193" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="237" />
+    </breakpoint-manager>
+  </component>
+  <component name="XPathView.XPathProjectComponent">
+    <history />
+    <find-history />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/helpers/Constant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="138" max-vertical-offset="1125">
+          <caret line="38" column="55" selection-start-line="38" selection-start-column="55" selection-end-line="38" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/adapter/LeftMenuAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5229794" vertical-offset="285" max-vertical-offset="2505">
+          <caret line="52" column="16" selection-start-line="52" selection-start-column="16" selection-end-line="52" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/rounded_corners.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
+          <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/BlogDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1042" max-vertical-offset="2670">
+          <caret line="197" column="16" selection-start-line="197" selection-start-column="16" selection-end-line="198" selection-end-column="129" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/stroke_bottom_text_view.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/stroke_text_view.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/popup_comment.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24209079" vertical-offset="184" max-vertical-offset="1290">
+          <caret line="24" column="56" selection-start-line="24" selection-start-column="56" selection-end-line="24" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/fragment/SettingsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1256" max-vertical-offset="2100">
+          <caret line="124" column="38" selection-start-line="124" selection-start-column="38" selection-end-line="124" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/util/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="129" max-vertical-offset="870">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ant.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="754">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_settings.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16526611" vertical-offset="632" max-vertical-offset="2190">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/custom_news_row.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.8982118" vertical-offset="0" max-vertical-offset="1605">
+          <caret line="92" column="24" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/fragment/BlogFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="750">
+          <caret line="49" column="27" selection-start-line="49" selection-start-column="27" selection-end-line="49" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/fragment/PublicationFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2188329" vertical-offset="0" max-vertical-offset="825">
+          <caret line="23" column="20" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/GetEmailForTwitter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="825">
+          <caret line="46" column="20" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/helpers/HttpURL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21428572" vertical-offset="3" max-vertical-offset="780">
+          <caret line="13" column="31" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/backend/Requests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1845">
+          <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/color.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1790451" vertical-offset="0" max-vertical-offset="754">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android/android_external_libs/facebook/src/com/facebook/NativeAppCallContentProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33279744" vertical-offset="78" max-vertical-offset="1590">
+          <caret line="43" column="64" selection-start-line="43" selection-start-column="64" selection-end-line="43" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/android/android_external_libs/facebook/src/com/facebook/Session.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33195022" vertical-offset="15440" max-vertical-offset="29670">
+          <caret line="1081" column="0" selection-start-line="1081" selection-start-column="0" selection-end-line="1081" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/Splash.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46375266" vertical-offset="0" max-vertical-offset="5535">
+          <caret line="52" column="23" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23667377" vertical-offset="753" max-vertical-offset="1830">
+          <caret line="65" column="58" selection-start-line="65" selection-start-column="43" selection-end-line="65" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/Login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7466844" vertical-offset="877" max-vertical-offset="2265">
+          <caret line="178" column="48" selection-start-line="178" selection-start-column="48" selection-end-line="178" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/operation/TwitterOperations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9549072" vertical-offset="0" max-vertical-offset="1530">
+          <caret line="61" column="16" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/adapter/online_list/NewsListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19919246" vertical-offset="1412" max-vertical-offset="4185">
+          <caret line="138" column="25" selection-start-line="138" selection-start-column="25" selection-end-line="138" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/operation/ShareOperation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3633952" vertical-offset="236" max-vertical-offset="1200">
+          <caret line="48" column="58" selection-start-line="48" selection-start-column="58" selection-end-line="48" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.784044" vertical-offset="180" max-vertical-offset="1560">
+          <caret line="50" column="74" selection-start-line="50" selection-start-column="74" selection-end-line="50" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/appicon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.2793177" vertical-offset="487" max-vertical-offset="1425">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/fb_anil.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/twitter_anil.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47619048" vertical-offset="0" max-vertical-offset="756">
+          <caret line="24" column="52" selection-start-line="24" selection-start-column="52" selection-end-line="24" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_login.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1556" max-vertical-offset="2490">
+          <caret line="144" column="45" selection-start-line="144" selection-start-column="45" selection-end-line="144" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/receiver/GCMReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29761904" vertical-offset="0" max-vertical-offset="756">
+          <caret line="24" column="83" selection-start-line="24" selection-start-column="83" selection-end-line="24" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/helpers/popup/QuickActionForList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.2427056" vertical-offset="2580" max-vertical-offset="4350">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/android/adt-bundle-mac-x86_64-20140321/sdk/platforms/android-19/android.jar!/android/app/Activity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="1793" max-vertical-offset="6675">
+          <caret line="137" column="16" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/helpers/popup/CommentWindows.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="3000">
+          <caret line="80" column="27" selection-start-line="80" selection-start-column="27" selection-end-line="80" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_news_details.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.392022" vertical-offset="2055" max-vertical-offset="4170">
+          <caret line="156" column="86" selection-start-line="156" selection-start-column="86" selection-end-line="156" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/custom_row_left_menu.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7138927" vertical-offset="771" max-vertical-offset="1500">
+          <caret line="86" column="44" selection-start-line="86" selection-start-column="44" selection-end-line="86" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/NewsDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2268" max-vertical-offset="3045">
+          <caret line="97" column="17" selection-start-line="97" selection-start-column="17" selection-end-line="97" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="2850">
+          <caret line="68" column="19" selection-start-line="68" selection-start-column="19" selection-end-line="68" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/fragment/HomeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
+          <caret line="37" column="50" selection-start-line="37" selection-start-column="50" selection-end-line="37" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/dimen.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
+          <caret line="30" column="50" selection-start-line="30" selection-start-column="50" selection-end-line="30" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_home.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.333333" vertical-offset="150" max-vertical-offset="1545">
+          <caret line="25" column="81" selection-start-line="25" selection-start-column="81" selection-end-line="25" selection-end-column="81" />
+          <folding>
+            <element signature="e#2610#2645#0" expanded="true" />
+            <element signature="e#4004#4039#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_archive.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.041265473" vertical-offset="0" max-vertical-offset="975">
+          <caret line="2" column="71" selection-start-line="2" selection-start-column="71" selection-end-line="3" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/fragment/ArchiveFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1095">
+          <caret line="42" column="53" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/fragment/NewsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="1380">
+          <caret line="57" column="51" selection-start-line="57" selection-start-column="51" selection-end-line="57" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_news.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55397725" vertical-offset="30" max-vertical-offset="1440">
+          <caret line="28" column="81" selection-start-line="28" selection-start-column="81" selection-end-line="28" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_publication.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.444445" vertical-offset="0" max-vertical-offset="1170">
+          <caret line="26" column="81" selection-start-line="26" selection-start-column="81" selection-end-line="26" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_blog.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.73170733" vertical-offset="135" max-vertical-offset="1350">
+          <caret line="27" column="81" selection-start-line="27" selection-start-column="81" selection-end-line="27" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Android (Tepav Reader)|Android</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Tepav Reader</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>google-play-services</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
+

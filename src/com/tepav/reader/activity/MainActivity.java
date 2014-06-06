@@ -90,6 +90,16 @@ public class MainActivity extends FragmentActivity {
                 ft.commit();
             }
         });
+
+
+        lvLeftMenu.setAdapter(new LeftMenuAdapter(context, getResources().getStringArray(R.array.menu_items)));
+        lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                onMenuItemClick(parent, view, position, id);
+            }
+
+        });
     }
 
     private void onMenuItemClick(AdapterView<?> parent, View view, int position, long id) {

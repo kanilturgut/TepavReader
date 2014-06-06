@@ -46,12 +46,6 @@ public class MainActivity extends FragmentActivity {
         connectionDetector = ConnectionDetector.getInstance(context);
 
         tvLeftMenuHeader = (TextView) findViewById(R.id.tvLeftMenuHeader);
-        tvLeftMenuHeader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(context, Login.class));
-            }
-        });
 
         lvLeftMenu = (ListView) findViewById(R.id.lvLeftMenu);
         btMenu = (RelativeLayout) findViewById(R.id.button_menu);

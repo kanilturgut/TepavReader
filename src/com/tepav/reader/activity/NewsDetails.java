@@ -7,8 +7,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.tepav.reader.R;
+import com.tepav.reader.TepavApplication;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
@@ -93,7 +97,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         filesLayout = (LinearLayout) findViewById(R.id.filesLayout);
         rlFooter = (RelativeLayout) findViewById(R.id.rlFooter);
         tvComment = (TextView) findViewById(R.id.tvComment);
-        ivAdjustFontSize = (ImageView)findViewById(R.id.ivAdjustFontSize);
+        ivAdjustFontSize = (ImageView) findViewById(R.id.ivAdjustFontSize);
 
         llFooterLike.setOnClickListener(this);
         llFooterAlreadyLiked.setOnClickListener(this);
@@ -222,12 +226,20 @@ public class NewsDetails extends Activity implements View.OnClickListener {
                 PopupAdjustFontSize popupAdjustFontSize = new PopupAdjustFontSize(context, webView);
                 popupAdjustFontSize.setAnimStyle(PopupAdjustFontSize.ANIM_GROW_FROM_CENTER);
                 popupAdjustFontSize.show(rlFooter);
-            }else {
+            } else {
                 AlertDialogManager alertDialogManager = new AlertDialogManager();
                 alertDialogManager.showLoginDialog(context, getString(R.string.warning), getString(R.string.must_log_in), false);
             }
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        String screenName = getString(R.string.ga_NewsDetails);
+        TepavApplication.getInstance().send(screenName);
     }
 
 }

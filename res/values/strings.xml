@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Tepav Reader</string>
+    <string name="app_name">tepav</string>
 
 
     <string name="tepav">tepav</string>
@@ -112,10 +112,28 @@
     <string name="eposta">eposta</string>
     <string name="visit_web_page">Daha eski tarihli dokümanları görmek için tepav.org.tr\'yi ziyaret ediniz</string>
 
-
+    <!-- Settings Screen --> 
     <string name="settings_notification_news">Yeni Haber Geldiğinde Uyar</string>
     <string name="settings_notification_blog">Yeni Günlük Geldiğinde Uyar</string>
     <string name="settings_notification_publication">Yeni Yayın Geldiğinde Uyar</string>
+
+    <!-- Google Analytics-->
+    <string name="ga_HomeFragment">Ana Ekran</string>
+    <string name="ga_NewsFragment">Haber Listesi Ekranı</string>
+    <string name="ga_BlogFragment">Günlük Listesi Ekranı</string>
+    <string name="ga_PublicationFragment">Araştırma ve Yayınlar Listesi Ekranı</string>
+
+    <string name="ga_ReadListFragment">Okuma Listesi Ekranı</string>
+    <string name="ga_FavoriteFragment">Favoriler Listesi Ekranı</string>
+    <string name="ga_ArchiveFragment">Okuduklarım Listesi Ekranı</string>
+    <string name="ga_SettingsFragment">Ayarlar Ekranı</string>
+
+    <string name="ga_Login">Giriş Ekranı</string>
+    <string name="ga_Register">Üyelik Ekranı</string>
+
+    <string name="ga_NewsDetails">Haber Detayı Ekranı</string>
+    <string name="ga_BlogDetails">Günlük Detayı Ekranı</string>
+    <string name="ga_PublicationDetails">Araştırma ve Yayınlar Detayı Ekranı</string>
 
 
 </resources>

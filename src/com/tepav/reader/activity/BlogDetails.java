@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.*;
+import com.google.android.gms.analytics.Tracker;
 import com.tepav.reader.R;
+import com.tepav.reader.TepavApplication;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
@@ -200,5 +202,13 @@ public class BlogDetails extends Activity implements View.OnClickListener {
             }
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        String screenName = getString(R.string.ga_BlogDetails);
+        TepavApplication.getInstance().send(screenName);
     }
 }

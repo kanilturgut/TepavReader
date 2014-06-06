@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="ga_trackingId">UA-51720342-1</string>
+    <integer name="ga_sessionTimeout">300</integer>
+
+    <!-- Enable automatic activity tracking -->
+    <bool name="ga_autoActivityTracking">true</bool>
+
+    <!-- Enable automatic exception tracking -->
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+
+    <screenName name="com.tepav.reader.fragment.HomeFragment">Ana Ekran</screenName>
+    <screenName name="com.tepav.reader.fragment.NewsFragment">Haber Listesi Ekranı</screenName>
+    <screenName name="com.tepav.reader.fragment.BlogFragment">Günlük Listesi Ekranı</screenName>
+    <screenName name="com.tepav.reader.fragment.PublicationFragment">Araştırma ve Yayınlar Listesi Ekranı</screenName>
+
+    <screenName name="com.tepav.reader.fragment.ReadListFragment">Okuma Listesi Ekranı</screenName>
+    <screenName name="com.tepav.reader.fragment.FavoriteFragment">Favoriler Listesi Ekranı</screenName>
+    <screenName name="com.tepav.reader.fragment.ArchiveFragment">Okuduklarım Listesi Ekranı</screenName>
+    <screenName name="com.tepav.reader.fragment.SettingsFragment">Ayarlar Ekranı</screenName>
+
+    <screenName name="com.tepav.reader.activity.Login">Giriş Ekranı</screenName>
+    <screenName name="com.tepav.reader.activity.Register">Üyelik Ekranı</screenName>
+
+    <screenName name="com.tepav.reader.activity.NewsDetails">Haber Detayı Ekranı</screenName>
+    <screenName name="com.tepav.reader.activity.BlogDetails">Günlük Detayı Ekranı</screenName>
+    <screenName name="com.tepav.reader.activity.PublicationDetails">Araştırma ve Yayınlar Detayı Ekranı</screenName>
+
+</resources>

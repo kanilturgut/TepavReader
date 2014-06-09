@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.*;
-import com.google.android.gms.analytics.Tracker;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import com.tepav.reader.GoogleAnalyticsOperation;
 import com.tepav.reader.R;
-import com.tepav.reader.TepavApplication;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
@@ -19,7 +21,6 @@ import com.tepav.reader.helpers.popup.QuickActionForList;
 import com.tepav.reader.helpers.popup.QuickActionForPost;
 import com.tepav.reader.model.Blog;
 import com.tepav.reader.model.DBData;
-import com.tepav.reader.model.News;
 import com.tepav.reader.operation.LikeOperation;
 import com.tepav.reader.operation.ShareOperation;
 import com.tepav.reader.util.AlertDialogManager;
@@ -209,6 +210,6 @@ public class BlogDetails extends Activity implements View.OnClickListener {
         super.onStart();
 
         String screenName = getString(R.string.ga_BlogDetails);
-        TepavApplication.getInstance().send(screenName);
+        GoogleAnalyticsOperation.send(context, screenName);
     }
 }

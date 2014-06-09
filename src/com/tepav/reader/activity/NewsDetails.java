@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.tepav.reader.GoogleAnalyticsOperation;
 import com.tepav.reader.R;
-import com.tepav.reader.TepavApplication;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
 import com.tepav.reader.helpers.Logs;
@@ -239,7 +239,7 @@ public class NewsDetails extends Activity implements View.OnClickListener {
         super.onStart();
 
         String screenName = getString(R.string.ga_NewsDetails);
-        TepavApplication.getInstance().send(screenName);
+        GoogleAnalyticsOperation.send(context, screenName);
     }
 
 }

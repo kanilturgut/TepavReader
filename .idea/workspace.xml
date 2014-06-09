@@ -76,60 +76,52 @@
     <favorites_list name="Tepav Reader" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1455">
-              <caret line="25" column="46" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TepavApplication.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/TepavApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="720">
-              <caret line="36" column="11" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BlogDetails.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/BlogDetails.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="645">
-              <caret line="206" column="0" selection-start-line="206" selection-start-column="0" selection-end-line="212" selection-end-column="5" />
-              <folding>
-                <element signature="docComment;class#BlogDetails#0" expanded="false" />
-                <element signature="method#onCreate#0;class#BlogDetails#0" expanded="false" />
-                <element signature="method#onClick#0;class#BlogDetails#0" expanded="false" />
-                <element signature="e#4996#5034#0" expanded="false" />
-                <element signature="e#8479#8513#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NewsDetails.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/NewsDetails.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0728745" vertical-offset="2220" max-vertical-offset="3165">
-              <caret line="240" column="61" selection-start-line="240" selection-start-column="61" selection-end-line="240" selection-end-column="61" />
-              <folding>
-                <element signature="e#7081#7106#0" expanded="true" />
-                <element signature="e#9322#9349#0" expanded="true" />
-                <element signature="e#9351#9382#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="NewsDetails.java" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/NewsDetails.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="1.539961" vertical-offset="2240" max-vertical-offset="3165">
+                  <caret line="241" column="0" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#9531#9565#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="BlogDetails.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/BlogDetails.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0" vertical-offset="2240" max-vertical-offset="3165">
+                  <caret line="212" column="0" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="GoogleAnalyticsOperation.java" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/GoogleAnalyticsOperation.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.76996195" vertical-offset="0" max-vertical-offset="585">
+                  <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -155,7 +147,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/com/tepav/reader/adapter/online_list/BlogListAdapter.java" />
         <option value="$PROJECT_DIR$/src/com/tepav/reader/adapter/online_list/PublicationListAdapter.java" />
         <option value="$PROJECT_DIR$/src/com/tepav/reader/adapter/offline_list/ArchiveListAdapter.java" />
         <option value="$PROJECT_DIR$/src/com/tepav/reader/activity/PublicationDetails.java" />
@@ -200,12 +191,13 @@
         <option value="$PROJECT_DIR$/src/com/tepav/reader/activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/activity_blog_details.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_news_details.xml" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/res/xml/app_tracker.xml" />
         <option value="$PROJECT_DIR$/src/com/tepav/reader/TepavApplication.java" />
         <option value="$PROJECT_DIR$/src/com/tepav/reader/activity/BlogDetails.java" />
-        <option value="$PROJECT_DIR$/res/xml/app_tracker.xml" />
         <option value="$PROJECT_DIR$/src/com/tepav/reader/activity/NewsDetails.java" />
+        <option value="$PROJECT_DIR$/src/com/tepav/reader/GoogleAnalyticsOperation.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -213,9 +205,10 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
-    <option name="width" value="1440" />
-    <option name="height" value="874" />
+    <option name="x" value="-213" />
+    <option name="y" value="-1058" />
+    <option name="width" value="1918" />
+    <option name="height" value="1058" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -273,7 +266,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -333,40 +325,9 @@
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Tepav Reader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TepavReader" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Tepav Reader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TepavReader" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1082,13 +1043,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="874" extended-state="6" />
-    <editor active="true" />
+    <frame x="-213" y="-1058" width="1918" height="1058" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32449856" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1097,18 +1057,19 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31585678" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42711" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31573498" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42650104" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2074392" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31585678" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18123667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31573498" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32449856" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32712215" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1117,13 +1078,13 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32815734" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23676682" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32608697" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -1193,8 +1154,38 @@
           <properties />
           <option name="timeStamp" value="193" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/tepav/reader/activity/Splash.java</url>
+          <line>172</line>
+          <properties />
+          <option name="timeStamp" value="237" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/tepav/reader/activity/Splash.java</url>
+          <line>319</line>
+          <properties />
+          <option name="timeStamp" value="238" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/tepav/reader/activity/Splash.java</url>
+          <line>329</line>
+          <properties />
+          <option name="timeStamp" value="239" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/tepav/reader/activity/NewsDetails.java</url>
+          <line>240</line>
+          <properties />
+          <option name="timeStamp" value="240" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/tepav/reader/activity/BlogDetails.java</url>
+          <line>212</line>
+          <properties />
+          <option name="timeStamp" value="241" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="237" />
+      <option name="time" value="243" />
     </breakpoint-manager>
   </component>
   <component name="XPathView.XPathProjectComponent">
@@ -1206,23 +1197,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/drawable/stroke_text_view.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/popup_comment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24209079" vertical-offset="184" max-vertical-offset="1290">
-          <caret line="24" column="56" selection-start-line="24" selection-start-column="56" selection-end-line="24" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/model/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
@@ -1252,13 +1226,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/custom_news_row.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.8982118" vertical-offset="0" max-vertical-offset="1605">
           <caret line="92" column="24" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="46" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/fragment/BlogFragment.java">
@@ -1318,24 +1292,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/Splash.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46375266" vertical-offset="0" max-vertical-offset="5535">
-          <caret line="52" column="23" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/Login.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7466844" vertical-offset="877" max-vertical-offset="2265">
           <caret line="178" column="48" selection-start-line="178" selection-start-column="48" selection-end-line="178" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/operation/TwitterOperations.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9549072" vertical-offset="0" max-vertical-offset="1530">
-          <caret line="61" column="16" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -1354,13 +1314,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.784044" vertical-offset="180" max-vertical-offset="1560">
           <caret line="50" column="74" selection-start-line="50" selection-start-column="74" selection-end-line="50" selection-end-column="74" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/drawable/appicon.png">
@@ -1387,13 +1347,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_login.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1556" max-vertical-offset="2490">
           <caret line="144" column="45" selection-start-line="144" selection-start-column="45" selection-end-line="144" selection-end-column="45" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/receiver/GCMReceiver.java">
@@ -1425,14 +1385,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/custom_row_left_menu.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7138927" vertical-offset="771" max-vertical-offset="1500">
           <caret line="86" column="44" selection-start-line="86" selection-start-column="44" selection-end-line="86" selection-end-column="44" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/fragment/HomeFragment.java">
@@ -1443,9 +1403,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/fragment_home.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.333333" vertical-offset="150" max-vertical-offset="1545">
           <caret line="25" column="81" selection-start-line="25" selection-start-column="81" selection-end-line="25" selection-end-column="81" />
@@ -1455,16 +1412,19 @@
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/fragment_archive.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_archive.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.041265473" vertical-offset="0" max-vertical-offset="975">
           <caret line="2" column="71" selection-start-line="2" selection-start-column="71" selection-end-line="3" selection-end-column="66" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/fragment/ArchiveFragment.java">
@@ -1482,55 +1442,47 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/fragment_news.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.55397725" vertical-offset="30" max-vertical-offset="1440">
           <caret line="28" column="81" selection-start-line="28" selection-start-column="81" selection-end-line="28" selection-end-column="81" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/fragment_publication.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_publication.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.444445" vertical-offset="0" max-vertical-offset="1170">
           <caret line="26" column="81" selection-start-line="26" selection-start-column="81" selection-end-line="26" selection-end-column="81" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/fragment_blog.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_blog.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.37138927" vertical-offset="135" max-vertical-offset="1350">
           <caret line="27" column="81" selection-start-line="27" selection-start-column="81" selection-end-line="27" selection-end-column="81" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/fragment_settings.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_settings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6762689" vertical-offset="572" max-vertical-offset="2220">
           <caret line="71" column="58" selection-start-line="71" selection-start-column="58" selection-end-line="71" selection-end-column="58" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34412956" vertical-offset="195" max-vertical-offset="2580">
-          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding />
-        </state>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values/dimen.xml">
@@ -1542,178 +1494,214 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_publication_details.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="30.0" vertical-offset="810" max-vertical-offset="4485">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/activity_news_details.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_news_details.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0990372" vertical-offset="1106" max-vertical-offset="4230">
           <caret line="127" column="49" selection-start-line="127" selection-start-column="49" selection-end-line="127" selection-end-column="49" />
           <folding>
-            <element signature="e#427#456#0" expanded="true" />
-            <element signature="e#593#619#0" expanded="true" />
-            <element signature="e#1139#1175#0" expanded="true" />
-            <element signature="e#1221#1257#0" expanded="true" />
-            <element signature="e#1593#1634#0" expanded="true" />
-            <element signature="e#1670#1684#0" expanded="true" />
-            <element signature="e#1892#1907#0" expanded="true" />
-            <element signature="e#1982#2013#0" expanded="true" />
-            <element signature="e#2167#2205#0" expanded="true" />
-            <element signature="e#2247#2285#0" expanded="true" />
-            <element signature="e#2332#2361#0" expanded="true" />
-            <element signature="e#2863#2878#0" expanded="true" />
-            <element signature="e#2957#2988#0" expanded="true" />
-            <element signature="e#4643#4683#0" expanded="true" />
-            <element signature="e#5444#5488#0" expanded="true" />
-            <element signature="e#5896#5921#0" expanded="true" />
-            <element signature="e#6406#6430#0" expanded="true" />
-            <element signature="e#8202#8228#0" expanded="true" />
-            <element signature="e#9084#9098#0" expanded="true" />
-            <element signature="e#9268#9300#0" expanded="true" />
-            <element signature="e#9382#9396#0" expanded="true" />
-            <element signature="e#9442#9469#0" expanded="true" />
-            <element signature="e#9516#9543#0" expanded="true" />
-            <element signature="e#10240#10254#0" expanded="true" />
-            <element signature="e#10424#10456#0" expanded="true" />
-            <element signature="e#10538#10553#0" expanded="true" />
-            <element signature="e#10599#10626#0" expanded="true" />
-            <element signature="e#10673#10700#0" expanded="true" />
-            <element signature="e#10910#10944#0" expanded="true" />
-            <element signature="e#10985#11011#0" expanded="true" />
-            <element signature="e#11554#11569#0" expanded="true" />
-            <element signature="e#11739#11771#0" expanded="true" />
-            <element signature="e#11853#11868#0" expanded="true" />
-            <element signature="e#11914#11941#0" expanded="true" />
-            <element signature="e#11988#12015#0" expanded="true" />
-            <element signature="e#12222#12256#0" expanded="true" />
-            <element signature="e#12297#12323#0" expanded="true" />
-            <element signature="e#12870#12891#0" expanded="true" />
-            <element signature="e#13061#13093#0" expanded="true" />
-            <element signature="e#13175#13196#0" expanded="true" />
-            <element signature="e#13242#13269#0" expanded="true" />
-            <element signature="e#13316#13343#0" expanded="true" />
+            <element signature="e#427#456#0" expanded="false" />
+            <element signature="e#593#619#0" expanded="false" />
+            <element signature="e#1139#1175#0" expanded="false" />
+            <element signature="e#1221#1257#0" expanded="false" />
+            <element signature="e#1593#1634#0" expanded="false" />
+            <element signature="e#1670#1684#0" expanded="false" />
+            <element signature="e#1892#1907#0" expanded="false" />
+            <element signature="e#1982#2013#0" expanded="false" />
+            <element signature="e#2167#2205#0" expanded="false" />
+            <element signature="e#2247#2285#0" expanded="false" />
+            <element signature="e#2332#2361#0" expanded="false" />
+            <element signature="e#2863#2878#0" expanded="false" />
+            <element signature="e#2957#2988#0" expanded="false" />
+            <element signature="e#4643#4683#0" expanded="false" />
+            <element signature="e#5444#5488#0" expanded="false" />
+            <element signature="e#5896#5921#0" expanded="false" />
+            <element signature="e#6406#6430#0" expanded="false" />
+            <element signature="e#8202#8228#0" expanded="false" />
+            <element signature="e#9084#9098#0" expanded="false" />
+            <element signature="e#9268#9300#0" expanded="false" />
+            <element signature="e#9382#9396#0" expanded="false" />
+            <element signature="e#9442#9469#0" expanded="false" />
+            <element signature="e#9516#9543#0" expanded="false" />
+            <element signature="e#10240#10254#0" expanded="false" />
+            <element signature="e#10424#10456#0" expanded="false" />
+            <element signature="e#10538#10553#0" expanded="false" />
+            <element signature="e#10599#10626#0" expanded="false" />
+            <element signature="e#10673#10700#0" expanded="false" />
+            <element signature="e#10910#10944#0" expanded="false" />
+            <element signature="e#10985#11011#0" expanded="false" />
+            <element signature="e#11554#11569#0" expanded="false" />
+            <element signature="e#11739#11771#0" expanded="false" />
+            <element signature="e#11853#11868#0" expanded="false" />
+            <element signature="e#11914#11941#0" expanded="false" />
+            <element signature="e#11988#12015#0" expanded="false" />
+            <element signature="e#12222#12256#0" expanded="false" />
+            <element signature="e#12297#12323#0" expanded="false" />
+            <element signature="e#12870#12891#0" expanded="false" />
+            <element signature="e#13061#13093#0" expanded="false" />
+            <element signature="e#13175#13196#0" expanded="false" />
+            <element signature="e#13242#13269#0" expanded="false" />
+            <element signature="e#13316#13343#0" expanded="false" />
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/activity_blog_details.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_blog_details.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.61072904" vertical-offset="1416" max-vertical-offset="4185">
           <caret line="124" column="48" selection-start-line="124" selection-start-column="48" selection-end-line="124" selection-end-column="48" />
           <folding>
-            <element signature="e#427#456#0" expanded="true" />
-            <element signature="e#1119#1155#0" expanded="true" />
-            <element signature="e#1201#1239#0" expanded="true" />
-            <element signature="e#1575#1616#0" expanded="true" />
-            <element signature="e#1652#1666#0" expanded="true" />
-            <element signature="e#1874#1889#0" expanded="true" />
-            <element signature="e#1964#1995#0" expanded="true" />
-            <element signature="e#2148#2186#0" expanded="true" />
-            <element signature="e#2228#2266#0" expanded="true" />
-            <element signature="e#2313#2342#0" expanded="true" />
-            <element signature="e#2844#2859#0" expanded="true" />
-            <element signature="e#2938#2969#0" expanded="true" />
-            <element signature="e#4623#4663#0" expanded="true" />
-            <element signature="e#5424#5468#0" expanded="true" />
-            <element signature="e#5876#5901#0" expanded="true" />
-            <element signature="e#7991#8005#0" expanded="true" />
-            <element signature="e#8175#8207#0" expanded="true" />
-            <element signature="e#8289#8303#0" expanded="true" />
-            <element signature="e#8349#8376#0" expanded="true" />
-            <element signature="e#8423#8450#0" expanded="true" />
-            <element signature="e#9147#9162#0" expanded="true" />
-            <element signature="e#9332#9364#0" expanded="true" />
-            <element signature="e#9446#9461#0" expanded="true" />
-            <element signature="e#9507#9534#0" expanded="true" />
-            <element signature="e#9581#9608#0" expanded="true" />
-            <element signature="e#10396#10411#0" expanded="true" />
-            <element signature="e#10581#10613#0" expanded="true" />
-            <element signature="e#10695#10710#0" expanded="true" />
-            <element signature="e#10756#10783#0" expanded="true" />
-            <element signature="e#10830#10857#0" expanded="true" />
-            <element signature="e#11646#11667#0" expanded="true" />
-            <element signature="e#11837#11869#0" expanded="true" />
-            <element signature="e#11951#11972#0" expanded="true" />
-            <element signature="e#12018#12045#0" expanded="true" />
-            <element signature="e#12092#12119#0" expanded="true" />
-            <element signature="e#12811#12834#0" expanded="true" />
-            <element signature="e#13004#13036#0" expanded="true" />
-            <element signature="e#13118#13141#0" expanded="true" />
-            <element signature="e#13187#13214#0" expanded="true" />
-            <element signature="e#13261#13288#0" expanded="true" />
+            <element signature="e#427#456#0" expanded="false" />
+            <element signature="e#1119#1155#0" expanded="false" />
+            <element signature="e#1201#1239#0" expanded="false" />
+            <element signature="e#1575#1616#0" expanded="false" />
+            <element signature="e#1652#1666#0" expanded="false" />
+            <element signature="e#1874#1889#0" expanded="false" />
+            <element signature="e#1964#1995#0" expanded="false" />
+            <element signature="e#2148#2186#0" expanded="false" />
+            <element signature="e#2228#2266#0" expanded="false" />
+            <element signature="e#2313#2342#0" expanded="false" />
+            <element signature="e#2844#2859#0" expanded="false" />
+            <element signature="e#2938#2969#0" expanded="false" />
+            <element signature="e#4623#4663#0" expanded="false" />
+            <element signature="e#5424#5468#0" expanded="false" />
+            <element signature="e#5876#5901#0" expanded="false" />
+            <element signature="e#7991#8005#0" expanded="false" />
+            <element signature="e#8175#8207#0" expanded="false" />
+            <element signature="e#8289#8303#0" expanded="false" />
+            <element signature="e#8349#8376#0" expanded="false" />
+            <element signature="e#8423#8450#0" expanded="false" />
+            <element signature="e#9147#9162#0" expanded="false" />
+            <element signature="e#9332#9364#0" expanded="false" />
+            <element signature="e#9446#9461#0" expanded="false" />
+            <element signature="e#9507#9534#0" expanded="false" />
+            <element signature="e#9581#9608#0" expanded="false" />
+            <element signature="e#10396#10411#0" expanded="false" />
+            <element signature="e#10581#10613#0" expanded="false" />
+            <element signature="e#10695#10710#0" expanded="false" />
+            <element signature="e#10756#10783#0" expanded="false" />
+            <element signature="e#10830#10857#0" expanded="false" />
+            <element signature="e#11646#11667#0" expanded="false" />
+            <element signature="e#11837#11869#0" expanded="false" />
+            <element signature="e#11951#11972#0" expanded="false" />
+            <element signature="e#12018#12045#0" expanded="false" />
+            <element signature="e#12092#12119#0" expanded="false" />
+            <element signature="e#12811#12834#0" expanded="false" />
+            <element signature="e#13004#13036#0" expanded="false" />
+            <element signature="e#13118#13141#0" expanded="false" />
+            <element signature="e#13187#13214#0" expanded="false" />
+            <element signature="e#13261#13288#0" expanded="false" />
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7975708" vertical-offset="1434" max-vertical-offset="2175">
-          <caret line="135" column="44" selection-start-line="135" selection-start-column="44" selection-end-line="135" selection-end-column="44" />
-          <folding />
-        </state>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/xml/app_tracker.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5668016" vertical-offset="0" max-vertical-offset="741">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/operation/TwitterOperations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1530">
+          <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="29" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3531746" vertical-offset="708" max-vertical-offset="2175">
+          <caret line="65" column="4" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="67" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/db/DBHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1455">
-          <caret line="25" column="46" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.46276596" vertical-offset="2805" max-vertical-offset="3900">
+          <caret line="228" column="45" selection-start-line="228" selection-start-column="45" selection-end-line="228" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/TepavApplication.java">
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="720">
-          <caret line="36" column="11" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="11" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2580">
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/Splash.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4333" max-vertical-offset="5535">
+          <caret line="329" column="0" selection-start-line="329" selection-start-column="0" selection-end-line="329" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/BlogDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2240" max-vertical-offset="3165">
+          <caret line="212" column="0" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/BlogDetails.java">
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/NewsDetails.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="645">
-          <caret line="206" column="0" selection-start-line="206" selection-start-column="0" selection-end-line="212" selection-end-column="5" />
+        <state vertical-scroll-proportion="1.539961" vertical-offset="2240" max-vertical-offset="3165">
+          <caret line="241" column="0" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
           <folding>
-            <element signature="docComment;class#BlogDetails#0" expanded="false" />
-            <element signature="method#onCreate#0;class#BlogDetails#0" expanded="false" />
-            <element signature="method#onClick#0;class#BlogDetails#0" expanded="false" />
-            <element signature="e#4996#5034#0" expanded="false" />
-            <element signature="e#8479#8513#0" expanded="true" />
+            <element signature="e#9531#9565#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/NewsDetails.java">
+    <entry file="jar://$USER_HOME$/android/adt-bundle-mac-x86_64-20140321/sdk/extras/google/google_play_services/libproject/google-play-services_lib/libs/google-play-services.jar!/com/google/android/gms/analytics/Tracker.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0728745" vertical-offset="2220" max-vertical-offset="3165">
-          <caret line="240" column="61" selection-start-line="240" selection-start-column="61" selection-end-line="240" selection-end-column="61" />
+        <state vertical-scroll-proportion="0.3462185" vertical-offset="244" max-vertical-offset="1815">
+          <caret line="31" column="16" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8574144" vertical-offset="929" max-vertical-offset="1515">
+          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
           <folding>
-            <element signature="e#7081#7106#0" expanded="true" />
-            <element signature="e#9322#9349#0" expanded="true" />
-            <element signature="e#9351#9382#0" expanded="true" />
+            <element signature="e#1291#1309#0" expanded="true" />
+            <element signature="e#3345#3378#0" expanded="true" />
+            <element signature="e#3990#4029#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/GoogleAnalyticsOperation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.76996195" vertical-offset="0" max-vertical-offset="585">
+          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import com.androidquery.AQuery;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.tepav.reader.R;
 import com.tepav.reader.backend.Requests;
@@ -169,6 +171,8 @@ public class Splash extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        EasyTracker.getInstance(context).activityStart(this);
 
         if (mySharedPreferences.getSize() > 0 && connectionDetector.isConnectingToInternet()) {
 
@@ -384,6 +388,8 @@ public class Splash extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
+
+        EasyTracker.getInstance(context).activityStop(this);
 
         if (startHandler != null)
             startHandler.removeCallbacks(startRunnable);

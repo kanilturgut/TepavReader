@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.online_list.BlogListAdapter;
 import com.tepav.reader.helpers.swipelistview.SwipeListView;
@@ -21,6 +22,7 @@ import com.tepav.reader.helpers.swipelistview.SwipeListView;
  */
 public class BlogFragment extends Fragment {
 
+    Activity activity;
     Context context;
     SwipeListView swipeListViewOfBlog;
     RelativeLayout rlLoading;
@@ -28,6 +30,7 @@ public class BlogFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        this.activity = activity;
         this.context = activity;
     }
 
@@ -53,5 +56,18 @@ public class BlogFragment extends Fragment {
             rlLoading.setVisibility(RelativeLayout.GONE);
 
         return view;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(context).activityStart(activity);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(context).activityStop(activity);
     }
 }

@@ -11,6 +11,7 @@ import android.widget.*;
 import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.tepav.reader.R;
 import com.tepav.reader.backend.Requests;
 import com.tepav.reader.helpers.HttpURL;
@@ -552,5 +553,18 @@ public class Login extends Activity implements View.OnClickListener {
             intent.putExtra("tokenSecret", accessToken.getTokenSecret());
             startActivity(intent);
         }
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(context).activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(context).activityStop(this);
     }
 }

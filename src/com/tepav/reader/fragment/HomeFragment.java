@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.tepav.reader.R;
 import com.tepav.reader.activity.MainActivity;
 import com.tepav.reader.util.ConnectionDetector;
@@ -21,6 +22,7 @@ import com.tepav.reader.util.ConnectionDetector;
  */
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
+    Activity activity;
     Context context;
     FrameLayout frameNews, frameBlog, framePublication;
     ConnectionDetector connectionDetector;
@@ -28,6 +30,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        this.activity = activity;
         this.context = activity;
 
         connectionDetector = ConnectionDetector.getInstance(context);
@@ -80,5 +84,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             ft.replace(R.id.activity_main_content_fragment, fragment, fragmentTag);
             ft.commit();
         }
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(context).activityStart(activity);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(context).activityStop(activity);
     }
 }

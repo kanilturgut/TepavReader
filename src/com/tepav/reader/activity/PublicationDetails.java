@@ -13,6 +13,7 @@ import android.widget.*;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Aquery;
@@ -288,5 +289,18 @@ public class PublicationDetails extends Activity implements View.OnClickListener
                 }
             }
         });
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(context).activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(context).activityStop(this);
     }
 }

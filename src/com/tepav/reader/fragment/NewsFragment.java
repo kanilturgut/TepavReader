@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.online_list.NewsListAdapter;
 import com.tepav.reader.adapter.view_pager.NewsPagerAdapter;
@@ -36,6 +37,7 @@ import java.util.LinkedList;
  */
 public class NewsFragment extends Fragment {
 
+    Activity activity;
     Context context;
 
     SwipeListView swipeListViewOfNews;
@@ -50,6 +52,7 @@ public class NewsFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        this.activity = activity;
         this.context = activity;
     }
 
@@ -114,5 +117,17 @@ public class NewsFragment extends Fragment {
         return view;
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(context).activityStart(activity);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(context).activityStop(activity);
+    }
 
 }

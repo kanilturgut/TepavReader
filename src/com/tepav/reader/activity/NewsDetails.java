@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.tepav.reader.GoogleAnalyticsOperation;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
@@ -237,9 +237,12 @@ public class NewsDetails extends Activity implements View.OnClickListener {
     @Override
     protected void onStart() {
         super.onStart();
-
-        String screenName = getString(R.string.ga_NewsDetails);
-        GoogleAnalyticsOperation.send(context, screenName);
+        EasyTracker.getInstance(context).activityStart(this);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(context).activityStop(this);
+    }
 }

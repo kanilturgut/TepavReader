@@ -10,6 +10,7 @@ import android.widget.*;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.tepav.reader.R;
 import com.tepav.reader.helpers.Aquery;
 import com.tepav.reader.helpers.HttpURL;
@@ -144,5 +145,18 @@ public class Register extends Activity implements View.OnClickListener {
 
         finish();
 
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(context).activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(context).activityStop(this);
     }
 }

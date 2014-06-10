@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.tepav.reader.R;
 import com.tepav.reader.backend.Requests;
 import com.tepav.reader.helpers.HttpURL;
@@ -33,6 +34,7 @@ import java.io.IOException;
 public class SettingsFragment extends Fragment {
 
     final String TAG = "SettingsFragment";
+    Activity activity;
     Context context = null;
 
     Button bSaveSettings;
@@ -46,6 +48,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        this.activity = activity;
         this.context = activity;
 
         user = User.getInstance();
@@ -131,5 +134,18 @@ public class SettingsFragment extends Fragment {
         }
 
         return view;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(context).activityStart(activity);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(context).activityStop(activity);
     }
 }

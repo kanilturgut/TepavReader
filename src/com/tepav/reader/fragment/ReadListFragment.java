@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.tepav.reader.R;
 import com.tepav.reader.adapter.offline_list.ReadListListAdapter;
 import com.tepav.reader.db.DBHandler;
@@ -27,6 +28,7 @@ import java.util.LinkedList;
  */
 public class ReadListFragment extends Fragment {
 
+    Activity activity;
     Context context;
 
     SwipeListView swipeListViewOfReadList;
@@ -36,6 +38,7 @@ public class ReadListFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        this.activity = activity;
         this.context = activity;
     }
 
@@ -54,6 +57,7 @@ public class ReadListFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        EasyTracker.getInstance(context).activityStart(activity);
         getReadListTask = new GetReadListTask();
         getReadListTask.execute();
     }
@@ -83,5 +87,11 @@ public class ReadListFragment extends Fragment {
 
             rlLoading.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(context).activityStop(activity);
     }
 }

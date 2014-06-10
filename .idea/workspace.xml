@@ -55,26 +55,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.tepav.reader" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f802848-c474-491d-9b71-edd17b04475c" name="Default" comment="Splash image değişti, google analytics değişti">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/analytics.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/xml/app_tracker.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/tepav/reader/GoogleAnalyticsOperation.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable-hdpi/splash.png" afterPath="$PROJECT_DIR$/res/drawable-hdpi/splash.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/fragment/ArchiveFragment.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/fragment/ArchiveFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/activity/BlogDetails.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/activity/BlogDetails.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/fragment/BlogFragment.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/fragment/BlogFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/fragment/FavoriteFragment.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/fragment/FavoriteFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/fragment/HomeFragment.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/fragment/HomeFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/activity/Login.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/activity/Login.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/activity/NewsDetails.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/activity/NewsDetails.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/fragment/NewsFragment.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/fragment/NewsFragment.java" />
+    <list default="true" id="4f802848-c474-491d-9b71-edd17b04475c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/activity/PublicationDetails.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/activity/PublicationDetails.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/fragment/PublicationFragment.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/fragment/PublicationFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/fragment/ReadListFragment.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/fragment/ReadListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/activity/Register.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/activity/Register.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/fragment/SettingsFragment.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/fragment/SettingsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/tepav/reader/activity/Splash.java" afterPath="$PROJECT_DIR$/src/com/tepav/reader/activity/Splash.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Tepav Reader.iws" />
@@ -98,29 +80,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="analytics.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="analytics.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/values/analytics.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6896552" vertical-offset="0" max-vertical-offset="585">
-              <caret line="16" column="75" selection-start-line="16" selection-start-column="75" selection-end-line="16" selection-end-column="75" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+              <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PublicationDetails.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="PublicationDetails.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/PublicationDetails.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3129" max-vertical-offset="3945">
-              <caret line="303" column="58" selection-start-line="303" selection-start-column="58" selection-end-line="303" selection-end-column="58" />
+            <state vertical-scroll-proportion="-1.8448275" vertical-offset="3596" max-vertical-offset="4350">
+              <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
               <folding>
-                <element signature="e#4877#4903#0" expanded="true" />
-                <element signature="e#7025#7050#0" expanded="true" />
-                <element signature="e#9469#9496#0" expanded="true" />
-                <element signature="e#9498#9529#0" expanded="true" />
-                <element signature="e#10707#10750#0" expanded="true" />
-                <element signature="e#11332#11360#0" expanded="true" />
-                <element signature="e#11480#11513#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#4805#4831#0" expanded="true" />
+                <element signature="e#6711#6736#0" expanded="true" />
+                <element signature="e#9155#9182#0" expanded="true" />
+                <element signature="e#9184#9215#0" expanded="true" />
+                <element signature="e#10393#10436#0" expanded="true" />
+                <element signature="e#11018#11046#0" expanded="true" />
+                <element signature="e#11166#11199#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1018,7 +1001,11 @@
       <created>1402033225312</created>
       <updated>1402033225312</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="Splash image değişti, google analytics için ekranlara EasyTracker eklendi">
+      <created>1402426994626</created>
+      <updated>1402426994626</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1037,7 +1024,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4667519" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5191816" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5191816" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1097,7 +1084,6 @@
       <TodoPanelSettings />
     </option>
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
-    <MESSAGE value="News header added to news pager" />
     <MESSAGE value="Refactroing" />
     <MESSAGE value="Publication image changed" />
     <MESSAGE value="ReadList te bulunan bir yazı, arşive eklenince okuma listesinden düşecek" />
@@ -1122,7 +1108,8 @@
     <MESSAGE value="Image dosyalarının boyutları düştü" />
     <MESSAGE value="Sol menüde textColor lar değiştirildi, ayrıca settings ikonunun rengi daha gri hale getirildi" />
     <MESSAGE value="Splash image değişti, google analytics değişti" />
-    <option name="LAST_COMMIT_MESSAGE" value="Splash image değişti, google analytics değişti" />
+    <MESSAGE value="Splash image değişti, google analytics için ekranlara EasyTracker eklendi" />
+    <option name="LAST_COMMIT_MESSAGE" value="Splash image değişti, google analytics için ekranlara EasyTracker eklendi" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1566,27 +1553,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/PublicationDetails.java">
+    <entry file="file://$PROJECT_DIR$/res/values/analytics.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3129" max-vertical-offset="3945">
-          <caret line="303" column="58" selection-start-line="303" selection-start-column="58" selection-end-line="303" selection-end-column="58" />
-          <folding>
-            <element signature="e#4877#4903#0" expanded="true" />
-            <element signature="e#7025#7050#0" expanded="true" />
-            <element signature="e#9469#9496#0" expanded="true" />
-            <element signature="e#9498#9529#0" expanded="true" />
-            <element signature="e#10707#10750#0" expanded="true" />
-            <element signature="e#11332#11360#0" expanded="true" />
-            <element signature="e#11480#11513#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+          <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/analytics.xml">
+    <entry file="file://$PROJECT_DIR$/src/com/tepav/reader/activity/PublicationDetails.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6896552" vertical-offset="0" max-vertical-offset="585">
-          <caret line="16" column="75" selection-start-line="16" selection-start-column="75" selection-end-line="16" selection-end-column="75" />
-          <folding />
+        <state vertical-scroll-proportion="-1.8448275" vertical-offset="3596" max-vertical-offset="4350">
+          <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4805#4831#0" expanded="true" />
+            <element signature="e#6711#6736#0" expanded="true" />
+            <element signature="e#9155#9182#0" expanded="true" />
+            <element signature="e#9184#9215#0" expanded="true" />
+            <element signature="e#10393#10436#0" expanded="true" />
+            <element signature="e#11018#11046#0" expanded="true" />
+            <element signature="e#11166#11199#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:ignore="TypographyDashes">
 
     <!-- Replace placeholder ID with your tracking ID -->
     <string name="ga_trackingId">UA-51720342-1</string>
@@ -9,9 +11,6 @@
 
     <!-- Enable automatic exception tracking -->
     <bool name="ga_reportUncaughtExceptions">true</bool>
-
-    <!-- Log Level -->
-    <string name="ga_logLevel">verbose</string>
 
     <string name="com.tepav.reader.fragment.HomeFragment">Ana Ekran</string>
     <string name="com.tepav.reader.fragment.NewsFragment">Haber Listesi Ekranı</string>

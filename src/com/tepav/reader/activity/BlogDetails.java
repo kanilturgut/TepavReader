@@ -10,6 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.MapBuilder;
+import com.google.analytics.tracking.android.Tracker;
 import com.tepav.reader.R;
 import com.tepav.reader.db.DBHandler;
 import com.tepav.reader.helpers.Constant;
@@ -207,5 +211,10 @@ public class BlogDetails extends Activity implements View.OnClickListener {
     @Override
     protected void onStart() {
         super.onStart();
+
+        Tracker tracker = GoogleAnalytics.getInstance(context).getTracker("UA-51720342-1");
+        tracker.set(Fields.SCREEN_NAME, "Günlük Detay Ekranı");
+        tracker.send(MapBuilder.createAppView().build());
+
     }
 }

@@ -11,7 +11,7 @@ public class HttpURL {
         return HttpURL.domain + url;
     }
 
-    public static final String domain = "http://server.umutozan.com:3000";
+    public static final String domain = "http://vklab.net:3000";
 
     public static final String news = "/news";
     public static final String blog = "/blog";

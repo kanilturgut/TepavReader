@@ -24,10 +24,12 @@ public class TwitterOperations {
 
     String TAG = "TwitterOperations";
     Context context;
-    //String TWITTER_CONSUMER_KEY = "DcCfDjXdMwgwwKJhw0HfWcWMt";
-    //String TWITTER_CONSUMER_SECRET = "lgSRrO1DwAQxqVJBTiO7CSSkD3Urkmx4InG9ASrqSpd4uRSSU5";
-    String TWITTER_CONSUMER_KEY = "6OVgh3VmI98dOvfgjcqu48vZT";
-    String TWITTER_CONSUMER_SECRET = "A0NcqkU4ecYLi0CVOYugVHwvVZDlTqofgEu5KyJ1bXssl8eqMT";
+    //String TWITTER_CONSUMER_KEY = "6OVgh3VmI98dOvfgjcqu48vZT";
+    //String TWITTER_CONSUMER_SECRET = "A0NcqkU4ecYLi0CVOYugVHwvVZDlTqofgEu5KyJ1bXssl8eqMT";
+
+    String TWITTER_CONSUMER_KEY = "HMtCHOWjT3cDVyt4FhcDgK39i";
+    String TWITTER_CONSUMER_SECRET = "zpt3CyrnqWdpkOFuEWnMhc1574wtu0j4MrhCA3YcDGMzFPj2Rm";
+
     public static String TWITTER_CALLBACK_URL = "oauth://tepav";
 
     // Twitter oauth urls

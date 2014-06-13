@@ -30,6 +30,8 @@ import com.tepav.reader.util.AlertDialogManager;
 import com.tepav.reader.util.Util;
 import org.json.JSONException;
 
+
+
 /**
  * Author : kanilturgut
  * Date : 21.04.2014

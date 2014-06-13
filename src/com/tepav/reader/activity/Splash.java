@@ -42,7 +42,7 @@ public class Splash extends Activity {
 
 
     static GoogleCloudMessaging gcm;
-    static final String GOOGLE_PROJECT_ID = "938861743378";
+    static final String GOOGLE_PROJECT_ID = "222792462283";
     private String regId;
 
     /**

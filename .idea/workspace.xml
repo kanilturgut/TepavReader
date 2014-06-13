@@ -55,8 +55,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.tepav.reader" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f802848-c474-491d-9b71-edd17b04475c" name="Default" comment="Tepav ın bilgileri ile değiştirildi">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+    <list default="true" id="4f802848-c474-491d-9b71-edd17b04475c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Tepav Reader.iws" />
@@ -986,7 +985,11 @@
       <created>1402645916248</created>
       <updated>1402645916248</updated>
     </task>
-    <option name="localTasksCounter" value="111" />
+    <task id="LOCAL-00111" summary="GCM registration receiver silindi">
+      <created>1402652124676</created>
+      <updated>1402652124676</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1065,7 +1068,6 @@
       <TodoPanelSettings />
     </option>
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
-    <MESSAGE value="Twitter login :D" />
     <MESSAGE value="Tepav twitter login ve comment popup bitti" />
     <MESSAGE value="ikonlar 43x43 hale getirildi" />
     <MESSAGE value="background select effect eklendi" />
@@ -1090,7 +1092,8 @@
     <MESSAGE value="Refactoring" />
     <MESSAGE value="Analitik update" />
     <MESSAGE value="Tepav ın bilgileri ile değiştirildi" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tepav ın bilgileri ile değiştirildi" />
+    <MESSAGE value="GCM registration receiver silindi" />
+    <option name="LAST_COMMIT_MESSAGE" value="GCM registration receiver silindi" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
